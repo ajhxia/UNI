@@ -1,0 +1,17 @@
+/*Progettare una classe Persona i cui oggetti rappresentano una
+persona e ne memorizzano il nome e il cognome. La classe espone un metodo
+main che crea un’istanza della Persona. La classe espone anche un metodo
+stampa che visualizza nome e cognome della persona.*/
+
+public class Main {
+
+	public static void main(String[] args) {
+		System.out.print("ciao");
+	}
+
+	Progettare una classe Persona i cui oggetti rappresentano una
+	persona e ne memorizzano il nome e il cognome. La classe espone un metodo
+	main che crea un’istanza della Persona. La classe espone anche un metodo
+	stampa che visualizza nome e cognome della persona.
+
+}
