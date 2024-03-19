@@ -2,7 +2,7 @@
 cerchio. La classe `e dotata dei metodi getCirconferenza e getArea (si usi la
 costante Math.PI). La classe espone anche un metodo main che crea due cerchi
 (di raggio 1 e di raggio 5) e ne stampa la circonferenza (per il primo) e l’area
-(per il secondo). */
+(per il secondo). */ 
 
 public class Circle {
     private double radius;
