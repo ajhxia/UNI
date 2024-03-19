@@ -1,7 +1,5 @@
 package Card;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.Scanner;
 
 public class MazzoDiCarte {
     private Card[] cards = new Card[52];
