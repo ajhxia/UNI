@@ -1,6 +1,6 @@
 # UNI
 ## Repository per la triennale di Informatica 
-![Gatto divertente](https://pin.it/KWOF2hZqS) 
+![Gatto divertente](https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif) 
 ## Primo Anno 
  | Corso                          | Dove Trovare il Materiale                                                                                   | Data       |
   |--------------------------------|------------------------------------------------------------------------------------------------------------|------------|
