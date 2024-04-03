@@ -1,6 +1,8 @@
 # UNI 🌸
 ### Repository per la triennale di Informatica 
 ## Primo Anno 📚
+### Non ci sono appunti inerenti agli esami del Primo Semestre 😿
+### Secondo Semestre
   | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
   |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
   | Metodologie di Programmazione  | [Esercizi](https://github.com/ajhxia/UNI/tree/main/Esercizi%20-%20Metodologie%20di%20Programmazione) - [Teoria](https://github.com/ajhxia/UNI/blob/main/Teoria%20-%20Metodologie%20di%20Programmazione/Metodologie_di_Programmazione.pdf)  | 03/04/2024 | Incompleto |
