@@ -1,4 +1,4 @@
-# UNI 🍑
+# UNI 🌸
 ### Repository per la triennale di Informatica 
 ## Primo Anno 📚
   | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
