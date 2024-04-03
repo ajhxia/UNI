@@ -1,5 +1,4 @@
-# UNI 🌸
-### Repository per la triennale di Informatica 
+# Repository per la triennale di Informatica 🌸
 ## Primo Anno 📚
 Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
 ### Secondo Semestre
