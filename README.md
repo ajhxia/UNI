@@ -1,7 +1,7 @@
 # UNI 🌸
 ### Repository per la triennale di Informatica 
 ## Primo Anno 📚
-### Non ci sono appunti inerenti agli esami del Primo Semestre 😿
+Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
 ### Secondo Semestre
   | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
   |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
