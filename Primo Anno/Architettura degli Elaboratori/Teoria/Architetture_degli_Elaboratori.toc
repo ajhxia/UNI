@@ -1,0 +1,82 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Storia}{5}{}%
+\contentsline {subsection}{\numberline {1.1}Calcolo manuale}{5}{}%
+\contentsline {subsection}{\numberline {1.2}Il Calcolo Semi-AUtomatico}{5}{}%
+\contentsline {subsection}{\numberline {1.3}Macchine Programmate}{6}{}%
+\contentsline {subsection}{\numberline {1.4}Elaboratori elettronici di seconda generazione}{10}{}%
+\contentsline {subsection}{\numberline {1.5}Elaboratori elettronici di terza generazione}{11}{}%
+\contentsline {subsection}{\numberline {1.6}Nuove Prospettive}{12}{}%
+\contentsline {section}{\numberline {2}I Principi del Sistema Binario}{13}{}%
+\contentsline {subsection}{\numberline {2.1}Teoria dell'informazione}{13}{}%
+\contentsline {subsection}{\numberline {2.2}Cosa Bisogna Sapere}{14}{}%
+\contentsline {section}{\numberline {3}Reti Combinatorie}{15}{}%
+\contentsline {subsection}{\numberline {3.1}Porte Logiche}{15}{}%
+\contentsline {subsection}{\numberline {3.2}Rete Combinatoria}{17}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Caratteristiche Progettuali}{18}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Decoder}{18}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}MUX}{18}{}%
+\contentsline {subsection}{\numberline {3.3}Circuiti Elementari}{19}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}Addizionatore (Adder)}{19}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}Sottrattore}{19}{}%
+\contentsline {subsubsection}{\numberline {3.3.3}Comparatore Logico}{20}{}%
+\contentsline {section}{\numberline {4}Macchina di Von Neumann}{21}{}%
+\contentsline {subsection}{\numberline {4.1}Breve Storia}{21}{}%
+\contentsline {subsection}{\numberline {4.2}Macchine Programmabili}{21}{}%
+\contentsline {subsection}{\numberline {4.3}CPU}{22}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}Unità di Controllo}{22}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}ALU}{24}{}%
+\contentsline {subsection}{\numberline {4.4}Memoria Centrale}{25}{}%
+\contentsline {subsubsection}{\numberline {4.4.1}RAM}{25}{}%
+\contentsline {subsubsection}{\numberline {4.4.2}ROM}{25}{}%
+\contentsline {subsubsection}{\numberline {4.4.3}Memoria Centrale}{26}{}%
+\contentsline {subsection}{\numberline {4.5}Dispositivi di Input ed Output}{29}{}%
+\contentsline {subsection}{\numberline {4.6}Interconnessione tra moduli}{33}{}%
+\contentsline {subsubsection}{\numberline {4.6.1}Interconnessione bus}{35}{}%
+\contentsline {subsubsection}{\numberline {4.6.2}Interconnessione bus Master/Slave}{35}{}%
+\contentsline {subsubsection}{\numberline {4.6.3}Interconnessione bus multipli e bus multiplexato}{35}{}%
+\contentsline {subsubsection}{\numberline {4.6.4}Interconnessione bus: arbitraggio centralizzato}{35}{}%
+\contentsline {subsubsection}{\numberline {4.6.5}Interconnessione bus: arbitraggio decentralizzato}{36}{}%
+\contentsline {subsection}{\numberline {4.7}Macchina Harvard}{37}{}%
+\contentsline {section}{\numberline {5}Dal codice sorgente al codice esguibile}{38}{}%
+\contentsline {subsection}{\numberline {5.1}Assemblatore}{38}{}%
+\contentsline {subsection}{\numberline {5.2}Compilatore}{39}{}%
+\contentsline {subsection}{\numberline {5.3}Disposizione dei file oggetto in memoria}{40}{}%
+\contentsline {subsection}{\numberline {5.4}Collegatore (Linker)}{41}{}%
+\contentsline {subsection}{\numberline {5.5}Caricatore}{41}{}%
+\contentsline {subsection}{\numberline {5.6}\textbf {Interprete}}{42}{}%
+\contentsline {section}{\numberline {6}Architettura MIPS}{43}{}%
+\contentsline {subsection}{\numberline {6.1}Elementi Essenziali}{44}{}%
+\contentsline {subsection}{\numberline {6.2}I registri}{44}{}%
+\contentsline {subsection}{\numberline {6.3}ALU}{45}{}%
+\contentsline {subsection}{\numberline {6.4}Coprocessore Matematico}{46}{}%
+\contentsline {subsection}{\numberline {6.5}La memoria}{46}{}%
+\contentsline {subsection}{\numberline {6.6}Componenti – I/O}{46}{}%
+\contentsline {section}{\numberline {7}Linguaggi di Programmazione}{47}{}%
+\contentsline {subsection}{\numberline {7.1}Progettazione di un programma}{48}{}%
+\contentsline {section}{\numberline {8}Simulatore MARS}{50}{}%
+\contentsline {subsection}{\numberline {8.1}Le direttive}{51}{}%
+\contentsline {subsection}{\numberline {8.2}Tipi di Dati}{51}{}%
+\contentsline {subsubsection}{\numberline {8.2.1}Direttive – Tipi di dati: definizione}{52}{}%
+\contentsline {subsection}{\numberline {8.3}Etichette}{52}{}%
+\contentsline {subsection}{\numberline {8.4}I registri}{53}{}%
+\contentsline {subsection}{\numberline {8.5}Istruzioni}{55}{}%
+\contentsline {subsubsection}{\numberline {8.5.1}Pseudo- Istruzioni}{55}{}%
+\contentsline {subsubsection}{\numberline {8.5.2}Commenti}{55}{}%
+\contentsline {section}{\numberline {9}Architettura funzionale: le istruzioni}{56}{}%
+\contentsline {subsection}{\numberline {9.1}Il linguaggio assemblativo}{57}{}%
+\contentsline {subsubsection}{\numberline {9.1.1}Le macro}{57}{}%
+\contentsline {subsubsection}{\numberline {9.1.2}Esecuzione istruzioni logiche aritmetiche e codici}{57}{}%
+\contentsline {subsection}{\numberline {9.2}Le classi di Istruzioni}{59}{}%
+\contentsline {subsubsection}{\numberline {9.2.1}ISTRUZIONI DI SPOSTAMENTO}{59}{}%
+\contentsline {subsubsection}{\numberline {9.2.2}ISTRUZIONI LOGICHE-ARITMETICHE}{60}{}%
+\contentsline {subsubsection}{\numberline {9.2.3}ISTRUZIONI DI SALTO}{62}{}%
+\contentsline {subsection}{\numberline {9.3}Istruzioni I/O}{63}{}%
+\contentsline {subsection}{\numberline {9.4}Esempio Pratico}{64}{}%
+\contentsline {section}{\numberline {10}Esercitazioni - Istruzioni MARS}{65}{}%
+\contentsline {subsection}{\numberline {10.1}Rappresentazione delle parole negli elaboratori elettronici}{65}{}%
+\contentsline {subsubsection}{\numberline {10.1.1}Little Endian/ Big Endian}{65}{}%
+\contentsline {subsection}{\numberline {10.2}Istruzioni di Load and Store}{66}{}%
+\contentsline {subsubsection}{\numberline {10.2.1}Differenza tra Signed e Unsigned LB}{67}{}%
+\contentsline {subsubsection}{\numberline {10.2.2}Differenza tra Signed e Unsigned LH}{67}{}%
+\contentsline {subsubsection}{\numberline {10.2.3}Differenza tra Signed e Unsigned LW}{67}{}%
