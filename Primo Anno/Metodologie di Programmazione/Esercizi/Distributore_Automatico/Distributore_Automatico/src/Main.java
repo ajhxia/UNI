@@ -3,13 +3,9 @@ public class Main {
     public static void main(String[] args) {
         VendingMachine vendingMachine = new VendingMachine(10);
         vendingMachine.carica();
-        vendingMachine.inserisciImporto();
-
-        
-
-        Product product = vendingMachine.getProdotto();
-        System.out.println("Prodotto scelto:" + product.getType());
-        System.out.println(vendingMachine.getSaldo());
-        System.out.println(vendingMachine.getResto());
+        vendingMachine.inserisciImporto(4.50);
+        System.out.println(vendingMachine.toString());
+        vendingMachine.getProdotto("003");
+        System.out.println(vendingMachine.toString());
     }
 }

@@ -9,58 +9,85 @@ La classe prevede i seguenti metodi:
 - un metodo getResto() che restituisca il resto dovuto e azzeri il saldo. */
 
 public class VendingMachine {
+    private final int N;
     private Product[] products;
     private double saldo;
 
-    Scanner scanner = new Scanner(System.in);
-
     public VendingMachine(int N) {
         this.products = new Product[N];
-        this.saldo = 0;
+        this.N = N;
     }
 
     public void carica() {
-        for (int i = 0; i < this.products.length; i++) {
-            int random = (int) (Math.random() * 3);
-            switch (random) {
-                case 0:
-                    this.products[i] = new Product(1.5, "BottigliaDAcqua");
-                    break;
-                case 1:
-                    this.products[i] = new Product(2.5, "BarraDiCioccolato");
-                    break;
-                case 2:
-                    this.products[i] = new Product(1.0, "GommeDaMasticare");
-                    break;
+        Random r = new Random();
+		
+		for(int i=0;i<N;i++) {
+			int rInt = r.nextInt(3);
+			switch(rInt) {
+			case 0: products[i] = new BottleOfWater();
+					break;
+			case 1: products[i] = new ChocolateBar();
+					break;
+			case 2: products[i] = new ChewingGum();
+					break;
+			default: products[i] = null;
+					 System.out.println("SPAZIO VUOTO");
+					 break;
+			}
+		}
+    }
+
+    public void inserisciImporto(double importo) {
+        saldo += importo;
+    }
+
+    public boolean isDisponibile(String id){
+        for(int i=0;i<N;i++) {
+            if(products[i]!=null && products[i].getId().equals(id)) {
+                return true;
             }
         }
+        return false;
     }
 
-    public void inserisciImporto() {
-        System.out.print("Inserisci l'importo: ");
-        double importo = scanner.nextDouble();
-        this.saldo += importo;
-    }
-
-    public Product getProdotto() {
-        for(int i = 0; i < this.products.length; i++) {
-            System.out.println(i + " " + this.products[i].getType());
+    private Product rimuoviProdotto(String id) {
+        if(!isDisponibile(id)) return null;
+        for (int i = 0; i < N; i++) {
+            if(products[i]!=null && products[i].getId().equals(id) && saldo >= products[i].getPrice()) {
+                Product pApp = products[i];
+                products[i] = null;
+                return pApp;
+            }
         }
+        return null;
+    }
 
-        System.out.print("Inserisci il numero del prodotto:");
-        int productNumber = scanner.nextInt();
-        Product product = this.products[productNumber];
-        this.saldo -= product.getPrice();
-        return product;
+    public Product getProdotto(String id) {
+        Product p = rimuoviProdotto(id);
+        if(p!=null) {
+            saldo -= p.getPrice();
+            return p;
+        }
+        return null;
     }
 
     public double getSaldo() {
-        return "Saldo: " + this.saldo;
+        return saldo;
     }
 
     public double getResto() {
-        double resto = this.saldo;
-        this.saldo = 0;
-        return "Resto:" + resto;
+        double resto = saldo;
+        saldo = 0;
+        return resto;
+    }
+
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < N; i++) {
+            if(products[i]!=null) {
+                s += products[i].toString() + "\n";
+            }
+        }
+        return s;
     }
 }

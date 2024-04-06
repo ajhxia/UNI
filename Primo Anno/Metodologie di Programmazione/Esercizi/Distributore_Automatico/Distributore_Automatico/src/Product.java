@@ -13,18 +13,23 @@ quel numero e decrementi il saldo disponibile nel distributore.
 
 public class Product {
     private double price;
-    private String type; 
+    private String id; 
 
-    public Product(double price, String type) { 
+    public Product(double price, String id) { 
         this.price = price;
-        this.type = type;
+        this.id = id;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public String getType() { 
-        return type;
+    public String getId() { 
+        return id;
     }
+
+    @Override
+	public String toString() {
+		return this.getClass().getSimpleName()+" "+getId();//DA FINIRE
+	}
 }
