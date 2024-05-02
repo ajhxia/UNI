@@ -9,6 +9,7 @@ public class Intro extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         Intro intro = new Intro();
+        Pokedex.loadPokemon();
         intro.showWindow();
     }
 
@@ -23,7 +24,6 @@ public class Intro extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         //aggiungo l'immagine Pokemon
         ImageIcon image = new ImageIcon("Primo Anno\\Metodologie di Programmazione\\Project-JPokeBattle\\Image\\International_Pokémon_logo.svg.png");
-        
        
         // Dimensioni desiderate per l'immagine ridimensionata
         int newWidth = 700;

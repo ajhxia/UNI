@@ -1,5 +1,4 @@
 package Pokemon;
-
 public class Pokemon {
     private String name;
     private Ability[] abilities;
@@ -8,8 +7,9 @@ public class Pokemon {
     private int baseExperience;
     private Sprites sprite;
     private int lvl;
+    private Pokemon[] evolutions;
 
-    public Pokemon(String name, Ability[] abilities, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl) {
+    public Pokemon(String name, Ability[] abilities, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, Pokemon[] evolutions) {
         this.name = name;
         this.abilities = abilities;
         this.stats = stats;
@@ -17,6 +17,7 @@ public class Pokemon {
         this.baseExperience = baseExperience;
         this.sprite = sprite;
         this.lvl = lvl;
+        this.evolutions = evolutions;
     }
 
     public String getName() {
@@ -45,6 +46,10 @@ public class Pokemon {
 
     public Sprites getSprite() {
         return sprite;
+    }
+
+    public Pokemon[] getEvolutions() {
+        return evolutions;
     }
 
 
