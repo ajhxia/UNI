@@ -12,33 +12,41 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/*
+ * Questa classe rappresenta il pokedex del gioco
+ * Il pokedex contiene le immagini dei Pokémon
+ * Cliccando su un'immagine si aprirà una finestra con le informazioni del Pokémon
+ */
+
 public class Pokedex extends JPanel implements ActionListener {
     private static Pokemon[] pokemonArray = new Pokemon[42];
     private static ImageIcon[] pokemonImages = new ImageIcon[42]; // Array per 42 Pokémon
     
     public Pokedex() {
-        // Inizializzo il pannello
+        // inizializzo il pannello
         this.setLayout(new GridLayout(0, 6)); // 6 colonne per la griglia
 
-        // Inizializzo le immagini dei Pokémon
+        // carico i Pokèmon in un array e le loro immagini
         loadPokemon();
         loadImagesPokemon(); // Carica le immagini dei Pokémon
 
-        // Aggiungo le immagini dei Pokémon al pannello
+        // aggiungo i bottoni con le immagini dei Pokémon 
         for (int i = 0; i < pokemonArray.length; i++) {
             JButton button = new JButton();
             button.setIcon(pokemonImages[i]);
-            
-            button.setActionCommand(String.valueOf(i + 1)); 
-            button.addActionListener(this);
-            button.setBorder(null);
-            button.setContentAreaFilled(false);
-            button.setToolTipText("Pokemon " + (i + 1)); 
-            this.add(button);
+            button.setActionCommand(String.valueOf(i + 1));  // setto l'indice del Pokémon come action command
+            button.addActionListener(this); // aggiungo un ascoltatore per il click
+            button.setBorder(null); // rimuovo il bordo
+            button.setContentAreaFilled(false); // rimuovo il colore di sfondo
+            button.setToolTipText("Pokemon " + (i + 1)); // aggiungo un tooltip con il nome del Pokémon
+            this.add(button); 
         }
     }
 
+    // Carica le immagini dei Pokémon in un array
     public static void loadImagesPokemon() {
+        // il try-catch serve per gestire le eccezioni che possono essere lanciate durante il caricamento delle immagini
+        // in particolare, il metodo loadImage lancia un'eccezione se non riesce a caricare l'immagine
         try {
             for (int i = 0; i < 42; i++) {
                 String sprites = pokemonArray[i].getSprite().getFront();
@@ -51,13 +59,13 @@ public class Pokedex extends JPanel implements ActionListener {
         }
     }
     
-
+    // carico i Pokémon in un array
     public static void loadPokemon() {
     for (int i = 0; i < 42; i++){
         pokemonArray[i] = CreateObjectsPokemon.getPokemon(i + 1);
     }
 }
-
+    // metodo privato che carica un'immagine da un URI e la restituisce come ImageIcon
     private static ImageIcon loadImage(URI uri) throws IOException {
         BufferedImage img = ImageIO.read(uri.toURL());
         return new ImageIcon(img);
@@ -79,15 +87,20 @@ public class Pokedex extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    // Metodo chiamato quando si clicca su un bottone
     @Override
     public void actionPerformed(ActionEvent e) {
         int pokeIndex = Integer.parseInt(e.getActionCommand());
-        showPokemonInfo(pokeIndex);
+        try {
+            showPokemonInfo(pokeIndex);
+        } catch (IOException | URISyntaxException e1) {
+            e1.printStackTrace();
+        }
     }
 
-    private void showPokemonInfo(int pokeIndexIn) {
-        Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndexIn);
-        InfoPokemon infoPokemon = new InfoPokemon(pokemon); 
+    // Mostra le informazioni di un Pokémon in una finestra separata di tipo InfoPokemon
+    private void showPokemonInfo(int pokeIndexIn) throws IOException, URISyntaxException {
+        InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1]); 
         JFrame infoFrame = new JFrame("Info Pokemon");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         infoFrame.setSize(400, 300);

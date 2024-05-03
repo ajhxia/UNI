@@ -1,4 +1,10 @@
 package Pokemon;
+
+/*
+ * Questa classe rappresenta un pokemon con le sue caratteristiche
+ * Ogni pokemon ha un nome, delle abilità, delle statistiche, dei tipi, un'esperienza base, uno sprite, un livello e delle evoluzioni
+ */
+
 public class Pokemon {
     private String name;
     private Ability[] abilities;

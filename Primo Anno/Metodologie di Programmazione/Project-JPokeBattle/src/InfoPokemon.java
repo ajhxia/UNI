@@ -10,22 +10,28 @@ import javax.swing.JPanel;
 
 import Pokemon.Pokemon;
 
+/*
+ * Questa classe rappresenta un pannello contenente le informazioni di un pokemon
+ * Il pannello permette di aggiungere il pokemon che si sta visualizzando alla propria squadra
+ */
+
 public class InfoPokemon extends JPanel {
     private JLabel namePoke;
     private JLabel hpPoke;
     private ImageIcon imagePoke;
 
-    public InfoPokemon(Pokemon pokemon){
+    public InfoPokemon(Pokemon pokemon) throws IOException, URISyntaxException{
         namePoke = new JLabel(pokemon.getName());
         hpPoke = new JLabel("HP: " + pokemon.getStats().getHp());
-        try {
-            imagePoke = loadImage(new URI(pokemon.getSprite().getFront()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        imagePoke = loadImage(new URI(pokemon.getSprite().getFront()));
         JLabel imageLabel = new JLabel(imagePoke);
+        JLabel typePoke = new JLabel("Defense: " + pokemon.getStats().getDefense());
+        JLabel levelPoke = new JLabel("Level: " + pokemon.getLvl());
+        JLabel abilityPoke = new JLabel("Ability: " + pokemon.getAbilities()[0].getName());
+
+        this.add(typePoke);
+        this.add(levelPoke);
+        this.add(abilityPoke);
         this.add(imageLabel);
         this.add(hpPoke);
 

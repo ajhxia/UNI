@@ -1,5 +1,10 @@
 package Pokemon;
 
+/*
+ * Questa classe rappresenta uno sprite (immagine) di un pokemon
+ * Ogni sprite ha un front e un back
+ */
+
 public class Sprites {
     private String front;
     private String back;

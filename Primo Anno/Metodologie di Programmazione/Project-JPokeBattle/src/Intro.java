@@ -4,6 +4,11 @@ import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.*;
 
+/*
+ * Questa classe rappresenta la finestra di benvenuto del gioco
+ * La finestra contiene un'immagine di benvenuto e un bottone per iniziare la battaglia
+ */
+
 public class Intro extends JFrame implements ActionListener {
     JFrame frame;
 
