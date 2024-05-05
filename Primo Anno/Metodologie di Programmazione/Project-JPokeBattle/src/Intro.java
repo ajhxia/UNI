@@ -86,7 +86,7 @@ public class Intro extends JFrame implements ActionListener {
             pokedexFrame.setSize(900, 700);
             pokedexFrame.add(pokedex);
             pokedexFrame.setVisible(true);
-
+            pokedexFrame.setLocationRelativeTo(null); // Centra la finestra
             frame.setVisible(false); // Chiudi la finestra Intro
             System.out.println("Start button clicked.");
         }
