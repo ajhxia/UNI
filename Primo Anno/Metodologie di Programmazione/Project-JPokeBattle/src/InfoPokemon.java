@@ -1,3 +1,4 @@
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Pokemon.Pokemon;
+import Shared.PixelFont;
 
 /*
  * Questa classe rappresenta un pannello contenente le informazioni di un pokemon
@@ -16,25 +18,29 @@ import Pokemon.Pokemon;
  */
 
 public class InfoPokemon extends JPanel {
-    private JLabel namePoke;
-    private JLabel hpPoke;
-    private ImageIcon imagePoke;
-
     public InfoPokemon(Pokemon pokemon) throws IOException, URISyntaxException{
-        namePoke = new JLabel(pokemon.getName());
-        hpPoke = new JLabel("HP: " + pokemon.getStats().getHp());
-        imagePoke = loadImage(new URI(pokemon.getSprite().getFront()));
+        ImageIcon imagePoke = loadImage(new URI(pokemon.getSprite().getFront()));
         JLabel imageLabel = new JLabel(imagePoke);
+
+        JLabel namePoke = new JLabel("Name: " + pokemon.getName());
+        namePoke.setFont(PixelFont.myCustomFont);
+        JLabel hpPoke = new JLabel("HP: " + pokemon.getStats().getHp());
+        hpPoke.setFont(PixelFont.myCustomFont);
         JLabel typePoke = new JLabel("Defense: " + pokemon.getStats().getDefense());
+        typePoke.setFont(PixelFont.myCustomFont);
         JLabel levelPoke = new JLabel("Level: " + pokemon.getLvl());
+        levelPoke.setFont(PixelFont.myCustomFont);
         JLabel abilityPoke = new JLabel("Ability: " + pokemon.getAbilities()[0].getName());
+        abilityPoke.setFont(PixelFont.myCustomFont);
 
-        this.add(typePoke);
-        this.add(levelPoke);
-        this.add(abilityPoke);
-        this.add(imageLabel);
-        this.add(hpPoke);
-
+        // Set layout manager to display labels in a column
+        setLayout(new GridLayout(0, 1));
+        add(imageLabel);
+        add(namePoke);
+        add(hpPoke);
+        add(typePoke);
+        add(levelPoke);
+        add(abilityPoke);
         add(namePoke);
     }
     

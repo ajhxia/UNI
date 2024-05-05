@@ -1,7 +1,11 @@
 import javax.swing.*;
 
+import Shared.PixelFont;
+
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.*;
 
 /*
@@ -14,6 +18,7 @@ public class Intro extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         Intro intro = new Intro();
+        PixelFont.loadCustomFont();
         Pokedex.loadPokemon();
         intro.showWindow();
     }
@@ -27,21 +32,30 @@ public class Intro extends JFrame implements ActionListener {
         frame.setSize(800, 600);
 
         JPanel panel = new JPanel();
-        //aggiungo l'immagine Pokemon
-        ImageIcon image = new ImageIcon("Primo Anno\\Metodologie di Programmazione\\Project-JPokeBattle\\Image\\International_Pokémon_logo.svg.png");
-       
+        // aggiungo l'immagine Pokemon
+        ImageIcon image = new ImageIcon(
+                "Primo Anno\\Metodologie di Programmazione\\Project-JPokeBattle\\Image\\International_Pokémon_logo.svg.png");
+
         // Dimensioni desiderate per l'immagine ridimensionata
         int newWidth = 700;
         int newHeight = 300;
-
         // Ridimensiona l'immagine
         ImageIcon resizedIcon = resizeIcon(image, newWidth, newHeight);
         JLabel label = new JLabel(resizedIcon);
         panel.add(label);
-        //creazione del bottone
-        ImageIcon icon = new ImageIcon("Primo Anno\\Metodologie di Programmazione\\Project-JPokeBattle\\Image\\button_start-battle.png");
-        JButton button = new JButton(icon);
-        button.setBorder(null);
+
+        // creazione del bottone
+        JButton button = new JButton("Start Battle");
+        button.setFont(PixelFont.myCustomFont);
+        button.setBackground(Color.WHITE);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        button.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
+        ));
+        button.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
+
         panel.add(button);
         button.setActionCommand("start");
         button.addActionListener(this);
@@ -60,6 +74,7 @@ public class Intro extends JFrame implements ActionListener {
 
         frame.getContentPane().add(panel);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null); // Centra la finestra
     }
 
     public void actionPerformed(ActionEvent event) {
