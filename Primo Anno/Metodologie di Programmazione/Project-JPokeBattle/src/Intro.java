@@ -1,10 +1,11 @@
 import javax.swing.*;
 
 import Shared.PixelFont;
+import Shared.RelativePath;
+import Shared.ResizeIcon;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.*;
 
@@ -29,19 +30,17 @@ public class Intro extends JFrame implements ActionListener {
 
     private void showWindow() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(800, 470);
 
         JPanel panel = new JPanel();
         // aggiungo l'immagine Pokemon
-        ImageIcon image = new ImageIcon(
-                "Primo Anno\\Metodologie di Programmazione\\Project-JPokeBattle\\Image\\International_Pokémon_logo.svg.png");
+        ImageIcon image = new ImageIcon(RelativePath.getAbsolutePath("\\Image\\International_Pokémon_logo.svg.png"));
 
         // Dimensioni desiderate per l'immagine ridimensionata
         int newWidth = 700;
         int newHeight = 300;
         // Ridimensiona l'immagine
-        ImageIcon resizedIcon = resizeIcon(image, newWidth, newHeight);
-        JLabel label = new JLabel(resizedIcon);
+        JLabel label = new JLabel(ResizeIcon.resizeIcon(image, newWidth, newHeight));
         panel.add(label);
 
         // creazione del bottone
@@ -60,17 +59,7 @@ public class Intro extends JFrame implements ActionListener {
         button.setActionCommand("start");
         button.addActionListener(this);
         // aggiungo un ascoltatore per l'effetto pointer
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                button.setCursor(Cursor.getDefaultCursor());
-            }
-        });
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         frame.getContentPane().add(panel);
         frame.setVisible(true);
@@ -91,11 +80,5 @@ public class Intro extends JFrame implements ActionListener {
             System.out.println("Start button clicked.");
         }
     }
-
-    // Metodo per ridimensionare un ImageIcon
-    private static ImageIcon resizeIcon(ImageIcon icon, int width, int height) {
-        Image img = icon.getImage();
-        Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImg);
-    }
+    
 }

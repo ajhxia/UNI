@@ -12,7 +12,7 @@ public class PixelFont {
     public static void loadCustomFont() {
         try {
             // Percorso del file del font personalizzato
-            String fontFilePath = "Primo Anno\\Metodologie di Programmazione\\Project-JPokeBattle\\src\\Shared\\dogica.ttf";
+            String fontFilePath = RelativePath.getAbsolutePath("\\src\\Shared\\dogica.ttf");
 
             // Carica il font dal file
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath));

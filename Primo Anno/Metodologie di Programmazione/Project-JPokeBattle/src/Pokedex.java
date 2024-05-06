@@ -36,6 +36,7 @@ public class Pokedex extends JPanel implements ActionListener {
             button.setBorder(null); // rimuovo il bordo
             button.setContentAreaFilled(false); // rimuovo il colore di sfondo
             button.setToolTipText(pokemonArray[i].getName()); // aggiungo un tooltip con il nome del Pokémon
+            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.add(button);
         }
     }
@@ -111,7 +112,7 @@ public class Pokedex extends JPanel implements ActionListener {
         InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1]);
         infoFrame = new JFrame(pokemonArray[pokeIndexIn - 1].getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        infoFrame.setSize(500, 500);
+        infoFrame.setSize(520, 400);
         infoFrame.setLocationRelativeTo(null); // Centra la finestra nello schermo
         infoFrame.add(infoPokemon);
         infoFrame.setVisible(true);
