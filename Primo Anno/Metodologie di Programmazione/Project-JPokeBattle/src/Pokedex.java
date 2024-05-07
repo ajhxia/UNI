@@ -1,13 +1,13 @@
-import javax.imageio.ImageIO;
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.*;
-
 import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
+import Shared.ImageUtility;
+import Shared.PixelFont;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -22,23 +22,57 @@ public class Pokedex extends JPanel implements ActionListener {
     private static Pokemon[] pokemonArray = new Pokemon[42];
     private static ImageIcon[] pokemonImages = new ImageIcon[42]; // Array per 42 Pokémon
     private static JFrame infoFrame;
+    private static JFrame pokedexFrame;
 
     public Pokedex() {
-        // inizializzo il pannello
-        this.setLayout(new GridLayout(0, 6)); // 6 colonne per la griglia
+        pokedexFrame = new JFrame("Pokedex di " + Player.player.getName());
+        pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pokedexFrame.setSize(900, 700);
 
-        // aggiungo i bottoni con le immagini dei Pokémon
+        // Utilizzo BorderLayout per il pannello principale
+        this.setLayout(new BorderLayout());
+
+        // Creo un pannello per i bottoni dei Pokémon
+        JPanel pokemonPanel = new JPanel(new GridLayout(0, 6));
+
+        // Aggiungo i bottoni con le immagini dei Pokémon al pannello pokemonPanel
         for (int i = 0; i < pokemonArray.length; i++) {
             JButton button = new JButton();
             button.setIcon(pokemonImages[i]);
-            button.setActionCommand(String.valueOf(i + 1)); // setto l'indice del Pokémon come action command
-            button.addActionListener(this); // aggiungo un ascoltatore per il click
-            button.setBorder(null); // rimuovo il bordo
-            button.setContentAreaFilled(false); // rimuovo il colore di sfondo
-            button.setToolTipText(pokemonArray[i].getName()); // aggiungo un tooltip con il nome del Pokémon
+            button.setActionCommand(String.valueOf(i + 1));
+            button.addActionListener(this);
+            button.setBorder(null);
+            button.setContentAreaFilled(false);
+            button.setToolTipText(pokemonArray[i].getName());
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            this.add(button);
+            pokemonPanel.add(button);
         }
+
+        // Aggiungo il pannello pokemonPanel nella parte centrale del layout
+        this.add(pokemonPanel, BorderLayout.CENTER);
+
+        // Aggiungo il titolo come JLabel nella parte superiore del layout
+        JLabel title = new JLabel("Pokemon nella squadra: " + Player.player.getTeam().getPlayerTeam().size());
+        title.setFont(PixelFont.myCustomFont);
+        this.add(title, BorderLayout.NORTH);
+
+        JButton confirm = new JButton("Conferma");
+        confirm.setActionCommand("confirm");
+        confirm.addActionListener(e -> {
+            if (Player.player.getTeam().getPlayerTeam().size() == 6) {
+                InfoRecap infoRecap = new InfoRecap(Player.player);
+                infoRecap.setVisible(true);
+            }
+        });
+
+        confirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        confirm.setFont(PixelFont.myCustomFont);
+
+        pokedexFrame.add(confirm, BorderLayout.NORTH);
+
+        pokedexFrame.add(this);
+        pokedexFrame.setVisible(true);
+        pokedexFrame.setLocationRelativeTo(null);
     }
 
     // Carica le immagini dei Pokémon in un array
@@ -51,7 +85,7 @@ public class Pokedex extends JPanel implements ActionListener {
             for (int i = 0; i < 42; i++) {
                 String sprites = pokemonArray[i].getSprite().getFront();
                 if (sprites != null) {
-                    pokemonImages[i] = loadImage(new URI(sprites));
+                    pokemonImages[i] = ImageUtility.loadImage(new URI(sprites));
                 }
             }
         } catch (IOException | URISyntaxException e) {
@@ -65,30 +99,6 @@ public class Pokedex extends JPanel implements ActionListener {
             pokemonArray[i] = CreateObjectsPokemon.getPokemon(i + 1);
         }
         loadImagesPokemon();
-    }
-
-    // metodo privato che carica un'immagine da un URI e la restituisce come
-    // ImageIcon
-    private static ImageIcon loadImage(URI uri) throws IOException {
-        BufferedImage img = ImageIO.read(uri.toURL());
-        return new ImageIcon(img);
-    }
-
-    public static void main(String[] args) {
-        // Creo e configuro la finestra
-        JFrame frame = new JFrame("Pokedex");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 700);
-
-        // Creo il pannello dei Pokémon
-        Pokedex panel = new Pokedex();
-
-        // Aggiungo il pannello alla finestra
-        frame.add(panel);
-
-        // Mostro la finestra
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null); // Centra la finestra nello schermo
     }
 
     // Metodo chiamato quando si clicca su un bottone
@@ -108,8 +118,7 @@ public class Pokedex extends JPanel implements ActionListener {
         if (infoFrame != null) {
             infoFrame.dispose(); // Chiudi il JFrame precedente se esiste
         }
-
-        InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1]);
+        InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1], Player.player);
         infoFrame = new JFrame(pokemonArray[pokeIndexIn - 1].getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         infoFrame.setSize(520, 400);
@@ -119,7 +128,8 @@ public class Pokedex extends JPanel implements ActionListener {
     }
 
     // Restituisce il Pokémon all'indice specificato
-    public Pokemon getPokemon(int index) {
-        return pokemonArray[index-1];
+    public static Pokemon getPokemon(int index) {
+        return pokemonArray[index - 1];
     }
+
 }

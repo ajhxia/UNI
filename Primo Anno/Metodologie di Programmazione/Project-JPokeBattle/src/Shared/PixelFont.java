@@ -6,6 +6,10 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 
+/*
+ * Classe per caricare un font personalizzato
+ */
+
 public class PixelFont {
     public static Font myCustomFont;
 

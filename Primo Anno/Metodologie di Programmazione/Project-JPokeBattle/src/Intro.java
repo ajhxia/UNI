@@ -1,9 +1,8 @@
 import javax.swing.*;
 
+import Shared.ImageUtility;
 import Shared.PixelFont;
 import Shared.RelativePath;
-import Shared.ResizeIcon;
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Insets;
@@ -40,7 +39,7 @@ public class Intro extends JFrame implements ActionListener {
         int newWidth = 700;
         int newHeight = 300;
         // Ridimensiona l'immagine
-        JLabel label = new JLabel(ResizeIcon.resizeIcon(image, newWidth, newHeight));
+        JLabel label = new JLabel(ImageUtility.resizeIcon(image, newWidth, newHeight));
         panel.add(label);
 
         // creazione del bottone
@@ -69,16 +68,10 @@ public class Intro extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String command = event.getActionCommand();
         if (command.equals("start")) {
-            Pokedex pokedex = new Pokedex();
-            JFrame pokedexFrame = new JFrame("Pokedex");
-            pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            pokedexFrame.setSize(900, 700);
-            pokedexFrame.add(pokedex);
-            pokedexFrame.setVisible(true);
-            pokedexFrame.setLocationRelativeTo(null); // Centra la finestra
+            Player showCreateCharacter = new Player();
+            showCreateCharacter.setVisible(true);
             frame.setVisible(false); // Chiudi la finestra Intro
             System.out.println("Start button clicked.");
         }
     }
-    
 }
