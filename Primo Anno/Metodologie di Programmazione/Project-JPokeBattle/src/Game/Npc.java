@@ -21,10 +21,9 @@ public class Npc {
             int pokeIndex = (int) (Math.random() * 42) + 1;
             playerTeam.add(CreateObjectsPokemon.getPokemon(pokeIndex));
         }
-        Coach npc;
         switch (index) {
             case 1:
-                npc = new Coach("Brock", 15, new Team(playerTeam), "M");
+                return new Coach("Brock", 15, new Team(playerTeam), "M");
             case 2:
                 return new Coach("Misty", 15, new Team(playerTeam), "F");
             case 3:

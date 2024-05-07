@@ -5,8 +5,6 @@ import java.awt.Insets;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -77,6 +75,7 @@ public class InfoPokemon extends JPanel {
             if (team.getPlayerTeam().size() < 6) {
                 team.addPokemon(pokemon);
                 player.setTeam(team);
+                Pokedex.updateTitle();
                 System.out.println("Pokemon added to team.");
             } 
         });

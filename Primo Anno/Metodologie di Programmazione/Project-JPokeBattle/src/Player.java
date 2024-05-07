@@ -1,8 +1,10 @@
 import javax.swing.*;
 
 import Game.Coach;
-import java.util.ArrayList;
 import Game.Team;
+
+import java.util.ArrayList;
+
 import Shared.PixelFont;
 
 import java.awt.*;
@@ -30,6 +32,7 @@ public class Player extends JFrame {
         add(nameLabel, gbc);
 
         nameField = new JTextField(10);
+        nameField.setFont(PixelFont.myCustomFont);
         gbc.gridx = 1;
         gbc.gridy = 0;
         add(nameField, gbc);
@@ -41,6 +44,7 @@ public class Player extends JFrame {
         add(ageLabel, gbc);
 
         ageField = new JTextField(10);
+        ageField.setFont(PixelFont.myCustomFont);
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(ageField, gbc);
@@ -53,6 +57,8 @@ public class Player extends JFrame {
 
         String[] genders = {"Maschio", "Femmina", "Altro"};
         genderComboBox = new JComboBox<>(genders);
+        genderComboBox.setBackground(Color.WHITE);
+        genderComboBox.setFont(PixelFont.myCustomFont);
         gbc.gridx = 1;
         gbc.gridy = 2;
         add(genderComboBox, gbc);

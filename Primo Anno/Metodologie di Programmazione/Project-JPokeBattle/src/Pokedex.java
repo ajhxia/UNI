@@ -23,6 +23,7 @@ public class Pokedex extends JPanel implements ActionListener {
     private static ImageIcon[] pokemonImages = new ImageIcon[42]; // Array per 42 Pokémon
     private static JFrame infoFrame;
     private static JFrame pokedexFrame;
+    public static JLabel titleLabel;
 
     public Pokedex() {
         pokedexFrame = new JFrame("Pokedex di " + Player.player.getName());
@@ -51,24 +52,31 @@ public class Pokedex extends JPanel implements ActionListener {
         // Aggiungo il pannello pokemonPanel nella parte centrale del layout
         this.add(pokemonPanel, BorderLayout.CENTER);
 
-        // Aggiungo il titolo come JLabel nella parte superiore del layout
-        JLabel title = new JLabel("Pokemon nella squadra: " + Player.player.getTeam().getPlayerTeam().size());
-        title.setFont(PixelFont.myCustomFont);
-        this.add(title, BorderLayout.NORTH);
-
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        topPanel.setPreferredSize(new Dimension(900, 50)); // Imposta le dimensioni preferite del pannello
+        
+        // Aggiungo il titolo al pannello
+        titleLabel = new JLabel("Pokemon nella squadra: " + Player.player.getTeam().getPlayerTeam().size());
+        titleLabel.setFont(PixelFont.myCustomFont);
+        topPanel.add(titleLabel);
+        
+        // Aggiungo il bottone "Conferma" al pannello
         JButton confirm = new JButton("Conferma");
         confirm.setActionCommand("confirm");
+        confirm.setBackground(Color.WHITE);
+        confirm.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         confirm.addActionListener(e -> {
             if (Player.player.getTeam().getPlayerTeam().size() == 6) {
                 InfoRecap infoRecap = new InfoRecap(Player.player);
                 infoRecap.setVisible(true);
             }
         });
-
         confirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confirm.setFont(PixelFont.myCustomFont);
-
-        pokedexFrame.add(confirm, BorderLayout.NORTH);
+        topPanel.add(confirm);
+        
+        // Aggiungo il pannello dei titoli e del bottone "Conferma" al frame
+        pokedexFrame.add(topPanel, BorderLayout.NORTH);
 
         pokedexFrame.add(this);
         pokedexFrame.setVisible(true);
@@ -130,6 +138,12 @@ public class Pokedex extends JPanel implements ActionListener {
     // Restituisce il Pokémon all'indice specificato
     public static Pokemon getPokemon(int index) {
         return pokemonArray[index - 1];
+    }
+
+    public static void updateTitle() {
+        // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del titolo
+        int numPokemon = Player.player.getTeam().getPlayerTeam().size();
+        titleLabel.setText("Pokemon nella squadra: " + numPokemon);
     }
 
 }
