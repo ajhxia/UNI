@@ -29,21 +29,21 @@ public class Intro extends JFrame implements ActionListener {
 
     private void showWindow() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 470);
+        frame.setSize(850, 470);
 
         JPanel panel = new JPanel();
         // aggiungo l'immagine Pokemon
         ImageIcon image = new ImageIcon(RelativePath.getAbsolutePath("\\Image\\International_Pokémon_logo.svg.png"));
 
         // Dimensioni desiderate per l'immagine ridimensionata
-        int newWidth = 700;
+        int newWidth = 800;
         int newHeight = 300;
         // Ridimensiona l'immagine
         JLabel label = new JLabel(ImageUtility.resizeIcon(image, newWidth, newHeight));
         panel.add(label);
 
         // creazione del bottone
-        JButton button = new JButton("Start Battle");
+        JButton button = new JButton("Start Game");
         button.setFont(PixelFont.myCustomFont);
         button.setBackground(Color.WHITE);
         button.setBorder(BorderFactory.createLineBorder(Color.BLACK));

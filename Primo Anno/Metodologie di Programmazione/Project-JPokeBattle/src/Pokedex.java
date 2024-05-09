@@ -26,7 +26,7 @@ public class Pokedex extends JPanel implements ActionListener {
     public static JLabel titleLabel;
 
     public Pokedex() {
-        pokedexFrame = new JFrame("Pokedex di " + Player.player.getName());
+        pokedexFrame = new JFrame("Pokédex of " + Player.player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pokedexFrame.setSize(900, 700);
 
@@ -56,23 +56,29 @@ public class Pokedex extends JPanel implements ActionListener {
         topPanel.setPreferredSize(new Dimension(900, 50)); // Imposta le dimensioni preferite del pannello
         
         // Aggiungo il titolo al pannello
-        titleLabel = new JLabel("Pokemon nella squadra: " + Player.player.getTeam().getPlayerTeam().size());
+        titleLabel = new JLabel("Pokémon in Team: " + Player.player.getTeam().getPlayerTeam().size());
         titleLabel.setFont(PixelFont.myCustomFont);
         topPanel.add(titleLabel);
         
         // Aggiungo il bottone "Conferma" al pannello
-        JButton confirm = new JButton("Conferma");
+        JButton confirm = new JButton("Confirm");
         confirm.setActionCommand("confirm");
-        confirm.setBackground(Color.WHITE);
-        confirm.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         confirm.addActionListener(e -> {
             if (Player.player.getTeam().getPlayerTeam().size() == 6) {
                 InfoRecap infoRecap = new InfoRecap(Player.player);
                 infoRecap.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(pokedexFrame, "You must have 6 Pokémon in the team to continue.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         confirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confirm.setFont(PixelFont.myCustomFont);
+        confirm.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
+        confirm.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
+        ));
+        confirm.setContentAreaFilled(false); // Rimuove il colore di sfondo
         topPanel.add(confirm);
         
         // Aggiungo il pannello dei titoli e del bottone "Conferma" al frame
@@ -143,7 +149,7 @@ public class Pokedex extends JPanel implements ActionListener {
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del titolo
         int numPokemon = Player.player.getTeam().getPlayerTeam().size();
-        titleLabel.setText("Pokemon nella squadra: " + numPokemon);
+        titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
 
 }

@@ -1,22 +1,11 @@
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import Game.Coach;
-import Game.Team;
+import java.net.*;
+import javax.swing.*;
+import Game.*;
 import Pokemon.Pokemon;
-import Shared.ImageUtility;
-import Shared.PixelFont;
-import Shared.RelativePath;
+import Shared.*;
+import javax.swing.JOptionPane;
 
 /*
  * Questa classe rappresenta un pannello contenente le informazioni di un pokemon
@@ -73,11 +62,18 @@ public class InfoPokemon extends JPanel {
         buttonAdd.addActionListener(e -> {
             Team team = player.getTeam();
             if (team.getPlayerTeam().size() < 6) {
-                team.addPokemon(pokemon);
-                player.setTeam(team);
-                Pokedex.updateTitle();
-                System.out.println("Pokemon added to team.");
-            } 
+                if (team.getPlayerTeam().contains(pokemon)) {
+                    JOptionPane.showMessageDialog(null, "Pokemon already in team.");
+                }else{
+                    team.addPokemon(pokemon);
+                    player.setTeam(team);
+                    Pokedex.updateTitle();
+                    System.out.println("Pokemon added to team.");
+                    SwingUtilities.getWindowAncestor(this).dispose();
+                }  
+            } else{
+                JOptionPane.showMessageDialog(null, "You can't have more than 6 Pokémon in your team.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
         buttonAdd.setBounds(60, 275, 200, 50);
         buttonAdd.setFont(PixelFont.myCustomFont);
@@ -92,7 +88,7 @@ public class InfoPokemon extends JPanel {
 
         // Imposta le dimensioni del pannello alle dimensioni dell'immagine di sfondo
         setPreferredSize(new Dimension(backgroundImage.getIconWidth(), backgroundImage.getIconHeight()));
-
+        
         // Aggiungi l'immagine sopra lo sfondo
         add(imageLabel);
         add(buttonAdd);
