@@ -67,6 +67,7 @@ public class Pokedex extends JPanel implements ActionListener {
             if (Player.player.getTeam().getPlayerTeam().size() == 6) {
                 InfoRecap infoRecap = new InfoRecap(Player.player);
                 infoRecap.setVisible(true);
+                pokedexFrame.dispose();
             }else{
                 JOptionPane.showMessageDialog(pokedexFrame, "You must have 6 Pokémon in the team to continue.", "Error", JOptionPane.ERROR_MESSAGE);
             }

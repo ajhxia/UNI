@@ -33,8 +33,6 @@ public class Stats {
             this.defense = defense + 24;
             this.speed = speed + 38;
         }
-
-        
     }
 
     public int getHp() {
@@ -52,6 +50,5 @@ public class Stats {
     public int getSpeed() {
         return speed;
     }
-
 
 }

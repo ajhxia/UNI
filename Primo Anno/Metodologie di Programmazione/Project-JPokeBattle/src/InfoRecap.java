@@ -26,6 +26,7 @@ public class InfoRecap extends JFrame {
             pokemonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
             JLabel pokeLabel = new JLabel(player.getTeam().getPokemon(i).getName());
+            pokeLabel.setFont(PixelFont.myCustomFont);
 
             ImageIcon imagePoke = null;
             try {
@@ -37,10 +38,17 @@ public class InfoRecap extends JFrame {
 
                 JButton changeButton = new JButton("Change");
                 changeButton.setFont(PixelFont.myCustomFont);
+                changeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                changeButton.setActionCommand(String.valueOf(i)); // Imposta il valore di i come ActionCommand
+
                 changeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        // Azione da eseguire al click del pulsante "Cambia"
-                        JOptionPane.showMessageDialog(null, "Azione di cambio da implementare");
+                        int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
+                                                                                    // dall'ActionCommand
+                        player.getTeam().getPlayerTeam().remove(indexToRemove);
+                        Pokedex pokedex = new Pokedex();
+                        pokedex.setVisible(true);
+                        dispose();
                     }
                 });
 
@@ -49,8 +57,7 @@ public class InfoRecap extends JFrame {
                 changeButton.setMargin(new Insets(10, 20, 10, 20));
                 changeButton.setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(Color.BLACK),
-                        BorderFactory.createEmptyBorder(10, 20, 10, 20)
-                ));
+                        BorderFactory.createEmptyBorder(10, 20, 10, 20)));
                 changeButton.setFocusPainted(false);
 
                 pokemonPanel.add(imageLabel);
@@ -79,8 +86,7 @@ public class InfoRecap extends JFrame {
         confirmButton.setMargin(new Insets(10, 20, 10, 20));
         confirmButton.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
         confirmButton.setFocusPainted(false);
 
         // Aggiungi il pulsante "Conferma" al centro in basso
