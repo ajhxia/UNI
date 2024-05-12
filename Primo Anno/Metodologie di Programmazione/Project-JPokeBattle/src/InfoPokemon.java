@@ -69,6 +69,12 @@ public class InfoPokemon extends JPanel {
                     player.setTeam(team);
                     Pokedex.updateTitle();
                     System.out.println("Pokemon added to team.");
+                    try {
+                        Pokedex.updateTeamPanel();
+                    } catch (IOException | URISyntaxException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                     SwingUtilities.getWindowAncestor(this).dispose();
                 }  
             } else{

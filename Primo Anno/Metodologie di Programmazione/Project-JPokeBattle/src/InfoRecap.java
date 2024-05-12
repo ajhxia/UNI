@@ -44,9 +44,15 @@ public class InfoRecap extends JFrame {
                 changeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
-                                                                                    // dall'ActionCommand
+                                                                           // dall'ActionCommand
                         player.getTeam().getPlayerTeam().remove(indexToRemove);
                         Pokedex pokedex = new Pokedex();
+                        try {
+                            Pokedex.updateTeamPanel();
+                        } catch (IOException | URISyntaxException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }         
                         pokedex.setVisible(true);
                         dispose();
                     }
@@ -72,7 +78,7 @@ public class InfoRecap extends JFrame {
 
         panel.add(teamPanel, BorderLayout.CENTER); // Aggiungi il teamPanel al centro del BorderLayout
 
-        JButton confirmButton = new JButton("Confirm");
+        JButton confirmButton = new JButton("Start Battle");
         confirmButton.setFont(PixelFont.myCustomFont);
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
