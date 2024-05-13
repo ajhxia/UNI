@@ -5,6 +5,8 @@ import javax.swing.*;
 import Game.*;
 import Pokemon.Pokemon;
 import Shared.*;
+import Shared.PixelFont;
+
 import javax.swing.JOptionPane;
 
 /*
@@ -17,7 +19,7 @@ public class InfoPokemon extends JPanel {
     public InfoPokemon(Pokemon pokemon, Coach player) throws IOException, URISyntaxException {
         setLayout(null); // Imposta il layout a null per posizionare manualmente i componenti
 
-        // Carica l'immagine del Pokémon
+        // Carica l'immagine del Pokémon+
         ImageIcon imagePoke = ImageUtility.loadImage(new URI(pokemon.getSprite().getFront()));
         int newWidth = 200;
         int newHeight = 200;
