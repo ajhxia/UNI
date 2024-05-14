@@ -2,14 +2,10 @@ import javax.swing.*;
 
 import Game.Coach;
 import Game.Team;
-
-import java.util.ArrayList;
-
 import Shared.PixelFont;
-
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
 
 public class Player extends JFrame {
     private JTextField nameField;
@@ -20,55 +16,48 @@ public class Player extends JFrame {
     public Player() {
         setTitle("Create a character");
         setSize(300, 200);
-        setLayout(new GridBagLayout()); // Imposta il layout a GridBagLayout per il posizionamento flessibile dei componenti
+        setLayout(new BorderLayout()); // Utilizza BorderLayout come layout manager
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); // Margine per separare i componenti
+        JPanel fieldsPanel = new JPanel(new GridLayout(3, 2, 5, 5)); // JPanel per contenere i campi di testo e le etichette
+        fieldsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Aggiungi un bordo vuoto per spaziatura
 
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setFont(PixelFont.myCustomFont);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(nameLabel, gbc);
+        fieldsPanel.add(nameLabel);
 
         nameField = new JTextField(10);
         nameField.setFont(PixelFont.myCustomFont);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        add(nameField, gbc);
+        nameField.setPreferredSize(new Dimension(150, 30));
+        fieldsPanel.add(nameField);
 
         JLabel ageLabel = new JLabel("Age:");
         ageLabel.setFont(PixelFont.myCustomFont);   
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(ageLabel, gbc);
+        fieldsPanel.add(ageLabel);
 
         ageField = new JTextField(10);
         ageField.setFont(PixelFont.myCustomFont);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(ageField, gbc);
+        ageField.setPreferredSize(new Dimension(150, 30));
+        fieldsPanel.add(ageField);
 
         JLabel genderLabel = new JLabel("Gender:");
         genderLabel.setFont(PixelFont.myCustomFont);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        add(genderLabel, gbc);
+        fieldsPanel.add(genderLabel);
 
         String[] genders = {"Male", "Female", "Other"};
         genderComboBox = new JComboBox<>(genders);
         genderComboBox.setBackground(Color.WHITE);
         genderComboBox.setFont(PixelFont.myCustomFont);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        add(genderComboBox, gbc);
+        fieldsPanel.add(genderComboBox);
+
+        add(fieldsPanel, BorderLayout.CENTER); // Aggiungi il pannello dei campi al centro
 
         JButton createButton = new JButton("Create");
         createButton.setFont(PixelFont.myCustomFont);
+        createButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         createButton.setBackground(Color.WHITE);
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String name = nameField.getText();
+                 String name = nameField.getText();
                 String ageText = ageField.getText();
                 String gender = (String) genderComboBox.getSelectedItem();
         
@@ -95,21 +84,17 @@ public class Player extends JFrame {
                 Pokedex pokedex = new Pokedex();
                 pokedex.setVisible(true);
                 setVisible(false);
+
             }
         });
-
-        createButton.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
+        createButton.setMargin(new Insets(10, 20, 10, 20));
         createButton.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
-        ));
-        createButton.setContentAreaFilled(false); // Rimuove il colore di sfondo
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        createButton.setContentAreaFilled(false);
+        add(createButton, BorderLayout.SOUTH); // Aggiungi il pulsante alla parte inferiore
 
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        add(createButton, gbc);
-
-        setLocationRelativeTo(null); // Centra la finestra nello schermo
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

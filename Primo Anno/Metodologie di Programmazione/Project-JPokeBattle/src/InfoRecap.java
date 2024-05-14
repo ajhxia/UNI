@@ -23,7 +23,7 @@ public class InfoRecap extends JFrame {
 
         for (int i = 0; i < player.getTeam().getPlayerTeam().size(); i++) {
             JPanel pokemonPanel = new JPanel();
-            pokemonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+            pokemonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             JLabel pokeLabel = new JLabel(player.getTeam().getPokemon(i).getName());
             pokeLabel.setFont(PixelFont.myCustomFont);
@@ -50,7 +50,6 @@ public class InfoRecap extends JFrame {
                         try {
                             Pokedex.updateTeamPanel();
                         } catch (IOException | URISyntaxException e1) {
-                            // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }         
                         pokedex.setVisible(true);
@@ -65,10 +64,11 @@ public class InfoRecap extends JFrame {
                         BorderFactory.createLineBorder(Color.BLACK),
                         BorderFactory.createEmptyBorder(10, 20, 10, 20)));
                 changeButton.setFocusPainted(false);
-
+                
+                pokemonPanel.add(changeButton);
                 pokemonPanel.add(imageLabel);
                 pokemonPanel.add(pokeLabel);
-                pokemonPanel.add(changeButton);
+                
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }

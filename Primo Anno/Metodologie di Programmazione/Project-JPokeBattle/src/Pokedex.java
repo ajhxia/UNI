@@ -50,13 +50,9 @@ public class Pokedex extends JPanel implements ActionListener {
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topPanel.setPreferredSize(new Dimension(1100, 50)); // Ampliato il pannello superiore per accomodare il nuovo
-                                                            // pannello
-        titleLabel = new JLabel("Pokémon in Team: " + Player.player.getTeam().getPlayerTeam().size());
-        titleLabel.setFont(PixelFont.myCustomFont);
-        topPanel.add(titleLabel);
 
         // Aggiungo il bottone "Conferma" al pannello
-        JButton confirm = new JButton("Confirm");
+        JButton confirm = new JButton("Confirm Team");
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
             if (Player.player.getTeam().getPlayerTeam().size() == 6) {
@@ -90,13 +86,10 @@ public class Pokedex extends JPanel implements ActionListener {
         JScrollPane teamScrollPane = new JScrollPane(teamPanel);
         teamScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         teamScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        teamScrollPane.setPreferredSize(new Dimension(260, 600)); // Dimensioni del pannello dei Pokémon in squadra
+        teamScrollPane.setPreferredSize(new Dimension(300, 600)); // Dimensioni del pannello dei Pokémon in squadra
         this.add(teamScrollPane, BorderLayout.EAST);
 
-        JLabel title = new JLabel("Pokémon in Team");
-        title.setFont(PixelFont.myCustomFont);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        teamPanel.add(title); // Aggiunge il titolo al pannello principale
+        updateTitle();
 
         // Aggiungo il pokedexFrame al pannello
         pokedexFrame.add(this);
@@ -165,27 +158,55 @@ public class Pokedex extends JPanel implements ActionListener {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del
         // titolo
         int numPokemon = Player.player.getTeam().getPlayerTeam().size();
-        titleLabel.setText("Pokémon in Team: " + numPokemon);
+                // pannello
+        titleLabel = new JLabel("Pokémon in Team: " + numPokemon);
+        titleLabel.setFont(PixelFont.myCustomFont);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0)); // Add top margin
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        teamPanel.add(titleLabel); // Aggiunge il titolo al pannello principale
     }
 
     public static void updateTeamPanel() throws IOException, URISyntaxException {
-        teamPanel.removeAll(); // Rimuove i componenti precedenti
-        JLabel title = new JLabel("Pokémon in Team");
-        title.setFont(PixelFont.myCustomFont);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        teamPanel.add(title); // Aggiunge il titolo al pannello principale
+        teamPanel.removeAll(); // Rimuove tutti i componenti dal pannello dei Pokémon
+        updateTitle();
+        int i = 0;
         for (Pokemon pokemon : Player.player.getTeam().getPlayerTeam()) {
+
             JPanel pokemonInfoPanel = new JPanel();
-            pokemonInfoPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // orizzontalmente
+            pokemonInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // orizzontalmente
 
             JLabel nameLabel = new JLabel(pokemon.getName());
             nameLabel.setFont(PixelFont.myCustomFont);
             nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            pokemonInfoPanel.add(nameLabel); // Aggiunge il nome al pannello dei Pokémon
+            
 
             JLabel imageLabel = new JLabel(ImageUtility.loadImage(new URI(pokemon.getSprite().getFront())));
             imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+           
+            JButton removeButton = new JButton("-");
+            removeButton.setActionCommand(String.valueOf(i));
+            removeButton.addActionListener(e -> {
+                int indexToRemove = Integer.parseInt(e.getActionCommand());
+                Player.player.getTeam().removePokemon(indexToRemove);
+                try {
+                    updateTeamPanel();
+                    updateTitle();
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            removeButton.setMargin(new Insets(5, 10, 7, 10));
+            removeButton.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(Color.BLACK),
+                    BorderFactory.createEmptyBorder(5, 10, 7, 10)));
+            removeButton.setContentAreaFilled(false);
+
+            removeButton.setFont(PixelFont.myCustomFont);
+            removeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            pokemonInfoPanel.add(removeButton); // Aggiunge il bottone "Remove" al pannello dei Pokémon
             pokemonInfoPanel.add(imageLabel); // Aggiunge l'immagine al pannello dei Pokémon
+            pokemonInfoPanel.add(nameLabel); // Aggiunge il nome al pannello dei Pokémon
+            i++;
 
             teamPanel.add(pokemonInfoPanel); // Aggiunge il pannello con nome e immagine al pannello principale
             teamPanel.add(Box.createVerticalStrut(5)); // Spazio tra i Pokémon
