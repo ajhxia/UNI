@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.*;
+
+import Battle.BattleFrame;
 import Game.Coach;
+import Game.Npc;
 import Shared.ImageUtility;
 import Shared.PixelFont;
 
@@ -82,8 +85,9 @@ public class InfoRecap extends JFrame {
         confirmButton.setFont(PixelFont.myCustomFont);
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Azione da eseguire al click del pulsante "Conferma"
-                JOptionPane.showMessageDialog(null, "Conferma effettuata");
+                BattleFrame battleFrame = new BattleFrame(player, Npc.createNpc(1));
+                battleFrame.setVisible(true);
+                dispose();
             }
         });
 
