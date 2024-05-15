@@ -33,7 +33,7 @@ public class Intro extends JFrame implements ActionListener {
 
         JPanel panel = new JPanel();
         // aggiungo l'immagine Pokemon
-        ImageIcon image = new ImageIcon(RelativePath.getAbsolutePath("\\Image\\International_Pokémon_logo.svg.png"));
+        ImageIcon image = new ImageIcon(RelativePath.getAbsolutePath("/Image/International_Pokémon_logo.svg.png"));
 
         // Dimensioni desiderate per l'immagine ridimensionata
         int newWidth = 800;

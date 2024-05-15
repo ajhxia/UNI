@@ -27,7 +27,7 @@ public class InfoPokemon extends JPanel {
         imageLabel.setBounds(40, 40, 200, 200); // Imposta la posizione e le dimensioni dell'immagine
 
         // Carica l'immagine di sfondo
-        ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("\\Image\\info.png"));
+        ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("/Image/info.png"));
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setBounds(0, 0, backgroundImage.getIconWidth(), backgroundImage.getIconHeight());
 
@@ -40,6 +40,11 @@ public class InfoPokemon extends JPanel {
         JLabel name = new JLabel(pokemon.getName());
         name.setFont(PixelFont.myCustomFont);
         name.setBounds(260, 73, 200, 50);
+
+        JLabel lvl = new JLabel("Level: " + pokemon.getLvl());
+        lvl.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        lvl.setBounds(315, 250, 200, 50);
+
 
         String stats = "";
         for (int i = 0; i < pokemon.getTypes().length; i++) {
@@ -58,6 +63,18 @@ public class InfoPokemon extends JPanel {
         JLabel hp = new JLabel("HP: " + pokemon.getStats().getHp());
         hp.setFont(PixelFont.myCustomFont.deriveFont(12f));
         hp.setBounds(315, 193, 200, 50);
+
+        JLabel atk = new JLabel("Attack: " + pokemon.getStats().getAttack());
+        atk.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        atk.setBounds(315, 270, 200, 50);
+
+        JLabel def = new JLabel("Defense: " + pokemon.getStats().getDefense());
+        def.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        def.setBounds(315, 290, 200, 50);
+
+        JLabel spAtk = new JLabel("Sp. Atk: " + pokemon.getStats().getSpeed());
+        spAtk.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        spAtk.setBounds(315, 310, 200, 50);
 
         JButton buttonAdd = new JButton("Add to team");
         buttonAdd.setActionCommand("add");
@@ -83,7 +100,7 @@ public class InfoPokemon extends JPanel {
                 JOptionPane.showMessageDialog(null, "You can't have more than 6 Pokémon in your team.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        buttonAdd.setBounds(60, 275, 200, 50);
+        buttonAdd.setBounds(70, 277, 200, 50);
         buttonAdd.setFont(PixelFont.myCustomFont);
         buttonAdd.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
         buttonAdd.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cambia il cursore al passaggio del mouse
@@ -99,6 +116,10 @@ public class InfoPokemon extends JPanel {
         
         // Aggiungi l'immagine sopra lo sfondo
         add(imageLabel);
+        add(atk);
+        add(def);
+        add(spAtk);
+        add(lvl);
         add(buttonAdd);
         add(titleName);
         add(hp);

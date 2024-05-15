@@ -83,11 +83,8 @@ public class Pokedex extends JPanel implements ActionListener {
         // Impostazione del bordo personalizzato
         teamPanel.setBorder(bordoPersonalizzato);
         teamPanel.setLayout(new BoxLayout(teamPanel, BoxLayout.Y_AXIS));
-        JScrollPane teamScrollPane = new JScrollPane(teamPanel);
-        teamScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        teamScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        teamScrollPane.setPreferredSize(new Dimension(300, 600)); // Dimensioni del pannello dei Pokémon in squadra
-        this.add(teamScrollPane, BorderLayout.EAST);
+
+        this.add(teamPanel, BorderLayout.EAST);
 
         updateTitle();
 
@@ -143,7 +140,7 @@ public class Pokedex extends JPanel implements ActionListener {
         InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1], Player.player);
         infoFrame = new JFrame(pokemonArray[pokeIndexIn - 1].getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        infoFrame.setSize(520, 400);
+        infoFrame.setSize(510, 400);
         infoFrame.setLocationRelativeTo(null); // Centra la finestra nello schermo
         infoFrame.add(infoPokemon);
         infoFrame.setVisible(true);

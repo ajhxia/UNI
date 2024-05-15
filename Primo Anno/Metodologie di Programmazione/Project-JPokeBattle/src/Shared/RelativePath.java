@@ -12,20 +12,26 @@ import java.net.URLDecoder;
 public class RelativePath { 
     // Restituisce il percorso assoluto di un file all'interno del progetto
     // in ingresso vuole il percorso relativo del file
-       public static String getAbsolutePath(String relativePath) {
+    public static String getAbsolutePath(String relativePath) {
         String classPath = RelativePath.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         String decodedClassPath = null;
         try {
             decodedClassPath = URLDecoder.decode(classPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            // Gestisci l'eccezione in modo appropriato, ad esempio, stampa un messaggio di errore
             e.printStackTrace();
-            // Ritorna null o un altro valore predefinito in caso di fallimento
             return null;
         }
         File classFile = new File(decodedClassPath);
         String classDirectory = classFile.getParent();
+        
+        // Rimuovi la barra iniziale se presente
+        if (relativePath.startsWith("\\")) {
+            relativePath = relativePath.substring(1);
+        }
+        
+        // Costruisci il percorso completo
         String filePath = classDirectory + File.separator + relativePath;
         return filePath;
     }
+    
 }
