@@ -29,38 +29,44 @@ public class Intro extends JFrame implements ActionListener {
 
     private void showWindow() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(850, 470);
+        frame.setSize(722, 725);
 
-        JPanel panel = new JPanel();
-        // aggiungo l'immagine Pokemon
-        ImageIcon image = new ImageIcon(RelativePath.getAbsolutePath("/Image/International_Pokémon_logo.svg.png"));
+        // Creazione di un layout null
+        frame.setLayout(null);
 
-        // Dimensioni desiderate per l'immagine ridimensionata
-        int newWidth = 800;
-        int newHeight = 300;
-        // Ridimensiona l'immagine
-        JLabel label = new JLabel(ImageUtility.resizeIcon(image, newWidth, newHeight));
-        panel.add(label);
+        // Carica l'immagine di sfondo
+        ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("/Image/penup_20240516_163422.jpg"));
 
-        // creazione del bottone
+        // Crea un JLabel con l'immagine di sfondo e posiziona
+        JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 725, 730));
+        backgroundLabel.setBounds(0, 0, 725, 730);
+
+        // creazione del bottone e posizionamento
         JButton button = new JButton("Start Game");
         button.setFont(PixelFont.myCustomFont);
-        button.setBackground(Color.WHITE);
-        button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        button.setForeground(Color.WHITE); // Imposta il colore del testo
+        button.setOpaque(false); // Rende il bottone trasparente
+        button.setContentAreaFilled(false); // Rende trasparente l'area di contenuto del bottone
+        button.setBorder(BorderFactory.createLineBorder(Color.white, 2)); // Imposta il bordo
         button.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
         button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
+                BorderFactory.createLineBorder(Color.white, 2),
                 BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
         ));
         button.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
+        button.setBounds(45, 65, 200, 40); // Posiziona il bottone
 
-        panel.add(button);
-        button.setActionCommand("start");
-        button.addActionListener(this);
-        // aggiungo un ascoltatore per l'effetto pointer
+        // Aggiungo un ascoltatore per l'effetto pointer
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        frame.getContentPane().add(panel);
+        // Aggiungo l'azione di ascolto al bottone
+        button.setActionCommand("start");
+        button.addActionListener(this);
+
+        // Aggiunge il bottone e il JLabel al JFrame
+        frame.add(button);
+        frame.add(backgroundLabel);
+
         frame.setVisible(true);
         frame.setLocationRelativeTo(null); // Centra la finestra
     }
