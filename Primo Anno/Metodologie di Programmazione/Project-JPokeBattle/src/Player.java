@@ -2,6 +2,7 @@ import javax.swing.*;
 
 import Game.Coach;
 import Game.Team;
+import Pokemon.Pokemon;
 import Shared.PixelFont;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +13,7 @@ public class Player extends JFrame {
     private JTextField ageField;
     private JComboBox<String> genderComboBox;
     public static Coach player;
+    private static ArrayList<Pokemon> playerTeam = new ArrayList<Pokemon>();
 
     public Player() {
         setTitle("Create a character");
@@ -57,7 +59,7 @@ public class Player extends JFrame {
         createButton.setBackground(Color.WHITE);
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                 String name = nameField.getText();
+                String name = nameField.getText();
                 String ageText = ageField.getText();
                 String gender = (String) genderComboBox.getSelectedItem();
         
@@ -79,9 +81,9 @@ public class Player extends JFrame {
                 }
         
                 // Se tutti i campi sono validi, crea il personaggio
-                player = new Coach(name, age, new Team(new ArrayList<>()), gender);
+                player = new Coach(name, age, new Team(playerTeam), gender);
                 // Fai qualcosa con l'oggetto Coach creato
-                Pokedex pokedex = new Pokedex();
+                Pokedex pokedex = new Pokedex(player);
                 pokedex.setVisible(true);
                 setVisible(false);
 

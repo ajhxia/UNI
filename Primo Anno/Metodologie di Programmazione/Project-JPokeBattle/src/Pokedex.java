@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import Game.Coach;
 import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
@@ -20,9 +21,11 @@ public class Pokedex extends JPanel implements ActionListener {
     private static JFrame pokedexFrame;
     public static JLabel titleLabel;
     public static JPanel teamPanel; // Pannello per i Pokémon in squadra
+    public static Coach player;
 
-    public Pokedex() {
-        pokedexFrame = new JFrame("Pokédex of " + Player.player.getName());
+    public Pokedex(Coach playerIn) {
+        player = playerIn;
+        pokedexFrame = new JFrame("Pokédex of " + player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pokedexFrame.setSize(1100, 800); // Ampliato il pokedexFrame per accomodare il nuovo pannello
 
@@ -55,8 +58,8 @@ public class Pokedex extends JPanel implements ActionListener {
         JButton confirm = new JButton("Confirm Team");
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
-            if (Player.player.getTeam().getPlayerTeam().size() == 6) {
-                InfoRecap infoRecap = new InfoRecap(Player.player);
+            if (player.getTeam().getPlayerTeam().size() == 6) {
+                InfoRecap infoRecap = new InfoRecap(player);
                 infoRecap.setVisible(true);
                 pokedexFrame.dispose();
             } else {
@@ -80,10 +83,10 @@ public class Pokedex extends JPanel implements ActionListener {
         teamPanel = new JPanel();
         int spessoreBordo = 2; // Puoi regolare questo valore secondo le tue preferenze
         Border bordoPersonalizzato = BorderFactory.createLineBorder(Color.RED, spessoreBordo);
-        // Impostazione del bordo personalizzato
-        teamPanel.setBorder(bordoPersonalizzato);
+        
         teamPanel.setLayout(new BoxLayout(teamPanel, BoxLayout.Y_AXIS));
-
+        teamPanel.setBorder(bordoPersonalizzato);
+        teamPanel.setPreferredSize(new Dimension(350, 0)); // Imposta solo la larghezza specificata
         this.add(teamPanel, BorderLayout.EAST);
 
         updateTitle();
@@ -137,7 +140,7 @@ public class Pokedex extends JPanel implements ActionListener {
         if (infoFrame != null) {
             infoFrame.dispose(); // Chiudi il JFrame precedente se esiste
         }
-        InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1], Player.player);
+        InfoPokemon infoPokemon = new InfoPokemon(pokemonArray[pokeIndexIn - 1], player);
         infoFrame = new JFrame(pokemonArray[pokeIndexIn - 1].getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         infoFrame.setSize(510, 400);
@@ -154,7 +157,7 @@ public class Pokedex extends JPanel implements ActionListener {
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del
         // titolo
-        int numPokemon = Player.player.getTeam().getPlayerTeam().size();
+        int numPokemon = player.getTeam().getPlayerTeam().size();
                 // pannello
         titleLabel = new JLabel("Pokémon in Team: " + numPokemon);
         titleLabel.setFont(PixelFont.myCustomFont);
@@ -167,7 +170,7 @@ public class Pokedex extends JPanel implements ActionListener {
         teamPanel.removeAll(); // Rimuove tutti i componenti dal pannello dei Pokémon
         updateTitle();
         int i = 0;
-        for (Pokemon pokemon : Player.player.getTeam().getPlayerTeam()) {
+        for (Pokemon pokemon : player.getTeam().getPlayerTeam()) {
 
             JPanel pokemonInfoPanel = new JPanel();
             pokemonInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // orizzontalmente
@@ -184,7 +187,7 @@ public class Pokedex extends JPanel implements ActionListener {
             removeButton.setActionCommand(String.valueOf(i));
             removeButton.addActionListener(e -> {
                 int indexToRemove = Integer.parseInt(e.getActionCommand());
-                Player.player.getTeam().removePokemon(indexToRemove);
+                player.getTeam().removePokemon(indexToRemove);
                 try {
                     updateTeamPanel();
                     updateTitle();

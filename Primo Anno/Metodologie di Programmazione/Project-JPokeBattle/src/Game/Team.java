@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import Pokemon.Pokemon;
 
 public class Team {
-    private ArrayList<Pokemon> playerTeam = new ArrayList<>();;
+    private ArrayList<Pokemon> playerTeam = new ArrayList<>();
     private int teamMaxSize;
 
     public Team(ArrayList<Pokemon> playerTeamIn) {
-        playerTeam = playerTeamIn;
-        teamMaxSize = 6; // Imposta una dimensione massima predefinita, ma può essere modificata
+        this.playerTeam = playerTeamIn;
+        this.teamMaxSize = 6;
     }
 
     public void addPokemon(Pokemon pokemon) {

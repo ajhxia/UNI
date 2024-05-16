@@ -5,7 +5,7 @@ package Game;
 */
 public class Coach {
     private String name;
-    private static Team team;
+    private Team team;
     private int age;
     private String gender;
 
@@ -13,7 +13,7 @@ public class Coach {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        team = teamIn;
+        this.team = teamIn;
     }
     
     public String getName() {

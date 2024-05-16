@@ -47,14 +47,14 @@ public class InfoRecap extends JFrame {
                 changeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
-                                                                           // dall'ActionCommand
+                        // dall'ActionCommand
                         player.getTeam().getPlayerTeam().remove(indexToRemove);
-                        Pokedex pokedex = new Pokedex();
+                        Pokedex pokedex = new Pokedex(player);
                         try {
                             Pokedex.updateTeamPanel();
                         } catch (IOException | URISyntaxException e1) {
                             e1.printStackTrace();
-                        }         
+                        }
                         pokedex.setVisible(true);
                         dispose();
                     }
@@ -67,11 +67,11 @@ public class InfoRecap extends JFrame {
                         BorderFactory.createLineBorder(Color.BLACK),
                         BorderFactory.createEmptyBorder(10, 20, 10, 20)));
                 changeButton.setFocusPainted(false);
-                
+
                 pokemonPanel.add(changeButton);
                 pokemonPanel.add(imageLabel);
                 pokemonPanel.add(pokeLabel);
-                
+
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -85,9 +85,13 @@ public class InfoRecap extends JFrame {
         confirmButton.setFont(PixelFont.myCustomFont);
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                BattleFrame battleFrame = new BattleFrame(player, Npc.createNpc(1));
-                battleFrame.setVisible(true);
-                dispose();
+                try {
+                    BattleFrame battleFrame = new BattleFrame(player, Npc.createNpc(1));
+                    dispose();
+                } catch (IOException | URISyntaxException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
 

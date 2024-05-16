@@ -51,4 +51,52 @@ public class Stats {
         return speed;
     }
 
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void increaseHp(int hp) {
+        this.hp += hp;
+    }
+
+    public void increaseAttack(int attack) {
+        this.attack += attack;
+    }
+
+    public void increaseDefense(int defense) {
+        this.defense += defense;
+    }
+
+    public void increaseSpeed(int speed) {
+        this.speed += speed;
+    }
+
+    public void decreaseHp(int hp) {
+        this.hp -= hp;
+    }
+
+    public void decreaseAttack(int attack) {
+        this.attack -= attack;
+    }
+
+    public void decreaseDefense(int defense) {
+        this.defense -= defense;
+    }
+
+    public void decreaseSpeed(int speed) {
+        this.speed -= speed;
+    }
+
 }
