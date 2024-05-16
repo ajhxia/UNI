@@ -5,6 +5,7 @@ import Shared.PixelFont;
 import Shared.RelativePath;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.*;
 
@@ -41,6 +42,16 @@ public class Intro extends JFrame implements ActionListener {
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 725, 730));
         backgroundLabel.setBounds(0, 0, 725, 730);
 
+        ImageIcon arrow = new ImageIcon(RelativePath.getAbsolutePath("/Image/arrow.gif"));
+        // Resize the original image to the desired dimensions
+        Image originalImage = arrow.getImage();
+        Image resizedImage = originalImage.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+
+        // Create a new ImageIcon from the resized image
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel arrowLabel = new JLabel(resizedIcon);
+        arrowLabel.setBounds(20, 70, 40, 40);
+
         // creazione del bottone e posizionamento
         JButton button = new JButton("Start Game");
         button.setFont(PixelFont.myCustomFont);
@@ -54,7 +65,7 @@ public class Intro extends JFrame implements ActionListener {
                 BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
         ));
         button.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
-        button.setBounds(45, 65, 200, 40); // Posiziona il bottone
+        button.setBounds(70, 65, 200, 40); // Posiziona il bottone
 
         // Aggiungo un ascoltatore per l'effetto pointer
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -64,6 +75,7 @@ public class Intro extends JFrame implements ActionListener {
         button.addActionListener(this);
 
         // Aggiunge il bottone e il JLabel al JFrame
+        frame.add(arrowLabel);
         frame.add(button);
         frame.add(backgroundLabel);
 
