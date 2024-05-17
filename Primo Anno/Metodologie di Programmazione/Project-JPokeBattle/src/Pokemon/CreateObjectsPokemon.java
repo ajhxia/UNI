@@ -1,5 +1,7 @@
 package Pokemon;
 
+import java.util.ArrayList;
+
 /*
 * Classe che rappresenta uno switch di Pokémon.
 * Questa classe permette di creare oggetti di tipo Pokemon.
@@ -7,7 +9,7 @@ package Pokemon;
 */
 
 public class CreateObjectsPokemon extends Pokemon {
-        public CreateObjectsPokemon(String name, Ability[] abilities, Stats stats, String[] types, int baseExperience,
+        public CreateObjectsPokemon(String name, ArrayList<Ability> abilities, Stats stats, String[] types, int baseExperience,
                         Sprites sprite, int lvl, Pokemon[] evolutions) {
                 super(name, abilities, stats, types, baseExperience, sprite, lvl, evolutions);
         }
@@ -15,7 +17,7 @@ public class CreateObjectsPokemon extends Pokemon {
         private static int randomLevel = 0;
 
         private static int getLevelRandom() {
-                randomLevel = (int) (Math.random() * 25) + 1;
+                randomLevel = (int) (Math.random() * 10) + 1;
                 return randomLevel;
         }
 

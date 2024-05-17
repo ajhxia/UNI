@@ -91,7 +91,6 @@ public class InfoPokemon extends JPanel {
                     try {
                         Pokedex.updateTeamPanel();
                     } catch (IOException | URISyntaxException e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                     SwingUtilities.getWindowAncestor(this).dispose();

@@ -1,9 +1,13 @@
 package Battle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.*;
-import Game.Coach;
+import java.util.ArrayList;
+
+import Game.*;
+import Pokemon.*;
 import Shared.*;
 
 public class BattleFrame extends JFrame {
@@ -45,8 +49,9 @@ public class BattleFrame extends JFrame {
         lvlNpc.setBounds(317, 30, 100, 100);
         lvlNpc.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(lvlNpc);
-        
-        ImageIcon imagePokePlayer = ImageUtility.loadImage(new URI(player.getTeam().getPokemon(0).getSprite().getBack()));
+
+        ImageIcon imagePokePlayer = ImageUtility
+                .loadImage(new URI(player.getTeam().getPokemon(0).getSprite().getBack()));
         JLabel imageLabelPlayer = new JLabel(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
         imageLabelPlayer.setBounds(100, 175, 200, 200);
         backgroundLabel.add(imageLabelPlayer);
@@ -56,7 +61,6 @@ public class BattleFrame extends JFrame {
         imageLabelNpc.setBounds(550, 50, 200, 200);
         backgroundLabel.add(imageLabelNpc);
 
-        
         // Inizializza le barre della salute del giocatore e del NPC
         playerHealthBar = new JProgressBar(0, player.getTeam().getPokemon(1).getStats().getHp());
         playerHealthBar.setValue(player.getTeam().getPokemon(1).getStats().getHp());
@@ -74,13 +78,39 @@ public class BattleFrame extends JFrame {
         npcHealthBar.setStringPainted(false);
         backgroundLabel.add(npcHealthBar);
 
-        /*for(int i = 0; i<player.getTeam().getPokemon(0).getAbilities().length; i++){
-            JButton abilityButton = new JButton(player.getTeam().getPokemon(0).getAbilities()[i].getName());
-            abilityButton.setBounds(100, 400 + i*50, 200, 50);
-            abilityButton.setFont(PixelFont.myCustomFont.deriveFont(18f));
-            abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));   
-            frame.add(abilityButton);
-        }*/
+        // Pannello per i pulsanti delle abilità
+        JPanel abilityPanel = new JPanel(new GridLayout(2, 2, 10, 10)); // 2 righe, 2 colonne, gap di 10 pixel
+        abilityPanel.setBounds(100, 400, 400, 100); // Posizione e dimensione del pannello
+        abilityPanel.setOpaque(false); // Imposta lo sfondo trasparente
+
+        for (int i = 0; i < player.getTeam().getPokemon(0).getAbilities().size(); i++) {
+            JButton abilityButton = new JButton(player.getTeam().getPokemon(0).getAbilities().get(i).getName());
+            abilityButton.setFont(PixelFont.myCustomFont);
+            abilityButton.setForeground(Color.WHITE); // Imposta il colore del testo
+            abilityButton.setOpaque(false); // Rende il bottone trasparente
+            abilityButton.setContentAreaFilled(false); // Rende trasparente l'area di contenuto del bottone
+            abilityButton.setBorder(BorderFactory.createLineBorder(Color.white, 2)); // Imposta il bordo
+            abilityButton.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
+            abilityButton.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(Color.white, 2),
+                    BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
+            ));
+            abilityButton.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
+            abilityButton.setBounds(70, 65, 200, 40); // Posiziona il bottone
+
+            // Aggiungo un ascoltatore per l'effetto pointer
+            abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            abilityButton.addActionListener(e -> {
+                System.out.println("Ability selected: " + abilityButton.getText());
+            });
+
+            abilityPanel.add(abilityButton);
+        }
+
+        abilityPanel.setBounds(145, 375, 600, 100);
+        // Aggiungi il pannello dei pulsanti delle abilità al frame
+        frame.add(abilityPanel);
         // Aggiungi il JLabel al JFrame
         frame.add(backgroundLabel);
 
