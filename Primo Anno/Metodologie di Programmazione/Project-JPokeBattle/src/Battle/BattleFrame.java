@@ -56,9 +56,7 @@ public class BattleFrame extends JFrame {
         imageLabelNpc.setBounds(550, 50, 200, 200);
         backgroundLabel.add(imageLabelNpc);
 
-        // Aggiungi il JLabel al JFrame
-        frame.add(backgroundLabel);
-
+        
         // Inizializza le barre della salute del giocatore e del NPC
         playerHealthBar = new JProgressBar(0, player.getTeam().getPokemon(1).getStats().getHp());
         playerHealthBar.setValue(player.getTeam().getPokemon(1).getStats().getHp());
@@ -75,6 +73,16 @@ public class BattleFrame extends JFrame {
         npcHealthBar.setBounds(185, 102, 168, 10);
         npcHealthBar.setStringPainted(false);
         backgroundLabel.add(npcHealthBar);
+
+        /*for(int i = 0; i<player.getTeam().getPokemon(0).getAbilities().length; i++){
+            JButton abilityButton = new JButton(player.getTeam().getPokemon(0).getAbilities()[i].getName());
+            abilityButton.setBounds(100, 400 + i*50, 200, 50);
+            abilityButton.setFont(PixelFont.myCustomFont.deriveFont(18f));
+            abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));   
+            frame.add(abilityButton);
+        }*/
+        // Aggiungi il JLabel al JFrame
+        frame.add(backgroundLabel);
 
         // Altre componenti del frame...
         frame.setLocationRelativeTo(null);

@@ -11,19 +11,14 @@ import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 
 public class Npc {
-    private static ArrayList<Pokemon> npcTeam;
-    private static int teamMaxSize;
-
     public static Coach createNpc(int index) {
-        npcTeam = new ArrayList<>();
-        teamMaxSize = 6; // Imposta una dimensione massima predefinita, ma può essere modificata
+        ArrayList<Pokemon> npcTeam = new ArrayList<>();
+        int teamMaxSize = 6; // Imposta una dimensione massima predefinita, ma può essere modificata
         for (int i = 0; i < teamMaxSize; i++) {
             int pokeIndex = (int) (Math.random() * 42) + 1;
             npcTeam.add(CreateObjectsPokemon.getPokemon(pokeIndex));
         }
-
         Team team = new Team(npcTeam);
-
         switch (index) {
             case 1:
                 return new Coach("Brock", 15, team, "M");
