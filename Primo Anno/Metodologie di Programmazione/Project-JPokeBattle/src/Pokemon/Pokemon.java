@@ -57,6 +57,14 @@ public class Pokemon {
         }
     }
 
+    public void addAbilityAtIndex(Ability ability, int index) {
+        if (index >= 0 && index < abilities.size()) {
+            abilities.add(index, ability);
+        } else {
+            abilities.add(ability);
+        }
+    }    
+
     public Stats getStats() {
         return stats;
     }

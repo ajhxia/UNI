@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
-
 import Game.*;
-import Pokemon.*;
 import Shared.*;
 
 public class BattleFrame extends JFrame {
@@ -79,8 +76,8 @@ public class BattleFrame extends JFrame {
         backgroundLabel.add(npcHealthBar);
 
         // Pannello per i pulsanti delle abilità
-        JPanel abilityPanel = new JPanel(new GridLayout(2, 2, 10, 10)); // 2 righe, 2 colonne, gap di 10 pixel
-        abilityPanel.setBounds(100, 400, 400, 100); // Posizione e dimensione del pannello
+        JPanel abilityPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 righe, 2 colonne, gap di 10 pixel
+        abilityPanel.setBounds(50, 375, 750, 100);
         abilityPanel.setOpaque(false); // Imposta lo sfondo trasparente
 
         for (int i = 0; i < player.getTeam().getPokemon(0).getAbilities().size(); i++) {
@@ -96,7 +93,7 @@ public class BattleFrame extends JFrame {
                     BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
             ));
             abilityButton.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
-            abilityButton.setBounds(70, 65, 200, 40); // Posiziona il bottone
+            abilityButton.setBounds(70, 65, 350, 40); // Posiziona il bottone
 
             // Aggiungo un ascoltatore per l'effetto pointer
             abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -108,7 +105,22 @@ public class BattleFrame extends JFrame {
             abilityPanel.add(abilityButton);
         }
 
-        abilityPanel.setBounds(145, 375, 600, 100);
+        JButton changePoke = new JButton("Change Pokemon");
+        changePoke.setFont(PixelFont.myCustomFont);
+        changePoke.setForeground(Color.red); // Imposta il colore del testo
+        changePoke.setOpaque(false); // Rende il bottone trasparente
+        changePoke.setContentAreaFilled(false); // Rende trasparente l'area di contenuto del bottone
+        changePoke.setBorder(BorderFactory.createLineBorder(Color.red, 2)); // Imposta il bordo
+        changePoke.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
+        changePoke.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.red, 2),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
+        ));
+        changePoke.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
+        changePoke.setBounds(90, 65, 350, 40); // Posiziona il bottone
+
+        abilityPanel.add(changePoke);
+
         // Aggiungi il pannello dei pulsanti delle abilità al frame
         frame.add(abilityPanel);
         // Aggiungi il JLabel al JFrame
@@ -128,5 +140,4 @@ public class BattleFrame extends JFrame {
     public void updateNPCHealthBar(int currentHp) {
         npcHealthBar.setValue(currentHp);
     }
-
 }
