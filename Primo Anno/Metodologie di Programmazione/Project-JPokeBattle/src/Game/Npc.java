@@ -13,11 +13,20 @@ import Pokemon.Pokemon;
 public class Npc {
     public static Coach createNpc(int index) {
         ArrayList<Pokemon> npcTeam = new ArrayList<>();
-        int teamMaxSize = 6; // Imposta una dimensione massima predefinita, ma può essere modificata
-        for (int i = 0; i < teamMaxSize; i++) {
+        int teamMaxSize = 6; // Dimensione massima del team
+        int startCount = 0; // Contatore per i Pokémon con etichetta "start"
+
+        while (startCount < teamMaxSize) {
             int pokeIndex = (int) (Math.random() * 42) + 1;
-            npcTeam.add(CreateObjectsPokemon.getPokemon(pokeIndex));
+            Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex);
+
+            // Controlla se il Pokémon ha l'etichetta "start"
+            if (pokemon.getStart() != null) {
+                npcTeam.add(pokemon);
+                startCount++;
+            }
         }
+
         Team team = new Team(npcTeam);
         switch (index) {
             case 1:

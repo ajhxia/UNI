@@ -9,22 +9,26 @@ import java.util.ArrayList;
 
 public class Pokemon {
     private String name;
+    private String start;
     private ArrayList<Ability> abilities;
     private Stats stats;
     private String[] types;
     private int baseExperience;
     private Sprites sprite;
     private int lvl;
+    private int lvlEvoluzione;
     private Pokemon[] evolutions;
 
-    public Pokemon(String name, ArrayList<Ability> abilities, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, Pokemon[] evolutions) {
+    public Pokemon(String name, ArrayList<Ability> abilities, String startIn, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, int lvlEvoluzione, Pokemon[] evolutions) {
         this.name = name;
+        this.start = startIn;
         this.abilities = abilities;
         this.stats = stats;
         this.types = types;
         this.baseExperience = baseExperience;
         this.sprite = sprite;
         this.lvl = lvl;
+        this.lvlEvoluzione = lvlEvoluzione;
         this.evolutions = evolutions;
     }
 
@@ -32,8 +36,20 @@ public class Pokemon {
         return name;
     }
 
+    public String getStart() {
+        return start;
+    }
+
     public ArrayList<Ability> getAbilities() {
         return abilities;
+    }
+
+    public int getLvlEvoluzione() {
+        return lvlEvoluzione;
+    }
+    
+    public void setLvlEvoluzione(int lvl) {
+        this.lvlEvoluzione = lvl;
     }
     
     public void addAbility(Ability pokemon) {

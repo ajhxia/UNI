@@ -3,11 +3,8 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import javax.swing.*;
-
-import Battle.AbilitySelection;
 import Battle.BattleFrame;
 import Game.Coach;
 import Game.Npc;
@@ -89,14 +86,9 @@ public class InfoRecap extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (player.getTeam().getPlayerTeam().get(0).getAbilities().size() > 4) {
-                        AbilitySelection abilitySelection = new AbilitySelection(player, Npc.createNpc(1), 0);
-                        dispose();
-                    }
-                   else{
                     BattleFrame battleFrame = new BattleFrame(player, Npc.createNpc(1));
                     dispose();
-                   }
+                   
                 } catch (IOException | URISyntaxException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
