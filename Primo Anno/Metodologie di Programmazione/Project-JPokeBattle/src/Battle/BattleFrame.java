@@ -12,12 +12,14 @@ public class BattleFrame extends JFrame {
     private static JProgressBar playerHealthBar;
     private static JProgressBar npcHealthBar;
 
+    static JPanel abilityPanel;
+    static boolean startBattle = false;
+
     public BattleFrame(Coach player, Coach npc) throws IOException, URISyntaxException {
 
         frame = new JFrame("Battle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(865, 538);
-
         frame.setLayout(null);
 
         // Carica l'immagine di sfondo
@@ -76,7 +78,7 @@ public class BattleFrame extends JFrame {
         backgroundLabel.add(npcHealthBar);
 
         // Pannello per i pulsanti delle abilità
-        JPanel abilityPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 righe, 2 colonne, gap di 10 pixel
+        abilityPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 righe, 2 colonne, gap di 10 pixel
         abilityPanel.setBounds(50, 375, 750, 100);
         abilityPanel.setOpaque(false); // Imposta lo sfondo trasparente
 
@@ -130,6 +132,10 @@ public class BattleFrame extends JFrame {
         // Altre componenti del frame...
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        if(startBattle == false){
+            BattleLogic.whoStart(npc.getTeam().getPokemon(0).getStats().getSpeed(), player.getTeam().getPokemon(0).getStats().getSpeed());
+        }
     }
 
     // Aggiorna la barra della salute del giocatore
@@ -141,4 +147,5 @@ public class BattleFrame extends JFrame {
     public static void updateNPCHealthBar(int currentHp) {
         npcHealthBar.setValue(currentHp);
     }
+
 }
