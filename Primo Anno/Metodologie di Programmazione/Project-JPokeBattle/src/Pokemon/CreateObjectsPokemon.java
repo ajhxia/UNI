@@ -171,7 +171,7 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png",
                                                                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/11.png"),
                                                 randomLevel,
-                                                10,
+                                                16,
                                                 new Pokemon[] { getPokemon(12) });
                         case 12:
                                 return new Pokemon(

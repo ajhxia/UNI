@@ -62,24 +62,7 @@ public class Ability {
                     ));
                 }
             case 2: // Ivysaur
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 40),
-                            new Ability("Leech Seed", new String[] { "Grass" }, 10),
-                            new Ability("Vine Whip", new String[] { "Grass" }, 45),
-                            new Ability("Poison Powder", new String[] { "Poison" }, 0)
-                    ));
-                } else if (level >= 7 && level < 13) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 40),
-                            new Ability("Leech Seed", new String[] { "Grass" }, 10),
-                            new Ability("Vine Whip", new String[] { "Grass" }, 45),
-                            new Ability("Poison Powder", new String[] { "Poison" }, 0),
-                            new Ability("Razor Leaf", new String[] { "Grass" }, 55)
-                    ));
-                } else if (level >= 13 ) {
+                if (level >= 13 ) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 40),
@@ -91,17 +74,7 @@ public class Ability {
                     ));
                 }
             case 3: // Venusaur
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 40),
-                            new Ability("Leech Seed", new String[] { "Grass" }, 10),
-                            new Ability("Vine Whip", new String[] { "Grass" }, 45),
-                            new Ability("Poison Powder", new String[] { "Poison" }, 0),
-                            new Ability("Razor Leaf", new String[] { "Grass" }, 55),
-                            new Ability("Sweet Scent", new String[] { "Normal" }, 0)
-                    ));
-                } else if (level >= 7 ) {
+                if (level >= 7 ) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 40),
@@ -142,15 +115,7 @@ public class Ability {
                     ));
                 }
             case 5: // Charmeleon
-                if (level >= 1 && level < 9) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 40),
-                            new Ability("Ember", new String[] { "Fire" }, 40),
-                            new Ability("Smokescreen", new String[] { "Normal" }, 0),
-                            new Ability("Dragon Rage", new String[] { "Dragon" }, 40)
-                    ));
-                } else if (level >= 9 && level < 13) {
+                 if (level >= 9 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Scratch", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 40),
@@ -159,7 +124,7 @@ public class Ability {
                             new Ability("Dragon Rage", new String[] { "Dragon" }, 40),
                             new Ability("Scary Face", new String[] { "Normal" }, 0)
                     ));
-                } else if (level >= 13 ) {
+                } else if (level >= 15 ) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Scratch", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 40),
@@ -171,28 +136,7 @@ public class Ability {
                     ));
                 }
             case 6: // Charizard
-                if (level >= 1 && level < 9) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 40),
-                            new Ability("Ember", new String[] { "Fire" }, 40),
-                            new Ability("Smokescreen", new String[] { "Normal" }, 0),
-                            new Ability("Dragon Rage", new String[] { "Dragon" }, 40),
-                            new Ability("Scary Face", new String[] { "Normal" }, 0),
-                            new Ability("Fire Fang", new String[] { "Fire" }, 65)
-                    ));
-                } else if (level >= 9 && level < 13) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 40),
-                            new Ability("Ember", new String[] { "Fire" }, 40),
-                            new Ability("Smokescreen", new String[] { "Normal" }, 0),
-                            new Ability("Dragon Rage", new String[] { "Dragon" }, 40),
-                            new Ability("Scary Face", new String[] { "Normal" }, 0),
-                            new Ability("Fire Fang", new String[] { "Fire" }, 65),
-                            new Ability("Air Slash", new String[] { "Flying" }, 75)
-                    ));
-                } else if (level >= 13 ) {
+                if (level >= 17 ) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Scratch", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 40),
@@ -234,15 +178,7 @@ public class Ability {
                     ));
                 }
             case 8: // Wartortle
-                if (level >= 1 && level < 8) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Tail Whip", new String[] { "Normal" }, 0),
-                            new Ability("Water Gun", new String[] { "Water" }, 40),
-                            new Ability("Bite", new String[] { "Dark" }, 60),
-                            new Ability("Aqua Tail", new String[] { "Water" }, 90)
-                    ));
-                } else if (level >= 8 && level < 15) {
+                 if (level >= 8 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Tail Whip", new String[] { "Normal" }, 0),
@@ -263,17 +199,7 @@ public class Ability {
                     ));
                 }
             case 9: // Blastoise
-                if (level >= 1 && level < 8) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Tail Whip", new String[] { "Normal" }, 0),
-                            new Ability("Water Gun", new String[] { "Water" }, 40),
-                            new Ability("Bite", new String[] { "Dark" }, 60),
-                            new Ability("Aqua Tail", new String[] { "Water" }, 90),
-                            new Ability("Withdraw", new String[] { "Water" }, 0),
-                            new Ability("Skull Bash", new String[] { "Normal" }, 130)
-                    ));
-                } else if (level >= 8 && level < 15) {
+                if (level >= 8 && level < 16) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Tail Whip", new String[] { "Normal" }, 0),
@@ -317,13 +243,7 @@ public class Ability {
                     ));
                 }
             case 12: // Butterfree
-                if (level == 1) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Confusion", new String[] { "Psychic" }, 50),
-                            new Ability("Gust", new String[] { "Flying" }, 40),
-                            new Ability("Tackle", new String[] { "Normal" }, 40)
-                    ));
-                } else if (level >= 15 && level < 17) {
+                if (level >= 15 && level < 17) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Confusion", new String[] { "Psychic" }, 50),
                             new Ability("Gust", new String[] { "Flying" }, 40),
@@ -358,13 +278,7 @@ public class Ability {
                 }
 
             case 15: // Beedrill
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15),
-                            new Ability("String Shot", new String[] { "Bug" }, 0),
-                            new Ability("Fury Attack", new String[] { "Normal" }, 15)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Poison Sting", new String[] { "Poison" }, 15),
                             new Ability("String Shot", new String[] { "Bug" }, 0),
@@ -401,14 +315,7 @@ public class Ability {
                     ));
                 }
             case 17: // Pidgeotto
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Gust", new String[] { "Flying" }, 40),
-                            new Ability("Quick Attack", new String[] { "Normal" }, 40),
-                            new Ability("Whirlwind", new String[] { "Normal" }, 0)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Gust", new String[] { "Flying" }, 40),
@@ -427,26 +334,7 @@ public class Ability {
                     ));
                 }
             case 18: // Pidgeot
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Gust", new String[] { "Flying" }, 40),
-                            new Ability("Quick Attack", new String[] { "Normal" }, 40),
-                            new Ability("Whirlwind", new String[] { "Normal" }, 0),
-                            new Ability("Twister", new String[] { "Dragon" }, 40),
-                            new Ability("Feather Dance", new String[] { "Flying" }, 0)
-                    ));
-                } else if (level >= 7 && level < 13) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Gust", new String[] { "Flying" }, 40),
-                            new Ability("Quick Attack", new String[] { "Normal" }, 40),
-                            new Ability("Whirlwind", new String[] { "Normal" }, 0),
-                            new Ability("Twister", new String[] { "Dragon" }, 40),
-                            new Ability("Feather Dance", new String[] { "Flying" }, 0),
-                            new Ability("Agility", new String[] { "Psychic" }, 0)
-                    ));
-                } else if (level >= 13) {
+                if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Gust", new String[] { "Flying" }, 40),
@@ -479,14 +367,7 @@ public class Ability {
                     ));
                 }
             case 20: // Raticate
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Tail Whip", new String[] { "Normal" }, 0),
-                            new Ability("Quick Attack", new String[] { "Normal" }, 40),
-                            new Ability("Hyper Fang", new String[] { "Normal" }, 80)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Tackle", new String[] { "Normal" }, 40),
                             new Ability("Tail Whip", new String[] { "Normal" }, 0),
@@ -525,14 +406,7 @@ public class Ability {
                     ));
                 }
             case 22: // Fearow
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", new String[] { "Flying" }, 35),
-                            new Ability("Growl", new String[] { "Normal" }, 0),
-                            new Ability("Leer", new String[] { "Normal" }, 0),
-                            new Ability("Fury Attack", new String[] { "Normal" }, 15)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Peck", new String[] { "Flying" }, 35),
                             new Ability("Growl", new String[] { "Normal" }, 0),
@@ -571,14 +445,7 @@ public class Ability {
                     ));
                 }
             case 24: // Arbok
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Wrap", new String[] { "Normal" }, 15),
-                            new Ability("Leer", new String[] { "Normal" }, 0),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15),
-                            new Ability("Bite", new String[] { "Dark" }, 60)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Wrap", new String[] { "Normal" }, 15),
                             new Ability("Leer", new String[] { "Normal" }, 0),
@@ -646,14 +513,7 @@ public class Ability {
                     ));
                 }
             case 28: // Sandslash
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Defense Curl", new String[] { "Normal" }, 0),
-                            new Ability("Sand Attack", new String[] { "Ground" }, 0),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Scratch", new String[] { "Normal" }, 40),
                             new Ability("Defense Curl", new String[] { "Normal" }, 0),
@@ -692,14 +552,7 @@ public class Ability {
                     ));
                 }
             case 30: // Nidorina
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 0),
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Scratch", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 0),
@@ -718,26 +571,7 @@ public class Ability {
                     ));
                 }
             case 31: // Nidoqueen
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 0),
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15),
-                            new Ability("Bite", new String[] { "Dark" }, 60),
-                            new Ability("Fury Swipes", new String[] { "Normal" }, 18)
-                    ));
-                } else if (level >= 7 && level < 13) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 0),
-                            new Ability("Tackle", new String[] { "Normal" }, 40),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15),
-                            new Ability("Bite", new String[] { "Dark" }, 60),
-                            new Ability("Fury Swipes", new String[] { "Normal" }, 18),
-                            new Ability("Body Slam", new String[] { "Normal" }, 85)
-                    ));
-                } else if (level >= 13) {
+                if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Scratch", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 0),
@@ -770,14 +604,7 @@ public class Ability {
                     ));
                 }
             case 33: // Nidorino
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", new String[] { "Flying" }, 35),
-                            new Ability("Leer", new String[] { "Normal" }, 0),
-                            new Ability("Focus Energy", new String[] { "Normal" }, 0),
-                            new Ability("Horn Attack", new String[] { "Normal" }, 65)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Peck", new String[] { "Flying" }, 35),
                             new Ability("Leer", new String[] { "Normal" }, 0),
@@ -796,26 +623,7 @@ public class Ability {
                     ));
                 }
             case 34: // Nidoking
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", new String[] { "Flying" }, 35),
-                            new Ability("Leer", new String[] { "Normal" }, 0),
-                            new Ability("Focus Energy", new String[] { "Normal" }, 0),
-                            new Ability("Horn Attack", new String[] { "Normal" }, 65),
-                            new Ability("Double Kick", new String[] { "Fighting" }, 30),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15)
-                    ));
-                } else if (level >= 7 && level < 13) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", new String[] { "Flying" }, 35),
-                            new Ability("Leer", new String[] { "Normal" }, 0),
-                            new Ability("Focus Energy", new String[] { "Normal" }, 0),
-                            new Ability("Horn Attack", new String[] { "Normal" }, 65),
-                            new Ability("Double Kick", new String[] { "Fighting" }, 30),
-                            new Ability("Poison Sting", new String[] { "Poison" }, 15),
-                            new Ability("Thrash", new String[] { "Normal" }, 120)
-                    ));
-                } else if (level >= 13) {
+                if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Peck", new String[] { "Flying" }, 35),
                             new Ability("Leer", new String[] { "Normal" }, 0),
@@ -848,14 +656,7 @@ public class Ability {
                     ));
                 }
             case 36: // Clefable
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", new String[] { "Normal" }, 40),
-                            new Ability("Growl", new String[] { "Normal" }, 0),
-                            new Ability("Sing", new String[] { "Normal" }, 0),
-                            new Ability("Double Slap", new String[] { "Normal" }, 15)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Pound", new String[] { "Normal" }, 40),
                             new Ability("Growl", new String[] { "Normal" }, 0),
@@ -894,14 +695,7 @@ public class Ability {
                     ));
                 }
             case 38: // Ninetales
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Ember", new String[] { "Fire" }, 40),
-                            new Ability("Tail Whip", new String[] { "Normal" }, 0),
-                            new Ability("Quick Attack", new String[] { "Normal" }, 40),
-                            new Ability("Will-O-Wisp", new String[] { "Fire" }, 0)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Ember", new String[] { "Fire" }, 40),
                             new Ability("Tail Whip", new String[] { "Normal" }, 0),
@@ -940,14 +734,7 @@ public class Ability {
                     ));
                 }
             case 40: // Wigglytuff
-                if (level >= 1 && level < 7) {
-                    return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", new String[] { "Normal" }, 40),
-                            new Ability("Sing", new String[] { "Normal" }, 0),
-                            new Ability("Disable", new String[] { "Normal" }, 0),
-                            new Ability("Defense Curl", new String[] { "Normal" }, 0)
-                    ));
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Pound", new String[] { "Normal" }, 40),
                             new Ability("Sing", new String[] { "Normal" }, 0),
@@ -986,16 +773,7 @@ public class Ability {
                     ));
                 }
             case 42: // Golbat
-                if (level >= 1 && level < 7) {
-                    {
-                        return new ArrayList<Ability> (Arrays.asList(
-                                new Ability("Leech Life", new String[] { "Bug" }, 20),
-                                new Ability("Supersonic", new String[] { "Normal" }, 0),
-                                new Ability("Astonish", new String[] { "Ghost" }, 30),
-                                new Ability("Bite", new String[] { "Dark" }, 60)
-                        ));
-                    }
-                } else if (level >= 7 && level < 13) {
+                if (level >= 7 && level <= 14) {
                     return new ArrayList<Ability> (Arrays.asList(
                             new Ability("Leech Life", new String[] { "Bug" }, 20),
                             new Ability("Supersonic", new String[] { "Normal" }, 0),

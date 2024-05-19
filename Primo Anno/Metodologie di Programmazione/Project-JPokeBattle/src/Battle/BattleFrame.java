@@ -9,8 +9,8 @@ import Shared.*;
 
 public class BattleFrame extends JFrame {
     private JFrame frame;
-    private JProgressBar playerHealthBar;
-    private JProgressBar npcHealthBar;
+    private static JProgressBar playerHealthBar;
+    private static JProgressBar npcHealthBar;
 
     public BattleFrame(Coach player, Coach npc) throws IOException, URISyntaxException {
 
@@ -98,8 +98,9 @@ public class BattleFrame extends JFrame {
             // Aggiungo un ascoltatore per l'effetto pointer
             abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+            final int index = i;
             abilityButton.addActionListener(e -> {
-                System.out.println("Ability selected: " + abilityButton.getText());
+                BattleLogic.decreaseHpNpc(npc, player.getTeam().getPokemon(0).getAbilities().get(index).getStrength());
             });
 
             abilityPanel.add(abilityButton);
@@ -132,12 +133,12 @@ public class BattleFrame extends JFrame {
     }
 
     // Aggiorna la barra della salute del giocatore
-    public void updatePlayerHealthBar(int currentHp) {
+    public static void updatePlayerHealthBar(int currentHp) {
         playerHealthBar.setValue(currentHp);
     }
 
     // Aggiorna la barra della salute del NPC
-    public void updateNPCHealthBar(int currentHp) {
+    public static void updateNPCHealthBar(int currentHp) {
         npcHealthBar.setValue(currentHp);
     }
 }
