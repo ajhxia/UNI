@@ -86,7 +86,7 @@ public class InfoRecap extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    BattleFrame battleFrame = new BattleFrame(player, Npc.createNpc(1));
+                    new BattleFrame(player, Npc.createNpc(1));
                     dispose();
                    
                 } catch (IOException | URISyntaxException e1) {

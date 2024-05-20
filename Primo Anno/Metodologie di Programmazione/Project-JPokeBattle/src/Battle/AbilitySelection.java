@@ -84,7 +84,7 @@ public class AbilitySelection extends JFrame {
                 while (pokemon.getAbilities().size() > 4) {
                     pokemon.removeAbility(4);
                 }
-                BattleFrame battleFrame = new BattleFrame(player, npc);
+                new BattleFrame(player, npc);
                 frame.dispose();
             } catch (IOException | URISyntaxException e1) {
                 e1.printStackTrace();
