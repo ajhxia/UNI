@@ -26,7 +26,7 @@ public class ChangePokemonFrame extends JFrame {
         label.setBounds(50, 10, 300, 30);
         panel.add(label);
 
-        for (int i = 0; i < player.getTeam().getPlayerTeam().size(); i++) {
+        for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
             final int index = i;
             JButton button = new JButton(player.getTeam().getPokemon(index).getName());
             button.setBounds(100, 50 + (index * 40), 200, 30);
@@ -42,10 +42,11 @@ public class ChangePokemonFrame extends JFrame {
             ));
             button.setFocusPainted(false);
             button.addActionListener(e -> {
-                BattleLogic.currentPokemonPlayer = player.getTeam().getPokemon(index);
+                player.setPokemonInUse(player.getTeam(), player.getTeam().getPokemon(index));
                 dispose();
                 try {
                     battleFrame.updatePokemonDisplayPlayer(player, npc);
+                    System.out.println(player.getPokemonInUse(player.getTeam()).getName());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

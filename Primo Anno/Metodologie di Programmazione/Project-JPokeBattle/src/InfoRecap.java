@@ -22,9 +22,9 @@ public class InfoRecap extends JFrame {
         panel.setLayout(new BorderLayout()); // Utilizza BorderLayout per il pannello principale
 
         JPanel teamPanel = new JPanel();
-        teamPanel.setLayout(new GridLayout(player.getTeam().getPlayerTeam().size(), 1));
+        teamPanel.setLayout(new GridLayout(player.getTeam().getListPokemon().size(), 1));
 
-        for (int i = 0; i < player.getTeam().getPlayerTeam().size(); i++) {
+        for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
             JPanel pokemonPanel = new JPanel();
             pokemonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -48,7 +48,7 @@ public class InfoRecap extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
                         // dall'ActionCommand
-                        player.getTeam().getPlayerTeam().remove(indexToRemove);
+                        player.getTeam().getListPokemon().remove(indexToRemove);
                         Pokedex pokedex = new Pokedex(player);
                         try {
                             Pokedex.updateTeamPanel();

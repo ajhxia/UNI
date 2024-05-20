@@ -24,6 +24,11 @@ public class BattleFrame extends JFrame {
 
     private JFrame frame;
 
+    public void setPokeInUse(Coach player, Coach npc, int index) {
+        player.getTeam().getPokemon(index).setInUse(true);
+        npc.getTeam().getPokemon(index).setInUse(true);
+    }
+
     public BattleFrame(Coach player, Coach npc) throws IOException, URISyntaxException {
 
         frame = new JFrame("Battle");
@@ -35,7 +40,7 @@ public class BattleFrame extends JFrame {
         abilityPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 righe, 4 colonne, gap di 10 pixel
         abilityPanel.setBounds(50, 375, 750, 100);
         abilityPanel.setOpaque(false); // Imposta lo sfondo trasparente
-        // Initialize health bars before adding them to the frame
+        
         initialize(player, npc);
 
         // Carica l'immagine di sfondo
@@ -45,33 +50,33 @@ public class BattleFrame extends JFrame {
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 850, 500));
         backgroundLabel.setBounds(0, 0, 850, 500);
 
-        pokePlayer = new JLabel(BattleLogic.currentPokemonPlayer.getName());
+        pokePlayer = new JLabel(player.getPokemonInUse(player.getTeam()).getName());
         pokePlayer.setBounds(530, 210, 200, 100);
         pokePlayer.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(pokePlayer);
 
-        pokeNpc = new JLabel(BattleLogic.currentPokemonNpc.getName());
+        pokeNpc = new JLabel(npc.getPokemonInUse(npc.getTeam()).getName());
         pokeNpc.setBounds(95, 30, 200, 100);
         pokeNpc.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(pokeNpc);
 
-        lvlPlayer = new JLabel(String.valueOf(BattleLogic.currentPokemonPlayer.getLvl()));
+        lvlPlayer = new JLabel(String.valueOf(player.getPokemonInUse(player.getTeam()).getLvl()));
         lvlPlayer.setBounds(750, 210, 100, 100);
         lvlPlayer.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(lvlPlayer);
 
-        lvlNpc = new JLabel(String.valueOf(BattleLogic.currentPokemonNpc.getLvl()));
+        lvlNpc = new JLabel(String.valueOf(npc.getPokemonInUse(npc.getTeam()).getLvl()));
         lvlNpc.setBounds(317, 30, 100, 100);
         lvlNpc.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(lvlNpc);
 
         ImageIcon imagePokePlayer = ImageUtility
-                .loadImage(new URI(BattleLogic.currentPokemonPlayer.getSprite().getBack()));
+                .loadImage(new URI(player.getPokemonInUse(player.getTeam()).getSprite().getBack()));
         imageLabelPlayer = new JLabel(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
         imageLabelPlayer.setBounds(100, 175, 200, 200);
         backgroundLabel.add(imageLabelPlayer);
 
-        ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(BattleLogic.currentPokemonNpc.getSprite().getFront()));
+        ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse(npc.getTeam()).getSprite().getFront()));
         imageLabelNpc = new JLabel(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
         imageLabelNpc.setBounds(550, 50, 200, 200);
         backgroundLabel.add(imageLabelNpc);
@@ -80,8 +85,8 @@ public class BattleFrame extends JFrame {
         backgroundLabel.add(playerHealthBar);
         backgroundLabel.add(npcHealthBar);
 
-        for (int i = 0; i < BattleLogic.currentPokemonPlayer.getAbilities().size(); i++) {
-            JButton abilityButton = createAbilityButton(BattleLogic.currentPokemonPlayer.getAbilities().get(i).getName(), i, npc);
+        for (int i = 0; i < player.getPokemonInUse(player.getTeam()).getAbilities().size(); i++) {
+            JButton abilityButton = createAbilityButton(player, i, npc);
             abilityPanel.add(abilityButton);
         }
 
@@ -99,6 +104,9 @@ public class BattleFrame extends JFrame {
     }
 
     private void initialize(Coach player, Coach npc) {
+
+        setPokeInUse(player, npc, 0);
+
         playerHealthBar = new JProgressBar(0, player.getTeam().getPokemon(0).getStats().getHp());
         playerHealthBar.setValue( player.getTeam().getPokemon(0).getStats().getHp());
         playerHealthBar.setStringPainted(true);
@@ -115,15 +123,15 @@ public class BattleFrame extends JFrame {
 
         if (this.startBattle == false) {
             System.out.println("Start Battle");
-            BattleLogic.currentPokemonPlayer = player.getTeam().getPokemon(0);
-            BattleLogic.currentPokemonNpc = npc.getTeam().getPokemon(0);
+            player.getTeam().getPokemon(0).setInUse(true);
+            npc.getTeam().getPokemon(0).setInUse(true);
             BattleLogic.whoStart(player, npc);
             this.startBattle = true; // Update startBattle to true
         }
     }
 
-    private JButton createAbilityButton(String name, int index, Coach npc) {
-        JButton abilityButton = new JButton(name);
+    private JButton createAbilityButton(Coach player, int index, Coach npc) {
+        JButton abilityButton = new JButton(player.getPokemonInUse(player.getTeam()).getAbilities().get(index).getName());
         abilityButton.setFont(PixelFont.myCustomFont);
         abilityButton.setForeground(Color.WHITE);
         abilityButton.setOpaque(false);
@@ -138,7 +146,7 @@ public class BattleFrame extends JFrame {
         abilityButton.setBounds(70, 65, 350, 40);
         abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         abilityButton.addActionListener(e -> {
-            BattleLogic.decreaseHpNpc(npc, BattleLogic.currentPokemonPlayer.getAbilities().get(index).getStrength());
+            BattleLogic.decreaseHpNpc(npc, player.getPokemonInUse(player.getTeam()).getAbilities().get(index).getStrength(), player.getPokemonInUse(player.getTeam()).getAbilities().get(index).getTypo());
         });
         return abilityButton;
     }
@@ -176,58 +184,26 @@ public class BattleFrame extends JFrame {
 
     public void updatePokemonDisplayPlayer(Coach player, Coach npc) throws IOException {
         // Update Pokémon name and level
-        pokePlayer.setText(BattleLogic.currentPokemonPlayer.getName());
-        lvlPlayer.setText(String.valueOf(BattleLogic.currentPokemonPlayer.getLvl()));
+        pokePlayer.setText(player.getPokemonInUse(player.getTeam()).getName());
+        lvlPlayer.setText(String.valueOf(player.getPokemonInUse(player.getTeam()).getLvl()));
 
         // Update Pokémon image
         try {
-            ImageIcon imagePokePlayer = ImageUtility.loadImage(new URI(BattleLogic.currentPokemonPlayer.getSprite().getBack()));
+            ImageIcon imagePokePlayer = ImageUtility.loadImage(new URI(player.getPokemonInUse(player.getTeam()).getSprite().getBack()));
             imageLabelPlayer.setIcon(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
         // Update health bar
-        playerHealthBar.setMaximum(BattleLogic.currentPokemonPlayer.getStats().getHp());
-        playerHealthBar.setValue(BattleLogic.currentPokemonPlayer.getStats().getHp());
+        playerHealthBar.setMaximum(player.getPokemonInUse(player.getTeam()).getStats().getHp());
+        playerHealthBar.setValue(player.getPokemonInUse(player.getTeam()).getStats().getHp());
 
         // Refresh ability buttons
         abilityPanel.removeAll();
 
-        for (int i = 0; i < BattleLogic.currentPokemonPlayer.getAbilities().size(); i++) {
-            JButton abilityButton = createAbilityButton(BattleLogic.currentPokemonPlayer.getAbilities().get(i).getName(), i, npc);
-            abilityPanel.add(abilityButton);
-        }
-
-        JButton changePoke = createChangePokemonButton(player, npc);
-        abilityPanel.add(changePoke);
-
-        abilityPanel.revalidate();
-        abilityPanel.repaint();
-    }
-
-    public void updatePokemonDisplayNpc(Coach npc, Coach player) throws IOException {
-        // Update Pokémon name and level
-        pokeNpc.setText(BattleLogic.currentPokemonNpc.getName());
-        lvlNpc.setText(String.valueOf(BattleLogic.currentPokemonNpc.getLvl()));
-
-        // Update Pokémon image
-        try {
-            ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(BattleLogic.currentPokemonNpc.getSprite().getBack()));
-            imageLabelPlayer.setIcon(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        // Update health bar
-        npcHealthBar.setMaximum(BattleLogic.currentPokemonNpc.getStats().getHp());
-        npcHealthBar.setValue(BattleLogic.currentPokemonNpc.getStats().getHp());
-
-        // Refresh ability buttons
-        abilityPanel.removeAll();
-
-        for (int i = 0; i < BattleLogic.currentPokemonNpc.getAbilities().size(); i++) {
-            JButton abilityButton = createAbilityButton(BattleLogic.currentPokemonNpc.getAbilities().get(i).getName(), i, npc);
+        for (int i = 0; i < player.getPokemonInUse(player.getTeam()).getAbilities().size(); i++) {
+            JButton abilityButton = createAbilityButton(player, i, npc);
             abilityPanel.add(abilityButton);
         }
 

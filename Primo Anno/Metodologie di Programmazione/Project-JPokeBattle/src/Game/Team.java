@@ -49,7 +49,7 @@ public class Team {
         this.teamMaxSize = maxSize;
     }
 
-    public ArrayList<Pokemon> getPlayerTeam() {
+    public ArrayList<Pokemon> getListPokemon() {
         return playerTeam;
     }
 

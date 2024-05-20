@@ -80,8 +80,8 @@ public class InfoPokemon extends JPanel {
         buttonAdd.setActionCommand("add");
         buttonAdd.addActionListener(e -> {
             Team team = player.getTeam();
-            if (team.getPlayerTeam().size() < 6) {
-                if (team.getPlayerTeam().contains(pokemon)) {
+            if (team.getListPokemon().size() < 6) {
+                if (team.getListPokemon().contains(pokemon)) {
                     JOptionPane.showMessageDialog(null, "Pokemon already in team.");
                 }else{
                     team.addPokemon(pokemon);

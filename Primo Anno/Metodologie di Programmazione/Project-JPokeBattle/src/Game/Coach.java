@@ -1,5 +1,7 @@
 package Game;
 
+import Pokemon.Pokemon;
+
 /*
  * Coach class
 */
@@ -15,7 +17,7 @@ public class Coach {
         this.gender = gender;
         this.team = teamIn;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -44,8 +46,24 @@ public class Coach {
         this.age = age;
     }
 
-    public void setGender(String gender){
+    public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Pokemon getPokemonInUse(Team team) {
+        for (Pokemon pokemon : team.getListPokemon()) {
+            if (pokemon.isInUse()) {
+                return pokemon;
+            }
+        }
+        return null;
+    }
+
+    public void setPokemonInUse(Team team, Pokemon pokemon) {
+        for (Pokemon poke : team.getListPokemon()) {
+            poke.setInUse(false);
+        }
+        pokemon.setInUse(true);
     }
 
 }

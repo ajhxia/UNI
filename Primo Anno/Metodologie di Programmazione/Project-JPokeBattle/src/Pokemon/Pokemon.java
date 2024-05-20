@@ -1,7 +1,6 @@
 package Pokemon;
 
 import java.util.ArrayList;
-
 /*
  * Questa classe rappresenta un pokemon con le sue caratteristiche
  * Ogni pokemon ha un nome, delle abilità, delle statistiche, dei tipi, un'esperienza base, uno sprite, un livello e delle evoluzioni
@@ -18,8 +17,9 @@ public class Pokemon {
     private int lvl;
     private int lvlEvoluzione;
     private Pokemon[] evolutions;
+    private boolean inUse;
 
-    public Pokemon(String name, ArrayList<Ability> abilities, String startIn, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, int lvlEvoluzione, Pokemon[] evolutions) {
+    public Pokemon(String name, ArrayList<Ability> abilities, String startIn, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, int lvlEvoluzione, Pokemon[] evolutions, boolean inUse) {
         this.name = name;
         this.start = startIn;
         this.abilities = abilities;
@@ -30,6 +30,7 @@ public class Pokemon {
         this.lvl = lvl;
         this.lvlEvoluzione = lvlEvoluzione;
         this.evolutions = evolutions;
+        this.inUse = inUse;
     }
 
     public String getName() {
@@ -105,5 +106,12 @@ public class Pokemon {
         return evolutions;
     }
 
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
+    }
 
 }

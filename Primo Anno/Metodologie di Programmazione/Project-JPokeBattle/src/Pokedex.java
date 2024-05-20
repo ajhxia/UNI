@@ -61,7 +61,7 @@ public class Pokedex extends JPanel implements ActionListener {
         JButton confirm = new JButton("Confirm Team");
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
-            if (player.getTeam().getPlayerTeam().size() == 6) {
+            if (player.getTeam().getListPokemon().size() == 6) {
                 InfoRecap infoRecap = new InfoRecap(player);
                 infoRecap.setVisible(true);
                 pokedexFrame.dispose();
@@ -168,7 +168,7 @@ public class Pokedex extends JPanel implements ActionListener {
 
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del titolo
-        int numPokemon = player.getTeam().getPlayerTeam().size();
+        int numPokemon = player.getTeam().getListPokemon().size();
         titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
     
@@ -178,7 +178,7 @@ public class Pokedex extends JPanel implements ActionListener {
         teamPanel.add(Box.createVerticalStrut(5)); // Spazio tra il titolo e i Pokémon
     
         int i = 0;
-        for (Pokemon pokemon : player.getTeam().getPlayerTeam()) {
+        for (Pokemon pokemon : player.getTeam().getListPokemon()) {
     
             JPanel pokemonInfoPanel = new JPanel();
             pokemonInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // orizzontalmente
