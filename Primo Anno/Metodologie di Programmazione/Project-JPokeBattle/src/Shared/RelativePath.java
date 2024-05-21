@@ -25,7 +25,7 @@ public class RelativePath {
         String classDirectory = classFile.getParent();
         
         // Rimuovi la barra iniziale se presente
-        if (relativePath.startsWith("\\")) {
+        if (relativePath.startsWith("/")) {
             relativePath = relativePath.substring(1);
         }
         

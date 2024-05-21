@@ -42,11 +42,11 @@ public class ChangePokemonFrame extends JFrame {
             ));
             button.setFocusPainted(false);
             button.addActionListener(e -> {
-                player.setPokemonInUse(player.getTeam(), player.getTeam().getPokemon(index));
+                player.setPokemonInUse(player.getTeam().getPokemon(index));
                 dispose();
                 try {
                     battleFrame.updatePokemonDisplayPlayer(player, npc);
-                    System.out.println(player.getPokemonInUse(player.getTeam()).getName());
+                    System.out.println(player.getPokemonInUse().getName());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

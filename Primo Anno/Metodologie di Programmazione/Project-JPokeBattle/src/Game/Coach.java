@@ -50,8 +50,8 @@ public class Coach {
         this.gender = gender;
     }
 
-    public Pokemon getPokemonInUse(Team team) {
-        for (Pokemon pokemon : team.getListPokemon()) {
+    public Pokemon getPokemonInUse() {
+        for (Pokemon pokemon : this.team.getListPokemon()) {
             if (pokemon.isInUse()) {
                 return pokemon;
             }
@@ -59,8 +59,8 @@ public class Coach {
         return null;
     }
 
-    public void setPokemonInUse(Team team, Pokemon pokemon) {
-        for (Pokemon poke : team.getListPokemon()) {
+    public void setPokemonInUse(Pokemon pokemon) {
+        for (Pokemon poke : this.team.getListPokemon()) {
             poke.setInUse(false);
         }
         pokemon.setInUse(true);

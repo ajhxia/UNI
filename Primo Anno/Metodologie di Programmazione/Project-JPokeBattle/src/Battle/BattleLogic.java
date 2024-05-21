@@ -14,119 +14,119 @@ public class BattleLogic {
 /*TODO: implementare correttamente il danno inflitto in base al tipo e tenendo conto della resistenza */
     public static float typeEffects(int damage, Coach npc, String[] types) {
         if( types[0] == "fire") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("water")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("water")) {
                 return damage * 0.5f;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("grass")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("grass")) {
                 return damage * 2;
             } else {
                 return damage;
             }
         } else if (types[0] == "water") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("grass")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("grass")) {
                 return damage * 0.5f;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("fire")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("fire")) {
                 return damage * 2;
             } else {
                 return damage;
             }
         } else if (types[0] == "grass") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("fire")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("fire")) {
                 return damage * 0.5f;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("water")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("water")) {
                 return damage * 2;
             } else {
                 return damage;
             }
         } else if(types[0] == "electric" ) {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("water")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("water")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("grass")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("grass")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "normal") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("ghost")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("ghost")) {
                 return damage * 0;
-            } else if(Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("rock")) {
+            } else if(Arrays.asList(npc.getPokemonInUse().getTypes()).contains("rock")) {
                 return damage / 2;
             } else {
                 return damage;
             }
         } else if(types[0] == "fighting") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("normal")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("normal")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("flying")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("flying")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "flying") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("fighting")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("fighting")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("electric")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("electric")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "poison") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("grass")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("grass")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("poison")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("poison")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "ground") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("poison")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("poison")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("electric")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("electric")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "rock") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("flying")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("flying")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("fire")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("fire")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "bug") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("grass")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("grass")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("poison")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("poison")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "ghost") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("ghost")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("ghost")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("psychic")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("psychic")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "dragon"){
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("dragon")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("dragon")) {
                 return damage * 2;
             } else {
                 return damage;
             }
         } else if(types[0] == "psychic") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("fighting")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("fighting")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("poison")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("poison")) {
                 return damage * 0.5f;
             } else {
                 return damage;
             }
         } else if(types[0] == "ice") {
-            if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("grass")) {
+            if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("grass")) {
                 return damage * 2;
-            } else if (Arrays.asList(npc.getPokemonInUse(npc.getTeam()).getTypes()).contains("fire")) {
+            } else if (Arrays.asList(npc.getPokemonInUse().getTypes()).contains("fire")) {
                 return damage * 0.5f;
             } else {
                 return damage;
@@ -141,12 +141,12 @@ public class BattleLogic {
 
 
     public static void decreaseHpNpc(Coach npc, int damage, String[] types) {
-        if (npc.getPokemonInUse(npc.getTeam()).getStats().getHp() - damage <= 0) {
+        if (npc.getPokemonInUse().getStats().getHp() - damage <= 0) {
 
         } else {
             float damageCalculated = typeEffects(damage, npc, types);
-            int dmg = (int) (npc.getPokemonInUse(npc.getTeam()).getStats().getHp() - damageCalculated);
-            npc.getPokemonInUse(npc.getTeam()).getStats().setHp(dmg); 
+            int dmg = (int) (npc.getPokemonInUse().getStats().getHp() - damageCalculated);
+            npc.getPokemonInUse().getStats().setHp(dmg); 
         }
 
         BattleFrame.updateNPCHealthBar(npc.getTeam().getPokemon(0).getStats().getHp());
