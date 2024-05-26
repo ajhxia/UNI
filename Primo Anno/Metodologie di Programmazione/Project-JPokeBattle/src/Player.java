@@ -4,7 +4,9 @@ import Game.Coach;
 import Game.Team;
 import Pokemon.Pokemon;
 import Shared.PixelFont;
-import java.awt.*;
+import Shared.Style;
+
+import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -17,46 +19,48 @@ public class Player extends JFrame {
 
     public Player() {
         setTitle("Create a character");
-        setSize(300, 200);
-        setLayout(new BorderLayout()); // Utilizza BorderLayout come layout manager
+        setSize(300, 300);
+        setLayout(null); // Utilizza un layout nullo
 
-        JPanel fieldsPanel = new JPanel(new GridLayout(3, 2, 5, 5)); // JPanel per contenere i campi di testo e le etichette
-        fieldsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Aggiungi un bordo vuoto per spaziatura
+        JPanel fieldsPanel = new JPanel();
+        fieldsPanel.setLayout(null);
+        fieldsPanel.setBounds(10, 10, 280, 180); // Imposta posizione e dimensioni del pannello
 
         JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setFont(PixelFont.myCustomFont);
+        nameLabel.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        nameLabel.setBounds(10, 10, 60, 30); // Posizione e dimensioni dell'etichetta
         fieldsPanel.add(nameLabel);
 
-        nameField = new JTextField(10);
-        nameField.setFont(PixelFont.myCustomFont);
-        nameField.setPreferredSize(new Dimension(150, 30));
+        nameField = new JTextField();
+        nameField.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        nameField.setBounds(100, 10, 150, 30); // Posizione e dimensioni del campo di testo
         fieldsPanel.add(nameField);
 
         JLabel ageLabel = new JLabel("Age:");
-        ageLabel.setFont(PixelFont.myCustomFont);   
+        ageLabel.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        ageLabel.setBounds(10, 50, 60, 30); // Posizione e dimensioni dell'etichetta
         fieldsPanel.add(ageLabel);
 
-        ageField = new JTextField(10);
-        ageField.setFont(PixelFont.myCustomFont);
-        ageField.setPreferredSize(new Dimension(150, 30));
+        ageField = new JTextField();
+        ageField.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        ageField.setBounds(100, 50, 150, 30); // Posizione e dimensioni del campo di testo
         fieldsPanel.add(ageField);
 
         JLabel genderLabel = new JLabel("Gender:");
-        genderLabel.setFont(PixelFont.myCustomFont);
+        genderLabel.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        genderLabel.setBounds(10, 90, 100, 30); // Posizione e dimensioni dell'etichetta
         fieldsPanel.add(genderLabel);
 
-        String[] genders = {"Male", "Female", "Other"};
+        String[] genders = {" Male", " Female", " Other"};
         genderComboBox = new JComboBox<>(genders);
-        genderComboBox.setBackground(Color.WHITE);
-        genderComboBox.setFont(PixelFont.myCustomFont);
+        genderComboBox.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        genderComboBox.setBounds(100, 90, 150, 30); // Posizione e dimensioni del combobox
         fieldsPanel.add(genderComboBox);
 
-        add(fieldsPanel, BorderLayout.CENTER); // Aggiungi il pannello dei campi al centro
+        add(fieldsPanel);
 
-        JButton createButton = new JButton("Create");
-        createButton.setFont(PixelFont.myCustomFont);
-        createButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        createButton.setBackground(Color.WHITE);
+        JButton createButton = Style.createButton(Color.BLACK, "Create", 12, 50,200, 200, 30);
+       
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
@@ -86,15 +90,9 @@ public class Player extends JFrame {
                 Pokedex pokedex = new Pokedex(player);
                 pokedex.setVisible(true);
                 setVisible(false);
-
             }
         });
-        createButton.setMargin(new Insets(10, 20, 10, 20));
-        createButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-        createButton.setContentAreaFilled(false);
-        add(createButton, BorderLayout.SOUTH); // Aggiungi il pulsante alla parte inferiore
+        add(createButton);
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -76,7 +76,7 @@ public class InfoPokemon extends JPanel {
         spAtk.setFont(PixelFont.myCustomFont.deriveFont(12f));
         spAtk.setBounds(315, 310, 200, 50);
 
-        JButton buttonAdd = new JButton("Add to team");
+        JButton buttonAdd = Style.createButton(Color.BLACK, "Add to team", 12, 70, 277, 200, 50);
         buttonAdd.setActionCommand("add");
         buttonAdd.addActionListener(e -> {
             Team team = player.getTeam();
@@ -99,16 +99,6 @@ public class InfoPokemon extends JPanel {
                 JOptionPane.showMessageDialog(null, "You can't have more than 6 Pokémon in your team.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        buttonAdd.setBounds(70, 277, 200, 50);
-        buttonAdd.setFont(PixelFont.myCustomFont);
-        buttonAdd.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
-        buttonAdd.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cambia il cursore al passaggio del mouse
-        buttonAdd.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
-        buttonAdd.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
-        ));
-        buttonAdd.setContentAreaFilled(false); // Rimuove il colore di sfondo
 
         // Imposta le dimensioni del pannello alle dimensioni dell'immagine di sfondo
         setPreferredSize(new Dimension(backgroundImage.getIconWidth(), backgroundImage.getIconHeight()));

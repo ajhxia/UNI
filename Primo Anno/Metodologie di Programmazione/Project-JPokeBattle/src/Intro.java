@@ -3,10 +3,10 @@ import javax.swing.*;
 import Shared.ImageUtility;
 import Shared.PixelFont;
 import Shared.RelativePath;
+import Shared.Style;
+
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.*;
 
 /*
@@ -50,26 +50,11 @@ public class Intro extends JFrame implements ActionListener {
         // Create a new ImageIcon from the resized image
         ImageIcon resizedIcon = new ImageIcon(resizedImage);
         JLabel arrowLabel = new JLabel(resizedIcon);
-        arrowLabel.setBounds(20, 70, 40, 40);
+        arrowLabel.setBounds(20, 65, 40, 40);
 
         // creazione del bottone e posizionamento
-        JButton button = new JButton("Start Game");
-        button.setFont(PixelFont.myCustomFont);
-        button.setForeground(Color.WHITE); // Imposta il colore del testo
-        button.setOpaque(false); // Rende il bottone trasparente
-        button.setContentAreaFilled(false); // Rende trasparente l'area di contenuto del bottone
-        button.setBorder(BorderFactory.createLineBorder(Color.white, 2)); // Imposta il bordo
-        button.setMargin(new Insets(10, 20, 10, 20)); // Imposta il padding (top, left, bottom, right)
-        button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.white, 2),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20) // Imposta il padding all'interno del bordo
-        ));
-        button.setFocusPainted(false); // Rimuove l'effetto focus per migliorare l'aspetto
-        button.setBounds(70, 65, 200, 40); // Posiziona il bottone
-
-        // Aggiungo un ascoltatore per l'effetto pointer
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+        JButton button = Style.createButton(Color.WHITE, "Start a New Game", 14, 70, 65, 280, 40);
+    
         // Aggiungo l'azione di ascolto al bottone
         button.setActionCommand("start");
         button.addActionListener(this);

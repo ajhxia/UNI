@@ -6,6 +6,7 @@ import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
+import Shared.Style;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,13 +30,13 @@ public class Pokedex extends JPanel implements ActionListener {
         player = playerIn;
         pokedexFrame = new JFrame("Pokédex of " + player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pokedexFrame.setSize(1100, 800); // Ampliato il pokedexFrame per accomodare il nuovo pannello
+        pokedexFrame.setSize(1100, 830);
     
-        // Utilizzo BorderLayout per il pannello principale
-        this.setLayout(new BorderLayout());
+        this.setLayout(null); // Utilizza un layout nullo per la personalizzazione
     
         // Creo un pannello per i bottoni dei Pokémon
         JPanel pokemonPanel = new JPanel(new GridLayout(4, 4));
+        pokemonPanel.setBounds(400, 0, 700, 750); // Posiziona il pannello pokemonPanel
     
         // Aggiungo i bottoni con le immagini dei Pokémon al pannello pokemonPanel
         for (int i = 0; i < initialPokemonList.size(); i++) {
@@ -51,14 +52,32 @@ public class Pokedex extends JPanel implements ActionListener {
             pokemonPanel.add(button);
         }
     
-        // Aggiungo il pannello pokemonPanel nella parte centrale del layout
-        this.add(pokemonPanel, BorderLayout.CENTER);
+        // Aggiungo il pannello pokemonPanel al layout nullo
+        this.add(pokemonPanel);
     
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        topPanel.setPreferredSize(new Dimension(1100, 50)); // Ampliato il pannello superiore per accomodare il nuovo
+        // Creo il pannello per i Pokémon in squadra
+        teamPanel = new JPanel();
+        int spessoreBordo = 2; // Puoi regolare questo valore secondo le tue preferenze
+        Border bordoPersonalizzato = BorderFactory.createLineBorder(Color.RED, spessoreBordo);
     
-        // Aggiungo il bottone "Conferma" al pannello
-        JButton confirm = new JButton("Confirm Team");
+        teamPanel.setLayout(new BoxLayout(teamPanel, BoxLayout.Y_AXIS));
+        teamPanel.setBorder(bordoPersonalizzato);
+        teamPanel.setBounds(20, 20, 350, 700); // Posiziona il pannello teamPanel
+    
+        // Inizializza titleLabel
+        titleLabel = new JLabel();
+        titleLabel.setFont(PixelFont.myCustomFont);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0)); // Add top margin
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        teamPanel.add(titleLabel); // Aggiunge il titolo al pannello principale
+        teamPanel.add(Box.createVerticalStrut(5)); // Spazio tra il titolo e i Pokémon
+    
+        this.add(teamPanel);
+    
+        updateTitle();
+    
+        // Aggiungo il bottone "Conferma" al layout nullo
+        JButton confirm = Style.createButton(Color.BLACK, "Confirm", 14, 20, 730, 350, 50);
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
             if (player.getTeam().getListPokemon().size() == 6) {
@@ -70,40 +89,8 @@ public class Pokedex extends JPanel implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-        confirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        confirm.setFont(PixelFont.myCustomFont);
-        confirm.setMargin(new Insets(10, 20, 10, 20));
-        confirm.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-        confirm.setContentAreaFilled(false);
-        topPanel.add(confirm);
+        this.add(confirm);
     
-        // Aggiungo il pannello dei titoli e del bottone "Conferma" al frame
-        pokedexFrame.add(topPanel, BorderLayout.NORTH);
-    
-        // Creo il pannello per i Pokémon in squadra
-        teamPanel = new JPanel();
-        int spessoreBordo = 2; // Puoi regolare questo valore secondo le tue preferenze
-        Border bordoPersonalizzato = BorderFactory.createLineBorder(Color.RED, spessoreBordo);
-        
-        teamPanel.setLayout(new BoxLayout(teamPanel, BoxLayout.Y_AXIS));
-        teamPanel.setBorder(bordoPersonalizzato);
-        teamPanel.setPreferredSize(new Dimension(350, 0)); // Imposta solo la larghezza specificata
-    
-        // Inizializza titleLabel
-        titleLabel = new JLabel();
-        titleLabel.setFont(PixelFont.myCustomFont);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0)); // Add top margin
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        teamPanel.add(titleLabel); // Aggiunge il titolo al pannello principale
-        teamPanel.add(Box.createVerticalStrut(5)); // Spazio tra il titolo e i Pokémon
-    
-        this.add(teamPanel, BorderLayout.EAST);
-    
-        updateTitle();
-    
-        // Aggiungo il pokedexFrame al pannello
         pokedexFrame.add(this);
         pokedexFrame.setVisible(true);
         pokedexFrame.setLocationRelativeTo(null);

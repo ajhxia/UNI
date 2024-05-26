@@ -1,12 +1,12 @@
 package Battle;
 import java.awt.Color;
-import java.awt.Insets;
 import java.io.IOException;
 
 import javax.swing.*;
 
 import Game.Coach;
 import Shared.PixelFont;
+import Shared.Style;
 
 public class ChangePokemonFrame extends JFrame {
     public ChangePokemonFrame(Coach player, BattleFrame battleFrame, Coach npc) {
@@ -28,19 +28,7 @@ public class ChangePokemonFrame extends JFrame {
 
         for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
             final int index = i;
-            JButton button = new JButton(player.getTeam().getPokemon(index).getName());
-            button.setBounds(100, 50 + (index * 40), 200, 30);
-            button.setFont(PixelFont.myCustomFont);
-            button.setForeground(Color.BLACK);
-            button.setOpaque(false);
-            button.setContentAreaFilled(false);
-            button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-            button.setMargin(new Insets(10, 20, 10, 20));
-            button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(Color.BLACK, 2),
-                    BorderFactory.createEmptyBorder(10, 20, 10, 20)
-            ));
-            button.setFocusPainted(false);
+            JButton button = Style.createButton(Color.BLACK, player.getTeam().getPokemon(index).getName(), 14 ,100, 60 + (index * 40), 200, 30);
             button.addActionListener(e -> {
                 player.setPokemonInUse(player.getTeam().getPokemon(index));
                 dispose();

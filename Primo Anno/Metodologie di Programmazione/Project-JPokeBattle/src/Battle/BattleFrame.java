@@ -131,44 +131,19 @@ public class BattleFrame extends JFrame {
     }
 
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
-        JButton abilityButton = new JButton(player.getPokemonInUse().getAbilities().get(index).getName());
-        abilityButton.setFont(PixelFont.myCustomFont);
-        abilityButton.setForeground(Color.WHITE);
-        abilityButton.setOpaque(false);
-        abilityButton.setContentAreaFilled(false);
-        abilityButton.setBorder(BorderFactory.createLineBorder(Color.white, 2));
-        abilityButton.setMargin(new Insets(10, 20, 10, 20));
-        abilityButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.white, 2),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
-        abilityButton.setFocusPainted(false);
-        abilityButton.setBounds(70, 65, 350, 40);
-        abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JButton abilityButton = Style.createButton(Color.BLACK, player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
+            System.out.println(player.getPokemonInUse().getAbilities().get(index).getName());
             BattleLogic.decreaseHpNpc(npc, player.getPokemonInUse().getAbilities().get(index).getStrength(), player.getPokemonInUse().getAbilities().get(index).getTypo());
         });
         return abilityButton;
     }
 
     private JButton createChangePokemonButton(Coach player, Coach npc) {
-        JButton changePoke = new JButton("Change Pokemon");
-        changePoke.setFont(PixelFont.myCustomFont);
-        changePoke.setForeground(Color.red);
-        changePoke.setOpaque(false);
-        changePoke.setContentAreaFilled(false);
-        changePoke.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-        changePoke.setMargin(new Insets(10, 20, 10, 20));
-        changePoke.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.red, 2),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
-        changePoke.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        changePoke.setFocusPainted(false);
+        JButton changePoke = Style.createButton(Color.BLACK, "Change Pokémon", 12, 90, 65, 350, 40);;
         changePoke.addActionListener(e -> {
             new ChangePokemonFrame(player, this, npc);
         });
-        changePoke.setBounds(90, 65, 350, 40);
         return changePoke;
     }
 

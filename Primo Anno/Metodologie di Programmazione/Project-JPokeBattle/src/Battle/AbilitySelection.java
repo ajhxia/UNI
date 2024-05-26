@@ -4,15 +4,19 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
 import Game.Coach;
+import Game.Team;
 import Pokemon.Ability;
+import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
+import Shared.Style;
 
 public class AbilitySelection extends JFrame {
 
@@ -54,7 +58,7 @@ public class AbilitySelection extends JFrame {
         frame.add(instructionLabel);
 
         newAbilityPanel = new JPanel(new GridLayout(1, 1, 10, 10));
-        newAbilityPanel.setBounds(240, 80, 400, 70); // Ridimensionato e spostato verso il basso
+        newAbilityPanel.setBounds(240, 80, 400, 30); // Ridimensionato e spostato verso il basso
         newAbilityPanel.setOpaque(false);
         initializeNewAbilityButtons(indexPoke);
 
@@ -69,14 +73,7 @@ public class AbilitySelection extends JFrame {
         abilityPanel.setOpaque(false);
         initializeAbilityButtons(indexPoke);
 
-        JButton continueButton = new JButton("Continua");
-        continueButton.setFont(PixelFont.myCustomFont.deriveFont(14f)); // Aumentato il font size per maggiore visibilità
-        continueButton.setForeground(Color.black);
-        continueButton.setOpaque(false);
-        continueButton.setContentAreaFilled(false);
-        continueButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        continueButton.setBounds(240, 260, 200, 40); // Spostato verso il basso e centrato orizzontalmente
-        continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JButton continueButton = Style.createButton(Color.BLACK ,"Continua", 12 ,240, 260, 200, 40); // Spostato verso il basso
         continueButton.addActionListener(e -> {
             System.out.println("Selection completed.");
             try {
@@ -125,13 +122,7 @@ public class AbilitySelection extends JFrame {
         newAbilityComboBox.setOpaque(false);
         newAbilityPanel.add(newAbilityComboBox);
 
-        JButton selectNewAbilityButton = new JButton("Seleziona");
-        selectNewAbilityButton.setFont(PixelFont.myCustomFont.deriveFont(12f));
-        selectNewAbilityButton.setForeground(Color.black);
-        selectNewAbilityButton.setOpaque(false);
-        selectNewAbilityButton.setContentAreaFilled(false);
-        selectNewAbilityButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        selectNewAbilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JButton selectNewAbilityButton = Style.createButton(Color.BLACK, "Seleziona", 12, 240, 10, 100, 40);
         selectNewAbilityButton.addActionListener(e -> {
             String selectedAbilityName = (String) newAbilityComboBox.getSelectedItem();
             for (Ability newAbility : pokemon.getAbilities()) {
@@ -156,7 +147,6 @@ public class AbilitySelection extends JFrame {
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
         abilityButton.setFocusPainted(false);
-        abilityButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return abilityButton;
     }
 
