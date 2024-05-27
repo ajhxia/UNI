@@ -56,7 +56,6 @@ Func:
 	beq $t2, $t3, somma # se sono uguali incremento il contatore in somma
 	j skip # altrimenti rimetto nello stack l'ultimo valore estratto per controllarlo nell'esecuzione successiva
 	
-	
 somma:
 	add $v0, $v0, 1
 
