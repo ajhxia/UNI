@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.swing.*;
 
-import Game.Coach;
 import Pokemon.Ability;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
@@ -24,14 +23,14 @@ public class AbilitySelection extends JFrame {
     private JLabel instructionLabel;
     Pokemon pokemon;
 
-    public AbilitySelection(Coach player, Coach npc, int indexPoke) throws IOException, URISyntaxException {
+    public AbilitySelection(int indexPoke) throws IOException, URISyntaxException {
 
         frame = new JFrame("Ability Selection");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(840, 355); // Dimensioni leggermente modificate per adattare meglio gli elementi
         frame.setLayout(null);
 
-        pokemon = player.getTeam().getPokemon(indexPoke);
+        pokemon = BattleLogic.getPlayer().getTeam().getPokemon(indexPoke);
 
         // Aggiungi un JLabel per visualizzare il nome del Pokemon
         JLabel pokemonNameLabel = new JLabel("Nome del Pokémon: " + pokemon.getName());
@@ -78,7 +77,7 @@ public class AbilitySelection extends JFrame {
                 while (pokemon.getAbilities().size() > 4) {
                     pokemon.removeAbility(4);
                 }
-                new BattleFrame(player, npc);
+                new BattleFrame();
                 frame.dispose();
             } catch (IOException | URISyntaxException e1) {
                 e1.printStackTrace();

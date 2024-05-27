@@ -11,7 +11,7 @@ public class BattleFrame extends JFrame {
     private static JProgressBar playerHealthBar;
     private static JProgressBar npcHealthBar;
 
-    static JPanel abilityPanel;
+    public static JPanel abilityPanel;
     private boolean startBattle = false;
 
     private JLabel pokePlayer;
@@ -24,12 +24,15 @@ public class BattleFrame extends JFrame {
 
     private JFrame frame;
 
-    public void setPokeInUse(Coach player, Coach npc, int index) {
-        player.getTeam().getPokemon(index).setInUse(true);
-        npc.getTeam().getPokemon(index).setInUse(true);
+    public void setPokeInUse(int index) {
+        BattleLogic.getPlayer().getTeam().getPokemon(index).setInUse(true);
+        BattleLogic.getNpc().getTeam().getPokemon(index).setInUse(true);
     }
 
-    public BattleFrame(Coach player, Coach npc) throws IOException, URISyntaxException {
+    public BattleFrame() throws IOException, URISyntaxException {
+
+        Coach player = BattleLogic.getPlayer();
+        Coach npc = BattleLogic.getNpc();
 
         frame = new JFrame("Battle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +43,7 @@ public class BattleFrame extends JFrame {
         abilityPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 righe, 4 colonne, gap di 10 pixel
         abilityPanel.setBounds(50, 375, 750, 100);
         abilityPanel.setOpaque(false); // Imposta lo sfondo trasparente
-        
+
         initialize(player, npc);
 
         // Carica l'immagine di sfondo
@@ -85,13 +88,7 @@ public class BattleFrame extends JFrame {
         backgroundLabel.add(playerHealthBar);
         backgroundLabel.add(npcHealthBar);
 
-        for (int i = 0; i < player.getPokemonInUse().getAbilities().size(); i++) {
-            JButton abilityButton = createAbilityButton(player, i, npc);
-            abilityPanel.add(abilityButton);
-        }
-
-        JButton changePoke = createChangePokemonButton(player, npc);
-        abilityPanel.add(changePoke);
+        abilityPanel();
 
         // Aggiungi il pannello dei pulsanti delle abilità al frame
         frame.add(abilityPanel);
@@ -103,19 +100,60 @@ public class BattleFrame extends JFrame {
         frame.setVisible(true);
     }
 
+    private void abilityPanel() {
+        abilityPanel.removeAll();
+        for (int i = 0; i < BattleLogic.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
+            JButton abilityButton = createAbilityButton(BattleLogic.getPlayer(), i, BattleLogic.getNpc());
+            abilityPanel.add(abilityButton);
+        }
+
+        JButton changePoke = createChangePokemonButton(BattleLogic.getPlayer(), BattleLogic.getNpc());
+        abilityPanel.add(changePoke);
+        abilityPanel.revalidate();
+        abilityPanel.repaint();
+    }
+
+    private void showMessageAbility(int index) {
+        abilityPanel.removeAll();
+        JLabel message;
+        if (BattleLogic.isTurn()) {
+            message = new JLabel(
+                    "You used " + BattleLogic.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
+        } else {
+            message = new JLabel(
+                    "The opponent used " + BattleLogic.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+
+        }
+        message.setFont(PixelFont.myCustomFont.deriveFont(18f));
+        abilityPanel.add(message);
+        abilityPanel.revalidate();
+        abilityPanel.repaint();
+
+        Timer timer = new Timer(1500, e -> {
+            abilityPanel.removeAll();
+            abilityPanel.revalidate();
+            abilityPanel.repaint();
+            abilityPanel();
+        });
+
+        timer.setRepeats(false);
+        timer.start();
+
+    }
+
     private void initialize(Coach player, Coach npc) {
 
-        setPokeInUse(player, npc, 0);
+        setPokeInUse(0);
 
         playerHealthBar = new JProgressBar(0, player.getTeam().getPokemon(0).getStats().getHp());
-        playerHealthBar.setValue( player.getTeam().getPokemon(0).getStats().getHp());
+        playerHealthBar.setValue(player.getTeam().getPokemon(0).getStats().getHp());
         playerHealthBar.setStringPainted(true);
         playerHealthBar.setForeground(new Color(75, 242, 136));
         playerHealthBar.setBounds(618, 282, 168, 10);
         playerHealthBar.setStringPainted(false);
 
-        npcHealthBar = new JProgressBar(0,  npc.getTeam().getPokemon(0).getStats().getHp());
-        npcHealthBar.setValue( npc.getTeam().getPokemon(0).getStats().getHp());
+        npcHealthBar = new JProgressBar(0, npc.getTeam().getPokemon(0).getStats().getHp());
+        npcHealthBar.setValue(npc.getTeam().getPokemon(0).getStats().getHp());
         npcHealthBar.setStringPainted(true);
         npcHealthBar.setForeground(new Color(75, 242, 136));
         npcHealthBar.setBounds(185, 102, 168, 10);
@@ -125,26 +163,29 @@ public class BattleFrame extends JFrame {
             System.out.println("Start Battle");
             player.getTeam().getPokemon(0).setInUse(true);
             npc.getTeam().getPokemon(0).setInUse(true);
-            BattleLogic.whoStart(player, npc);
+            BattleLogic.whoStart();
             this.startBattle = true; // Update startBattle to true
         }
     }
 
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
-        JButton abilityButton = Style.createButton(Color.BLACK, player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
+        JButton abilityButton = Style.createButton(Color.BLACK,
+                player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
-            BattleLogic.setTurn(false, abilityPanel, player, index ,npc);
-            System.out.println(player.getPokemonInUse().getAbilities().get(index).getName());
-            BattleLogic.decreaseHpNpc(npc, player.getPokemonInUse().getAbilities().get(index).getStrength(), player.getPokemonInUse().getAbilities().get(index).getTypo());
-            BattleLogic.setTurn(true, abilityPanel, player, 1 ,npc);
+            BattleLogic.setTurn(true);
+            BattleLogic.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
+                    player.getPokemonInUse().getAbilities().get(index).getTypo());
+            showMessageAbility(index);
+            
         });
         return abilityButton;
     }
 
     private JButton createChangePokemonButton(Coach player, Coach npc) {
-        JButton changePoke = Style.createButton(Color.BLACK, "Change Pokémon", 12, 90, 65, 350, 40);;
+        JButton changePoke = Style.createButton(Color.BLACK, "Change Pokémon", 12, 90, 65, 350, 40);
+        ;
         changePoke.addActionListener(e -> {
-            new ChangePokemonFrame(player, this, npc);
+            new ChangePokemonFrame(this);
         });
         return changePoke;
     }

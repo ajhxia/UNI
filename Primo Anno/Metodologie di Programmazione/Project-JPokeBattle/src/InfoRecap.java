@@ -6,14 +6,16 @@ import java.net.URISyntaxException;
 
 import javax.swing.*;
 import Battle.BattleFrame;
-import Game.Coach;
-import Game.Npc;
+import Battle.BattleLogic;
+import Game.*;
 import Shared.ImageUtility;
 import Shared.PixelFont;
 
 public class InfoRecap extends JFrame {
 
-    public InfoRecap(Coach player) {
+    public InfoRecap() {
+
+        Coach player = BattleLogic.getPlayer();
 
         setTitle("Recap Team");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +51,7 @@ public class InfoRecap extends JFrame {
                         int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
                         // dall'ActionCommand
                         player.getTeam().getListPokemon().remove(indexToRemove);
-                        Pokedex pokedex = new Pokedex(player);
+                        Pokedex pokedex = new Pokedex();
                         try {
                             Pokedex.updateTeamPanel();
                         } catch (IOException | URISyntaxException e1) {
@@ -86,9 +88,9 @@ public class InfoRecap extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new BattleFrame(player, Npc.createNpc(1));
+                    BattleLogic.setNpc(Npc.createNpc(1));
+                    new BattleFrame();
                     dispose();
-                   
                 } catch (IOException | URISyntaxException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

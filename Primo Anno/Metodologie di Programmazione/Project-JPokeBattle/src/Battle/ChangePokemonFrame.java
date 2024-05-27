@@ -9,7 +9,10 @@ import Shared.PixelFont;
 import Shared.Style;
 
 public class ChangePokemonFrame extends JFrame {
-    public ChangePokemonFrame(Coach player, BattleFrame battleFrame, Coach npc) {
+    public ChangePokemonFrame(BattleFrame battleFrame) {
+        Coach player = BattleLogic.getPlayer();
+        Coach npc = BattleLogic.getNpc();
+
         setTitle("Change Pokemon");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 400);
@@ -18,7 +21,7 @@ public class ChangePokemonFrame extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        panel.setBounds(0, 0, 400, 400);
+        panel.setBounds(0, 0, 400, 350);
         add(panel);
 
         JLabel label = new JLabel("Select a Pokémon to change");
@@ -30,10 +33,15 @@ public class ChangePokemonFrame extends JFrame {
             final int index = i;
             JButton button = Style.createButton(Color.BLACK, player.getTeam().getPokemon(index).getName(), 14 ,100, 60 + (index * 40), 200, 30);
             button.addActionListener(e -> {
-                player.setPokemonInUse(player.getTeam().getPokemon(index));
+                if (player.getTeam().getPokemon(index).getStats().getHp() > 0) {
+                    player.setPokemonInUse(player.getTeam().getPokemon(index));
+                }else{
+                    JOptionPane.showMessageDialog(null, "You can't change a fainted Pokémon", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 dispose();
                 try {
                     battleFrame.updatePokemonDisplayPlayer(player, npc);
+                    BattleLogic.setTurn(false);
                     System.out.println(player.getPokemonInUse().getName());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block

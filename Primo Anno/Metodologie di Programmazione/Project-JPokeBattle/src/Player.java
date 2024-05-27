@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+import Battle.BattleLogic;
 import Game.Coach;
 import Game.Team;
 import Pokemon.Pokemon;
@@ -87,7 +88,8 @@ public class Player extends JFrame {
                 // Se tutti i campi sono validi, crea il personaggio
                 player = new Coach(name, age, new Team(playerTeam), gender);
                 // Fai qualcosa con l'oggetto Coach creato
-                Pokedex pokedex = new Pokedex(player);
+                BattleLogic.setPlayer(player);
+                Pokedex pokedex = new Pokedex();
                 pokedex.setVisible(true);
                 setVisible(false);
             }

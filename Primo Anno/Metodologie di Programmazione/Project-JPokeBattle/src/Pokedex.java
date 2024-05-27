@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import Battle.BattleLogic;
 import Game.Coach;
 import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
@@ -12,8 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,24 +24,32 @@ public class Pokedex extends JPanel implements ActionListener {
     private static JFrame pokedexFrame;
     public static JLabel titleLabel;
     public static JPanel teamPanel; // Pannello per i Pokémon in squadra
-    private static Coach player;
 
-    public Pokedex(Coach playerIn) {
-        player = playerIn;
+    public Pokedex() {
+        Coach player = BattleLogic.getPlayer();
         pokedexFrame = new JFrame("Pokédex of " + player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pokedexFrame.setSize(1100, 830);
     
+        int spessoreBordo = 2; // Puoi regolare questo valore secondo le tue preferenze
+        Border bordoPersonalizzato = BorderFactory.createLineBorder(Color.RED, spessoreBordo);
+
         this.setLayout(null); // Utilizza un layout nullo per la personalizzazione
     
         // Creo un pannello per i bottoni dei Pokémon
         JPanel pokemonPanel = new JPanel(new GridLayout(4, 4));
-        pokemonPanel.setBounds(400, 0, 700, 750); // Posiziona il pannello pokemonPanel
+        pokemonPanel.setBounds(400, 80, 650, 600); // Posiziona il pannello pokemonPanel
+        pokemonPanel.setBorder(bordoPersonalizzato);
+
+        JLabel pokedexLabel = new JLabel("Your Pokédex");
+        pokedexLabel.setFont(PixelFont.myCustomFont.deriveFont(16f));
+        pokedexLabel.setBounds(400, 20, 350, 50);
+        this.add(pokedexLabel);
     
         // Aggiungo i bottoni con le immagini dei Pokémon al pannello pokemonPanel
         for (int i = 0; i < initialPokemonList.size(); i++) {
             JButton button = new JButton();
-            button.setIcon(ImageUtility.resizeIcon(pokemonImages.get(i), 150, 150));
+            button.setIcon(ImageUtility.resizeIcon(pokemonImages.get(i), 100, 100));
             button.setActionCommand(String.valueOf(i + 1));
             button.addActionListener(this);
             button.setBorder(null);
@@ -57,8 +65,6 @@ public class Pokedex extends JPanel implements ActionListener {
     
         // Creo il pannello per i Pokémon in squadra
         teamPanel = new JPanel();
-        int spessoreBordo = 2; // Puoi regolare questo valore secondo le tue preferenze
-        Border bordoPersonalizzato = BorderFactory.createLineBorder(Color.RED, spessoreBordo);
     
         teamPanel.setLayout(new BoxLayout(teamPanel, BoxLayout.Y_AXIS));
         teamPanel.setBorder(bordoPersonalizzato);
@@ -81,7 +87,7 @@ public class Pokedex extends JPanel implements ActionListener {
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
             if (player.getTeam().getListPokemon().size() == 6) {
-                InfoRecap infoRecap = new InfoRecap(player);
+                InfoRecap infoRecap = new InfoRecap();
                 infoRecap.setVisible(true);
                 pokedexFrame.dispose();
             } else {
@@ -139,7 +145,7 @@ public class Pokedex extends JPanel implements ActionListener {
             infoFrame.dispose(); // Chiudi il JFrame precedente se esiste
         }
         Pokemon pokemon = initialPokemonList.get(pokeIndexIn - 1);
-        InfoPokemon infoPokemon = new InfoPokemon(pokemon, player);
+        InfoPokemon infoPokemon = new InfoPokemon(pokemon, BattleLogic.getPlayer());
         infoFrame = new JFrame(pokemon.getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         infoFrame.setSize(510, 400);
@@ -155,7 +161,7 @@ public class Pokedex extends JPanel implements ActionListener {
 
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del titolo
-        int numPokemon = player.getTeam().getListPokemon().size();
+        int numPokemon = BattleLogic.getPlayer().getTeam().getListPokemon().size();
         titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
     
@@ -165,7 +171,7 @@ public class Pokedex extends JPanel implements ActionListener {
         teamPanel.add(Box.createVerticalStrut(5)); // Spazio tra il titolo e i Pokémon
     
         int i = 0;
-        for (Pokemon pokemon : player.getTeam().getListPokemon()) {
+        for (Pokemon pokemon : BattleLogic.getPlayer().getTeam().getListPokemon()) {
     
             JPanel pokemonInfoPanel = new JPanel();
             pokemonInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // orizzontalmente
@@ -181,7 +187,7 @@ public class Pokedex extends JPanel implements ActionListener {
             removeButton.setActionCommand(String.valueOf(i));
             removeButton.addActionListener(e -> {
                 int indexToRemove = Integer.parseInt(e.getActionCommand());
-                player.getTeam().removePokemon(indexToRemove);
+                BattleLogic.getPlayer().getTeam().removePokemon(indexToRemove);
                 try {
                     updateTeamPanel();
                     updateTitle();
