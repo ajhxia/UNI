@@ -133,8 +133,10 @@ public class BattleFrame extends JFrame {
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
         JButton abilityButton = Style.createButton(Color.BLACK, player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
+            BattleLogic.setTurn(false, abilityPanel, player, index ,npc);
             System.out.println(player.getPokemonInUse().getAbilities().get(index).getName());
             BattleLogic.decreaseHpNpc(npc, player.getPokemonInUse().getAbilities().get(index).getStrength(), player.getPokemonInUse().getAbilities().get(index).getTypo());
+            BattleLogic.setTurn(true, abilityPanel, player, 1 ,npc);
         });
         return abilityButton;
     }

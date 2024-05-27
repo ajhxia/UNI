@@ -1,6 +1,5 @@
 package Battle;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.util.Arrays;
@@ -269,14 +268,16 @@ public class BattleLogic {
         BattleFrame.updateNPCHealthBar(npc.getTeam().getPokemon(0).getStats().getHp());
     }
 
-    public static void decreaseHpPlayer(Coach player, int damage) {
-        if (player.getTeam().getPokemon(0).getStats().getHp() - damage <= 0) {
+    public static void decreaseHpPlayer(Coach player, int damage, String type) {
+        if (player.getPokemonInUse().getStats().getHp() - damage <= 0) {
 
         } else {
-
+            float damageCalculated = typeEffects(damage, type, player);
+            int dmg = (int) (player.getPokemonInUse().getStats().getHp() - damageCalculated);
+            player.getPokemonInUse().getStats().setHp(dmg);
         }
 
-        BattleFrame.updatePlayerHealthBar(player.getTeam().getPokemon(0).getStats().getHp());
+        BattleFrame.updateNPCHealthBar(player.getTeam().getPokemon(0).getStats().getHp());
     }
 
     public static void whoStart(Coach player, Coach npc) {
@@ -287,17 +288,17 @@ public class BattleLogic {
         float npcSpeedPercent = (npcSpeed / 7) * 100;
 
         if (playerSpeedPercent >= npcSpeedPercent) {
-            setTurn(true, BattleFrame.abilityPanel);
+            setTurn(true, BattleFrame.abilityPanel, player,0 ,npc);
             int damage = player.getTeam().getPokemon(0).getStats().getAttack();
             decreaseHpNpc(npc, damage, player.getTeam().getPokemon(0).getAbilities().get(0).getTypo());
         } else {
-            setTurn(false, BattleFrame.abilityPanel);
+            setTurn(false, BattleFrame.abilityPanel, player,0,npc);
             int damage = npc.getTeam().getPokemon(0).getStats().getAttack();
-            decreaseHpPlayer(player, damage);
+            decreaseHpPlayer(player, damage, npc.getTeam().getPokemon(0).getAbilities().get(0).getTypo());
         }
     }
 
-    public static void setTurn(boolean turn, JPanel abilityPanel) {
+    public static void setTurn(boolean turn, JPanel abilityPanel, Coach player, int index, Coach npc) {
         if (turn) {
             // Attiva i pulsanti delle abilità del giocatore
             for (Component component : abilityPanel.getComponents()) {
@@ -314,12 +315,11 @@ public class BattleLogic {
                     JButton abilityButton = (JButton) component;
                     abilityButton.setEnabled(false);
                     // Imposta l'opacità del pulsante
-                    abilityButton.setOpaque(true);
-                    abilityButton.setContentAreaFilled(false);
-                    abilityButton.setBorderPainted(false);
-                    abilityButton.setBackground(new Color(0, 0, 0, 50)); // Imposta un colore con trasparenza
                 }
             }
+
+            decreaseHpPlayer(player, player.getPokemonInUse().getStats().getAttack(), npc.getPokemonInUse().getAbilities().get(index).getTypo());
+            
         }
     }
 

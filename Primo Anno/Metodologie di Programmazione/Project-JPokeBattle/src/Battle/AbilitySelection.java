@@ -4,15 +4,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
 import Game.Coach;
-import Game.Team;
 import Pokemon.Ability;
-import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;

@@ -19,7 +19,8 @@ analisi_riga:
 	li $t1,1	
 
 analisi_colonna:
-	sub $t6,$t0,1 			#calcolo elemento r,c
+	#calcolo elemento r,c
+	sub $t6,$t0,1 			
 	mul $t9,$t6,$t3 
 	sub $t7,$t1,1 			#r,c= C(r-1)+(c-1)
 	add $t9,$t9,$t7 
