@@ -7,14 +7,16 @@ package Pokemon;
 
 public class Stats {
     private int hp;
+    private int maxHp;
     private int attack;
     private int defense;
     private int speed;
 
-    public Stats(int hp, int attack, int defense, int speed, int levelIn) {
+    public Stats(int hp, int attack, int defense, int speed, int levelIn, int maxHp) {
         if (hp < 0 || attack < 0 || defense < 0 || speed < 0) {
             throw new IllegalArgumentException("Stats cannot be negative");
         }
+        this.maxHp = maxHp;
         if (levelIn >= 1 && levelIn < 10) {
             this.hp = hp;
             this.attack = attack;
@@ -37,6 +39,10 @@ public class Stats {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     public int getAttack() {

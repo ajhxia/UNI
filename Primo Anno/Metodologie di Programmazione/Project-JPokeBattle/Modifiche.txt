@@ -1,0 +1,1 @@
+impostare la grafica dell'npc e rivedere la sua logica

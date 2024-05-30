@@ -12,7 +12,7 @@ public class BattleFrame extends JFrame {
     private static JProgressBar npcHealthBar;
 
     public static JPanel abilityPanel;
-    private boolean startBattle = false;
+    private static boolean startBattle = false;
 
     private JLabel pokePlayer;
     private JLabel lvlPlayer;
@@ -22,12 +22,12 @@ public class BattleFrame extends JFrame {
     private JLabel lvlNpc;
     private JLabel imageLabelNpc;
 
-    private JFrame frame;
+    public JFrame frame;
 
-    public void setPokeInUse(int index) {
-        BattleLogic.getPlayer().getTeam().getPokemon(index).setInUse(true);
-        BattleLogic.getNpc().getTeam().getPokemon(index).setInUse(true);
-    }
+    /*
+     * TODO: bisogna far vedere quando l'npc usa un'abilità e aggiornare il frame
+     * quando l'npc cambia pokemon
+     */
 
     public BattleFrame() throws IOException, URISyntaxException {
 
@@ -100,7 +100,7 @@ public class BattleFrame extends JFrame {
         frame.setVisible(true);
     }
 
-    private void abilityPanel() {
+    public void abilityPanel() {
         abilityPanel.removeAll();
         for (int i = 0; i < BattleLogic.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
             JButton abilityButton = createAbilityButton(BattleLogic.getPlayer(), i, BattleLogic.getNpc());
@@ -141,30 +141,35 @@ public class BattleFrame extends JFrame {
 
     }
 
-    private void initialize(Coach player, Coach npc) {
+    private static void initialize(Coach player, Coach npc) {
 
-        setPokeInUse(0);
+        BattleLogic.setPokeInUseAtStart(0);
 
-        playerHealthBar = new JProgressBar(0, player.getTeam().getPokemon(0).getStats().getHp());
-        playerHealthBar.setValue(player.getTeam().getPokemon(0).getStats().getHp());
+        int playerMaxHp = player.getTeam().getPokemon(0).getStats().getMaxHp();
+        int playerCurrentHp = player.getTeam().getPokemon(0).getStats().getHp();
+        int npcMaxHp = npc.getTeam().getPokemon(0).getStats().getMaxHp();
+        int npcCurrentHp = npc.getTeam().getPokemon(0).getStats().getHp();
+
+        playerHealthBar = new JProgressBar(0, playerMaxHp);
+        playerHealthBar.setValue(playerCurrentHp);
         playerHealthBar.setStringPainted(true);
         playerHealthBar.setForeground(new Color(75, 242, 136));
         playerHealthBar.setBounds(618, 282, 168, 10);
         playerHealthBar.setStringPainted(false);
 
-        npcHealthBar = new JProgressBar(0, npc.getTeam().getPokemon(0).getStats().getHp());
-        npcHealthBar.setValue(npc.getTeam().getPokemon(0).getStats().getHp());
+        npcHealthBar = new JProgressBar(0, npcMaxHp);
+        npcHealthBar.setValue(npcCurrentHp);
         npcHealthBar.setStringPainted(true);
         npcHealthBar.setForeground(new Color(75, 242, 136));
         npcHealthBar.setBounds(185, 102, 168, 10);
         npcHealthBar.setStringPainted(false);
 
-        if (this.startBattle == false) {
+        if (startBattle == false) {
             System.out.println("Start Battle");
             player.getTeam().getPokemon(0).setInUse(true);
             npc.getTeam().getPokemon(0).setInUse(true);
             BattleLogic.whoStart();
-            this.startBattle = true; // Update startBattle to true
+            startBattle = true; // Update startBattle to true
         }
     }
 
@@ -172,18 +177,17 @@ public class BattleFrame extends JFrame {
         JButton abilityButton = Style.createButton(Color.BLACK,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
-            BattleLogic.setTurn(true);
+            BattleLogic.setTurn(false);
             BattleLogic.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
                     player.getPokemonInUse().getAbilities().get(index).getTypo());
             showMessageAbility(index);
-            
+
         });
         return abilityButton;
     }
 
     private JButton createChangePokemonButton(Coach player, Coach npc) {
         JButton changePoke = Style.createButton(Color.BLACK, "Change Pokémon", 12, 90, 65, 350, 40);
-        ;
         changePoke.addActionListener(e -> {
             new ChangePokemonFrame(this);
         });
@@ -214,7 +218,7 @@ public class BattleFrame extends JFrame {
         }
 
         // Update health bar
-        playerHealthBar.setMaximum(player.getPokemonInUse().getStats().getHp());
+        playerHealthBar.setMaximum(player.getPokemonInUse().getStats().getMaxHp());
         playerHealthBar.setValue(player.getPokemonInUse().getStats().getHp());
 
         // Refresh ability buttons

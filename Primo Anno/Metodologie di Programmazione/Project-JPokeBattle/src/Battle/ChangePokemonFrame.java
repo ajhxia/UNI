@@ -42,9 +42,9 @@ public class ChangePokemonFrame extends JFrame {
                 try {
                     battleFrame.updatePokemonDisplayPlayer(player, npc);
                     BattleLogic.setTurn(false);
+                    BattleLogic.npcLogic();
                     System.out.println(player.getPokemonInUse().getName());
                 } catch (IOException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             });
