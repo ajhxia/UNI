@@ -5,8 +5,10 @@ import java.io.IOException;
 import javax.swing.*;
 
 import Game.Coach;
+import Pokemon.Pokemon;
 import Shared.PixelFont;
 import Shared.Style;
+
 
 public class ChangePokemonFrame extends JFrame {
     public ChangePokemonFrame(BattleFrame battleFrame) {
@@ -31,21 +33,27 @@ public class ChangePokemonFrame extends JFrame {
 
         for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
             final int index = i;
-            JButton button = Style.createButton(Color.BLACK, player.getTeam().getPokemon(index).getName(), 14 ,100, 60 + (index * 40), 200, 30);
+            Pokemon pokemon = player.getTeam().getPokemon(index);
+            JButton button = Style.createButton(Color.BLACK, pokemon.getName(), 14, 100, 60 + (index * 40), 200, 30);
+            
+            // Cambia il colore del bottone se la vita del Pokémon è inferiore
+            if (pokemon.getStats().getHp() <= 0) {
+                button.setBackground(Color.RED);
+            }
+
             button.addActionListener(e -> {
-                if (player.getTeam().getPokemon(index).getStats().getHp() > 0) {
-                    player.setPokemonInUse(player.getTeam().getPokemon(index));
-                }else{
+                if (pokemon.getStats().getHp() > 0) {
+                    player.setPokemonInUse(pokemon);
+                    dispose();
+                    try {
+                        battleFrame.updatePokemonDisplayPlayer(player, npc);
+                        BattleLogic.setTurn(false);
+                        System.out.println(player.getPokemonInUse().getName());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
                     JOptionPane.showMessageDialog(null, "You can't change a fainted Pokémon", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                dispose();
-                try {
-                    battleFrame.updatePokemonDisplayPlayer(player, npc);
-                    BattleLogic.setTurn(false);
-                    BattleLogic.npcLogic();
-                    System.out.println(player.getPokemonInUse().getName());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
                 }
             });
             panel.add(button);

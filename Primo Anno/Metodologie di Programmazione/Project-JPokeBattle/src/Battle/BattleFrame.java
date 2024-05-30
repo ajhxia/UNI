@@ -18,9 +18,9 @@ public class BattleFrame extends JFrame {
     private JLabel lvlPlayer;
     private JLabel imageLabelPlayer;
 
-    private JLabel pokeNpc;
-    private JLabel lvlNpc;
-    private JLabel imageLabelNpc;
+    private static JLabel pokeNpc;
+    private static JLabel lvlNpc;
+    private static JLabel imageLabelNpc;
 
     public JFrame frame;
 
@@ -234,5 +234,26 @@ public class BattleFrame extends JFrame {
 
         abilityPanel.revalidate();
         abilityPanel.repaint();
+    }
+
+    public static void updatePokemonDisplayNpc() throws IOException {
+        // Update Pokémon name and level
+        Coach npc = BattleLogic.getNpc();
+
+        pokeNpc.setText(npc.getPokemonInUse().getName());
+        lvlNpc.setText(String.valueOf(npc.getPokemonInUse().getLvl()));
+
+        // Update Pokémon image
+        try {
+            ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse().getSprite().getFront()));
+            imageLabelNpc.setIcon(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        // Update health bar
+        npcHealthBar.setMaximum(npc.getPokemonInUse().getStats().getMaxHp());
+        npcHealthBar.setValue(npc.getPokemonInUse().getStats().getHp());
+
     }
 }
