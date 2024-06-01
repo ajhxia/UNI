@@ -35,7 +35,7 @@ public class Pokedex extends JPanel implements ActionListener {
         backgroundLabel.setBounds(0, 0, 1100, 600);
 
         // Creo un pannello per i bottoni dei Pokémon
-        JPanel pokemonPanel = new JPanel(new GridLayout(4, 4));
+        JPanel pokemonPanel = new JPanel(new GridLayout(5, 5));
         pokemonPanel.setBounds(420, 125, 600, 400); // Posiziona il pannello pokemonPanel
         pokemonPanel.setOpaque(false); // Rendi il pannello trasparente
 
@@ -112,7 +112,7 @@ public class Pokedex extends JPanel implements ActionListener {
 
     // Carica i Pokémon in un array e filtra solo i Pokémon iniziali
     public static void loadPokemon() {
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < 55; i++) {
             Pokemon pokemon = CreateObjectsPokemon.getPokemon(i + 1);
             if (pokemon.getStart() != null) {
                 initialPokemonList.add(pokemon);

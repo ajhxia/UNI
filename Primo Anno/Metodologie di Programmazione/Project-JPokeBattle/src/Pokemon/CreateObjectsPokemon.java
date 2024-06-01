@@ -19,7 +19,7 @@ public class CreateObjectsPokemon extends Pokemon {
         private static int randomLevel = 0;
 
         private static int getLevelRandom() {
-                randomLevel = (int) (Math.random() * 10) + 1;
+                randomLevel = (int) (Math.random() * 5) + 1;
                 return randomLevel;
         }
 
@@ -595,7 +595,175 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-
+                        case 43:
+                                return new Pokemon(
+                                                "oddish",
+                                                Ability.getAbility(num, randomLevel),
+                                                "start",
+                                                new Stats(45, 50, 55, 30, randomLevel, 45),
+                                                new String[] { "grass", "poison" },
+                                                64,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/43.png"),
+                                                randomLevel,
+                                                21,
+                                                new Pokemon[] { getPokemon(44) }, false);
+                        case 44:
+                                return new Pokemon(
+                                                "gloom",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(60, 65, 70, 40, randomLevel, 60),
+                                                new String[] { "grass", "poison" },
+                                                138,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/44.png"),
+                                                randomLevel,
+                                                21,
+                                                new Pokemon[] { getPokemon(45) }, false);
+                        case 45:
+                                return new Pokemon(
+                                                "vileplume",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(75, 80, 85, 50, randomLevel, 75),
+                                                new String[] { "grass", "poison" },
+                                                221,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/45.png"),
+                                                randomLevel,
+                                                0,
+                                                new Pokemon[] { null }, false);
+                        case 46:
+                                return new Pokemon(
+                                                "paras",
+                                                Ability.getAbility(num, randomLevel),
+                                                "start",
+                                                new Stats(35, 70, 55, 25, randomLevel, 35),
+                                                new String[] { "bug", "grass" },
+                                                57,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/46.png"),
+                                                randomLevel,
+                                                24,
+                                                new Pokemon[] { getPokemon(47) }, false);
+                        case 47:
+                                return new Pokemon(
+                                                "parasect",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(60, 95, 80, 30, randomLevel, 60),
+                                                new String[] { "bug", "grass" },
+                                                142,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/47.png"),
+                                                randomLevel,
+                                                0,
+                                                new Pokemon[] { null }, false);
+                        case 48:
+                                return new Pokemon(
+                                                "venonat",
+                                                Ability.getAbility(num, randomLevel),
+                                                "start",
+                                                new Stats(60, 55, 50, 45, randomLevel, 60),
+                                                new String[] { "bug", "poison" },
+                                                61,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/48.png"),
+                                                randomLevel,
+                                                31,
+                                                new Pokemon[] { getPokemon(49) }, false);
+                        case 49:
+                                return new Pokemon(
+                                                "venomoth",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(70, 65, 60, 90, randomLevel, 70),
+                                                new String[] { "bug", "poison" },
+                                                158,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/49.png"),
+                                                randomLevel,
+                                                0,
+                                                new Pokemon[] { null }, false);
+                        case 50:
+                                return new Pokemon(
+                                                "diglett",
+                                                Ability.getAbility(num, randomLevel),
+                                                "start",
+                                                new Stats(10, 55, 25, 95, randomLevel, 10),
+                                                new String[] { "ground" },
+                                                53,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/50.png"),
+                                                randomLevel,
+                                                26,
+                                                new Pokemon[] { getPokemon(51) }, false);
+                        case 51:
+                                return new Pokemon(
+                                                "dugtrio",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(35, 80, 50, 120, randomLevel, 35),
+                                                new String[] { "ground" },
+                                                149,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/51.png"),
+                                                randomLevel,
+                                                0,
+                                                new Pokemon[] { null }, false);
+                        case 52:
+                                return new Pokemon(
+                                                "meowth",
+                                                Ability.getAbility(num, randomLevel),
+                                                "start",
+                                                new Stats(40, 45, 35, 90, randomLevel, 40),
+                                                new String[] { "normal" },
+                                                58,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/52.png"),
+                                                randomLevel,
+                                                28,
+                                                new Pokemon[] { getPokemon(53) }, false);
+                        case 53:
+                                return new Pokemon(
+                                                "persian",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(65, 70, 60, 115, randomLevel, 65),
+                                                new String[] { "normal" },
+                                                154,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/53.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/53.png"),
+                                                randomLevel,
+                                                0,
+                                                new Pokemon[] { null }, false);
+                        case 54:
+                                return new Pokemon(
+                                                "psyduck",
+                                                Ability.getAbility(num, randomLevel),
+                                                "start",
+                                                new Stats(50, 52, 48, 55, randomLevel, 50),
+                                                new String[] { "water" },
+                                                64,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/54.png"),
+                                                randomLevel,
+                                                33,
+                                                new Pokemon[] { getPokemon(55) }, false);
+                        case 55:
+                                return new Pokemon(
+                                                "golduck",
+                                                Ability.getAbility(num, randomLevel),
+                                                null,
+                                                new Stats(80, 82, 78, 85, randomLevel, 80),
+                                                new String[] { "water" },
+                                                175,
+                                                new Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/55.png",
+                                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/55.png"),
+                                                randomLevel,
+                                                0,
+                                                new Pokemon[] { null }, false);
                         default:
                                 return null;
                 }

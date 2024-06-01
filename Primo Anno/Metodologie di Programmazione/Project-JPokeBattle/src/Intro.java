@@ -5,35 +5,84 @@ import Shared.PixelFont;
 import Shared.RelativePath;
 import Shared.Style;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.event.*;
-
 /*
  * Questa classe rappresenta la finestra di benvenuto del gioco
  * La finestra contiene un'immagine di benvenuto e un bottone per iniziare la battaglia
  */
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Intro extends JFrame implements ActionListener {
-    JFrame frame;
+    private JFrame frame;
+    private JPanel loadingPanel;
+    private JPanel mainPanel;
+    private JProgressBar progressBar;
 
     public static void main(String[] args) {
-        Intro intro = new Intro();
         PixelFont.loadCustomFont();
-        Pokedex.loadPokemon();
-        intro.showWindow();
+        Intro intro = new Intro();
+        intro.showLoadingScreen();
+        intro.loadResources();
+        // Create a separate thread to load resources and update the progress bar
+        new Thread(() -> {
+            
+            SwingUtilities.invokeLater(() -> {
+                intro.showMainScreen();
+            });
+        }).start();
     }
 
     public Intro() {
         frame = new JFrame("JPokeBattle");
-    }
-
-    private void showWindow() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(722, 725);
+        frame.setLocationRelativeTo(null); // Centra la finestra
+        frame.setVisible(true);
+    }
 
-        // Creazione di un layout null
-        frame.setLayout(null);
+    private void showLoadingScreen() {
+        loadingPanel = new JPanel(null);
+        loadingPanel.setBackground(Color.BLACK);
+
+        JLabel loadingLabel = new JLabel("Loading...");
+        loadingLabel.setBounds(250, 250, 200, 50);
+        loadingLabel.setForeground(Color.WHITE);
+        loadingLabel.setFont(PixelFont.myCustomFont.deriveFont(20f));
+
+        progressBar = new JProgressBar(0, 100);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
+        progressBar.setBackground(Color.BLACK);
+        progressBar.setFont(PixelFont.myCustomFont.deriveFont(8f));
+        progressBar.setBounds(27, 650, 650, 25);
+
+        loadingPanel.add(loadingLabel);
+        loadingPanel.add(progressBar);
+
+        frame.add(loadingPanel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void loadResources() {
+        try {
+            // Simulate loading process with sleep
+            for (int i = 0; i <= 100; i++) {
+                Thread.sleep(50); // Simulate time taken to load each resource
+                progressBar.setValue(i);
+            }
+            Pokedex.loadPokemon();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showMainScreen() {
+        frame.remove(loadingPanel);
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(null);
 
         // Carica l'immagine di sfondo
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("/Image/penup_20240516_163422.jpg"));
@@ -54,18 +103,19 @@ public class Intro extends JFrame implements ActionListener {
 
         // creazione del bottone e posizionamento
         JButton button = Style.createButton(Color.WHITE, "Start a New Game", 14, 70, 65, 280, 40);
-    
+
         // Aggiungo l'azione di ascolto al bottone
         button.setActionCommand("start");
         button.addActionListener(this);
 
-        // Aggiunge il bottone e il JLabel al JFrame
-        frame.add(arrowLabel);
-        frame.add(button);
-        frame.add(backgroundLabel);
+        // Aggiunge il bottone e il JLabel al mainPanel
+        mainPanel.add(arrowLabel);
+        mainPanel.add(button);
+        mainPanel.add(backgroundLabel);
 
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null); // Centra la finestra
+        frame.add(mainPanel);
+        frame.revalidate();
+        frame.repaint();
     }
 
     public void actionPerformed(ActionEvent event) {

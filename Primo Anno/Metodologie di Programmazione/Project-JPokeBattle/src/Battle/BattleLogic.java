@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.Timer;
 
 import Game.Coach;
 
@@ -51,15 +52,12 @@ public class BattleLogic {
 
         float playerSpeedPercent = (playerSpeed / 7) * 100;
         float npcSpeedPercent = (npcSpeed / 7) * 100;
-        int damage = 0;
+
         if (playerSpeedPercent >= npcSpeedPercent) {
-            damage = player.getPokemonInUse().getStats().getAttack();
-            decreaseHpNpc(damage, player.getPokemonInUse().getAbilities().get(0).getTypo());
             setTurn(true);
         } else {
-            damage = npc.getPokemonInUse().getStats().getAttack();
-            decreaseHpPlayer(damage, npc.getPokemonInUse().getAbilities().get(0).getTypo());
             setTurn(false);
+            npcLogic();
         }
     }
 
@@ -69,7 +67,6 @@ public class BattleLogic {
         int dmg = (int) (npc.getPokemonInUse().getStats().getHp() - damageCalculated);
         npc.getPokemonInUse().getStats().setHp(dmg);
         BattleFrame.updateNPCHealthBar(npc.getPokemonInUse().getStats().getHp());
-        setTurn(false);
     }
 
     public static void decreaseHpPlayer(int damage, String type) {
@@ -77,50 +74,51 @@ public class BattleLogic {
         int dmg = (int) (player.getPokemonInUse().getStats().getHp() - damageCalculated);
         player.getPokemonInUse().getStats().setHp(dmg);
         BattleFrame.updatePlayerHealthBar(player.getPokemonInUse().getStats().getHp());
-        setTurn(true);
     }
 
     // metodo utilizzato per eseguire la logica del npc in base al turno
     static int count = 0;
 
-public static void npcLogic() {
-    // Verifica se il Pokémon in uso ha HP maggiori di 0
-    if (npc.getPokemonInUse().getStats().getHp() > 0) {
-        if (count != 5) {
-            // Esegue una mossa e incrementa il contatore
-            executeMove();
-            count++;
-        } else {
-            // Prova a cambiare Pokémon
-            boolean changedPokemon = changePokeNpc();
-            try {
-                BattleFrame.updatePokemonDisplayNpc();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (!changedPokemon) {
-                // Se non riesce a cambiare Pokémon, esegue una mossa
-                executeMove();
+    public static void npcLogic() {
+        // Verifica se il Pokémon in uso ha HP maggiori di 0
+        if (npc.getPokemonInUse().getStats().getHp() > 0) {
+            if (count < 5) {
+                // Esegue una mossa e incrementa il contatore
+                BattleFrame.showMessageAbilityNpc(executeMove());
+                count++;
             } else {
-                // Se cambia Pokémon, imposta il turno
-                setTurn(true);
+                // Prova a cambiare Pokémon
+                boolean changedPokemon = changePokeNpc();
+                try {
+                    BattleFrame.updatePokemonDisplayNpc();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (!changedPokemon) {
+                    // Se non riesce a cambiare Pokémon, esegue una mossa
+                    BattleFrame.showMessageAbilityNpc(executeMove());
+                }
+                // Resetta il contatore
+                count = 0;
             }
-            // Resetta il contatore
-            count = 0;
-        }
-    } else {
-        // Cerca un Pokémon con HP maggiori di 0
-        for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
-            if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
-                npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                setTurn(true);
-                break;
+        } else {
+            // Cerca un Pokémon con HP maggiori di 0
+            for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
+                if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    try {
+                        BattleFrame.updatePokemonDisplayNpc();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
             }
         }
+        setTurn(true);
     }
-}
 
-    private static void executeMove() {
+    private static int executeMove() {
         Random randomMove = new Random();
         int moveInd = randomMove.nextInt(3) + 1;
         if (moveInd >= npc.getPokemonInUse().getAbilities().size()) {
@@ -128,13 +126,13 @@ public static void npcLogic() {
         }
         int damage = npc.getPokemonInUse().getAbilities().get(moveInd).getStrength();
         decreaseHpPlayer(damage, npc.getPokemonInUse().getAbilities().get(moveInd).getTypo());
+        return moveInd;
     }
 
     // metodo utilizzato per attivare/disattivare i pulsanti delle abilità in base
     // al turno
     public static void setTurn(boolean turn) {
         BattleLogic.turn = turn;
-
         if (turn) {
             // Attiva i pulsanti delle abilità del giocatore
             for (Component component : BattleFrame.abilityPanel.getComponents()) {
@@ -145,21 +143,24 @@ public static void npcLogic() {
                 }
             }
         } else {
+            System.out.println("NPC Turn");
             // Disattiva i pulsanti delle abilità del giocatore
             for (Component component : BattleFrame.abilityPanel.getComponents()) {
                 if (component instanceof JButton) {
                     JButton abilityButton = (JButton) component;
                     abilityButton.setEnabled(false);
-                    npcLogic(); // NPC logic method
-
                 }
             }
+            Timer timer = new Timer(1500, e -> npcLogic());
+            timer.setRepeats(false);
+            timer.start();
         }
     }
 
     // metodo utilizzato per cambiare il pokemon del npc in base al tipo del pokemon
     // del giocatore
     private static Boolean changePokeNpc() {
+        System.out.println("Changing Pokemon");
         List<String> playerPokemonTypes = Arrays.asList(npc.getPokemonInUse().getTypes());
         for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
             List<String> npcPokemonTypes = Arrays.asList(npc.getTeam().getPokemon(i).getTypes());
@@ -168,8 +169,17 @@ public static void npcLogic() {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
+
             } else if (playerPokemonTypes.contains("fighting")) {
                 if (npcPokemonTypes.contains("flying")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                }
+                else if (npcPokemonTypes.contains("psychic")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                }
+                else if (npcPokemonTypes.contains("fairy")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -179,9 +189,19 @@ public static void npcLogic() {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
+                else if (npcPokemonTypes.contains("fighting")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("rock")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                }
 
             } else if (playerPokemonTypes.contains("poison")) {
                 if (npcPokemonTypes.contains("ground")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                }else if (npcPokemonTypes.contains("psychic")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -190,10 +210,28 @@ public static void npcLogic() {
                 if (npcPokemonTypes.contains("water")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
+                } else if (npcPokemonTypes.contains("grass")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("ice")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
                 }
 
             } else if (playerPokemonTypes.contains("rock")) {
                 if (npcPokemonTypes.contains("fighting")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                }else if (npcPokemonTypes.contains("ground")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("steel")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("water")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("grass")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -202,10 +240,19 @@ public static void npcLogic() {
                 if (npcPokemonTypes.contains("fire")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
+                }else if (npcPokemonTypes.contains("flying")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("rock")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
                 }
 
             } else if (playerPokemonTypes.contains("ghost")) {
                 if (npcPokemonTypes.contains("ghost")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("psychic")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -214,10 +261,22 @@ public static void npcLogic() {
                 if (npcPokemonTypes.contains("fire")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
+                } else if (npcPokemonTypes.contains("fighting")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("ground")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
                 }
 
             } else if (playerPokemonTypes.contains("fire")) {
                 if (npcPokemonTypes.contains("water")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("rock")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("ground")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -226,10 +285,25 @@ public static void npcLogic() {
                 if (npcPokemonTypes.contains("electric")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
+                } else if (npcPokemonTypes.contains("grass")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
                 }
 
             } else if (playerPokemonTypes.contains("grass")) {
                 if (npcPokemonTypes.contains("fire")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("flying")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("bug")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("poison")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("ice")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -244,10 +318,22 @@ public static void npcLogic() {
                 if (npcPokemonTypes.contains("bug")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
+                } else if (npcPokemonTypes.contains("ghost")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
                 }
 
             } else if (playerPokemonTypes.contains("ice")) {
                 if (npcPokemonTypes.contains("fire")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("fighting")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("rock")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("steel")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -256,8 +342,14 @@ public static void npcLogic() {
                 if (npcPokemonTypes.contains("ice")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
+                }else if (npcPokemonTypes.contains("dragon")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
+                } else if (npcPokemonTypes.contains("fairy")) {
+                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    return true;
                 }
-            } 
+            }
         }
         return false;
     }
@@ -271,7 +363,7 @@ public static void npcLogic() {
         int pokeLv = enemy.getPokemonInUse().getLvl();
 
         // calcolo del danno
-        float damage = (float) (((2 * pokeLv + 10) / 50) * (damageIn) * (pokeDefense / 50) + 2);
+        float damage = (float) (((2 * pokeLv + 10) / 25) * (damageIn) * (pokeDefense / 15) + 2);
 
         if (typeAbility == "fire") {
             if (npcPokemonTypes.contains("water")) {

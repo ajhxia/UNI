@@ -113,17 +113,12 @@ public class BattleFrame extends JFrame {
         abilityPanel.repaint();
     }
 
-    private void showMessageAbility(int index) {
+    private void showMessageAbilityPlayer(int index) {
         abilityPanel.removeAll();
         JLabel message;
-        if (BattleLogic.isTurn()) {
-            message = new JLabel(
-                    "You used " + BattleLogic.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
-        } else {
-            message = new JLabel(
-                    "The opponent used " + BattleLogic.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+        message = new JLabel(
+                "You used " + BattleLogic.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
 
-        }
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
         abilityPanel.add(message);
         abilityPanel.revalidate();
@@ -138,8 +133,12 @@ public class BattleFrame extends JFrame {
 
         timer.setRepeats(false);
         timer.start();
-
     }
+
+    static void showMessageAbilityNpc(int index) {
+        System.out.println("NPC used " + BattleLogic.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+    }
+    
 
     private static void initialize(Coach player, Coach npc) {
 
@@ -177,11 +176,10 @@ public class BattleFrame extends JFrame {
         JButton abilityButton = Style.createButton(Color.BLACK,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
-            BattleLogic.setTurn(false);
             BattleLogic.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
                     player.getPokemonInUse().getAbilities().get(index).getTypo());
-            showMessageAbility(index);
-
+            showMessageAbilityPlayer(index);
+            BattleLogic.setTurn(false);
         });
         return abilityButton;
     }
