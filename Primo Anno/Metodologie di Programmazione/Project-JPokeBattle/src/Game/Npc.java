@@ -11,13 +11,12 @@ import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 
 public class Npc {
-    public static Coach createNpc(int index) {
+    public static Coach createNpc(int index, int teamSize) {
         ArrayList<Pokemon> npcTeam = new ArrayList<>();
-        int teamMaxSize = 6; // Dimensione massima del team
         int startCount = 0; // Contatore per i Pokémon con etichetta "start"
 
-        while (startCount < teamMaxSize) {
-            int pokeIndex = (int) (Math.random() * 42) + 1;
+        while (startCount < teamSize) {
+            int pokeIndex = (int) (Math.random() * 55) + 1;
             Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex);
 
             // Controlla se il Pokémon ha l'etichetta "start"

@@ -88,7 +88,7 @@ public class InfoRecap extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    BattleLogic.setNpc(Npc.createNpc(1));
+                    BattleLogic.setNpc(Npc.createNpc(1, 3));
                     new BattleFrame();
                     dispose();
                 } catch (IOException | URISyntaxException e1) {

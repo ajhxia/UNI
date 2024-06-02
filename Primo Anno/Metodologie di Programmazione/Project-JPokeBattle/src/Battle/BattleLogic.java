@@ -80,42 +80,46 @@ public class BattleLogic {
     static int count = 0;
 
     public static void npcLogic() {
-        // Verifica se il Pokémon in uso ha HP maggiori di 0
-        if (npc.getPokemonInUse().getStats().getHp() > 0) {
-            if (count < 5) {
-                // Esegue una mossa e incrementa il contatore
-                BattleFrame.showMessageAbilityNpc(executeMove());
-                count++;
-            } else {
-                // Prova a cambiare Pokémon
-                boolean changedPokemon = changePokeNpc();
-                try {
-                    BattleFrame.updatePokemonDisplayNpc();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (!changedPokemon) {
-                    // Se non riesce a cambiare Pokémon, esegue una mossa
+        Timer timer = new Timer(800, c -> {
+            // Verifica se il Pokémon in uso ha HP maggiori di 0
+            if (npc.getPokemonInUse().getStats().getHp() > 0) {
+                if (count < 5) {
+                    // Esegue una mossa e incrementa il contatore
                     BattleFrame.showMessageAbilityNpc(executeMove());
-                }
-                // Resetta il contatore
-                count = 0;
-            }
-        } else {
-            // Cerca un Pokémon con HP maggiori di 0
-            for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
-                if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                    count++;
+                } else {
+                    // Prova a cambiare Pokémon
+                    boolean changedPokemon = changePokeNpc();
                     try {
                         BattleFrame.updatePokemonDisplayNpc();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    break;
+                    if (!changedPokemon) {
+                        // Se non riesce a cambiare Pokémon, esegue una mossa
+                        BattleFrame.showMessageAbilityNpc(executeMove());
+                    }
+                    // Resetta il contatore
+                    count = 0;
+                }
+            } else {
+                // Cerca un Pokémon con HP maggiori di 0
+                for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
+                    if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
+                        npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                        try {
+                            BattleFrame.updatePokemonDisplayNpc();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
                 }
             }
-        }
-        setTurn(true);
+            setTurn(true);
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     private static int executeMove() {
@@ -149,6 +153,7 @@ public class BattleLogic {
                 if (component instanceof JButton) {
                     JButton abilityButton = (JButton) component;
                     abilityButton.setEnabled(false);
+                    abilityButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
             }
             Timer timer = new Timer(1500, e -> npcLogic());
@@ -174,12 +179,10 @@ public class BattleLogic {
                 if (npcPokemonTypes.contains("flying")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }
-                else if (npcPokemonTypes.contains("psychic")) {
+                } else if (npcPokemonTypes.contains("psychic")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }
-                else if (npcPokemonTypes.contains("fairy")) {
+                } else if (npcPokemonTypes.contains("fairy")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -188,8 +191,7 @@ public class BattleLogic {
                 if (npcPokemonTypes.contains("electric")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }
-                else if (npcPokemonTypes.contains("fighting")) {
+                } else if (npcPokemonTypes.contains("fighting")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 } else if (npcPokemonTypes.contains("rock")) {
@@ -201,7 +203,7 @@ public class BattleLogic {
                 if (npcPokemonTypes.contains("ground")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }else if (npcPokemonTypes.contains("psychic")) {
+                } else if (npcPokemonTypes.contains("psychic")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 }
@@ -222,7 +224,7 @@ public class BattleLogic {
                 if (npcPokemonTypes.contains("fighting")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }else if (npcPokemonTypes.contains("ground")) {
+                } else if (npcPokemonTypes.contains("ground")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 } else if (npcPokemonTypes.contains("steel")) {
@@ -240,7 +242,7 @@ public class BattleLogic {
                 if (npcPokemonTypes.contains("fire")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }else if (npcPokemonTypes.contains("flying")) {
+                } else if (npcPokemonTypes.contains("flying")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 } else if (npcPokemonTypes.contains("rock")) {
@@ -342,7 +344,7 @@ public class BattleLogic {
                 if (npcPokemonTypes.contains("ice")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
-                }else if (npcPokemonTypes.contains("dragon")) {
+                } else if (npcPokemonTypes.contains("dragon")) {
                     npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                     return true;
                 } else if (npcPokemonTypes.contains("fairy")) {

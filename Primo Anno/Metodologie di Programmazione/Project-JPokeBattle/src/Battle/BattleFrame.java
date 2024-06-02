@@ -104,10 +104,12 @@ public class BattleFrame extends JFrame {
         abilityPanel.removeAll();
         for (int i = 0; i < BattleLogic.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
             JButton abilityButton = createAbilityButton(BattleLogic.getPlayer(), i, BattleLogic.getNpc());
+            abilityButton.setEnabled(BattleLogic.isTurn());
             abilityPanel.add(abilityButton);
         }
 
         JButton changePoke = createChangePokemonButton(BattleLogic.getPlayer(), BattleLogic.getNpc());
+        changePoke.setEnabled(BattleLogic.isTurn());
         abilityPanel.add(changePoke);
         abilityPanel.revalidate();
         abilityPanel.repaint();
@@ -120,6 +122,7 @@ public class BattleFrame extends JFrame {
                 "You used " + BattleLogic.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
 
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
+        message.setForeground(Color.WHITE);
         abilityPanel.add(message);
         abilityPanel.revalidate();
         abilityPanel.repaint();
@@ -135,8 +138,42 @@ public class BattleFrame extends JFrame {
         timer.start();
     }
 
-    static void showMessageAbilityNpc(int index) {
-        System.out.println("NPC used " + BattleLogic.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+    public static void showMessageAbilityNpc(int index) {
+        JPanel overlayPanel = new JPanel();
+        abilityPanel.setLayout(null);
+        overlayPanel.setLayout(new GridBagLayout());
+        overlayPanel.setBackground(new Color(87,144,151,255)); // Semi-transparent background
+
+        // Set overlayPanel size to match abilityPanel
+        overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
+
+        JLabel message = new JLabel(
+                "Enemy used " + BattleLogic.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+        message.setFont(PixelFont.myCustomFont.deriveFont(18f));
+        message.setForeground(Color.WHITE); // Set text color for better visibility
+        overlayPanel.add(message);
+
+        
+        abilityPanel.add(overlayPanel, 0); // Add overlayPanel on top of abilityPanel
+        abilityPanel.revalidate();
+        abilityPanel.repaint();
+
+        // Add a component listener to handle resizing of abilityPanel
+        abilityPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
+            }
+        });
+
+        Timer timer = new Timer(1500, e -> {
+            abilityPanel.remove(overlayPanel);
+            abilityPanel.setLayout(new GridLayout(2, 4, 10, 10));
+            abilityPanel.revalidate();
+            abilityPanel.repaint();
+        });
+
+        timer.setRepeats(false);
+        timer.start();
     }
     
 
@@ -178,8 +215,8 @@ public class BattleFrame extends JFrame {
         abilityButton.addActionListener(e -> {
             BattleLogic.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
                     player.getPokemonInUse().getAbilities().get(index).getTypo());
-            showMessageAbilityPlayer(index);
             BattleLogic.setTurn(false);
+            showMessageAbilityPlayer(index); 
         });
         return abilityButton;
     }
