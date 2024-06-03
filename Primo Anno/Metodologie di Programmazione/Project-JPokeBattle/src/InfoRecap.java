@@ -8,47 +8,35 @@ import javax.swing.*;
 import Battle.BattleFrame;
 import Battle.Battle;
 import Game.*;
+import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
+import Shared.Style;
+
+import java.util.List; // Import the List class from java.util
 
 public class InfoRecap extends JFrame {
 
-    public InfoRecap() {
-
+    public InfoRecap() throws IOException, URISyntaxException {
         Coach player = Battle.getPlayer();
-
         setTitle("Recap Team");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout()); // Utilizza BorderLayout per il pannello principale
+        panel.setLayout(null);
 
-        JPanel teamPanel = new JPanel();
-        teamPanel.setLayout(new GridLayout(player.getTeam().getListPokemon().size(), 1));
+        List<Pokemon> pokemons = Battle.getPlayer().getTeam().getListPokemon(); // Change the declaration to use the generic type List<Pokemon>
+        int yOffset = 60; // Offset per posizionare i componenti lungo l'asse Y
+        int rowHeight = 100; // Altezza di ogni riga
 
-        for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
-            JPanel pokemonPanel = new JPanel();
-            pokemonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-            JLabel pokeLabel = new JLabel(player.getTeam().getPokemon(i).getName());
-            pokeLabel.setFont(PixelFont.myCustomFont);
-
-            ImageIcon imagePoke = null;
-            try {
-                imagePoke = ImageUtility.loadImage(new URI(player.getTeam().getPokemon(i).getSprite().getFront()));
-                int newWidth = 100;
-                int newHeight = 100;
-                JLabel imageLabel = new JLabel(new ImageIcon(
-                        imagePoke.getImage().getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH)));
-
-                JButton changeButton = new JButton("Change");
-                changeButton.setFont(PixelFont.myCustomFont);
-                changeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                changeButton.setActionCommand(String.valueOf(i)); // Imposta il valore di i come ActionCommand
-
-                changeButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
+        // Aggiunge i Pokémon dal primo all'ultimo
+        for (int i = 0; i < pokemons.size(); i++) {
+            Pokemon pokemon = pokemons.get(i);
+            int yPosition = yOffset + i * rowHeight; // Posizione lungo l'asse Y per ogni Pokémon
+            JButton changeButton = Style.createButton(Color.black, "Change", 12, 25, yPosition, 120, 30);
+            changeButton.setActionCommand(String.valueOf(i));
+            changeButton.addActionListener(e -> {
+                int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
                         // dall'ActionCommand
                         player.getTeam().getListPokemon().remove(indexToRemove);
                         Pokedex pokedex = new Pokedex();
@@ -59,32 +47,25 @@ public class InfoRecap extends JFrame {
                         }
                         pokedex.setVisible(true);
                         dispose();
-                    }
-                });
+            });
+            panel.add(changeButton);
 
-                changeButton.setBackground(Color.WHITE);
-                changeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                changeButton.setMargin(new Insets(10, 20, 10, 20));
-                changeButton.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(Color.BLACK),
-                        BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-                changeButton.setFocusPainted(false);
+            JLabel nameLabel = new JLabel(pokemon.getName());
+            nameLabel.setFont(PixelFont.myCustomFont);
+            nameLabel.setBounds(170, yPosition - 5, 170, 30); // Imposta la posizione e le dimensioni
+            nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(nameLabel);
 
-                pokemonPanel.add(changeButton);
-                pokemonPanel.add(imageLabel);
-                pokemonPanel.add(pokeLabel);
+            JLabel imageLabel = new JLabel(ImageUtility.loadImage(new URI(pokemon.getSprite().getFront())));
+            // Imposta l'altezza dell'etichetta dell'immagine per allinearla con l'altezza
+            // della riga
+            imageLabel.setBounds(350, yPosition - 35, rowHeight, rowHeight); // Imposta la posizione e le dimensioni
+            imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(imageLabel);
 
-            } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
-            }
-
-            teamPanel.add(pokemonPanel);
         }
 
-        panel.add(teamPanel, BorderLayout.CENTER); // Aggiungi il teamPanel al centro del BorderLayout
-
-        JButton confirmButton = new JButton("Start Battle");
-        confirmButton.setFont(PixelFont.myCustomFont);
+        JButton confirmButton = Style.createButton(Color.black, "Start!!", 16, 100, 625, 200, 50);
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -97,22 +78,11 @@ public class InfoRecap extends JFrame {
                 }
             }
         });
-
-        confirmButton.setBackground(Color.WHITE);
-        confirmButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        confirmButton.setMargin(new Insets(10, 20, 10, 20));
-        confirmButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-        confirmButton.setFocusPainted(false);
-
         // Aggiungi il pulsante "Conferma" al centro in basso
-        panel.add(confirmButton, BorderLayout.PAGE_END);
+        panel.add(confirmButton);
 
         add(panel);
         pack();
-        setVisible(true);
-        setLocationRelativeTo(null);
     }
 
 }
