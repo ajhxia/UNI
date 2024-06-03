@@ -74,6 +74,9 @@ public class BattleLogic {
         int dmg = (int) (player.getPokemonInUse().getStats().getHp() - damageCalculated);
         player.getPokemonInUse().getStats().setHp(dmg);
         BattleFrame.updatePlayerHealthBar(player.getPokemonInUse().getStats().getHp());
+        if(player.getPokemonInUse().getStats().getHp() <= 0){
+            //ChangePokemonFrame changePokemonFrame = new ChangePokemonFrame();
+        }
     }
 
     // metodo utilizzato per eseguire la logica del npc in base al turno

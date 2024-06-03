@@ -1,3 +1,1 @@
-impostare la grafica dell'npc quando esegue una mossa e quando cambia pokemon
-
 Fare la parte in cui se il mio pokemon faint allora ne scelgo uno nuovo disponibile
