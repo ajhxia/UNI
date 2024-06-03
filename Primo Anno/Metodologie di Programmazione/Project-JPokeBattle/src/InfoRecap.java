@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 
 import javax.swing.*;
 import Battle.BattleFrame;
-import Battle.BattleLogic;
+import Battle.Battle;
 import Game.*;
 import Shared.ImageUtility;
 import Shared.PixelFont;
@@ -15,7 +15,7 @@ public class InfoRecap extends JFrame {
 
     public InfoRecap() {
 
-        Coach player = BattleLogic.getPlayer();
+        Coach player = Battle.getPlayer();
 
         setTitle("Recap Team");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +88,7 @@ public class InfoRecap extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    BattleLogic.setNpc(Npc.createNpc(1, 3));
+                    Battle.setNpc(Npc.createNpc(1, 3));
                     new BattleFrame();
                     dispose();
                 } catch (IOException | URISyntaxException e1) {

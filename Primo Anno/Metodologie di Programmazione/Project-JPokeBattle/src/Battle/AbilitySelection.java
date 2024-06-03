@@ -30,7 +30,7 @@ public class AbilitySelection extends JFrame {
         frame.setSize(840, 355); // Dimensioni leggermente modificate per adattare meglio gli elementi
         frame.setLayout(null);
 
-        pokemon = BattleLogic.getPlayer().getTeam().getPokemon(indexPoke);
+        pokemon = Battle.getPlayer().getTeam().getPokemon(indexPoke);
 
         // Aggiungi un JLabel per visualizzare il nome del Pokemon
         JLabel pokemonNameLabel = new JLabel("Nome del Pokémon: " + pokemon.getName());

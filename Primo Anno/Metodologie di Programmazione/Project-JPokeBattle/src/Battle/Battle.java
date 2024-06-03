@@ -12,7 +12,7 @@ import javax.swing.Timer;
 
 import Game.Coach;
 
-public class BattleLogic {
+public class Battle {
     private static Coach player;
     private static Coach npc;
     private static boolean turn;
@@ -139,7 +139,7 @@ public class BattleLogic {
     // metodo utilizzato per attivare/disattivare i pulsanti delle abilità in base
     // al turno
     public static void setTurn(boolean turn) {
-        BattleLogic.turn = turn;
+        Battle.turn = turn;
         if (turn) {
             // Attiva i pulsanti delle abilità del giocatore
             for (Component component : BattleFrame.abilityPanel.getComponents()) {

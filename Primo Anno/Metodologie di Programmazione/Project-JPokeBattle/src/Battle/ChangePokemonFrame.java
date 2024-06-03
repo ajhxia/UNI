@@ -12,8 +12,8 @@ import Shared.Style;
 
 public class ChangePokemonFrame extends JFrame {
     public ChangePokemonFrame(BattleFrame battleFrame) {
-        Coach player = BattleLogic.getPlayer();
-        Coach npc = BattleLogic.getNpc();
+        Coach player = Battle.getPlayer();
+        Coach npc = Battle.getNpc();
 
         setTitle("Change Pokemon");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -47,7 +47,7 @@ public class ChangePokemonFrame extends JFrame {
                     dispose();
                     try {
                         battleFrame.updatePokemonDisplayPlayer(player, npc);
-                        BattleLogic.setTurn(false);
+                        Battle.setTurn(false);
                         System.out.println(player.getPokemonInUse().getName());
                     } catch (IOException e1) {
                         e1.printStackTrace();

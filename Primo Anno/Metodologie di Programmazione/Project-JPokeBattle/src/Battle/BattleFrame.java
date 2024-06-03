@@ -31,8 +31,8 @@ public class BattleFrame extends JFrame {
 
     public BattleFrame() throws IOException, URISyntaxException {
 
-        Coach player = BattleLogic.getPlayer();
-        Coach npc = BattleLogic.getNpc();
+        Coach player = Battle.getPlayer();
+        Coach npc = Battle.getNpc();
 
         frame = new JFrame("Battle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,14 +102,14 @@ public class BattleFrame extends JFrame {
 
     public void abilityPanel() {
         abilityPanel.removeAll();
-        for (int i = 0; i < BattleLogic.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
-            JButton abilityButton = createAbilityButton(BattleLogic.getPlayer(), i, BattleLogic.getNpc());
-            abilityButton.setEnabled(BattleLogic.isTurn());
+        for (int i = 0; i < Battle.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
+            JButton abilityButton = createAbilityButton(Battle.getPlayer(), i, Battle.getNpc());
+            abilityButton.setEnabled(Battle.isTurn());
             abilityPanel.add(abilityButton);
         }
 
-        JButton changePoke = createChangePokemonButton(BattleLogic.getPlayer(), BattleLogic.getNpc());
-        changePoke.setEnabled(BattleLogic.isTurn());
+        JButton changePoke = createChangePokemonButton(Battle.getPlayer(), Battle.getNpc());
+        changePoke.setEnabled(Battle.isTurn());
         abilityPanel.add(changePoke);
         abilityPanel.revalidate();
         abilityPanel.repaint();
@@ -119,7 +119,7 @@ public class BattleFrame extends JFrame {
         abilityPanel.removeAll();
         JLabel message;
         message = new JLabel(
-                "You used " + BattleLogic.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
+                "You used " + Battle.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
 
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
         message.setForeground(Color.WHITE);
@@ -148,7 +148,7 @@ public class BattleFrame extends JFrame {
         overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
 
         JLabel message = new JLabel(
-                "Enemy used " + BattleLogic.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+                "Enemy used " + Battle.getNpc().getPokemonInUse().getAbilities().get(index).getName());
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
         message.setForeground(Color.WHITE); // Set text color for better visibility
         overlayPanel.add(message);
@@ -179,7 +179,7 @@ public class BattleFrame extends JFrame {
 
     private static void initialize(Coach player, Coach npc) {
 
-        BattleLogic.setPokeInUseAtStart(0);
+        Battle.setPokeInUseAtStart(0);
 
         int playerMaxHp = player.getTeam().getPokemon(0).getStats().getMaxHp();
         int playerCurrentHp = player.getTeam().getPokemon(0).getStats().getHp();
@@ -204,7 +204,7 @@ public class BattleFrame extends JFrame {
             System.out.println("Start Battle");
             player.getTeam().getPokemon(0).setInUse(true);
             npc.getTeam().getPokemon(0).setInUse(true);
-            BattleLogic.whoStart();
+            Battle.whoStart();
             startBattle = true; // Update startBattle to true
         }
     }
@@ -213,9 +213,9 @@ public class BattleFrame extends JFrame {
         JButton abilityButton = Style.createButton(Color.BLACK,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
-            BattleLogic.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
+            Battle.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
                     player.getPokemonInUse().getAbilities().get(index).getTypo());
-            BattleLogic.setTurn(false);
+            Battle.setTurn(false);
             showMessageAbilityPlayer(index); 
         });
         return abilityButton;
@@ -273,7 +273,7 @@ public class BattleFrame extends JFrame {
 
     public static void updatePokemonDisplayNpc() throws IOException {
         // Update Pokémon name and level
-        Coach npc = BattleLogic.getNpc();
+        Coach npc = Battle.getNpc();
 
         pokeNpc.setText(npc.getPokemonInUse().getName());
         lvlNpc.setText(String.valueOf(npc.getPokemonInUse().getLvl()));

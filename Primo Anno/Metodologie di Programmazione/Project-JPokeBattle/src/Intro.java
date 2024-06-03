@@ -1,9 +1,6 @@
 import javax.swing.*;
 
-import Shared.ImageUtility;
-import Shared.PixelFont;
-import Shared.RelativePath;
-import Shared.Style;
+import Shared.*;
 
 /*
  * Questa classe rappresenta la finestra di benvenuto del gioco
@@ -26,7 +23,6 @@ public class Intro extends JFrame implements ActionListener {
         intro.loadResources();
         // Create a separate thread to load resources and update the progress bar
         new Thread(() -> {
-            
             SwingUtilities.invokeLater(() -> {
                 intro.showMainScreen();
             });

@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-import Battle.BattleLogic;
+import Battle.Battle;
 import Game.Coach;
 import Pokemon.*;
 import Shared.*;
@@ -21,7 +21,7 @@ public class Pokedex extends JPanel implements ActionListener {
     public static JPanel teamPanel; // Pannello per i Pokémon in squadra
 
     public Pokedex() {
-        Coach player = BattleLogic.getPlayer();
+        Coach player = Battle.getPlayer();
         pokedexFrame = new JFrame("Pokédex of " + player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pokedexFrame.setSize(1120, 680);
@@ -139,7 +139,7 @@ public class Pokedex extends JPanel implements ActionListener {
             infoFrame.dispose(); // Chiudi il JFrame precedente se esiste
         }
         Pokemon pokemon = initialPokemonList.get(pokeIndexIn - 1);
-        InfoPokemon infoPokemon = new InfoPokemon(pokemon, BattleLogic.getPlayer());
+        InfoPokemon infoPokemon = new InfoPokemon(pokemon, Battle.getPlayer());
         infoFrame = new JFrame(pokemon.getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         infoFrame.setSize(510, 400);
@@ -155,14 +155,14 @@ public class Pokedex extends JPanel implements ActionListener {
 
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del titolo
-        int numPokemon = BattleLogic.getPlayer().getTeam().getListPokemon().size();
+        int numPokemon = Battle.getPlayer().getTeam().getListPokemon().size();
         titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
     
     public static void updateTeamPanel() throws IOException, URISyntaxException {
     teamPanel.removeAll(); // Rimuove tutti i componenti dal pannello dei Pokémon
     teamPanel.setLayout(null); // Imposta il layout a null
-    List<Pokemon> pokemons = BattleLogic.getPlayer().getTeam().getListPokemon();
+    List<Pokemon> pokemons = Battle.getPlayer().getTeam().getListPokemon();
 
     int rowHeight = 93; // Altezza della riga
     int yOffset = 60; // Offset per posizionare i componenti lungo l'asse Y
@@ -176,7 +176,7 @@ public class Pokedex extends JPanel implements ActionListener {
         removeButton.setActionCommand(String.valueOf(i));
         removeButton.addActionListener(e -> {
             int indexToRemove = Integer.parseInt(e.getActionCommand());
-            BattleLogic.getPlayer().getTeam().removePokemon(indexToRemove);
+            Battle.getPlayer().getTeam().removePokemon(indexToRemove);
             try {
                 updateTeamPanel();
                 updateTitle();
