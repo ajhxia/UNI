@@ -104,7 +104,7 @@ public class Battle {
                     count = 0;
                 }
             } else {
-                // Cerca un Pokémon con HP maggiori di 0
+                boolean allPokemonHpZero = true;
                 for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
                     if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
                         npc.setPokemonInUse(npc.getTeam().getPokemon(i));
@@ -113,13 +113,16 @@ public class Battle {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        allPokemonHpZero = false;
                         break;
                     }
                 }
-
-                new RecapBattle();
                 
-                InfoRecap.battleFrame.dispose();
+                if (allPokemonHpZero) {
+                    InfoRecap.battleFrame.setVisible(false);
+                    InfoRecap.battleFrame.dispose();
+                    new RecapBattle();
+                }
             }
             setTurn(true);
         });
