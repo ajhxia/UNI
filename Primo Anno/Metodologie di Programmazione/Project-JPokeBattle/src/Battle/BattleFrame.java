@@ -22,7 +22,7 @@ public class BattleFrame extends JFrame {
     private static JLabel lvlNpc;
     private static JLabel imageLabelNpc;
 
-    public JFrame frame;
+    public static JFrame frame;
 
     /*
      * TODO: bisogna far vedere quando l'npc usa un'abilità e aggiornare il frame
@@ -207,6 +207,10 @@ public class BattleFrame extends JFrame {
             Battle.whoStart();
             startBattle = true; // Update startBattle to true
         }
+    }
+
+    public static JFrame getInstance() {
+        return frame;
     }
 
     private JButton createAbilityButton(Coach player, int index, Coach npc) {

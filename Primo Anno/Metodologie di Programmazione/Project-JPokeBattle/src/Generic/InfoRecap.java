@@ -1,3 +1,4 @@
+package Generic;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -5,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.swing.*;
+
 import Battle.BattleFrame;
 import Battle.Battle;
 import Game.*;
@@ -16,6 +18,8 @@ import Shared.Style;
 import java.util.List; // Import the List class from java.util
 
 public class InfoRecap extends JFrame {
+
+    public static BattleFrame battleFrame;
 
     public InfoRecap() throws IOException, URISyntaxException {
         Coach player = Battle.getPlayer();
@@ -65,12 +69,12 @@ public class InfoRecap extends JFrame {
 
         }
 
-        JButton confirmButton = Style.createButton(Color.black, "Start!!", 16, 100, 625, 200, 50);
+        JButton confirmButton = Style.createButton(Color.black, "Start!!", 16, 115, 650, 200, 50);
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Battle.setNpc(Npc.createNpc(1, 3));
-                    new BattleFrame();
+                    battleFrame = new BattleFrame();
                     dispose();
                 } catch (IOException | URISyntaxException e1) {
                     // TODO Auto-generated catch block

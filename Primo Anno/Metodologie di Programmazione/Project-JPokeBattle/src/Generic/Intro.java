@@ -1,3 +1,4 @@
+package Generic;
 import javax.swing.*;
 
 import Shared.*;

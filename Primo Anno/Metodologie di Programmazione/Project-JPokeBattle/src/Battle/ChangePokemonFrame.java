@@ -39,6 +39,7 @@ public class ChangePokemonFrame extends JFrame {
             // Cambia il colore del bottone se la vita del Pokémon è inferiore
             if (pokemon.getStats().getHp() <= 0) {
                 button.setBackground(Color.RED);
+                button.setEnabled(false);
             }
 
             button.addActionListener(e -> {
