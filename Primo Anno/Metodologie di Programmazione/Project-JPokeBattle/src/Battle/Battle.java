@@ -137,11 +137,11 @@ public class Battle {
     private static void expChangePlayer() {
         int pokeNpcExp = npc.getPokemonInUse().getBaseExperience();
         int pokeNpcLv = npc.getPokemonInUse().getLvl();
-        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 4;
+        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 7;
         player.getPokemonInUse().setBaseExperience(player.getPokemonInUse().getBaseExperience() + totExpGain);
 
-        if (player.getPokemonInUse().getBaseExperience() == player.getPokemonInUse().getMaxExperience()) {
-            player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvl() + 3);
+        if (player.getPokemonInUse().getBaseExperience() >= player.getPokemonInUse().getMaxExperience()) {
+            player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvl() + 5);
             player.getPokemonInUse().setBaseExperience(0);
             BattleFrame.updatePlayerExpBar(0);
 

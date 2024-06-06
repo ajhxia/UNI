@@ -1,6 +1,8 @@
 package Battle;
+
 import java.awt.Color;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.*;
 
@@ -8,7 +10,6 @@ import Game.Coach;
 import Pokemon.Pokemon;
 import Shared.PixelFont;
 import Shared.Style;
-
 
 public class ChangePokemonFrame extends JFrame {
     public ChangePokemonFrame(BattleFrame battleFrame) {
@@ -35,7 +36,7 @@ public class ChangePokemonFrame extends JFrame {
             final int index = i;
             Pokemon pokemon = player.getTeam().getPokemon(index);
             JButton button = Style.createButton(Color.BLACK, pokemon.getName(), 14, 100, 60 + (index * 40), 200, 30);
-            
+
             // Cambia il colore del bottone se la vita del Pokémon è inferiore
             if (pokemon.getStats().getHp() <= 0) {
                 button.setBackground(Color.RED);
@@ -46,15 +47,19 @@ public class ChangePokemonFrame extends JFrame {
                 if (pokemon.getStats().getHp() > 0) {
                     player.setPokemonInUse(pokemon);
                     dispose();
+
                     try {
                         battleFrame.updatePokemonDisplayPlayer(player, npc);
-                        Battle.setTurn(false);
-                        System.out.println(player.getPokemonInUse().getName());
-                    } catch (IOException e1) {
+                    } catch (IOException | URISyntaxException e1) {
+                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
+                    Battle.setTurn(false);
+                    System.out.println(player.getPokemonInUse().getName());
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "You can't change a fainted Pokémon", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You can't change a fainted Pokémon", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             });
             panel.add(button);
@@ -63,4 +68,3 @@ public class ChangePokemonFrame extends JFrame {
         setVisible(true);
     }
 }
-

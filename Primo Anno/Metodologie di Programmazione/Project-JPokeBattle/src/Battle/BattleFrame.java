@@ -12,6 +12,10 @@ public class BattleFrame extends JFrame {
     private static JProgressBar playerHealthBar;
     private static JProgressBar npcHealthBar;
     private static JProgressBar playerExpBar;
+    static ImageIcon gifSmoke = new ImageIcon(RelativePath.getAbsolutePath("Image/smoke.gif"));
+    static Image originalImage = gifSmoke.getImage();
+    static Image resizedImage = originalImage.getScaledInstance(200, 150, Image.SCALE_DEFAULT);
+    ImageIcon smoke = new ImageIcon(resizedImage);
 
     public static JPanel abilityPanel;
     private static boolean startBattle = false;
@@ -74,16 +78,26 @@ public class BattleFrame extends JFrame {
         lvlNpc.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(lvlNpc);
 
-        ImageIcon imagePokePlayer = ImageUtility
-                .loadImage(new URI(player.getPokemonInUse().getSprite().getBack()));
-        imageLabelPlayer = new JLabel(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
+        ImageIcon imagePokePlayer = ImageUtility.loadImage(new URI(player.getPokemonInUse().getSprite().getBack()));
+        ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse().getSprite().getFront()));
+
+        imageLabelPlayer = new JLabel(smoke);
+
+        imageLabelNpc = new JLabel(smoke);
+        imageLabelPlayer = new JLabel(smoke);
+
         imageLabelPlayer.setBounds(100, 175, 200, 200);
         backgroundLabel.add(imageLabelPlayer);
 
-        ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse().getSprite().getFront()));
-        imageLabelNpc = new JLabel(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
         imageLabelNpc.setBounds(550, 40, 200, 200);
         backgroundLabel.add(imageLabelNpc);
+
+        Timer timerN = new Timer(980, e -> {
+            imageLabelNpc.setIcon(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
+            imageLabelPlayer.setIcon(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
+        });
+        timerN.setRepeats(false);
+        timerN.start();
 
         // Aggiungi le barre della salute al backgroundLabel
         backgroundLabel.add(playerHealthBar);
@@ -231,62 +245,71 @@ public class BattleFrame extends JFrame {
         timer.start();
     }
 
-    // permette di vedere di quanto aumentano le stats del pokemon dopo un livello
     public static void showIncrementStats() {
         Pokemon pokemon = Battle.getPlayer().getPokemonInUse();
 
         JPanel overlayPanel = new JPanel();
         abilityPanel.setLayout(null);
         overlayPanel.setLayout(new GridBagLayout());
-        overlayPanel.setBackground(new Color(87, 144, 151, 255)); // Semi-transparent background
+        overlayPanel.setBackground(new Color(87, 144, 151, 255)); // Sfondo semi-trasparente
 
-        // Set overlayPanel size to match abilityPanel
+        // Imposta la dimensione di overlayPanel per adattarsi a abilityPanel
         overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
 
         JLabel message = new JLabel("Your " + pokemon.getName() + " has increased its stats!");
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
-        message.setForeground(Color.WHITE); // Set text color for better visibility
-        overlayPanel.add(message);
+        message.setForeground(Color.WHITE); // Imposta il colore del testo per una migliore visibilità
 
-        // label per gli hp del pokemon
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
+
+        overlayPanel.add(message, gbc);
+
         pokemon.getStats().setAttack(pokemon.getStats().getAttack() + 30);
         pokemon.getStats().setDefense(pokemon.getStats().getDefense() + 25);
         pokemon.getStats().setSpeed(pokemon.getStats().getSpeed() + 50);
         pokemon.getStats().setHp(pokemon.getStats().getHp() + 23);
 
+        gbc.gridy++;
         JLabel hp = new JLabel("HP: " + pokemon.getStats().getHp() + " -> " + pokemon.getStats().getHp());
         hp.setFont(PixelFont.myCustomFont.deriveFont(12f));
-        hp.setBounds(315, 193, 200, 50);
-        overlayPanel.add(hp);
+        hp.setForeground(Color.WHITE);
+        overlayPanel.add(hp, gbc);
 
+        gbc.gridy++;
         JLabel atk = new JLabel("Attack: " + pokemon.getStats().getAttack() + " -> " + pokemon.getStats().getAttack());
         atk.setFont(PixelFont.myCustomFont.deriveFont(12f));
-        atk.setBounds(315, 270, 200, 50);
-        overlayPanel.add(atk);
+        atk.setForeground(Color.WHITE);
+        overlayPanel.add(atk, gbc);
 
+        gbc.gridy++;
         JLabel def = new JLabel(
                 "Defense: " + pokemon.getStats().getDefense() + " -> " + pokemon.getStats().getDefense());
         def.setFont(PixelFont.myCustomFont.deriveFont(12f));
-        def.setBounds(315, 290, 200, 50);
-        overlayPanel.add(def);
+        def.setForeground(Color.WHITE);
+        overlayPanel.add(def, gbc);
 
-        JLabel spAtk = new JLabel("Sp. Atk: " + pokemon.getStats().getSpeed() + " -> " + pokemon.getStats().getSpeed());
-        spAtk.setFont(PixelFont.myCustomFont.deriveFont(12f));
-        spAtk.setBounds(315, 310, 200, 50);
-        overlayPanel.add(spAtk);
+        gbc.gridy++;
+        JLabel spd = new JLabel("Speed: " + pokemon.getStats().getSpeed() + " -> " + pokemon.getStats().getSpeed());
+        spd.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        spd.setForeground(Color.WHITE);
+        overlayPanel.add(spd, gbc);
 
-        abilityPanel.add(overlayPanel, 0); // Add overlayPanel on top of abilityPanel
+        abilityPanel.add(overlayPanel, 0); // Aggiungi overlayPanel sopra abilityPanel
         abilityPanel.revalidate();
         abilityPanel.repaint();
 
-        // Add a component listener to handle resizing of abilityPanel
+        // Aggiungi un listener per gestire il ridimensionamento di abilityPanel
         abilityPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
             }
         });
 
-        Timer timer = new Timer(1500, e -> {
+        Timer timer = new Timer(2000, e -> {
             abilityPanel.remove(overlayPanel);
             abilityPanel.setLayout(new GridLayout(2, 4, 10, 10));
             abilityPanel.revalidate();
@@ -379,7 +402,7 @@ public class BattleFrame extends JFrame {
         playerExpBar.setValue(exp);
     }
 
-    public void updatePokemonDisplayPlayer(Coach player, Coach npc) throws IOException {
+    public void updatePokemonDisplayPlayer(Coach player, Coach npc) throws IOException, URISyntaxException {
         // Update Pokémon name and level
         pokePlayer.setText(player.getPokemonInUse().getName());
         lvlPlayer.setText(String.valueOf(player.getPokemonInUse().getLvl()));
@@ -387,13 +410,15 @@ public class BattleFrame extends JFrame {
         playerCurrentHpLabel.setText(String.valueOf(player.getPokemonInUse().getStats().getHp()));
         updatePokeballStatus(player);
 
-        // Update Pokémon image
-        try {
-            ImageIcon imagePokePlayer = ImageUtility.loadImage(new URI(player.getPokemonInUse().getSprite().getBack()));
+        imageLabelPlayer.setIcon(smoke);
+
+        ImageIcon imagePokePlayer = ImageUtility.loadImage(new URI(player.getPokemonInUse().getSprite().getBack()));
+
+        Timer timerN = new Timer(970, e -> {
             imageLabelPlayer.setIcon(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        });
+        timerN.setRepeats(false);
+        timerN.start();
 
         // Update health bar
         playerHealthBar.setMaximum(player.getPokemonInUse().getStats().getMaxHp());
@@ -425,13 +450,24 @@ public class BattleFrame extends JFrame {
         pokeNpc.setText(npc.getPokemonInUse().getName());
         lvlNpc.setText(String.valueOf(npc.getPokemonInUse().getLvl()));
 
-        // Update Pokémon image
-        try {
-            ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse().getSprite().getFront()));
-            imageLabelNpc.setIcon(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        ImageIcon smoke = new ImageIcon(resizedImage);
+        imageLabelNpc = new JLabel(smoke);
+        imageLabelNpc.setIcon(smoke);
+
+        Timer timerN = new Timer(980, e -> {
+            // Update Pokémon image
+            try {
+                ImageIcon imagePokePlayer = ImageUtility
+                        .loadImage(new URI(npc.getPokemonInUse().getSprite().getBack()));
+                imageLabelNpc.setIcon(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
+            } catch (URISyntaxException k) {
+                k.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        timerN.setRepeats(false);
+        timerN.start();
 
         // Update health bar
         npcHealthBar.setMaximum(npc.getPokemonInUse().getStats().getMaxHp());
