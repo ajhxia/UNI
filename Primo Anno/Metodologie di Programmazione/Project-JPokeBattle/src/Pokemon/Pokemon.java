@@ -41,6 +41,37 @@ public class Pokemon {
         return start;
     }
 
+    public int getMaxExperience() {
+        if (1<=lvl && lvl<=10) {
+            return 1000;
+        } else if (11<=lvl && lvl<=20) {
+            return 1500;
+        } else if (21<=lvl && lvl<=30) {
+            return 2000;
+        } else if (31<=lvl && lvl<=40) {
+            return 2500;
+        } else if (41<=lvl && lvl<=50) {
+            return 3000;
+        } else if (51<=lvl && lvl<=60) {
+            return 3500;
+        } else if (61<=lvl && lvl<=70) {
+            return 4000;
+        } else if (71<=lvl && lvl<=80) {
+            return 4500;
+        } else if (81<=lvl && lvl<=90) {
+            return 5000;
+        } else if (91<=lvl && lvl<=100) {
+            return 5500;
+        } else {
+            return 0;
+        }
+    }
+
+    public void setBaseExperience(int baseExperience) {
+        this.baseExperience = baseExperience;
+    }
+
+
     public ArrayList<Ability> getAbilities() {
         return abilities;
     }
@@ -92,6 +123,10 @@ public class Pokemon {
     
     public int getLvl() {
         return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
     }
 
     public int getBaseExperience() {

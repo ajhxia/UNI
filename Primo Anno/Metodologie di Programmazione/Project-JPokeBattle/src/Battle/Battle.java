@@ -108,17 +108,20 @@ public class Battle {
                 for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
                     if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
                         npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                        
+
                         try {
                             BattleFrame.updatePokemonDisplayNpc();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         allPokemonHpZero = false;
+                        expChangePlayer();
                         break;
                     }
                 }
-                
+
+                BattleFrame.updatePokeballStatusNpc(npc);
+
                 if (allPokemonHpZero) {
                     InfoRecap.battleFrame.setVisible(false);
                     InfoRecap.battleFrame.dispose();
@@ -129,6 +132,24 @@ public class Battle {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+
+    private static void expChangePlayer() {
+        int pokeNpcExp = npc.getPokemonInUse().getBaseExperience();
+        int pokeNpcLv = npc.getPokemonInUse().getLvl();
+        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 9;
+        player.getPokemonInUse().setBaseExperience(player.getPokemonInUse().getBaseExperience() + totExpGain);
+
+        if (player.getPokemonInUse().getBaseExperience() == player.getPokemonInUse().getMaxExperience()) {
+            player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvl() + 1);
+            player.getPokemonInUse().setBaseExperience(0);
+            BattleFrame.updatePlayerExpBar(player.getPokemonInUse().getBaseExperience());
+            
+            BattleFrame.showIncrementStats();
+
+            BattleFrame.lvlPlayer.setText(String.valueOf(player.getPokemonInUse().getLvl()));
+        }
+        BattleFrame.updatePlayerExpBar(player.getPokemonInUse().getBaseExperience());
     }
 
     private static int executeMove() {
@@ -574,7 +595,7 @@ public class Battle {
 
         int random = new Random().nextInt(39) + 217; // Random number between 217 and 255
 
-        float damage = ((((2f * pokeLv + 10f) / 5f) * (damageIn * pokeAttack / pokeDefense) )/ 50f + 2f)
+        float damage = ((((2f * pokeLv + 10f) / 5f) * (damageIn * pokeAttack / pokeDefense)) / 50f + 2f)
                 * typeEffectiveness * random / 125f;
         return damage;
     }
