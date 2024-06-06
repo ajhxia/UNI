@@ -17,10 +17,14 @@ public class BattleFrame extends JFrame {
     private JLabel pokePlayer;
     private JLabel lvlPlayer;
     private JLabel imageLabelPlayer;
+    private static JLabel playerCurrentHpLabel;
+    private JLabel playerMaxHpLabel;
 
     private static JLabel pokeNpc;
     private static JLabel lvlNpc;
     private static JLabel imageLabelNpc;
+    private JLabel[] playerPokeballs;
+    private JLabel[] npcPokeballs;
 
     public static JFrame frame;
 
@@ -73,6 +77,7 @@ public class BattleFrame extends JFrame {
         lvlNpc.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(lvlNpc);
 
+
         ImageIcon imagePokePlayer = ImageUtility
                 .loadImage(new URI(player.getPokemonInUse().getSprite().getBack()));
         imageLabelPlayer = new JLabel(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
@@ -81,14 +86,29 @@ public class BattleFrame extends JFrame {
 
         ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse().getSprite().getFront()));
         imageLabelNpc = new JLabel(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
-        imageLabelNpc.setBounds(550, 50, 200, 200);
+        imageLabelNpc.setBounds(550, 40, 200, 200);
         backgroundLabel.add(imageLabelNpc);
 
         // Aggiungi le barre della salute al backgroundLabel
         backgroundLabel.add(playerHealthBar);
         backgroundLabel.add(npcHealthBar);
 
+
+        // Aggiungi JLabel per HP correnti e massimi del giocatore
+        playerCurrentHpLabel = new JLabel(String.valueOf(player.getPokemonInUse().getStats().getHp()));
+        playerCurrentHpLabel.setBounds(680, 300, 50, 20);
+        playerCurrentHpLabel.setFont(PixelFont.myCustomFont.deriveFont(18f));
+        backgroundLabel.add(playerCurrentHpLabel);
+
+        playerMaxHpLabel = new JLabel(String.valueOf(player.getPokemonInUse().getStats().getMaxHp()));
+        playerMaxHpLabel.setBounds(740, 300, 50, 20);
+        playerMaxHpLabel.setFont(PixelFont.myCustomFont.deriveFont(18f));
+        backgroundLabel.add(playerMaxHpLabel);
+
         abilityPanel();
+
+         // Inizializza le Poké Ball
+        initializePokeballs(player, npc, backgroundLabel);
 
         // Aggiungi il pannello dei pulsanti delle abilità al frame
         frame.add(abilityPanel);
@@ -98,6 +118,37 @@ public class BattleFrame extends JFrame {
         // Altre componenti del frame...
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    private void initializePokeballs(Coach player, Coach npc, JLabel backgroundLabel) throws IOException {
+        int playerPokeballCount = player.getTeam().getTeamSize();
+        int npcPokeballCount = npc.getTeam().getTeamSize();
+
+        playerPokeballs = new JLabel[playerPokeballCount];
+        npcPokeballs = new JLabel[npcPokeballCount];
+        
+        ImageIcon activePokeball = new ImageIcon(RelativePath.getAbsolutePath("Image/active_pokeball.png"));
+
+        for (int i = 0; i < playerPokeballCount; i++) {
+            playerPokeballs[i] = new JLabel(ImageUtility.resizeIcon(activePokeball, 30, 30));
+            playerPokeballs[i].setBounds(568 + (i * 40), 200, 30, 30);
+            frame.add(playerPokeballs[i]);
+        }
+
+        for (int i = 0; i < npcPokeballCount; i++) {
+            npcPokeballs[i] = new JLabel(ImageUtility.resizeIcon(activePokeball, 30, 30));
+            npcPokeballs[i].setBounds(150 - (i * 40), 20, 30, 30);
+            frame.add(npcPokeballs[i]);
+        }
+    }
+
+    public void updatePokeballStatus(Coach player) {
+        for (int i = 0; i < playerPokeballs.length; i++) {
+            if (player.getTeam().getListPokemon().get(i).getStats().getHp() == 0) {
+                ImageIcon inactivePokeball = new ImageIcon(RelativePath.getAbsolutePath("Image/inactive_pokeball.png"));
+                playerPokeballs[i].setIcon(ImageUtility.resizeIcon(inactivePokeball, 30, 30));
+            }
+        }
     }
 
     public void abilityPanel() {
@@ -214,7 +265,7 @@ public class BattleFrame extends JFrame {
     }
 
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
-        JButton abilityButton = Style.createButton(Color.BLACK,
+        JButton abilityButton = Style.createButton(Color.WHITE,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
             Battle.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
@@ -226,7 +277,7 @@ public class BattleFrame extends JFrame {
     }
 
     private JButton createChangePokemonButton(Coach player, Coach npc) {
-        JButton changePoke = Style.createButton(Color.BLACK, "Change Pokémon", 12, 90, 65, 350, 40);
+        JButton changePoke = Style.createButton(Color.WHITE, "Change Pokémon", 12, 90, 65, 350, 40);
         changePoke.addActionListener(e -> {
             new ChangePokemonFrame(this);
         });
@@ -236,6 +287,7 @@ public class BattleFrame extends JFrame {
     // Aggiorna la barra della salute del giocatore
     public static void updatePlayerHealthBar(int currentHp) {
         playerHealthBar.setValue(currentHp);
+        playerCurrentHpLabel.setText(String.valueOf(currentHp));
     }
 
     // Aggiorna la barra della salute del NPC
@@ -247,6 +299,8 @@ public class BattleFrame extends JFrame {
         // Update Pokémon name and level
         pokePlayer.setText(player.getPokemonInUse().getName());
         lvlPlayer.setText(String.valueOf(player.getPokemonInUse().getLvl()));
+
+        playerCurrentHpLabel.setText(String.valueOf(player.getPokemonInUse().getStats().getHp()));
 
         // Update Pokémon image
         try {
@@ -273,6 +327,7 @@ public class BattleFrame extends JFrame {
 
         abilityPanel.revalidate();
         abilityPanel.repaint();
+        updatePokeballStatus(player);
     }
 
     public static void updatePokemonDisplayNpc() throws IOException {

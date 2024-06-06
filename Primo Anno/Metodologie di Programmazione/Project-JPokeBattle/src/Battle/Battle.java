@@ -108,6 +108,7 @@ public class Battle {
                 for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
                     if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
                         npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                        
                         try {
                             BattleFrame.updatePokemonDisplayNpc();
                         } catch (IOException e) {

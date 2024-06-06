@@ -1,1 +1,7 @@
-Fare la parte in cui se il mio pokemon faint allora ne scelgo uno nuovo disponibile
+
+Fare la parte grafica dell'exp che aumenta
+fare la parte in cui quando faccio stancare un pkemon nemico aumenta exp del mio pokemon e in caso salgo di livello
+
+aggiungere l'hp che diminuisce con la barra hp del mio pkemon
+
+quando il pokemon aumenta di lv aumentano le stats, fare un pannello che fa vedere di quanto aumentano
