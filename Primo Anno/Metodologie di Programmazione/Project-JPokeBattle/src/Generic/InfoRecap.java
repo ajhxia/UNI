@@ -63,7 +63,7 @@ public class InfoRecap extends JFrame {
             JLabel imageLabel = new JLabel(ImageUtility.loadImage(new URI(pokemon.getSprite().getFront())));
             // Imposta l'altezza dell'etichetta dell'immagine per allinearla con l'altezza
             // della riga
-            imageLabel.setBounds(350, yPosition - 35, rowHeight, rowHeight); // Imposta la posizione e le dimensioni
+            imageLabel.setBounds(310, yPosition -35, rowHeight, rowHeight); // Imposta la posizione e le dimensioni
             imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(imageLabel);
 
@@ -74,7 +74,7 @@ public class InfoRecap extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Battle.setNpc(Npc.createNpc(1, 3));
-                    battleFrame = new BattleFrame();
+                    setBattleFrame(new BattleFrame());;
                     dispose();
                 } catch (IOException | URISyntaxException e1) {
                     // TODO Auto-generated catch block
@@ -87,6 +87,10 @@ public class InfoRecap extends JFrame {
 
         add(panel);
         pack();
+    }
+
+    public static void setBattleFrame(BattleFrame battleFrameIn) {
+        battleFrame = battleFrameIn;
     }
 
 }

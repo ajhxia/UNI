@@ -153,7 +153,7 @@ public class Pokedex extends JPanel implements ActionListener {
         InfoPokemon infoPokemon = new InfoPokemon(pokemon, Battle.getPlayer());
         infoFrame = new JFrame(pokemon.getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        infoFrame.setSize(510, 400);
+        infoFrame.setSize(525, 400);
         infoFrame.setLocationRelativeTo(null); // Centra la finestra nello schermo
         infoFrame.add(infoPokemon);
         infoFrame.setVisible(true);

@@ -45,6 +45,10 @@ public class Stats {
         return maxHp;
     }
 
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
     public int getAttack() {
         return attack;
     }

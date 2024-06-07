@@ -62,6 +62,12 @@ public class Battle {
         }
     }
 
+    public static void addAbilityToPlayerPokemon() {
+        for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
+            player.getTeam().getListPokemon().get(i).setAbility(player.getTeam().getListPokemon().get(i).getIndexInPokedex(), player.getTeam().getListPokemon().get(i).getLvl());
+        }
+    }
+
     // metodo utilizzato per calcolare i danni in base al tipo dell'abilità usata
     public static void decreaseHpNpc(int damage, String type) {
         float damageCalculated = calculateDamage(damage, type, npc);
@@ -127,9 +133,21 @@ public class Battle {
                 BattleFrame.updatePokeballStatusNpc(npc);
 
                 if (allPokemonHpZero) {
+                    for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
+                        Random random = new Random();
+                        int randomNum = random.nextInt(5) + 1;
+                        player.getTeam().getPokemon(i).setLvl(player.getTeam().getPokemon(i).getLvl() + randomNum);
+                    }
+                    player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvlEvoluzione());
+                    try {
+                        new RecapBattle();
+                    } catch (IOException | URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    
                     InfoRecap.battleFrame.setVisible(false);
                     InfoRecap.battleFrame.dispose();
-                    new RecapBattle();
                 }
             }
             setTurn(true);
@@ -141,7 +159,7 @@ public class Battle {
     private static void expChangePlayer() {
         int pokeNpcExp = npc.getPokemonInUse().getBaseExperience();
         int pokeNpcLv = npc.getPokemonInUse().getLvl();
-        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 6;
+        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 7;
         player.getPokemonInUse().setBaseExperience(player.getPokemonInUse().getBaseExperience() + totExpGain);
 
         if (player.getPokemonInUse().getBaseExperience() >= player.getPokemonInUse().getMaxExperience()) {
@@ -154,12 +172,13 @@ public class Battle {
         BattleFrame.updatePlayerExpBar(player.getPokemonInUse().getBaseExperience());
     }
 
-    public static void incrementStats(){
+    public static void incrementStats() {
         Pokemon pokemon = player.getPokemonInUse();
         pokemon.getStats().setAttack(pokemon.getStats().getAttack() + 30);
         pokemon.getStats().setDefense(pokemon.getStats().getDefense() + 25);
         pokemon.getStats().setSpeed(pokemon.getStats().getSpeed() + 50);
-        pokemon.getStats().setHp(pokemon.getStats().getMaxHp() + 23);
+        pokemon.getStats().setMaxHp(pokemon.getStats().getMaxHp() + 23);
+        pokemon.getStats().setHp(pokemon.getStats().getHp() + 14);
         BattleFrame.showIncrementStats();
     }
 

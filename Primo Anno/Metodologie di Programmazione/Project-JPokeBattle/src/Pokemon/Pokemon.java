@@ -89,6 +89,10 @@ public class Pokemon {
     public void setLvlEvoluzione(int lvl) {
         this.lvlEvoluzione = lvl;
     }
+
+    public void setAbility(int index, int lvl) {
+        this.abilities = Ability.getAbility(index, lvl);
+    }
     
     public void addAbility(Ability pokemon) {
         abilities.add(pokemon);

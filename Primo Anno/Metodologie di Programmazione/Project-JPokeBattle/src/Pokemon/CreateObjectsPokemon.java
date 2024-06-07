@@ -40,7 +40,7 @@ public class CreateObjectsPokemon extends Pokemon {
                                                                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png"),
                                                 randomLevel,
                                                 13,
-                                                new Pokemon[] { getPokemon(5), getPokemon(6) },
+                                                new Pokemon[] { getPokemon(2), getPokemon(3) },
                                                 false);
                         case 2:
                                 return new Pokemon(
@@ -55,7 +55,7 @@ public class CreateObjectsPokemon extends Pokemon {
                                                                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png"),
                                                 randomLevel,
                                                 16,
-                                                new Pokemon[] { getPokemon(6) }, false);
+                                                new Pokemon[] { getPokemon(3) }, false);
 
                         case 3:
                                 return new Pokemon(
@@ -84,7 +84,7 @@ public class CreateObjectsPokemon extends Pokemon {
                                                                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png"),
                                                 randomLevel,
                                                 14,
-                                                new Pokemon[] { getPokemon(2), getPokemon(3) }, false);
+                                                new Pokemon[] { getPokemon(5), getPokemon(6) }, false);
 
                         case 5:
                                 return new Pokemon(
@@ -99,7 +99,7 @@ public class CreateObjectsPokemon extends Pokemon {
                                                                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png"),
                                                 randomLevel,
                                                 17,
-                                                new Pokemon[] { getPokemon(3) }, false);
+                                                new Pokemon[] { getPokemon(6) }, false);
 
                         case 6:
                                 return new Pokemon(

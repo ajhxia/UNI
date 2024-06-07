@@ -20,6 +20,12 @@ public class Team {
         }
     }
 
+    public void addPokemonAtIndex(int index, Pokemon pokemon) {
+        if (index >= 0 && index <= playerTeam.size()) {
+            playerTeam.add(index, pokemon);
+        }
+    }
+
     public void removePokemon(int index) {
         if (index >= 0 && index < playerTeam.size()) {
             playerTeam.remove(index);

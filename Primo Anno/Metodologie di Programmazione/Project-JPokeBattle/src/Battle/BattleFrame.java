@@ -7,6 +7,7 @@ import java.net.*;
 import Game.*;
 import Pokemon.Pokemon;
 import Shared.*;
+import java.util.List;
 
 public class BattleFrame extends JFrame {
     private static JProgressBar playerHealthBar;
@@ -32,7 +33,7 @@ public class BattleFrame extends JFrame {
     private JLabel[] playerPokeballs;
     private static JLabel[] npcPokeballs;
 
-    public static JFrame frame;
+    public JFrame frame;
 
     public BattleFrame() throws IOException, URISyntaxException {
 
@@ -187,7 +188,7 @@ public class BattleFrame extends JFrame {
         abilityPanel.add(changePoke);
         abilityPanel.revalidate();
         abilityPanel.repaint();
-    }   
+    }
 
     // Mostra un messaggio quando il giocatore usa un'abilità
     private void showMessageAbilityPlayer(int index) {
@@ -196,6 +197,7 @@ public class BattleFrame extends JFrame {
         message = new JLabel(
                 "You used " + Battle.getPlayer().getPokemonInUse().getAbilities().get(index).getName());
 
+        message.setBounds(250, 50, 750, 100);
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
         message.setForeground(Color.WHITE);
         abilityPanel.add(message);
@@ -225,6 +227,7 @@ public class BattleFrame extends JFrame {
 
         JLabel message = new JLabel(
                 "Enemy used " + Battle.getNpc().getPokemonInUse().getAbilities().get(index).getName());
+        message.setBounds(0, 0, 750, 100);
         message.setFont(PixelFont.myCustomFont.deriveFont(17f));
         message.setForeground(Color.WHITE); // Set text color for better visibility
         overlayPanel.add(message);
@@ -251,7 +254,8 @@ public class BattleFrame extends JFrame {
         timer.start();
     }
 
-    // Mostra un messaggio quando il giocatore vince la battaglia e aumenta le statistiche del Pokémon
+    // Mostra un messaggio quando il giocatore vince la battaglia e aumenta le
+    // statistiche del Pokémon
     public static void showIncrementStats() {
         Pokemon pokemon = Battle.getPlayer().getPokemonInUse();
 
@@ -332,7 +336,13 @@ public class BattleFrame extends JFrame {
     // Inizializza la battaglia
     private static void initialize(Coach player, Coach npc) {
 
-        Battle.setPokeInUseAtStart(0);
+        List<Pokemon> pokemonList = player.getTeam().getListPokemon();
+        for (int i = 0; i < pokemonList.size(); i++) {
+            if (pokemonList.get(i).getStats().getHp() > 0) {
+                Battle.setPokeInUseAtStart(i);
+                break; // Exit the method once the first available Pokémon is found
+            }
+        }
 
         int playerMaxHp = player.getTeam().getPokemon(0).getStats().getMaxHp();
         int playerCurrentHp = player.getTeam().getPokemon(0).getStats().getHp();
@@ -367,11 +377,6 @@ public class BattleFrame extends JFrame {
             Battle.whoStart();
             startBattle = true; // Update startBattle to true
         }
-    }
-
-    // Restituisce l'istanza del frame
-    public static JFrame getInstance() {
-        return frame;
     }
 
     // Crea il pulsante per le abilità del giocatore
