@@ -18,9 +18,11 @@ public class Pokemon {
     private int lvlEvoluzione;
     private Pokemon[] evolutions;
     private boolean inUse;
+    private int indexInPokedex;
 
-    public Pokemon(String name, ArrayList<Ability> abilities, String startIn, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, int lvlEvoluzione, Pokemon[] evolutions, boolean inUse) {
+    public Pokemon(String name, int indexInPokedex, ArrayList<Ability> abilities, String startIn, Stats stats, String[] types, int baseExperience, Sprites sprite, int lvl, int lvlEvoluzione, Pokemon[] evolutions, boolean inUse) {
         this.name = name;
+        this.indexInPokedex = indexInPokedex;
         this.start = startIn;
         this.abilities = abilities;
         this.stats = stats;
@@ -39,6 +41,10 @@ public class Pokemon {
 
     public String getStart() {
         return start;
+    }
+
+    public int getIndexInPokedex() {
+        return indexInPokedex;
     }
 
     public int getMaxExperience() {

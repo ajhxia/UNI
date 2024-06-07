@@ -1,6 +1,8 @@
-package Generic;
+
 import javax.swing.*;
 
+import Generic.Player;
+import Generic.Pokedex;
 import Shared.*;
 
 /*
@@ -11,7 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Intro extends JFrame implements ActionListener {
+public class JPokeBattle extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel loadingPanel;
     private JPanel mainPanel;
@@ -19,7 +21,7 @@ public class Intro extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         PixelFont.loadCustomFont();
-        Intro intro = new Intro();
+        JPokeBattle intro = new JPokeBattle();
         intro.showLoadingScreen();
         intro.loadResources();
         // Create a separate thread to load resources and update the progress bar
@@ -30,7 +32,7 @@ public class Intro extends JFrame implements ActionListener {
         }).start();
     }
 
-    public Intro() {
+    public JPokeBattle() {
         frame = new JFrame("JPokeBattle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(722, 725);

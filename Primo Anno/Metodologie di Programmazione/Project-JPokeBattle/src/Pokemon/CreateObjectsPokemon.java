@@ -9,10 +9,10 @@ import java.util.ArrayList;
 */
 
 public class CreateObjectsPokemon extends Pokemon {
-        public CreateObjectsPokemon(String name, ArrayList<Ability> abilities, String start, Stats stats,
+        public CreateObjectsPokemon(String name, int index, ArrayList<Ability> abilities, String start, Stats stats,
                         String[] types, int baseExperience,
                         Sprites sprite, int lvl, int lvlEvolutions, Pokemon[] evolutions) {
-                super(name, abilities, start, stats, types, baseExperience, sprite, lvl, lvlEvolutions, evolutions,
+                super(name, index, abilities, start, stats, types, baseExperience, sprite, lvl, lvlEvolutions, evolutions,
                                 false);
         }
 
@@ -30,6 +30,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 1:
                                 return new Pokemon(
                                                 "bulbasaur",
+                                                1,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(45, 49, 49, 45, randomLevel, 45),
@@ -44,6 +45,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 2:
                                 return new Pokemon(
                                                 "ivysaur",
+                                                2,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(60, 62, 63, 60, randomLevel, 60),
@@ -58,6 +60,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 3:
                                 return new Pokemon(
                                                 "venusaur",
+                                                3,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(80, 82, 83, 80, randomLevel, 80),
@@ -71,6 +74,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 4:
                                 return new Pokemon(
                                                 "charmander",
+                                                4,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(39, 52, 43, 65, randomLevel, 39),
@@ -85,6 +89,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 5:
                                 return new Pokemon(
                                                 "charmeleon",
+                                                5,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(58, 64, 58, 80, randomLevel, 58),
@@ -99,6 +104,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 6:
                                 return new Pokemon(
                                                 "charizard",
+                                                6,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(78, 84, 78, 100, randomLevel, 78),
@@ -113,6 +119,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 7:
                                 return new Pokemon(
                                                 "squirtle",
+                                                7,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(44, 48, 65, 43, randomLevel, 44),
@@ -126,6 +133,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 8:
                                 return new Pokemon(
                                                 "wartortle",
+                                                8,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(59, 63, 80, 58, randomLevel, 59),
@@ -139,6 +147,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 9:
                                 return new Pokemon(
                                                 "blastoise",
+                                                9,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(79, 83, 100, 78, randomLevel, 79),
@@ -153,6 +162,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 10:
                                 return new Pokemon(
                                                 "caterpie",
+                                                10,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(45, 30, 35, 45, randomLevel, 45),
@@ -166,6 +176,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 11:
                                 return new Pokemon(
                                                 "metapod",
+                                                11,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(50, 20, 55, 30, randomLevel, 50),
@@ -179,6 +190,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 12:
                                 return new Pokemon(
                                                 "butterfree",
+                                                12,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(60, 45, 50, 70, randomLevel, 60),
@@ -192,6 +204,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 13:
                                 return new Pokemon(
                                                 "weedle",
+                                                13,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(40, 35, 30, 50, randomLevel, 40),
@@ -205,6 +218,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 14:
                                 return new Pokemon(
                                                 "kakuna",
+                                                14,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(45, 25, 50, 35, randomLevel, 45),
@@ -218,6 +232,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 15:
                                 return new Pokemon(
                                                 "beedrill",
+                                                15,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(65, 90, 40, 75, randomLevel, 65),
@@ -232,6 +247,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 16:
                                 return new Pokemon(
                                                 "pidgey",
+                                                16,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(40, 45, 40, 56, randomLevel, 40),
@@ -246,6 +262,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 17:
                                 return new Pokemon(
                                                 "pidgeotto",
+                                                17,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(63, 60, 55, 71, randomLevel, 63),
@@ -260,6 +277,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 18:
                                 return new Pokemon(
                                                 "pidgeot",
+                                                18,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(83, 80, 75, 101, randomLevel, 83),
@@ -274,6 +292,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 19:
                                 return new Pokemon(
                                                 "rattata",
+                                                19,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(30, 56, 35, 72, randomLevel, 30),
@@ -288,6 +307,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 20:
                                 return new Pokemon(
                                                 "raticate",
+                                                20,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(55, 81, 60, 97, randomLevel, 55),
@@ -302,6 +322,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 21:
                                 return new Pokemon(
                                                 "spearow",
+                                                21,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(40, 60, 30, 70, randomLevel, 40),
@@ -316,6 +337,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 22:
                                 return new Pokemon(
                                                 "fearow",
+                                                22,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(65, 90, 65, 100, randomLevel, 65),
@@ -330,6 +352,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 23:
                                 return new Pokemon(
                                                 "ekans",
+                                                23,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(35, 60, 44, 55, randomLevel, 35),
@@ -344,6 +367,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 24:
                                 return new Pokemon(
                                                 "arbok",
+                                                24,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(60, 85, 69, 80, randomLevel, 60),
@@ -358,6 +382,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 25:
                                 return new Pokemon(
                                                 "pikachu",
+                                                25,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(35, 55, 40, 90, randomLevel, 35),
@@ -372,6 +397,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 26:
                                 return new Pokemon(
                                                 "raichu",
+                                                26,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(60, 90, 55, 100, randomLevel, 60),
@@ -386,6 +412,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 27:
                                 return new Pokemon(
                                                 "sandshrew",
+                                                27,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(50, 75, 85, 40, randomLevel, 50),
@@ -400,6 +427,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 28:
                                 return new Pokemon(
                                                 "sandslash",
+                                                28,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(75, 100, 110, 65, randomLevel, 75),
@@ -414,6 +442,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 29:
                                 return new Pokemon(
                                                 "nidoranF",
+                                                29,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(55, 47, 52, 41, randomLevel, 55),
@@ -428,6 +457,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 30:
                                 return new Pokemon(
                                                 "nidorina",
+                                                30,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(70, 62, 67, 56, randomLevel, 70),
@@ -442,6 +472,7 @@ public class CreateObjectsPokemon extends Pokemon {
 
                                 return new Pokemon(
                                                 "nidoqueen",
+                                                31,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(90, 82, 87, 76, randomLevel, 90),
@@ -455,6 +486,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 32:
                                 return new Pokemon(
                                                 "nidoranM",
+                                                32,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(46, 57, 40, 50, randomLevel, 46),
@@ -468,6 +500,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 33:
                                 return new Pokemon(
                                                 "nidorino",
+                                                33,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(61, 72, 57, 65, randomLevel, 61),
@@ -481,6 +514,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 34:
                                 return new Pokemon(
                                                 "nidoking",
+                                                34,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(81, 102, 77, 85, randomLevel, 81),
@@ -494,6 +528,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 35:
                                 return new Pokemon(
                                                 "clefairy",
+                                                35,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(70, 45, 48, 35, randomLevel, 70),
@@ -507,6 +542,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 36:
                                 return new Pokemon(
                                                 "clefable",
+                                                36,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(95, 70, 73, 60, randomLevel, 95),
@@ -520,6 +556,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 37:
                                 return new Pokemon(
                                                 "vulpix",
+                                                37,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(38, 41, 40, 65, randomLevel, 38),
@@ -533,6 +570,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 38:
                                 return new Pokemon(
                                                 "ninetales",
+                                                38,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(73, 76, 75, 100, randomLevel, 73),
@@ -546,6 +584,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 39:
                                 return new Pokemon(
                                                 "jigglypuff",
+                                                39,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(115, 45, 20, 20, randomLevel, 115),
@@ -559,6 +598,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 40:
                                 return new Pokemon(
                                                 "wigglytuff",
+                                                40,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(140, 70, 45, 45, randomLevel, 140),
@@ -572,6 +612,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 41:
                                 return new Pokemon(
                                                 "zubat",
+                                                41,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(40, 45, 35, 55, randomLevel, 40),
@@ -585,6 +626,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 42:
                                 return new Pokemon(
                                                 "golbat",
+                                                42,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(75, 80, 70, 90, randomLevel, 75),
@@ -598,6 +640,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 43:
                                 return new Pokemon(
                                                 "oddish",
+                                                43,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(45, 50, 55, 30, randomLevel, 45),
@@ -611,6 +654,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 44:
                                 return new Pokemon(
                                                 "gloom",
+                                                44,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(60, 65, 70, 40, randomLevel, 60),
@@ -624,6 +668,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 45:
                                 return new Pokemon(
                                                 "vileplume",
+                                                45,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(75, 80, 85, 50, randomLevel, 75),
@@ -637,6 +682,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 46:
                                 return new Pokemon(
                                                 "paras",
+                                                46,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(35, 70, 55, 25, randomLevel, 35),
@@ -650,6 +696,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 47:
                                 return new Pokemon(
                                                 "parasect",
+                                                47,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(60, 95, 80, 30, randomLevel, 60),
@@ -663,6 +710,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 48:
                                 return new Pokemon(
                                                 "venonat",
+                                                48,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(60, 55, 50, 45, randomLevel, 60),
@@ -676,6 +724,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 49:
                                 return new Pokemon(
                                                 "venomoth",
+                                                49,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(70, 65, 60, 90, randomLevel, 70),
@@ -689,6 +738,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 50:
                                 return new Pokemon(
                                                 "diglett",
+                                                50,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(10, 55, 25, 95, randomLevel, 10),
@@ -702,6 +752,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 51:
                                 return new Pokemon(
                                                 "dugtrio",
+                                                51,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(35, 80, 50, 120, randomLevel, 35),
@@ -715,6 +766,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 52:
                                 return new Pokemon(
                                                 "meowth",
+                                                52,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(40, 45, 35, 90, randomLevel, 40),
@@ -728,6 +780,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 53:
                                 return new Pokemon(
                                                 "persian",
+                                                53,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(65, 70, 60, 115, randomLevel, 65),
@@ -741,6 +794,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 54:
                                 return new Pokemon(
                                                 "psyduck",
+                                                54,
                                                 Ability.getAbility(num, randomLevel),
                                                 "start",
                                                 new Stats(50, 52, 48, 55, randomLevel, 50),
@@ -754,6 +808,7 @@ public class CreateObjectsPokemon extends Pokemon {
                         case 55:
                                 return new Pokemon(
                                                 "golduck",
+                                                55,
                                                 Ability.getAbility(num, randomLevel),
                                                 null,
                                                 new Stats(80, 82, 78, 85, randomLevel, 80),

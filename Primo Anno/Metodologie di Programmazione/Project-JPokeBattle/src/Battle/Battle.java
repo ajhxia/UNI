@@ -4,6 +4,7 @@ import Generic.*;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 import javax.swing.JButton;
@@ -91,14 +92,15 @@ public class Battle {
                 } else {
                     // Prova a cambiare Pokémon
                     boolean changedPokemon = changePokeNpc();
-                    try {
-                        BattleFrame.updatePokemonDisplayNpc();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     if (!changedPokemon) {
                         // Se non riesce a cambiare Pokémon, esegue una mossa
                         BattleFrame.showMessageAbilityNpc(executeMove());
+                    }else{
+                        try {
+                            BattleFrame.updatePokemonDisplayNpc();
+                        } catch (IOException | URISyntaxException e) {
+                            e.printStackTrace();
+                        }
                     }
                     // Resetta il contatore
                     count = 0;
@@ -111,7 +113,7 @@ public class Battle {
 
                         try {
                             BattleFrame.updatePokemonDisplayNpc();
-                        } catch (IOException e) {
+                        } catch (IOException | URISyntaxException e) {
                             e.printStackTrace();
                         }
                         allPokemonHpZero = false;
@@ -137,7 +139,7 @@ public class Battle {
     private static void expChangePlayer() {
         int pokeNpcExp = npc.getPokemonInUse().getBaseExperience();
         int pokeNpcLv = npc.getPokemonInUse().getLvl();
-        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 7;
+        int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 6;
         player.getPokemonInUse().setBaseExperience(player.getPokemonInUse().getBaseExperience() + totExpGain);
 
         if (player.getPokemonInUse().getBaseExperience() >= player.getPokemonInUse().getMaxExperience()) {

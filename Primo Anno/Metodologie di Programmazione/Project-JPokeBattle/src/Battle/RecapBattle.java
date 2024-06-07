@@ -1,18 +1,22 @@
 package Battle;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.*;
 
+import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
 import Shared.RelativePath;
 
-public class RecapBattle extends JFrame{
-    
-    public JFrame frame;
+
+public class RecapBattle extends JFrame {
+    private JFrame frame;
 
     public RecapBattle() {
+        List<Pokemon> pokemonList = Battle.getPlayer().getTeam().getListPokemon();
+
         frame = new JFrame();
         frame.setTitle("Recap Battle");
         frame.setSize(500, 500);
@@ -31,16 +35,58 @@ public class RecapBattle extends JFrame{
         labelWon.setForeground(Color.BLACK);
         labelWon.setBounds(175, 0, 200, 50);
         frame.add(labelWon);
-      
+
+        int yOffset = 50;
+        for (Pokemon pokemon : pokemonList) {
+            addPokemonInfo(pokemon, yOffset);
+            yOffset += 150; // Adjust spacing as needed
+        }
+
         frame.add(backgroundLabel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        
     }
 
-    public static void main(String[] args) {
-        PixelFont.loadCustomFont();
-        new RecapBattle();
+    private void addPokemonInfo(Pokemon pokemon, int yOffset) {
+        JLabel nameLabel = new JLabel(pokemon.getName());
+        nameLabel.setFont(PixelFont.myCustomFont.deriveFont(14f));
+        nameLabel.setForeground(Color.BLACK);
+        nameLabel.setBounds(10, yOffset, 200, 30);
+        frame.add(nameLabel);
+
+        JProgressBar healthBar = new JProgressBar(0, 100);
+        healthBar.setValue(pokemon.getStats().getHp());
+        healthBar.setStringPainted(true);
+        healthBar.setBounds(10, yOffset + 30, 200, 20);
+        frame.add(healthBar);
+
+        JLabel statsLabel = new JLabel("Stats: " + pokemon.getStats());
+        statsLabel.setFont(PixelFont.myCustomFont.deriveFont(12f));
+        statsLabel.setForeground(Color.BLACK);
+        statsLabel.setBounds(10, yOffset + 60, 300, 30);
+        frame.add(statsLabel);
+
+        if (pokemon.getLvlEvoluzione() == pokemon.getLvl()) {
+            JButton evolveButton = new JButton("Evolve");
+            evolveButton.setBounds(220, yOffset + 30, 100, 30);
+            evolveButton.addActionListener(e -> {
+                // TODO
+            });
+            frame.add(evolveButton);
+        }
+
+        if (pokemon.getAbilities().size() == 4) {
+            JButton movesButton = new JButton("Show Moves");
+            movesButton.setBounds(330, yOffset + 30, 150, 30);
+            movesButton.addActionListener(e -> {
+                // TODO
+            });
+            frame.add(movesButton);
+        }
     }
+        public static void main(String[] args) {
+                PixelFont.loadCustomFont();
+                new RecapBattle();
+            }
 }

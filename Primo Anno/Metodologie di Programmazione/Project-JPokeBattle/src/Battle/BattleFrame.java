@@ -15,7 +15,7 @@ public class BattleFrame extends JFrame {
     static ImageIcon gifSmoke = new ImageIcon(RelativePath.getAbsolutePath("Image/smoke.gif"));
     static Image originalImage = gifSmoke.getImage();
     static Image resizedImage = originalImage.getScaledInstance(200, 150, Image.SCALE_DEFAULT);
-    ImageIcon smoke = new ImageIcon(resizedImage);
+    static ImageIcon smoke = new ImageIcon(resizedImage);
 
     public static JPanel abilityPanel;
     private static boolean startBattle = false;
@@ -130,6 +130,7 @@ public class BattleFrame extends JFrame {
         frame.setVisible(true);
     }
 
+    // Inizializza le Poké Ball per il giocatore e il NPC
     private void initializePokeballs(Coach player, Coach npc, JLabel backgroundLabel) throws IOException {
         int playerPokeballCount = player.getTeam().getTeamSize();
         int npcPokeballCount = npc.getTeam().getTeamSize();
@@ -152,6 +153,7 @@ public class BattleFrame extends JFrame {
         }
     }
 
+    // Aggiorna lo stato delle Poké Ball del giocatore
     public void updatePokeballStatus(Coach player) {
         for (int i = 0; i < playerPokeballs.length; i++) {
             if (player.getTeam().getListPokemon().get(i).getStats().getHp() <= 0) {
@@ -161,6 +163,7 @@ public class BattleFrame extends JFrame {
         }
     }
 
+    // Aggiorna lo stato delle Poké Ball del NPC
     public static void updatePokeballStatusNpc(Coach npc) {
         for (int i = 0; i < npcPokeballs.length; i++) {
             if (npc.getTeam().getListPokemon().get(i).getStats().getHp() <= 0) {
@@ -170,6 +173,7 @@ public class BattleFrame extends JFrame {
         }
     }
 
+    // Aggiorna il pannello delle abilità
     public void abilityPanel() {
         abilityPanel.removeAll();
         for (int i = 0; i < Battle.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
@@ -183,8 +187,9 @@ public class BattleFrame extends JFrame {
         abilityPanel.add(changePoke);
         abilityPanel.revalidate();
         abilityPanel.repaint();
-    }
+    }   
 
+    // Mostra un messaggio quando il giocatore usa un'abilità
     private void showMessageAbilityPlayer(int index) {
         abilityPanel.removeAll();
         JLabel message;
@@ -208,6 +213,7 @@ public class BattleFrame extends JFrame {
         timer.start();
     }
 
+    // Mostra un messaggio quando il NPC usa un'abilità
     public static void showMessageAbilityNpc(int index) {
         JPanel overlayPanel = new JPanel();
         abilityPanel.setLayout(null);
@@ -245,6 +251,7 @@ public class BattleFrame extends JFrame {
         timer.start();
     }
 
+    // Mostra un messaggio quando il giocatore vince la battaglia e aumenta le statistiche del Pokémon
     public static void showIncrementStats() {
         Pokemon pokemon = Battle.getPlayer().getPokemonInUse();
 
@@ -320,6 +327,7 @@ public class BattleFrame extends JFrame {
         timer.start();
     }
 
+    // Inizializza la battaglia
     private static void initialize(Coach player, Coach npc) {
 
         Battle.setPokeInUseAtStart(0);
@@ -359,10 +367,12 @@ public class BattleFrame extends JFrame {
         }
     }
 
+    // Restituisce l'istanza del frame
     public static JFrame getInstance() {
         return frame;
     }
 
+    // Crea il pulsante per le abilità del giocatore
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
         JButton abilityButton = Style.createButton(Color.WHITE,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
@@ -375,6 +385,7 @@ public class BattleFrame extends JFrame {
         return abilityButton;
     }
 
+    // Crea il pulsante per cambiare Pokémon
     private JButton createChangePokemonButton(Coach player, Coach npc) {
         JButton changePoke = Style.createButton(Color.WHITE, "Change Pokémon", 12, 90, 65, 350, 40);
         changePoke.addActionListener(e -> {
@@ -398,10 +409,12 @@ public class BattleFrame extends JFrame {
         npcHealthBar.setValue(currentHp);
     }
 
+    // Aggiorna la barra dell'esperienza del giocatore
     public static void updatePlayerExpBar(int exp) {
         playerExpBar.setValue(exp);
     }
 
+    // Aggiorna il display del Pokémon del giocatore durante la battaglia
     public void updatePokemonDisplayPlayer(Coach player, Coach npc) throws IOException, URISyntaxException {
         // Update Pokémon name and level
         pokePlayer.setText(player.getPokemonInUse().getName());
@@ -443,28 +456,19 @@ public class BattleFrame extends JFrame {
         abilityPanel.repaint();
     }
 
-    public static void updatePokemonDisplayNpc() throws IOException {
+    // Aggiorna il display del Pokémon del NPC durante la battaglia
+    public static void updatePokemonDisplayNpc() throws IOException, URISyntaxException {
         // Update Pokémon name and level
         Coach npc = Battle.getNpc();
 
         pokeNpc.setText(npc.getPokemonInUse().getName());
         lvlNpc.setText(String.valueOf(npc.getPokemonInUse().getLvl()));
 
-        ImageIcon smoke = new ImageIcon(resizedImage);
-        imageLabelNpc = new JLabel(smoke);
         imageLabelNpc.setIcon(smoke);
-
+        ImageIcon imagePokeNpc = ImageUtility.loadImage(new URI(npc.getPokemonInUse().getSprite().getFront()));
         Timer timerN = new Timer(980, e -> {
             // Update Pokémon image
-            try {
-                ImageIcon imagePokePlayer = ImageUtility
-                        .loadImage(new URI(npc.getPokemonInUse().getSprite().getBack()));
-                imageLabelNpc.setIcon(ImageUtility.resizeIcon(imagePokePlayer, 200, 200));
-            } catch (URISyntaxException k) {
-                k.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            imageLabelNpc.setIcon(ImageUtility.resizeIcon(imagePokeNpc, 200, 200));
         });
         timerN.setRepeats(false);
         timerN.start();
