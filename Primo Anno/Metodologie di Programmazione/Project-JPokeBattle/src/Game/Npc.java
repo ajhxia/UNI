@@ -27,19 +27,13 @@ public class Npc {
         }
 
         Team team = new Team(npcTeam);
-        switch (index) {
-            case 1:
-                return new Coach("Brock", 15, team, "M");
-            case 2:
-                return new Coach("Misty", 15, team, "F");
-            case 3:
-                return new Coach("Lt. Surge", 15, team, "M");
-            case 4:
-                return new Coach("Erika", 15, team, "F");
-            case 5:
-                return new Coach("Koga", 15, team, "M");
-            default:
-                return null;
-        }
+        return switch (index) {
+            case 1 -> new Coach("Brock", 15, team, Gender.MALE);
+            case 2 ->  new Coach("Misty", 15, team, Gender.FEMALE);
+            case 3 -> new Coach("Lt. Surge", 15, team, Gender.MALE);
+            case 4 -> new Coach("Erika", 15, team, Gender.FEMALE);
+            case 5 -> new Coach("Koga", 15, team, Gender.MALE);
+            default -> null;
+        };
     }
 }

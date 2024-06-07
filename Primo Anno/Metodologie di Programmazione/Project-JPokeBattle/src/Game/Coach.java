@@ -4,14 +4,14 @@ import Pokemon.Pokemon;
 
 /*
  * Coach class
-*/
+ */
 public class Coach {
     private String name;
     private Team team;
     private int age;
-    private String gender;
+    private Gender gender;
 
-    public Coach(String name, int age, Team teamIn, String gender) {
+    public Coach(String name, int age, Team teamIn, Gender gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -30,7 +30,7 @@ public class Coach {
         return age;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
@@ -44,10 +44,6 @@ public class Coach {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public Pokemon getPokemonInUse() {
@@ -65,5 +61,4 @@ public class Coach {
         }
         pokemon.setInUse(true);
     }
-
 }

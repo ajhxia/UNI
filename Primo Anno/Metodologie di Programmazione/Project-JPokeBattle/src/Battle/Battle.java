@@ -62,14 +62,14 @@ public class Battle {
 
     // metodo utilizzato per calcolare i danni in base al tipo dell'abilità usata
     public static void decreaseHpNpc(int damage, String type) {
-        float damageCalculated = typeEffects(damage, type, npc);
+        float damageCalculated = calculateDamage(damage, type, npc);
         int dmg = (int) (npc.getPokemonInUse().getStats().getHp() - damageCalculated);
         npc.getPokemonInUse().getStats().setHp(dmg);
         BattleFrame.updateNPCHealthBar(npc.getPokemonInUse().getStats().getHp());
     }
 
     public static void decreaseHpPlayer(int damage, String type) {
-        float damageCalculated = typeEffects(damage, type, player);
+        float damageCalculated = calculateDamage(damage, type, player);
         int dmg = (int) (player.getPokemonInUse().getStats().getHp() - damageCalculated);
         player.getPokemonInUse().getStats().setHp(dmg);
         BattleFrame.updatePlayerHealthBar(player.getPokemonInUse().getStats().getHp());
@@ -95,7 +95,7 @@ public class Battle {
                     if (!changedPokemon) {
                         // Se non riesce a cambiare Pokémon, esegue una mossa
                         BattleFrame.showMessageAbilityNpc(executeMove());
-                    }else{
+                    } else {
                         try {
                             BattleFrame.updatePokemonDisplayNpc();
                         } catch (IOException | URISyntaxException e) {
@@ -198,190 +198,41 @@ public class Battle {
     // del giocatore
     private static Boolean changePokeNpc() {
         System.out.println("Changing Pokemon");
+
+        // crea una map ti tipi e debolezze per ogni tipo
+        Map<String, List<String>> typeWeaknesses = new HashMap<>();
+        typeWeaknesses.put("normal", Arrays.asList("fighting"));
+        typeWeaknesses.put("fighting", Arrays.asList("flying", "psychic", "fairy"));
+        typeWeaknesses.put("flying", Arrays.asList("electric", "rock", "ice"));
+        typeWeaknesses.put("poison", Arrays.asList("ground", "psychic"));
+        typeWeaknesses.put("ground", Arrays.asList("water", "grass", "ice"));
+        typeWeaknesses.put("rock", Arrays.asList("fighting", "ground", "steel", "water", "grass"));
+        typeWeaknesses.put("bug", Arrays.asList("fire", "flying", "rock"));
+        typeWeaknesses.put("ghost", Arrays.asList("ghost", "dark"));
+        typeWeaknesses.put("steel", Arrays.asList("fire", "fighting", "ground"));
+        typeWeaknesses.put("fire", Arrays.asList("water", "rock", "ground"));
+        typeWeaknesses.put("water", Arrays.asList("electric", "grass"));
+        typeWeaknesses.put("grass", Arrays.asList("fire", "flying", "bug", "poison", "ice"));
+        typeWeaknesses.put("electric", Arrays.asList("ground"));
+        typeWeaknesses.put("psychic", Arrays.asList("bug", "ghost", "dark"));
+        typeWeaknesses.put("ice", Arrays.asList("fire", "fighting", "rock", "steel"));
+        typeWeaknesses.put("dragon", Arrays.asList("ice", "dragon", "fairy"));
+
         List<String> playerPokemonTypes = Arrays.asList(npc.getPokemonInUse().getTypes());
+
         for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
             List<String> npcPokemonTypes = Arrays.asList(npc.getTeam().getPokemon(i).getTypes());
-            if (playerPokemonTypes.contains("normal")) {
-                if (npcPokemonTypes.contains("fighting")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
 
-            } else if (playerPokemonTypes.contains("fighting")) {
-                if (npcPokemonTypes.contains("flying")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("psychic")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("fairy")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
+            for (String playerType : playerPokemonTypes) {
+                List<String> weaknesses = typeWeaknesses.get(playerType);
 
-            } else if (playerPokemonTypes.contains("flying")) {
-                if (npcPokemonTypes.contains("electric")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("fighting")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("rock")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("poison")) {
-                if (npcPokemonTypes.contains("ground")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("psychic")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("ground")) {
-                if (npcPokemonTypes.contains("water")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("grass")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("ice")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("rock")) {
-                if (npcPokemonTypes.contains("fighting")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("ground")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("steel")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("water")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("grass")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("bug")) {
-                if (npcPokemonTypes.contains("fire")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("flying")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("rock")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("ghost")) {
-                if (npcPokemonTypes.contains("ghost")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("psychic")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("steel")) {
-                if (npcPokemonTypes.contains("fire")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("fighting")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("ground")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("fire")) {
-                if (npcPokemonTypes.contains("water")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("rock")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("ground")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("water")) {
-                if (npcPokemonTypes.contains("electric")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("grass")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("grass")) {
-                if (npcPokemonTypes.contains("fire")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("flying")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("bug")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("poison")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("ice")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("electric")) {
-                if (npcPokemonTypes.contains("ground")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("psychic")) {
-                if (npcPokemonTypes.contains("bug")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("ghost")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("ice")) {
-                if (npcPokemonTypes.contains("fire")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("fighting")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("rock")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("steel")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                }
-
-            } else if (playerPokemonTypes.contains("dragon")) {
-                if (npcPokemonTypes.contains("ice")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("dragon")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
-                } else if (npcPokemonTypes.contains("fairy")) {
-                    npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                    return true;
+                if (weaknesses != null) {
+                    for (String weakness : weaknesses) {
+                        if (npcPokemonTypes.contains(weakness)) {
+                            npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -389,205 +240,49 @@ public class Battle {
     }
 
     // metodo utilizzato per calcolare i danni in base al tipo dell'abilità usata
-    public static float typeEffects(int damageIn, String typeAbility, Coach enemy) {
-        // in ingresso vuole: il danno fatto dall'abilità, il tipo di Coach
-        // e il tipo dell'abilità
+    public static float calculateDamage(int damageIn, String typeAbility, Coach enemy) {
         List<String> npcPokemonTypes = Arrays.asList(enemy.getPokemonInUse().getTypes());
         float typeEffectiveness = 1;
 
-        if (typeAbility == "fire") {
-            if (npcPokemonTypes.contains("water")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ice")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("dragon")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 0.5f;
-            }
-        } else if (typeAbility == "water") {
-            if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("ground")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("water")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("dragon")) {
-                typeEffectiveness = 0.5f;
-            }
-        } else if (typeAbility == "grass") {
-            if (npcPokemonTypes.contains("water")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("ground")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("dragon")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("poison")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 0.5f;
-            }
-        } else if (typeAbility == "electric") {
-            if (npcPokemonTypes.contains("water")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("electric")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("dragon")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ground")) {
-                typeEffectiveness = 0;
-            }
-        } else if (typeAbility == "normal") {
-            if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ghost")) {
-                typeEffectiveness = 0;
-            }
-        } else if (typeAbility == "fighting") {
-            if (npcPokemonTypes.contains("normal")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("ice")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("poison")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("psychic")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ghost")) {
-                typeEffectiveness = 0;
-            }
-        } else if (typeAbility == "flying") {
-            if (npcPokemonTypes.contains("fighting")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("electric")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 2;
-            }
-        } else if (typeAbility == "poison") {
-            if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("poison")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ground")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ghost")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 2;
-            }
-        } else if (typeAbility == "ground") {
-            if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("electric")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("poison")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("rock")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 0;
-            }
-        } else if (typeAbility == "rock") {
-            if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("ice")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("fighting")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ground")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("bug")) {
-                typeEffectiveness = 2;
-            }
-        } else if (typeAbility == "bug") {
-            if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("fighting")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("poison")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("psychic")) {
-                typeEffectiveness = 2;
-            }
-        } else if (typeAbility == "ghost") {
-            if (npcPokemonTypes.contains("ghost")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("psychic")) {
-                typeEffectiveness = 0;
-            } else if (npcPokemonTypes.contains("normal")) {
-                typeEffectiveness = 0;
-            }
-        } else if (typeAbility == "dragon") {
-            if (npcPokemonTypes.contains("dragon")) {
-                typeEffectiveness = 2;
-            }
-        } else if (typeAbility == "psychic") {
-            if (npcPokemonTypes.contains("fighting")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("poison")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("psychic")) {
-                typeEffectiveness = 0.5f;
-            }
-        } else if (typeAbility == "ice") {
-            if (npcPokemonTypes.contains("flying")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("fire")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("water")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("ice")) {
-                typeEffectiveness = 0.5f;
-            } else if (npcPokemonTypes.contains("dragon")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("grass")) {
-                typeEffectiveness = 2;
-            } else if (npcPokemonTypes.contains("ground")) {
-                typeEffectiveness = 2;
+        // Define type effectiveness map
+        Map<String, Map<String, Float>> typeEffectivenessMap = new HashMap<>();
+        typeEffectivenessMap.put("fire", Map.of(
+                "water", 0.5f, "grass", 2f, "rock", 0.5f, "ice", 2f, "bug", 2f, "dragon", 0.5f, "fire", 0.5f));
+        typeEffectivenessMap.put("water", Map.of(
+                "grass", 0.5f, "fire", 2f, "rock", 2f, "ground", 2f, "water", 0.5f, "dragon", 0.5f));
+        typeEffectivenessMap.put("grass", Map.of(
+                "water", 2f, "fire", 0.5f, "rock", 2f, "ground", 2f, "grass", 0.5f, "bug", 0.5f, "dragon", 0.5f,
+                "poison", 0.5f, "flying", 0.5f));
+        typeEffectivenessMap.put("electric", Map.of(
+                "water", 2f, "electric", 0.5f, "flying", 2f, "dragon", 0.5f, "grass", 0.5f, "ground", 0f));
+        typeEffectivenessMap.put("normal", Map.of(
+                "rock", 0.5f, "ghost", 0f));
+        typeEffectivenessMap.put("fighting", Map.of(
+                "normal", 2f, "rock", 2f, "ice", 2f, "poison", 0.5f, "flying", 0.5f, "psychic", 0.5f, "bug", 0.5f,
+                "ghost", 0f));
+        typeEffectivenessMap.put("flying", Map.of(
+                "fighting", 2f, "rock", 0.5f, "electric", 0.5f, "bug", 2f, "grass", 2f));
+        typeEffectivenessMap.put("poison", Map.of(
+                "grass", 2f, "poison", 0.5f, "ground", 0.5f, "rock", 0.5f, "ghost", 0.5f, "bug", 2f));
+        typeEffectivenessMap.put("ground", Map.of(
+                "fire", 2f, "electric", 2f, "poison", 2f, "rock", 2f, "grass", 0.5f, "bug", 0.5f, "flying", 0f));
+        typeEffectivenessMap.put("rock", Map.of(
+                "fire", 2f, "ice", 2f, "fighting", 0.5f, "ground", 0.5f, "flying", 2f, "bug", 2f));
+        typeEffectivenessMap.put("bug", Map.of(
+                "grass", 2f, "fire", 0.5f, "fighting", 0.5f, "poison", 0.5f, "flying", 0.5f, "psychic", 2f));
+        typeEffectivenessMap.put("ghost", Map.of(
+                "ghost", 2f, "psychic", 0f, "normal", 0f));
+        typeEffectivenessMap.put("dragon", Map.of(
+                "dragon", 2f));
+        typeEffectivenessMap.put("psychic", Map.of(
+                "fighting", 2f, "poison", 2f, "psychic", 0.5f));
+        typeEffectivenessMap.put("ice", Map.of(
+                "flying", 2f, "fire", 0.5f, "water", 0.5f, "ice", 0.5f, "dragon", 2f, "grass", 2f, "ground", 2f));
+
+        // Get type effectiveness based on typeAbility and npcPokemonTypes
+        if (typeEffectivenessMap.containsKey(typeAbility)) {
+            for (String npcType : npcPokemonTypes) {
+                typeEffectiveness *= typeEffectivenessMap.get(typeAbility).getOrDefault(npcType, 1f);
             }
         }
 

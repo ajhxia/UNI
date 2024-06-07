@@ -4,6 +4,7 @@ import javax.swing.*;
 import Battle.Battle;
 import Game.Coach;
 import Game.Team;
+import Game.Gender; // Importa l'enum Gender
 import Pokemon.Pokemon;
 import Shared.*;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class Player extends JFrame {
     private JTextField nameField;
     private JTextField ageField;
-    private JComboBox<String> genderComboBox;
+    private JComboBox<Gender> genderComboBox; // Cambia il tipo di JComboBox a Gender
     public static Coach player;
     private static ArrayList<Pokemon> playerTeam = new ArrayList<Pokemon>();
 
@@ -52,8 +53,7 @@ public class Player extends JFrame {
         genderLabel.setBounds(10, 90, 100, 30); // Posizione e dimensioni dell'etichetta
         fieldsPanel.add(genderLabel);
 
-        String[] genders = {" Male", " Female", " Other"};
-        genderComboBox = new JComboBox<>(genders);
+        genderComboBox = new JComboBox<>(Gender.values());
         genderComboBox.setFont(PixelFont.myCustomFont.deriveFont(12f));
         genderComboBox.setBounds(100, 90, 150, 30); // Posizione e dimensioni del combobox
         fieldsPanel.add(genderComboBox);
@@ -66,7 +66,7 @@ public class Player extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
                 String ageText = ageField.getText();
-                String gender = (String) genderComboBox.getSelectedItem();
+                Gender gender = (Gender) genderComboBox.getSelectedItem(); // Ottieni il valore di Gender dal JComboBox
         
                 // Verifica se i campi sono vuoti o non validi
                 if (name.isEmpty() || ageText.isEmpty()) {
@@ -81,7 +81,7 @@ public class Player extends JFrame {
                         throw new NumberFormatException();
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(Player.this, "You must enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(Player.this, "You must enter a valid age.", "Error", JOptionPane.ERROR_MESSAGE);
                     return; // Esce dal metodo per evitare la creazione del personaggio
                 }
         
