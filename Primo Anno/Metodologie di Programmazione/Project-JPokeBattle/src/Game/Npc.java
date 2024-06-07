@@ -29,7 +29,7 @@ public class Npc {
         Team team = new Team(npcTeam);
         return switch (index) {
             case 1 -> new Coach("Brock", 15, team, Gender.MALE);
-            case 2 ->  new Coach("Misty", 15, team, Gender.FEMALE);
+            case 2 -> new Coach("Misty", 15, team, Gender.FEMALE);
             case 3 -> new Coach("Lt. Surge", 15, team, Gender.MALE);
             case 4 -> new Coach("Erika", 15, team, Gender.FEMALE);
             case 5 -> new Coach("Koga", 15, team, Gender.MALE);

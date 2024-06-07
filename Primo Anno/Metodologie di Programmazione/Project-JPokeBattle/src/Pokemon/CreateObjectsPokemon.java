@@ -26,8 +26,9 @@ public class CreateObjectsPokemon extends Pokemon {
         public static Pokemon getPokemon(int num) {
                 getLevelRandom();
 
-                return switch (num) {
-                        case 1 -> new Pokemon(
+                switch (num) {
+                        case 1:
+                                return new Pokemon(
                                                 "bulbasaur",
                                                 1,
                                                 Ability.getAbility(num, randomLevel),
@@ -41,7 +42,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 13,
                                                 new Pokemon[] { getPokemon(5), getPokemon(6) },
                                                 false);
-                        case 2 -> new Pokemon(
+                        case 2:
+                                return new Pokemon(
                                                 "ivysaur",
                                                 2,
                                                 Ability.getAbility(num, randomLevel),
@@ -55,7 +57,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 16,
                                                 new Pokemon[] { getPokemon(6) }, false);
 
-                        case 3 -> new Pokemon(
+                        case 3:
+                                return new Pokemon(
                                                 "venusaur",
                                                 3,
                                                 Ability.getAbility(num, randomLevel),
@@ -68,7 +71,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 4 -> new Pokemon(
+                        case 4:
+                                return new Pokemon(
                                                 "charmander",
                                                 4,
                                                 Ability.getAbility(num, randomLevel),
@@ -82,7 +86,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 14,
                                                 new Pokemon[] { getPokemon(2), getPokemon(3) }, false);
 
-                        case 5 -> new Pokemon(
+                        case 5:
+                                return new Pokemon(
                                                 "charmeleon",
                                                 5,
                                                 Ability.getAbility(num, randomLevel),
@@ -96,7 +101,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 17,
                                                 new Pokemon[] { getPokemon(3) }, false);
 
-                        case 6 -> new Pokemon(
+                        case 6:
+                                return new Pokemon(
                                                 "charizard",
                                                 6,
                                                 Ability.getAbility(num, randomLevel),
@@ -110,7 +116,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 7 -> new Pokemon(
+                        case 7:
+                                return new Pokemon(
                                                 "squirtle",
                                                 7,
                                                 Ability.getAbility(num, randomLevel),
@@ -123,7 +130,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 12,
                                                 new Pokemon[] { getPokemon(8), getPokemon(9) }, false);
-                        case 8 -> new Pokemon(
+                        case 8:
+                                return new Pokemon(
                                                 "wartortle",
                                                 8,
                                                 Ability.getAbility(num, randomLevel),
@@ -136,7 +144,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 16,
                                                 new Pokemon[] { getPokemon(9) }, false);
-                        case 9 -> new Pokemon(
+                        case 9:
+                                return new Pokemon(
                                                 "blastoise",
                                                 9,
                                                 Ability.getAbility(num, randomLevel),
@@ -150,7 +159,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 10 -> new Pokemon(
+                        case 10:
+                                return new Pokemon(
                                                 "caterpie",
                                                 10,
                                                 Ability.getAbility(num, randomLevel),
@@ -163,7 +173,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 7,
                                                 new Pokemon[] { getPokemon(11) }, false);
-                        case 11 -> new Pokemon(
+                        case 11:
+                                return new Pokemon(
                                                 "metapod",
                                                 11,
                                                 Ability.getAbility(num, randomLevel),
@@ -176,7 +187,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 16,
                                                 new Pokemon[] { getPokemon(12) }, false);
-                        case 12 -> new Pokemon(
+                        case 12:
+                                return new Pokemon(
                                                 "butterfree",
                                                 12,
                                                 Ability.getAbility(num, randomLevel),
@@ -189,7 +201,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 13 -> new Pokemon(
+                        case 13:
+                                return new Pokemon(
                                                 "weedle",
                                                 13,
                                                 Ability.getAbility(num, randomLevel),
@@ -202,7 +215,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 7,
                                                 new Pokemon[] { getPokemon(14) }, false);
-                        case 14 -> new Pokemon(
+                        case 14:
+                                return new Pokemon(
                                                 "kakuna",
                                                 14,
                                                 Ability.getAbility(num, randomLevel),
@@ -215,7 +229,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 10,
                                                 new Pokemon[] { getPokemon(15) }, false);
-                        case 15 -> new Pokemon(
+                        case 15:
+                                return new Pokemon(
                                                 "beedrill",
                                                 15,
                                                 Ability.getAbility(num, randomLevel),
@@ -229,7 +244,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 16 -> new Pokemon(
+                        case 16:
+                                return new Pokemon(
                                                 "pidgey",
                                                 16,
                                                 Ability.getAbility(num, randomLevel),
@@ -243,7 +259,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 11,
                                                 new Pokemon[] { getPokemon(17) }, false);
 
-                        case 17 -> new Pokemon(
+                        case 17:
+                                return new Pokemon(
                                                 "pidgeotto",
                                                 17,
                                                 Ability.getAbility(num, randomLevel),
@@ -257,7 +274,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 19,
                                                 new Pokemon[] { getPokemon(18) }, false);
 
-                        case 18 -> new Pokemon(
+                        case 18:
+                                return new Pokemon(
                                                 "pidgeot",
                                                 18,
                                                 Ability.getAbility(num, randomLevel),
@@ -271,7 +289,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 19 -> new Pokemon(
+                        case 19:
+                                return new Pokemon(
                                                 "rattata",
                                                 19,
                                                 Ability.getAbility(num, randomLevel),
@@ -285,7 +304,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 12,
                                                 new Pokemon[] { getPokemon(20) }, false);
 
-                        case 20 -> new Pokemon(
+                        case 20:
+                                return new Pokemon(
                                                 "raticate",
                                                 20,
                                                 Ability.getAbility(num, randomLevel),
@@ -299,7 +319,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 21 -> new Pokemon(
+                        case 21:
+                                return new Pokemon(
                                                 "spearow",
                                                 21,
                                                 Ability.getAbility(num, randomLevel),
@@ -313,7 +334,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 13,
                                                 new Pokemon[] { getPokemon(22) }, false);
 
-                        case 22 -> new Pokemon(
+                        case 22:
+                                return new Pokemon(
                                                 "fearow",
                                                 22,
                                                 Ability.getAbility(num, randomLevel),
@@ -327,7 +349,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 23 -> new Pokemon(
+                        case 23:
+                                return new Pokemon(
                                                 "ekans",
                                                 23,
                                                 Ability.getAbility(num, randomLevel),
@@ -341,7 +364,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 12,
                                                 new Pokemon[] { getPokemon(24) }, false);
 
-                        case 24 -> new Pokemon(
+                        case 24:
+                                return new Pokemon(
                                                 "arbok",
                                                 24,
                                                 Ability.getAbility(num, randomLevel),
@@ -355,7 +379,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 25 -> new Pokemon(
+                        case 25:
+                                return new Pokemon(
                                                 "pikachu",
                                                 25,
                                                 Ability.getAbility(num, randomLevel),
@@ -369,7 +394,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 14,
                                                 new Pokemon[] { getPokemon(26) }, false);
 
-                        case 26 -> new Pokemon(
+                        case 26:
+                                return new Pokemon(
                                                 "raichu",
                                                 26,
                                                 Ability.getAbility(num, randomLevel),
@@ -383,7 +409,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 27 -> new Pokemon(
+                        case 27:
+                                return new Pokemon(
                                                 "sandshrew",
                                                 27,
                                                 Ability.getAbility(num, randomLevel),
@@ -397,7 +424,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 10,
                                                 new Pokemon[] { getPokemon(28) }, false);
 
-                        case 28 -> new Pokemon(
+                        case 28:
+                                return new Pokemon(
                                                 "sandslash",
                                                 28,
                                                 Ability.getAbility(num, randomLevel),
@@ -411,7 +439,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 0,
                                                 new Pokemon[] { null }, false);
 
-                        case 29 -> new Pokemon(
+                        case 29:
+                                return new Pokemon(
                                                 "nidoranF",
                                                 29,
                                                 Ability.getAbility(num, randomLevel),
@@ -425,7 +454,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 11,
                                                 new Pokemon[] { getPokemon(30) }, false);
 
-                        case 30 -> new Pokemon(
+                        case 30:
+                                return new Pokemon(
                                                 "nidorina",
                                                 30,
                                                 Ability.getAbility(num, randomLevel),
@@ -438,7 +468,9 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 16,
                                                 new Pokemon[] { getPokemon(31) }, false);
-                        case 31 -> new Pokemon(
+                        case 31:
+
+                                return new Pokemon(
                                                 "nidoqueen",
                                                 31,
                                                 Ability.getAbility(num, randomLevel),
@@ -451,7 +483,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 32 -> new Pokemon(
+                        case 32:
+                                return new Pokemon(
                                                 "nidoranM",
                                                 32,
                                                 Ability.getAbility(num, randomLevel),
@@ -464,7 +497,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 11,
                                                 new Pokemon[] { getPokemon(33) }, false);
-                        case 33 -> new Pokemon(
+                        case 33:
+                                return new Pokemon(
                                                 "nidorino",
                                                 33,
                                                 Ability.getAbility(num, randomLevel),
@@ -477,7 +511,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 16,
                                                 new Pokemon[] { getPokemon(34) }, false);
-                        case 34 -> new Pokemon(
+                        case 34:
+                                return new Pokemon(
                                                 "nidoking",
                                                 34,
                                                 Ability.getAbility(num, randomLevel),
@@ -490,7 +525,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 35 -> new Pokemon(
+                        case 35:
+                                return new Pokemon(
                                                 "clefairy",
                                                 35,
                                                 Ability.getAbility(num, randomLevel),
@@ -503,7 +539,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 13,
                                                 new Pokemon[] { getPokemon(36) }, false);
-                        case 36 -> new Pokemon(
+                        case 36:
+                                return new Pokemon(
                                                 "clefable",
                                                 36,
                                                 Ability.getAbility(num, randomLevel),
@@ -516,7 +553,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 37 -> new Pokemon(
+                        case 37:
+                                return new Pokemon(
                                                 "vulpix",
                                                 37,
                                                 Ability.getAbility(num, randomLevel),
@@ -529,7 +567,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 13,
                                                 new Pokemon[] { getPokemon(38) }, false);
-                        case 38 -> new Pokemon(
+                        case 38:
+                                return new Pokemon(
                                                 "ninetales",
                                                 38,
                                                 Ability.getAbility(num, randomLevel),
@@ -542,7 +581,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 39 -> new Pokemon(
+                        case 39:
+                                return new Pokemon(
                                                 "jigglypuff",
                                                 39,
                                                 Ability.getAbility(num, randomLevel),
@@ -555,7 +595,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 13,
                                                 new Pokemon[] { getPokemon(40) }, false);
-                        case 40 -> new Pokemon(
+                        case 40:
+                                return new Pokemon(
                                                 "wigglytuff",
                                                 40,
                                                 Ability.getAbility(num, randomLevel),
@@ -568,7 +609,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 41 -> new Pokemon(
+                        case 41:
+                                return new Pokemon(
                                                 "zubat",
                                                 41,
                                                 Ability.getAbility(num, randomLevel),
@@ -581,7 +623,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 14,
                                                 new Pokemon[] { getPokemon(42) }, false);
-                        case 42 -> new Pokemon(
+                        case 42:
+                                return new Pokemon(
                                                 "golbat",
                                                 42,
                                                 Ability.getAbility(num, randomLevel),
@@ -594,7 +637,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 43 -> new Pokemon(
+                        case 43:
+                                return new Pokemon(
                                                 "oddish",
                                                 43,
                                                 Ability.getAbility(num, randomLevel),
@@ -607,7 +651,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 21,
                                                 new Pokemon[] { getPokemon(44) }, false);
-                        case 44 -> new Pokemon(
+                        case 44:
+                                return new Pokemon(
                                                 "gloom",
                                                 44,
                                                 Ability.getAbility(num, randomLevel),
@@ -620,7 +665,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 21,
                                                 new Pokemon[] { getPokemon(45) }, false);
-                        case 45 -> new Pokemon(
+                        case 45:
+                                return new Pokemon(
                                                 "vileplume",
                                                 45,
                                                 Ability.getAbility(num, randomLevel),
@@ -633,7 +679,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 46 -> new Pokemon(
+                        case 46:
+                                return new Pokemon(
                                                 "paras",
                                                 46,
                                                 Ability.getAbility(num, randomLevel),
@@ -646,7 +693,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 24,
                                                 new Pokemon[] { getPokemon(47) }, false);
-                        case 47 -> new Pokemon(
+                        case 47:
+                                return new Pokemon(
                                                 "parasect",
                                                 47,
                                                 Ability.getAbility(num, randomLevel),
@@ -659,7 +707,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 48 -> new Pokemon(
+                        case 48:
+                                return new Pokemon(
                                                 "venonat",
                                                 48,
                                                 Ability.getAbility(num, randomLevel),
@@ -672,7 +721,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 31,
                                                 new Pokemon[] { getPokemon(49) }, false);
-                        case 49 -> new Pokemon(
+                        case 49:
+                                return new Pokemon(
                                                 "venomoth",
                                                 49,
                                                 Ability.getAbility(num, randomLevel),
@@ -685,7 +735,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 50 -> new Pokemon(
+                        case 50:
+                                return new Pokemon(
                                                 "diglett",
                                                 50,
                                                 Ability.getAbility(num, randomLevel),
@@ -698,7 +749,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 26,
                                                 new Pokemon[] { getPokemon(51) }, false);
-                        case 51 -> new Pokemon(
+                        case 51:
+                                return new Pokemon(
                                                 "dugtrio",
                                                 51,
                                                 Ability.getAbility(num, randomLevel),
@@ -711,7 +763,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 52 -> new Pokemon(
+                        case 52:
+                                return new Pokemon(
                                                 "meowth",
                                                 52,
                                                 Ability.getAbility(num, randomLevel),
@@ -724,7 +777,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 28,
                                                 new Pokemon[] { getPokemon(53) }, false);
-                        case 53 -> new Pokemon(
+                        case 53:
+                                return new Pokemon(
                                                 "persian",
                                                 53,
                                                 Ability.getAbility(num, randomLevel),
@@ -737,7 +791,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        case 54 -> new Pokemon(
+                        case 54:
+                                return new Pokemon(
                                                 "psyduck",
                                                 54,
                                                 Ability.getAbility(num, randomLevel),
@@ -750,7 +805,8 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 33,
                                                 new Pokemon[] { getPokemon(55) }, false);
-                        case 55 -> new Pokemon(
+                        case 55:
+                                return new Pokemon(
                                                 "golduck",
                                                 55,
                                                 Ability.getAbility(num, randomLevel),
@@ -763,8 +819,9 @@ public class CreateObjectsPokemon extends Pokemon {
                                                 randomLevel,
                                                 0,
                                                 new Pokemon[] { null }, false);
-                        default -> null;
-                };
+                        default:
+                                return null;
+                }
 
         }
 

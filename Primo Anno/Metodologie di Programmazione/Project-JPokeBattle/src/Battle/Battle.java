@@ -1,6 +1,8 @@
 package Battle;
 
 import Generic.*;
+import Pokemon.Pokemon;
+
 import java.awt.Component;
 import java.awt.Cursor;
 import java.io.IOException;
@@ -146,12 +148,19 @@ public class Battle {
             player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvl() + 5);
             player.getPokemonInUse().setBaseExperience(0);
             BattleFrame.updatePlayerExpBar(0);
+            incrementStats();
 
-            BattleFrame.showIncrementStats();
-
-            BattleFrame.lvlPlayer.setText(String.valueOf(player.getPokemonInUse().getLvl()));
         }
         BattleFrame.updatePlayerExpBar(player.getPokemonInUse().getBaseExperience());
+    }
+
+    public static void incrementStats(){
+        Pokemon pokemon = player.getPokemonInUse();
+        pokemon.getStats().setAttack(pokemon.getStats().getAttack() + 30);
+        pokemon.getStats().setDefense(pokemon.getStats().getDefense() + 25);
+        pokemon.getStats().setSpeed(pokemon.getStats().getSpeed() + 50);
+        pokemon.getStats().setHp(pokemon.getStats().getMaxHp() + 23);
+        BattleFrame.showIncrementStats();
     }
 
     private static int executeMove() {
@@ -229,8 +238,10 @@ public class Battle {
                 if (weaknesses != null) {
                     for (String weakness : weaknesses) {
                         if (npcPokemonTypes.contains(weakness)) {
-                            npc.setPokemonInUse(npc.getTeam().getPokemon(i));
-                            return true;
+                            if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
+                                npc.setPokemonInUse(npc.getTeam().getPokemon(i));
+                                return true;
+                            }
                         }
                     }
                 }

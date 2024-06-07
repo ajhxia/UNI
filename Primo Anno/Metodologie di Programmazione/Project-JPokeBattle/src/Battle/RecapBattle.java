@@ -39,7 +39,7 @@ public class RecapBattle extends JFrame {
         int yOffset = 50;
         for (Pokemon pokemon : pokemonList) {
             addPokemonInfo(pokemon, yOffset);
-            yOffset += 150; // Adjust spacing as needed
+            yOffset += 60; // Adjust spacing as needed
         }
 
         frame.add(backgroundLabel);
@@ -55,20 +55,14 @@ public class RecapBattle extends JFrame {
         nameLabel.setBounds(10, yOffset, 200, 30);
         frame.add(nameLabel);
 
-        JProgressBar healthBar = new JProgressBar(0, 100);
+        JProgressBar healthBar = new JProgressBar(0, pokemon.getStats().getMaxHp());
         healthBar.setValue(pokemon.getStats().getHp());
         healthBar.setStringPainted(true);
-        healthBar.setBounds(10, yOffset + 30, 200, 20);
+        healthBar.setBounds(10, yOffset + 30, 200, 15);
         frame.add(healthBar);
 
-        JLabel statsLabel = new JLabel("Stats: " + pokemon.getStats());
-        statsLabel.setFont(PixelFont.myCustomFont.deriveFont(12f));
-        statsLabel.setForeground(Color.BLACK);
-        statsLabel.setBounds(10, yOffset + 60, 300, 30);
-        frame.add(statsLabel);
-
         if (pokemon.getLvlEvoluzione() == pokemon.getLvl()) {
-            JButton evolveButton = new JButton("Evolve");
+            JButton evolveButton = new JButton("Evolve " + pokemon.getName() +  " to " + pokemon.getEvolutions()[0].getName() + "!");
             evolveButton.setBounds(220, yOffset + 30, 100, 30);
             evolveButton.addActionListener(e -> {
                 // TODO

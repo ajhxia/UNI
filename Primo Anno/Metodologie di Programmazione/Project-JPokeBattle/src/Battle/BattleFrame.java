@@ -24,7 +24,7 @@ public class BattleFrame extends JFrame {
     public static JLabel lvlPlayer;
     private JLabel imageLabelPlayer;
     private static JLabel playerCurrentHpLabel;
-    private JLabel playerMaxHpLabel;
+    private static JLabel playerMaxHpLabel;
 
     private static JLabel pokeNpc;
     private static JLabel lvlNpc;
@@ -225,7 +225,7 @@ public class BattleFrame extends JFrame {
 
         JLabel message = new JLabel(
                 "Enemy used " + Battle.getNpc().getPokemonInUse().getAbilities().get(index).getName());
-        message.setFont(PixelFont.myCustomFont.deriveFont(18f));
+        message.setFont(PixelFont.myCustomFont.deriveFont(17f));
         message.setForeground(Color.WHITE); // Set text color for better visibility
         overlayPanel.add(message);
 
@@ -255,6 +255,10 @@ public class BattleFrame extends JFrame {
     public static void showIncrementStats() {
         Pokemon pokemon = Battle.getPlayer().getPokemonInUse();
 
+        lvlPlayer.setText(String.valueOf(pokemon.getLvl()));
+        playerCurrentHpLabel.setText(String.valueOf(pokemon.getStats().getHp()));
+        playerMaxHpLabel.setText(String.valueOf(pokemon.getStats().getMaxHp()));
+
         JPanel overlayPanel = new JPanel();
         abilityPanel.setLayout(null);
         overlayPanel.setLayout(new GridBagLayout());
@@ -274,11 +278,6 @@ public class BattleFrame extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
 
         overlayPanel.add(message, gbc);
-
-        pokemon.getStats().setAttack(pokemon.getStats().getAttack() + 30);
-        pokemon.getStats().setDefense(pokemon.getStats().getDefense() + 25);
-        pokemon.getStats().setSpeed(pokemon.getStats().getSpeed() + 50);
-        pokemon.getStats().setHp(pokemon.getStats().getHp() + 23);
 
         gbc.gridy++;
         JLabel hp = new JLabel("HP: " + pokemon.getStats().getHp() + " -> " + pokemon.getStats().getHp());
@@ -304,6 +303,9 @@ public class BattleFrame extends JFrame {
         spd.setFont(PixelFont.myCustomFont.deriveFont(12f));
         spd.setForeground(Color.WHITE);
         overlayPanel.add(spd, gbc);
+
+        playerHealthBar.setMaximum(pokemon.getStats().getMaxHp());
+        playerHealthBar.setValue(pokemon.getStats().getHp());
 
         abilityPanel.add(overlayPanel, 0); // Aggiungi overlayPanel sopra abilityPanel
         abilityPanel.revalidate();
@@ -374,7 +376,7 @@ public class BattleFrame extends JFrame {
 
     // Crea il pulsante per le abilità del giocatore
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
-        JButton abilityButton = Style.createButton(Color.WHITE,
+        JButton abilityButton = Style.createButton(Color.YELLOW,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
             Battle.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
@@ -421,6 +423,8 @@ public class BattleFrame extends JFrame {
         lvlPlayer.setText(String.valueOf(player.getPokemonInUse().getLvl()));
 
         playerCurrentHpLabel.setText(String.valueOf(player.getPokemonInUse().getStats().getHp()));
+        playerMaxHpLabel.setText(String.valueOf(player.getPokemonInUse().getStats().getMaxHp()));
+
         updatePokeballStatus(player);
 
         imageLabelPlayer.setIcon(smoke);
