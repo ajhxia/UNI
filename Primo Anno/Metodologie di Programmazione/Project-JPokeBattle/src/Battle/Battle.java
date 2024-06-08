@@ -1,6 +1,5 @@
 package Battle;
 
-import Generic.*;
 import Pokemon.Pokemon;
 
 import java.awt.Component;
@@ -18,6 +17,7 @@ public class Battle {
     private static Coach player;
     private static Coach npc;
     private static boolean turn;
+    private BattleEventListener battleEventListener;
 
     public static boolean isTurn() {
         return turn;
@@ -39,6 +39,10 @@ public class Battle {
         npc = npcIn;
     }
 
+    public Battle(BattleEventListener battleEventListener) {
+        this.battleEventListener = battleEventListener;
+    }
+
     // metodo utilizzato per inizializzare il pokemon iniziale da usare dei due
     // allenatori
     public static void setPokeInUseAtStart(int index) {
@@ -48,7 +52,7 @@ public class Battle {
 
     // metodo utilizzato per decidere chi inizia per primo in base alla velocità dei
     // due pokemon in campo
-    public static void whoStart() {
+    public void whoStart() {
         int playerSpeed = player.getTeam().getPokemon(0).getStats().getSpeed();
         int npcSpeed = npc.getTeam().getPokemon(0).getStats().getSpeed();
 
@@ -64,45 +68,49 @@ public class Battle {
 
     public static void addAbilityToPlayerPokemon() {
         for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
-            player.getTeam().getListPokemon().get(i).setAbility(player.getTeam().getListPokemon().get(i).getIndexInPokedex(), player.getTeam().getListPokemon().get(i).getLvl());
+            player.getTeam().getListPokemon().get(i).setAbility(
+                    player.getTeam().getListPokemon().get(i).getIndexInPokedex(),
+                    player.getTeam().getListPokemon().get(i).getLvl());
         }
     }
 
     // metodo utilizzato per calcolare i danni in base al tipo dell'abilità usata
-    public static void decreaseHpNpc(int damage, String type) {
+    public void decreaseHpNpc(int damage, String type) {
         float damageCalculated = calculateDamage(damage, type, npc);
         int dmg = (int) (npc.getPokemonInUse().getStats().getHp() - damageCalculated);
         npc.getPokemonInUse().getStats().setHp(dmg);
-        BattleFrame.updateNPCHealthBar(npc.getPokemonInUse().getStats().getHp());
+        battleEventListener.onNpcHealthUpdated();
     }
 
-    public static void decreaseHpPlayer(int damage, String type) {
+    public void decreaseHpPlayer(int damage, String type) {
         float damageCalculated = calculateDamage(damage, type, player);
         int dmg = (int) (player.getPokemonInUse().getStats().getHp() - damageCalculated);
         player.getPokemonInUse().getStats().setHp(dmg);
-        BattleFrame.updatePlayerHealthBar(player.getPokemonInUse().getStats().getHp());
+
+        battleEventListener.onPlayerHealthUpdated();
+
         if (player.getPokemonInUse().getStats().getHp() <= 0) {
-            new ChangePokemonFrame(InfoRecap.battleFrame);
+            battleEventListener.onPokemonFainted();
         }
     }
 
     // metodo utilizzato per eseguire la logica del npc in base al turno
     static int count = 0;
 
-    public static void npcLogic() {
+    public void npcLogic() {
         Timer timer = new Timer(800, c -> {
             // Verifica se il Pokémon in uso ha HP maggiori di 0
             if (npc.getPokemonInUse().getStats().getHp() > 0) {
                 if (count < 5) {
                     // Esegue una mossa e incrementa il contatore
-                    BattleFrame.showMessageAbilityNpc(executeMove());
+                    battleEventListener.AbilityNpc(executeMove());
                     count++;
                 } else {
                     // Prova a cambiare Pokémon
                     boolean changedPokemon = changePokeNpc();
                     if (!changedPokemon) {
                         // Se non riesce a cambiare Pokémon, esegue una mossa
-                        BattleFrame.showMessageAbilityNpc(executeMove());
+                        battleEventListener.AbilityNpc(executeMove());
                     } else {
                         try {
                             BattleFrame.updatePokemonDisplayNpc();
@@ -140,14 +148,11 @@ public class Battle {
                     }
                     player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvlEvoluzione());
                     try {
+                        battleEventListener.onBattleEnd();
                         new RecapBattle();
                     } catch (IOException | URISyntaxException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    
-                    InfoRecap.battleFrame.setVisible(false);
-                    InfoRecap.battleFrame.dispose();
                 }
             }
             setTurn(true);
@@ -156,7 +161,7 @@ public class Battle {
         timer.start();
     }
 
-    private static void expChangePlayer() {
+    private void expChangePlayer() {
         int pokeNpcExp = npc.getPokemonInUse().getBaseExperience();
         int pokeNpcLv = npc.getPokemonInUse().getLvl();
         int totExpGain = (int) (pokeNpcExp * pokeNpcLv * 1.5 / (6 * 0.5)) * 7;
@@ -165,24 +170,24 @@ public class Battle {
         if (player.getPokemonInUse().getBaseExperience() >= player.getPokemonInUse().getMaxExperience()) {
             player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvl() + 5);
             player.getPokemonInUse().setBaseExperience(0);
-            BattleFrame.updatePlayerExpBar(0);
+            battleEventListener.updateExpBar(player.getPokemonInUse().getBaseExperience());
             incrementStats();
 
         }
-        BattleFrame.updatePlayerExpBar(player.getPokemonInUse().getBaseExperience());
+        battleEventListener.updateExpBar(player.getPokemonInUse().getBaseExperience());
     }
 
-    public static void incrementStats() {
+    public void incrementStats() {
         Pokemon pokemon = player.getPokemonInUse();
         pokemon.getStats().setAttack(pokemon.getStats().getAttack() + 30);
         pokemon.getStats().setDefense(pokemon.getStats().getDefense() + 25);
         pokemon.getStats().setSpeed(pokemon.getStats().getSpeed() + 50);
         pokemon.getStats().setMaxHp(pokemon.getStats().getMaxHp() + 23);
         pokemon.getStats().setHp(pokemon.getStats().getHp() + 14);
-        BattleFrame.showIncrementStats();
+        battleEventListener.incrementStats();
     }
 
-    private static int executeMove() {
+    private int executeMove() {
         Random randomMove = new Random();
         int moveInd = randomMove.nextInt(3) + 1;
         if (moveInd >= npc.getPokemonInUse().getAbilities().size()) {
@@ -195,7 +200,7 @@ public class Battle {
 
     // metodo utilizzato per attivare/disattivare i pulsanti delle abilità in base
     // al turno
-    public static void setTurn(boolean turn) {
+    public void setTurn(boolean turn) {
         Battle.turn = turn;
         if (turn) {
             // Attiva i pulsanti delle abilità del giocatore
@@ -257,7 +262,8 @@ public class Battle {
                 if (weaknesses != null) {
                     for (String weakness : weaknesses) {
                         if (npcPokemonTypes.contains(weakness)) {
-                            if (npc.getTeam().getPokemon(i).getStats().getHp() > 0) {
+                            if (npc.getTeam().getPokemon(i).getStats().getHp() > 0
+                                    && npc.getPokemonInUse().getName() != npc.getTeam().getPokemon(i).getName()) {
                                 npc.setPokemonInUse(npc.getTeam().getPokemon(i));
                                 return true;
                             }

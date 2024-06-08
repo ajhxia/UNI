@@ -16,6 +16,8 @@ public class ChangePokemonFrame extends JFrame {
         Coach player = Battle.getPlayer();
         Coach npc = Battle.getNpc();
 
+        Battle battle = new Battle(battleFrame);
+
         setTitle("Change Pokemon");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 400);
@@ -54,7 +56,7 @@ public class ChangePokemonFrame extends JFrame {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    Battle.setTurn(false);
+                    battle.setTurn(false);
                     System.out.println(player.getPokemonInUse().getName());
 
                 } else {

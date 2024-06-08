@@ -19,8 +19,6 @@ import java.util.List; // Import the List class from java.util
 
 public class InfoRecap extends JFrame {
 
-    public static BattleFrame battleFrame;
-
     public InfoRecap() throws IOException, URISyntaxException {
         Coach player = Battle.getPlayer();
         setTitle("Recap Team");
@@ -74,7 +72,7 @@ public class InfoRecap extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Battle.setNpc(Npc.createNpc(1, 3));
-                    setBattleFrame(new BattleFrame());;
+                    new BattleFrame();
                     dispose();
                 } catch (IOException | URISyntaxException e1) {
                     // TODO Auto-generated catch block
@@ -87,10 +85,6 @@ public class InfoRecap extends JFrame {
 
         add(panel);
         pack();
-    }
-
-    public static void setBattleFrame(BattleFrame battleFrameIn) {
-        battleFrame = battleFrameIn;
     }
 
 }

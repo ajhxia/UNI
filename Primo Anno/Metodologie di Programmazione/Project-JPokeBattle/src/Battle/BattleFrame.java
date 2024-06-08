@@ -1,5 +1,4 @@
 package Battle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -9,7 +8,7 @@ import Pokemon.Pokemon;
 import Shared.*;
 import java.util.List;
 
-public class BattleFrame extends JFrame {
+public class BattleFrame extends JFrame implements BattleEventListener{
     private static JProgressBar playerHealthBar;
     private static JProgressBar npcHealthBar;
     private static JProgressBar playerExpBar;
@@ -17,6 +16,8 @@ public class BattleFrame extends JFrame {
     static Image originalImage = gifSmoke.getImage();
     static Image resizedImage = originalImage.getScaledInstance(200, 150, Image.SCALE_DEFAULT);
     static ImageIcon smoke = new ImageIcon(resizedImage);
+
+    Battle battle = new Battle(this);
 
     public static JPanel abilityPanel;
     private static boolean startBattle = false;
@@ -34,6 +35,48 @@ public class BattleFrame extends JFrame {
     private static JLabel[] npcPokeballs;
 
     public JFrame frame;
+    
+    @Override
+    public void onPlayerHealthUpdated() {
+        updatePlayerHealthBar(Battle.getPlayer().getPokemonInUse().getStats().getHp());
+    }
+
+    @Override
+    public void onPokemonFainted() {
+        // Mostra il frame per cambiare Pokémon
+        new ChangePokemonFrame(this);
+    }
+
+    @Override
+    public void onNpcHealthUpdated() {
+        updateNPCHealthBar(Battle.getNpc().getPokemonInUse().getStats().getHp());
+    }
+
+    @Override
+    public void onBattleEnd() {
+        frame.dispose();
+        frame.setVisible(false);
+    }
+
+    @Override
+    public void updateExpBar(int exp) {
+        updatePlayerExpBar(exp);
+    }
+
+    @Override
+    public void incrementStats() {
+        showIncrementStats();
+    }
+
+    @Override
+    public void AbilityNpc(int i) {
+        showMessageAbilityNpc(i);
+    }
+
+    @Override
+    public void AbilityPlayer(int i) {
+        showMessageAbilityPlayer(i);
+    }
 
     public BattleFrame() throws IOException, URISyntaxException {
 
@@ -219,41 +262,41 @@ public class BattleFrame extends JFrame {
     public static void showMessageAbilityNpc(int index) {
         JPanel overlayPanel = new JPanel();
         abilityPanel.setLayout(null);
-        overlayPanel.setLayout(new GridBagLayout());
+        overlayPanel.setLayout(null);
         overlayPanel.setBackground(new Color(87, 144, 151, 255)); // Semi-transparent background
-
+    
         // Set overlayPanel size to match abilityPanel
         overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
-
+    
         JLabel message = new JLabel(
                 "Enemy used " + Battle.getNpc().getPokemonInUse().getAbilities().get(index).getName());
-        message.setBounds(0, 0, 750, 100);
-        message.setFont(PixelFont.myCustomFont.deriveFont(17f));
+        message.setBounds(10, 0, 750, 100); // Position the label at the top-left corner
+        message.setFont(PixelFont.myCustomFont.deriveFont(18f));
         message.setForeground(Color.WHITE); // Set text color for better visibility
         overlayPanel.add(message);
-
+    
         abilityPanel.add(overlayPanel, 0); // Add overlayPanel on top of abilityPanel
         abilityPanel.revalidate();
         abilityPanel.repaint();
-
+    
         // Add a component listener to handle resizing of abilityPanel
         abilityPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
             }
         });
-
+    
         Timer timer = new Timer(1500, e -> {
             abilityPanel.remove(overlayPanel);
             abilityPanel.setLayout(new GridLayout(2, 4, 10, 10));
             abilityPanel.revalidate();
             abilityPanel.repaint();
         });
-
+    
         timer.setRepeats(false);
         timer.start();
     }
-
+    
     // Mostra un messaggio quando il giocatore vince la battaglia e aumenta le
     // statistiche del Pokémon
     public static void showIncrementStats() {
@@ -334,7 +377,7 @@ public class BattleFrame extends JFrame {
     }
 
     // Inizializza la battaglia
-    private static void initialize(Coach player, Coach npc) {
+    private void initialize(Coach player, Coach npc) {
 
         List<Pokemon> pokemonList = player.getTeam().getListPokemon();
         for (int i = 0; i < pokemonList.size(); i++) {
@@ -374,7 +417,7 @@ public class BattleFrame extends JFrame {
             System.out.println("Start Battle");
             player.getTeam().getPokemon(0).setInUse(true);
             npc.getTeam().getPokemon(0).setInUse(true);
-            Battle.whoStart();
+            battle.whoStart();
             startBattle = true; // Update startBattle to true
         }
     }
@@ -384,9 +427,9 @@ public class BattleFrame extends JFrame {
         JButton abilityButton = Style.createButton(Color.YELLOW,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
         abilityButton.addActionListener(e -> {
-            Battle.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
+            battle.decreaseHpNpc(player.getPokemonInUse().getAbilities().get(index).getStrength(),
                     player.getPokemonInUse().getAbilities().get(index).getTypo());
-            Battle.setTurn(false);
+            battle.setTurn(false);
             showMessageAbilityPlayer(index);
         });
         return abilityButton;

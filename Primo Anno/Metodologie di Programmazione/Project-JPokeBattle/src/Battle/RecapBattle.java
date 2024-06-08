@@ -14,7 +14,6 @@ import javax.swing.*;
 
 import Game.Coach;
 import Game.Npc;
-import Generic.InfoRecap;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
@@ -37,7 +36,7 @@ public class RecapBattle extends JFrame implements Observer {
 
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/backPlayer.png"));
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 850, 600));
-        backgroundLabel.setBounds(0, 0, 500, 600);
+        backgroundLabel.setBounds(0, 0, 450, 550);
 
         frame.setLayout(null);
 
@@ -58,8 +57,7 @@ public class RecapBattle extends JFrame implements Observer {
             i++;
         }
 
-        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 200, yOffset + 20, 300, 30);
-        newGameButton.setBounds(200, yOffset + 20, 100, 30);
+        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 200, yOffset + 20, 200, 30);
         newGameButton.addActionListener(e -> {
             try {
                 startNewGame();
@@ -85,14 +83,13 @@ public class RecapBattle extends JFrame implements Observer {
     }
 
     public static void refreshPanel(int index, PokemonModel updatedModel) {
-        frame.removeAll();
+        frame.getContentPane().removeAll();
 
         List<Pokemon> pokemonList = Battle.getPlayer().getTeam().getListPokemon();
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/backPlayer.png"));
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 850, 600));
         backgroundLabel.setBounds(0, 0, 500, 600);
         frame.setLayout(null);
-        frame.add(backgroundLabel);
 
         JLabel labelWon = new JLabel("You won!");
         labelWon.setFont(PixelFont.myCustomFont.deriveFont(18f));
@@ -114,13 +111,22 @@ public class RecapBattle extends JFrame implements Observer {
             }
             yOffset += 60;
         }
-
+        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 120, yOffset + 20, 260, 30);
+        newGameButton.addActionListener(e -> {
+            try {
+                startNewGame();
+            } catch (IOException | URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+        frame.add(newGameButton);
+        frame.add(backgroundLabel);
         frame.repaint();
         frame.revalidate();
     }
 
     private static void addPokemonInfo(PokemonModel pokemonModel, int yOffset, int i) throws IOException, URISyntaxException {
-        Pokemon pokemon = pokemonModel.getPokemon();
+        Pokemon pokemon = Battle.getPlayer().getTeam().getPokemon(i);
 
         ImageIcon imagePoke = ImageUtility.loadImage(new URI(pokemon.getSprite().getFront()));
         JLabel imageLabel = new JLabel(ImageUtility.resizeIcon(imagePoke, 80, 80));
@@ -168,14 +174,13 @@ public class RecapBattle extends JFrame implements Observer {
         }
     }
 
-    private void startNewGame() throws IOException, URISyntaxException {
+    private static void startNewGame() throws IOException, URISyntaxException {
         int teamSizeNpcDefeated = Battle.getNpc().getTeam().getListPokemon().size();
         Random random = new Random();
         int randomNum = random.nextInt(5) + 1;
         Coach npc = Npc.createNpc(randomNum, teamSizeNpcDefeated + 1);
         Battle.setNpc(npc);
-        BattleFrame battleFrame = new BattleFrame();
-        InfoRecap.setBattleFrame(battleFrame);
+        new BattleFrame();
         frame.dispose();
     }
 }
