@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 import Generic.Player;
@@ -15,21 +14,13 @@ import java.awt.event.ActionListener;
 
 public class JPokeBattle extends JFrame implements ActionListener {
     private JFrame frame;
-    private JPanel loadingPanel;
     private JPanel mainPanel;
-    private JProgressBar progressBar;
 
     public static void main(String[] args) {
         PixelFont.loadCustomFont();
+        Pokedex.loadPokemon();
         JPokeBattle intro = new JPokeBattle();
-        intro.showLoadingScreen();
-        intro.loadResources();
-        // Create a separate thread to load resources and update the progress bar
-        new Thread(() -> {
-            SwingUtilities.invokeLater(() -> {
-                intro.showMainScreen();
-            });
-        }).start();
+        intro.showMainScreen();
     }
 
     public JPokeBattle() {
@@ -40,46 +31,7 @@ public class JPokeBattle extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-    private void showLoadingScreen() {
-        loadingPanel = new JPanel(null);
-        loadingPanel.setBackground(Color.BLACK);
-
-        JLabel loadingLabel = new JLabel("Loading...");
-        loadingLabel.setBounds(250, 250, 200, 50);
-        loadingLabel.setForeground(Color.WHITE);
-        loadingLabel.setFont(PixelFont.myCustomFont.deriveFont(20f));
-
-        progressBar = new JProgressBar(0, 100);
-        progressBar.setValue(0);
-        progressBar.setStringPainted(true);
-        progressBar.setBackground(Color.BLACK);
-        progressBar.setFont(PixelFont.myCustomFont.deriveFont(8f));
-        progressBar.setBounds(27, 650, 650, 25);
-
-        loadingPanel.add(loadingLabel);
-        loadingPanel.add(progressBar);
-
-        frame.add(loadingPanel);
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void loadResources() {
-        try {
-            // Simulate loading process with sleep
-            for (int i = 0; i <= 100; i++) {
-                Thread.sleep(50); // Simulate time taken to load each resource
-                progressBar.setValue(i);
-            }
-            Pokedex.loadPokemon();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void showMainScreen() {
-        frame.remove(loadingPanel);
-
         mainPanel = new JPanel();
         mainPanel.setLayout(null);
 

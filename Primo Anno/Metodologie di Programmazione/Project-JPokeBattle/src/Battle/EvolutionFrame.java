@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import Game.Coach;
+import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
@@ -34,7 +35,9 @@ public class EvolutionFrame extends JFrame {
 
         Coach player = Battle.getPlayer();
         Pokemon pokemon = player.getTeam().getPokemon(indexPoke);
-        Pokemon evolvedPokemon = pokemon.getEvolutions()[0];
+        int evolvedPokemon = pokemon.getEvolutions()[0];
+
+        Pokemon poke = CreateObjectsPokemon.getPokemon(evolvedPokemon, player.getTeam().getPokemon(indexPoke).getLvl());
 
         ImageIcon currentPokemonIcon = ImageUtility.loadImage(new URI(pokemon.getSprite().getFront()));
         currentPokemonLabel = new JLabel(ImageUtility.resizeIcon(currentPokemonIcon, 250, 250)); // Increased image size
@@ -44,11 +47,11 @@ public class EvolutionFrame extends JFrame {
         currentPokemonNameLabel.setFont(PixelFont.myCustomFont.deriveFont(20f)); // Increased font size
         currentPokemonNameLabel.setBounds(50, 300, 250, 30); // Set bounds manually
 
-        ImageIcon evolvedPokemonIcon = ImageUtility.loadImage(new URI(evolvedPokemon.getSprite().getFront()));
+        ImageIcon evolvedPokemonIcon = ImageUtility.loadImage(new URI(poke.getSprite().getFront()));
         evolvedPokemonLabel = new JLabel(ImageUtility.resizeIcon(evolvedPokemonIcon, 250, 250)); // Increased image size
         evolvedPokemonLabel.setBounds(350, 50, 250, 250); // Set bounds manually
 
-        evolvedPokemonNameLabel = new JLabel(evolvedPokemon.getName(), SwingConstants.CENTER);
+        evolvedPokemonNameLabel = new JLabel(poke.getName(), SwingConstants.CENTER);
         evolvedPokemonNameLabel.setFont(PixelFont.myCustomFont.deriveFont(20f)); // Increased font size
         evolvedPokemonNameLabel.setBounds(350, 300, 250, 30); // Set bounds manually
 
@@ -60,9 +63,11 @@ public class EvolutionFrame extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 player.getTeam().removePokemon(indexPoke);
-                player.getTeam().addPokemonAtIndex(indexPoke, evolvedPokemon);
-                pokemonModel.evolve(evolvedPokemon);
+                player.getTeam().addPokemonAtIndex(indexPoke, poke);
+
+                pokemonModel.evolve(poke);
                 dispose();
             }
         });

@@ -150,7 +150,7 @@ public class BattleFrame extends JFrame implements BattleEventListener{
 
         // Aggiungi JLabel per HP correnti e massimi del giocatore
         playerCurrentHpLabel = new JLabel(String.valueOf(player.getPokemonInUse().getStats().getHp()));
-        playerCurrentHpLabel.setBounds(680, 300, 80, 20);
+        playerCurrentHpLabel.setBounds(670, 300, 80, 20);
         playerCurrentHpLabel.setFont(PixelFont.myCustomFont.deriveFont(18f));
         backgroundLabel.add(playerCurrentHpLabel);
 

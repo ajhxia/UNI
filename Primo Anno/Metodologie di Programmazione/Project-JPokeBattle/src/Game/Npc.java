@@ -20,7 +20,7 @@ public class Npc {
 
             while (startCount < teamSize) {
                 int pokeIndex = (int) (Math.random() * 55) + 1;
-                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex);
+                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex, 0);
 
                 // Controlla se il Pokémon ha l'etichetta "start"
                 if (pokemon.getStart() != null) {
@@ -28,10 +28,11 @@ public class Npc {
                     startCount++;
                 }
             }
+            start = true;
         }else{
             for (int i = 0; i < teamSize; i++) {
                 int pokeIndex = (int) (Math.random() * 55) + 1;
-                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex);
+                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex, 0);
                 npcTeam.add(pokemon);
             }
         }

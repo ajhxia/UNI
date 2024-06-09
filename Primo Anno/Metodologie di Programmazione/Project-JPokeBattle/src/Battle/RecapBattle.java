@@ -36,7 +36,7 @@ public class RecapBattle extends JFrame implements Observer {
 
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/backPlayer.png"));
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 850, 600));
-        backgroundLabel.setBounds(0, 0, 450, 550);
+        backgroundLabel.setBounds(0, 0, 500, 600);
 
         frame.setLayout(null);
 
@@ -57,7 +57,7 @@ public class RecapBattle extends JFrame implements Observer {
             i++;
         }
 
-        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 200, yOffset + 20, 200, 30);
+        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 100, yOffset + 20, 200, 30);
         newGameButton.addActionListener(e -> {
             try {
                 startNewGame();
@@ -111,7 +111,7 @@ public class RecapBattle extends JFrame implements Observer {
             }
             yOffset += 60;
         }
-        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 120, yOffset + 20, 260, 30);
+        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 100, yOffset + 20, 260, 30);
         newGameButton.addActionListener(e -> {
             try {
                 startNewGame();

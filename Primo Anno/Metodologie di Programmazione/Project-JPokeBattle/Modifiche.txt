@@ -1,5 +1,5 @@
-fare la schermata you lose e fixare la scritta del nemico
+la barra della vita che torna a 0 che torna a zero quando inizio un nuovo game
 
-fixare il danno inflitto
+le mosse che si vedono più di 4 quando ne ha di più nel CreateAbility
 
-aggiungere le abilità per revupero vita
+file con la classifica

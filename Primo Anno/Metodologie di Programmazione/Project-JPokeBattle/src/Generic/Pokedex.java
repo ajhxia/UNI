@@ -124,7 +124,7 @@ public class Pokedex extends JPanel implements ActionListener {
     // Carica i Pokémon in un array e filtra solo i Pokémon iniziali
     public static void loadPokemon() {
         for (int i = 0; i < 55; i++) {
-            Pokemon pokemon = CreateObjectsPokemon.getPokemon(i + 1);
+            Pokemon pokemon = CreateObjectsPokemon.getPokemon(i + 1, 0);
             if (pokemon.getStart() != null) {
                 initialPokemonList.add(pokemon);
             }

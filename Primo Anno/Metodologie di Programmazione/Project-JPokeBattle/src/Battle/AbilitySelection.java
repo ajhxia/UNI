@@ -7,12 +7,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.*;
-
-import Pokemon.Ability;
-import Pokemon.Pokemon;
-import Shared.ImageUtility;
-import Shared.PixelFont;
-import Shared.Style;
+import Pokemon.*;
+import Shared.*;
 
 public class AbilitySelection extends JFrame {
 
@@ -21,6 +17,7 @@ public class AbilitySelection extends JFrame {
     private JPanel newAbilityPanel;
     private JComboBox<String> newAbilityComboBox;
     private JLabel instructionLabel;
+    private JButton continueButton;
     Pokemon pokemon;
 
     public AbilitySelection(int indexPoke) throws IOException, URISyntaxException {
@@ -69,14 +66,15 @@ public class AbilitySelection extends JFrame {
         abilityPanel.setOpaque(false);
         initializeAbilityButtons(indexPoke);
 
-        JButton continueButton = Style.createButton(Color.BLACK ,"Continue", 12 ,240, 260, 200, 40); // Spostato verso il basso
+        continueButton = Style.createButton(Color.BLACK, "Continue", 12, 240, 260, 200, 40); // Spostato verso il basso
+        continueButton.setEnabled(false); // Initially disabled
         continueButton.addActionListener(e -> {
             System.out.println("Selection completed.");
-                // Assicurati che non ci siano più di 4 abilità dopo la rimozione
-                while (pokemon.getAbilities().size() > 4) {
-                    pokemon.removeAbility(4);
-                }
-                frame.dispose();
+            // Assicurati che non ci siano più di 4 abilità dopo la rimozione
+            while (pokemon.getAbilities().size() > 4) {
+                pokemon.removeAbility(4);
+            }
+            frame.dispose();
         });
 
         frame.add(abilityPanel);
@@ -122,6 +120,7 @@ public class AbilitySelection extends JFrame {
                     break;
                 }
             }
+            continueButton.setEnabled(true); // Enable the Continue button after selection
         });
 
         newAbilityPanel.add(selectNewAbilityButton);
@@ -183,5 +182,20 @@ public class AbilitySelection extends JFrame {
         }
         initializeAbilityButtons(indexPoke); // Aggiorna i pulsanti delle abilità dopo l'aggiunta della nuova abilità
     }
+
+    /*public static void main(String[] args) {
+        PixelFont.loadCustomFont();
+        ArrayList<Pokemon> npcTeam = new ArrayList<Pokemon>(Arrays.asList(CreateObjectsPokemon.getPokemon(3, 4), CreateObjectsPokemon.getPokemon(4, 55), CreateObjectsPokemon.getPokemon(6, 17), CreateObjectsPokemon.getPokemon(12, 0)));
+        Team team = new Team(npcTeam);
+        Coach player = new Coach("Player", 1, team, Gender.MALE );
+        Battle.setPlayer(player);
+        Battle.setNpc(player);
+
+        try {
+            new AbilitySelection(2);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }*/
 
 }
