@@ -155,7 +155,7 @@ public class RecapBattle extends JFrame implements Observer {
         healthBar.setForeground(Color.GREEN);
         healthBar.setBounds(100, yOffset + 30, 200, 15);
         frame.add(healthBar);
-        JButton evolveButton = Style.createButton(Color.PINK, "Evolve", 12, 310, yOffset + 25, 100, 30);
+        JButton evolveButton = Style.createButton(Color.WHITE, "Evolve", 12, 310, yOffset + 25, 100, 30);
         if (pokemon.getLvlEvoluzione() == pokemon.getLvl()) {
             evolveButton.addActionListener(e -> {
                 try {
