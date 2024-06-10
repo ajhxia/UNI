@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,7 +14,10 @@ import java.util.Random;
 import javax.swing.*;
 
 import Game.Coach;
+import Game.Gender;
 import Game.Npc;
+import Game.Team;
+import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
@@ -32,11 +36,11 @@ public class RecapBattle extends JFrame implements Observer {
 
         frame = new JFrame();
         frame.setTitle("Recap Battle");
-        frame.setSize(500, 600);
+        frame.setSize(600, 600);
 
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/backPlayer.png"));
-        JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 850, 600));
-        backgroundLabel.setBounds(0, 0, 500, 600);
+        JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 600, 600));
+        backgroundLabel.setBounds(0, 0, 600, 600);
 
         frame.setLayout(null);
 
@@ -53,11 +57,11 @@ public class RecapBattle extends JFrame implements Observer {
             pokemonModel.addObserver(this);
             pokemonModels.add(pokemonModel);
             addPokemonInfo(pokemonModel, yOffset, i);
-            yOffset += 60;
+            yOffset += 75;
             i++;
         }
 
-        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 100, yOffset + 20, 200, 30);
+        JButton newGameButton = Style.createButton(Color.WHITE, "New Game", 14, 200, yOffset + 20, 200, 30);
         newGameButton.addActionListener(e -> {
             try {
                 startNewGame();
@@ -125,28 +129,29 @@ public class RecapBattle extends JFrame implements Observer {
         frame.revalidate();
     }
 
-    private static void addPokemonInfo(PokemonModel pokemonModel, int yOffset, int i) throws IOException, URISyntaxException {
+    private static void addPokemonInfo(PokemonModel pokemonModel, int yOffset, int i)
+            throws IOException, URISyntaxException {
         Pokemon pokemon = Battle.getPlayer().getTeam().getPokemon(i);
 
         ImageIcon imagePoke = ImageUtility.loadImage(new URI(pokemon.getSprite().getFront()));
-        JLabel imageLabel = new JLabel(ImageUtility.resizeIcon(imagePoke, 80, 80));
-        imageLabel.setBounds(10, yOffset, 50, 50);
+        JLabel imageLabel = new JLabel(ImageUtility.resizeIcon(imagePoke, 60, 60));
+        imageLabel.setBounds(30, yOffset, 60, 60);
         frame.add(imageLabel);
 
         JLabel nameLabel = new JLabel(pokemon.getName());
         nameLabel.setFont(PixelFont.myCustomFont.deriveFont(14f));
         nameLabel.setForeground(Color.BLACK);
-        nameLabel.setBounds(70, yOffset, 200, 30);
+        nameLabel.setBounds(100, yOffset, 200, 30);
         frame.add(nameLabel);
 
         JProgressBar healthBar = new JProgressBar(0, pokemon.getStats().getMaxHp());
         healthBar.setValue(pokemon.getStats().getHp());
         healthBar.setForeground(Color.GREEN);
-        healthBar.setBounds(70, yOffset + 30, 200, 15);
+        healthBar.setBounds(100, yOffset + 30, 200, 15);
         frame.add(healthBar);
-
+        JButton evolveButton = Style.createButton(Color.WHITE, "Evolve", 12, 310, yOffset + 25, 100, 30);
         if (pokemon.getLvlEvoluzione() == pokemon.getLvl()) {
-            JButton evolveButton = Style.createButton(Color.WHITE, "Evolve", 12, 280, yOffset + 25, 100, 30);
+
             evolveButton.addActionListener(e -> {
                 try {
                     EvolutionFrame evolutionFrame = new EvolutionFrame(i, pokemonModel);
@@ -156,11 +161,13 @@ public class RecapBattle extends JFrame implements Observer {
                     e1.printStackTrace();
                 }
             });
-            frame.add(evolveButton);
+        } else {
+            evolveButton.setEnabled(false);
         }
+        frame.add(evolveButton);
 
+        JButton movesButton = Style.createButton(Color.WHITE, "Change", 12, 420, yOffset + 25, 150, 30);
         if (pokemon.getAbilities().size() > 4) {
-            JButton movesButton = Style.createButton(Color.WHITE, "Change", 12, 390, yOffset + 25, 150, 30);
             movesButton.addActionListener(e -> {
                 AbilitySelection abilitySelection;
                 try {
@@ -170,8 +177,10 @@ public class RecapBattle extends JFrame implements Observer {
                     e1.printStackTrace();
                 }
             });
-            frame.add(movesButton);
+        }else {
+            movesButton.setEnabled(false);
         }
+        frame.add(movesButton);
     }
 
     private static void startNewGame() throws IOException, URISyntaxException {
@@ -182,5 +191,21 @@ public class RecapBattle extends JFrame implements Observer {
         Battle.setNpc(npc);
         new BattleFrame();
         frame.dispose();
+    }
+
+
+    public static void main(String[] args) {
+        PixelFont.loadCustomFont();
+        ArrayList<Pokemon> npcTeam = new ArrayList<Pokemon>(Arrays.asList(CreateObjectsPokemon.getPokemon(3, 4), CreateObjectsPokemon.getPokemon(4, 55), CreateObjectsPokemon.getPokemon(6, 17), CreateObjectsPokemon.getPokemon(12, 0), CreateObjectsPokemon.getPokemon(3, 4), CreateObjectsPokemon.getPokemon(3, 4)));
+        Team team = new Team(npcTeam);
+        Coach player = new Coach("Player", 1, team, Gender.MALE );
+        Battle.setPlayer(player);
+        Battle.setNpc(player);
+
+        try {
+            new RecapBattle();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
