@@ -77,6 +77,18 @@ public class AbilitySelection extends JFrame {
             frame.dispose();
         });
 
+        JButton cancelButton = Style.createButton(Color.BLACK, "Cancel", 12, 460, 260, 200, 40); // Spostato verso il basso
+        cancelButton.addActionListener(e -> {
+            List<Ability> abilities = pokemon.getAbilities();
+            // Assicurati che non ci siano più di 4 abilità dopo la rimozione
+            while (abilities.size() > 4) {
+                pokemon.removeAbility(4);
+            }
+            System.out.println("Selection cancelled.");
+            frame.dispose();
+        });
+        frame.add(cancelButton);
+
         frame.add(abilityPanel);
         frame.add(newAbilityPanel);
         frame.add(continueButton);

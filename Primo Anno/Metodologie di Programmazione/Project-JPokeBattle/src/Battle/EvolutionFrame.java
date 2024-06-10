@@ -15,18 +15,15 @@ import Shared.ImageUtility;
 import Shared.PixelFont;
 import Shared.Style;
 
-public class EvolutionFrame extends JFrame {
+class EvolutionFrame extends JFrame {
     private JLabel currentPokemonLabel;
     private JLabel evolvedPokemonLabel;
     private JLabel currentPokemonNameLabel;
     private JLabel evolvedPokemonNameLabel;
     private JLabel evolutionMessageLabel;
     private JButton confirmButton;
-    @SuppressWarnings("unused")
-    private PokemonModel pokemonModel;
 
     public EvolutionFrame(int indexPoke, PokemonModel pokemonModel) throws IOException, URISyntaxException {
-        this.pokemonModel = pokemonModel;
         setTitle("Pokemon Evolution");
         setSize(650, 450); // Increased frame size
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +52,7 @@ public class EvolutionFrame extends JFrame {
         evolvedPokemonNameLabel.setFont(PixelFont.myCustomFont.deriveFont(20f)); // Increased font size
         evolvedPokemonNameLabel.setBounds(350, 300, 250, 30); // Set bounds manually
 
-        evolutionMessageLabel = new JLabel("Would u like to evolve... ", SwingConstants.CENTER);
+        evolutionMessageLabel = new JLabel("Would you like to evolve... ", SwingConstants.CENTER);
         evolutionMessageLabel.setFont(PixelFont.myCustomFont.deriveFont(20f)); // Increased font size
         evolutionMessageLabel.setBounds(50, 10, 550, 30); // Set bounds manually
 
@@ -63,10 +60,8 @@ public class EvolutionFrame extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 player.getTeam().removePokemon(indexPoke);
                 player.getTeam().addPokemonAtIndex(indexPoke, poke);
-
                 pokemonModel.evolve(poke);
                 dispose();
             }

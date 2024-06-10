@@ -192,7 +192,7 @@ public class BattleFrame extends JFrame implements BattleEventListener{
 
         for (int i = 0; i < npcPokeballCount; i++) {
             npcPokeballs[i] = new JLabel(ImageUtility.resizeIcon(activePokeball, 30, 30));
-            npcPokeballs[i].setBounds(150 - (i * 40), 20, 30, 30);
+            npcPokeballs[i].setBounds(335 - (i * 40), 20, 30, 30);
             frame.add(npcPokeballs[i]);
         }
     }
