@@ -15,6 +15,10 @@ import Shared.RelativePath;
 import Shared.Style;
 
 public class ChangePokemonFrame extends JFrame {
+    /**
+     * Costruttore della classe ChangePokemonFrame
+     * @param battleFrame
+     */
     public ChangePokemonFrame(BattleFrame battleFrame) {
         Coach player = Battle.getPlayer();
         Coach npc = Battle.getNpc();

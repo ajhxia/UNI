@@ -1,14 +1,18 @@
 package Battle;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.*;
 import Game.*;
+
 import Pokemon.Pokemon;
 import Shared.*;
 import java.util.List;
 
-public class BattleFrame extends JFrame implements BattleEventListener{
+public class BattleFrame extends JFrame implements BattleEventListener {
     private static JProgressBar playerHealthBar;
     private static JProgressBar npcHealthBar;
     private static JProgressBar playerExpBar;
@@ -35,49 +39,78 @@ public class BattleFrame extends JFrame implements BattleEventListener{
     private static JLabel[] npcPokeballs;
 
     public JFrame frame;
-    
+
+    /**
+     * Metodo per aggiornare la barra della salute del giocatore
+     */
     @Override
-    public void onPlayerHealthUpdated() {
-        updatePlayerHealthBar(Battle.getPlayer().getPokemonInUse().getStats().getHp());
+    public void onPlayerHealthUpdated(int dmg, int health) {
+        updatePlayerHealthBar(dmg, health);
     }
 
+    /**
+     * Metodo per mostrare il frame per cambiare Pokémon
+     */
     @Override
     public void onPokemonFainted() {
         // Mostra il frame per cambiare Pokémon
         new ChangePokemonFrame(this);
     }
 
+    /** 
+     * Metodo per aggiornare la barra della salute del NPC
+     */
     @Override
-    public void onNpcHealthUpdated() {
-        updateNPCHealthBar(Battle.getNpc().getPokemonInUse().getStats().getHp());
+    public void onNpcHealthUpdated(int dmg) {
+        updateNPCHealthBar(dmg);
     }
 
+    /**
+     * Metodo per aggiornare il display del Pokémon del giocatore
+     */
     @Override
     public void onBattleEnd() {
-        frame.dispose();
         frame.setVisible(false);
+        frame.dispose();
     }
 
+    /**
+     * Metodo per aggiornare la barra dell'esperienza del giocatore
+     */
     @Override
     public void updateExpBar(int exp) {
         updatePlayerExpBar(exp);
     }
 
+    /**
+     * Metodo per aggiornare le stats del giocatore
+     */
     @Override
     public void incrementStats() {
         showIncrementStats();
     }
 
+    /**
+     * Metodo per aggiornare il display del Pokémon del giocatore
+     */
     @Override
     public void AbilityNpc(int i) {
         showMessageAbilityNpc(i);
     }
 
+    /**
+     * Metodo per aggiornare il display del Pokémon del giocatore
+     */
     @Override
     public void AbilityPlayer(int i) {
         showMessageAbilityPlayer(i);
     }
 
+    /**
+     * Costruttore della classe BattleFrame
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public BattleFrame() throws IOException, URISyntaxException {
 
         Coach player = Battle.getPlayer();
@@ -174,7 +207,13 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         frame.setVisible(true);
     }
 
-    // Inizializza le Poké Ball per il giocatore e il NPC
+    /**
+     * Inizializza le Poké Ball
+     * @param player
+     * @param npc
+     * @param backgroundLabel
+     * @throws IOException
+     */
     private void initializePokeballs(Coach player, Coach npc, JLabel backgroundLabel) throws IOException {
         int playerPokeballCount = player.getTeam().getTeamSize();
         int npcPokeballCount = npc.getTeam().getTeamSize();
@@ -197,7 +236,10 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         }
     }
 
-    // Aggiorna lo stato delle Poké Ball del giocatore
+    /**
+     * Aggiorna lo stato delle Poké Ball del giocatore
+     * @param player
+     */
     public void updatePokeballStatus(Coach player) {
         for (int i = 0; i < playerPokeballs.length; i++) {
             if (player.getTeam().getListPokemon().get(i).getStats().getHp() <= 0) {
@@ -207,7 +249,10 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         }
     }
 
-    // Aggiorna lo stato delle Poké Ball del NPC
+    /**
+     * Aggiorna lo stato delle Poké Ball del NPC
+     * @param npc
+     */
     public static void updatePokeballStatusNpc(Coach npc) {
         for (int i = 0; i < npcPokeballs.length; i++) {
             if (npc.getTeam().getListPokemon().get(i).getStats().getHp() <= 0) {
@@ -217,7 +262,9 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         }
     }
 
-    // Aggiorna il pannello delle abilità
+    /**
+     * Metodo per aggiornare il pannello delle abilità
+     */
     public void abilityPanel() {
         abilityPanel.removeAll();
         for (int i = 0; i < Battle.getPlayer().getPokemonInUse().getAbilities().size(); i++) {
@@ -233,7 +280,10 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         abilityPanel.repaint();
     }
 
-    // Mostra un messaggio quando il giocatore usa un'abilità
+    /**
+     * Mostra un messaggio quando il giocatore usa un'abilità
+     * @param index
+     */
     private void showMessageAbilityPlayer(int index) {
         abilityPanel.removeAll();
         JLabel message;
@@ -258,47 +308,51 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         timer.start();
     }
 
-    // Mostra un messaggio quando il NPC usa un'abilità
+    /**
+     * Mostra un messaggio quando il NPC usa un'abilità
+     * @param index
+     */
     public static void showMessageAbilityNpc(int index) {
         JPanel overlayPanel = new JPanel();
         abilityPanel.setLayout(null);
         overlayPanel.setLayout(null);
         overlayPanel.setBackground(new Color(87, 144, 151, 255)); // Semi-transparent background
-    
+
         // Set overlayPanel size to match abilityPanel
         overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
-    
+
         JLabel message = new JLabel(
                 "Enemy used " + Battle.getNpc().getPokemonInUse().getAbilities().get(index).getName());
         message.setBounds(10, 0, 750, 100); // Position the label at the top-left corner
         message.setFont(PixelFont.myCustomFont.deriveFont(18f));
         message.setForeground(Color.WHITE); // Set text color for better visibility
         overlayPanel.add(message);
-    
+
         abilityPanel.add(overlayPanel, 0); // Add overlayPanel on top of abilityPanel
         abilityPanel.revalidate();
         abilityPanel.repaint();
-    
+
         // Add a component listener to handle resizing of abilityPanel
         abilityPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 overlayPanel.setBounds(0, 0, abilityPanel.getWidth(), abilityPanel.getHeight());
             }
         });
-    
+
         Timer timer = new Timer(1500, e -> {
             abilityPanel.remove(overlayPanel);
             abilityPanel.setLayout(new GridLayout(2, 4, 10, 10));
             abilityPanel.revalidate();
             abilityPanel.repaint();
         });
-    
+
         timer.setRepeats(false);
         timer.start();
     }
-    
-    // Mostra un messaggio quando il giocatore vince la battaglia e aumenta le
-    // statistiche del Pokémon
+
+    /**
+     * Mostra le statistiche incrementate del giocatore
+     */
     public static void showIncrementStats() {
         Pokemon pokemon = Battle.getPlayer().getPokemonInUse();
 
@@ -376,7 +430,11 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         timer.start();
     }
 
-    // Inizializza la battaglia
+    /**
+     * Inizializza la battaglia
+     * @param player
+     * @param npc
+     */
     private void initialize(Coach player, Coach npc) {
 
         List<Pokemon> pokemonList = player.getTeam().getListPokemon();
@@ -422,7 +480,13 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         }
     }
 
-    // Crea il pulsante per le abilità del giocatore
+    /**
+     *  Metodo per creare un pulsante per le abilità
+     * @param player
+     * @param index
+     * @param npc
+      
+     */
     private JButton createAbilityButton(Coach player, int index, Coach npc) {
         JButton abilityButton = Style.createButton(Color.YELLOW,
                 player.getPokemonInUse().getAbilities().get(index).getName(), 12, 70, 65, 350, 40);
@@ -435,7 +499,12 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         return abilityButton;
     }
 
-    // Crea il pulsante per cambiare Pokémon
+    /**
+     * Metodo per creare un pulsante per cambiare Pokémon
+     * @param player
+     * @param npc
+      
+     */
     private JButton createChangePokemonButton(Coach player, Coach npc) {
         JButton changePoke = Style.createButton(Color.WHITE, "Change Pokémon", 12, 90, 65, 350, 40);
         changePoke.addActionListener(e -> {
@@ -444,27 +513,78 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         return changePoke;
     }
 
-    // Aggiorna la barra della salute del giocatore
-    public static void updatePlayerHealthBar(int currentHp) {
-        playerHealthBar.setValue(currentHp);
-        if (currentHp <= 0) {
-            playerHealthBar.setValue(0);
+    /**
+     * Aggiorna la barra della salute del giocatore
+     * @param dmg
+     * @param health
+     */
+    public static void updatePlayerHealthBar(int dmg, int health) {
+        if (dmg == 0)
+            return;
+        Timer timer = new Timer(16, new ActionListener() {
+                int count = dmg;
+    
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (count == 0) {
+                        ((Timer) e.getSource()).stop();
+                        return;
+                    }
+    
+                    count--;
+                    playerHealthBar.setValue(playerHealthBar.getValue() - 1);
+                }
+            });
+            timer.start();
+        System.out.println("Player health: " + health);
+        if (health <= 0) {
+            playerCurrentHpLabel.setText(String.valueOf(0));
         } else {
-            playerCurrentHpLabel.setText(String.valueOf(currentHp));
+            playerCurrentHpLabel.setText(String.valueOf(health));
         }
+
     }
 
-    // Aggiorna la barra della salute del NPC
-    public static void updateNPCHealthBar(int currentHp) {
-        npcHealthBar.setValue(currentHp);
+    /**
+     * Aggiorna la barra della salute del NPC
+     * @param dmg
+     */
+    public static void updateNPCHealthBar(int dmg) {
+        if (dmg == 0)
+            return;
+
+        Timer timer = new Timer(16, new ActionListener() {
+            int count = dmg;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (count == 0) {
+                    ((Timer) e.getSource()).stop();
+                    return;
+                }
+
+                count--;
+                npcHealthBar.setValue(npcHealthBar.getValue() - 1);
+            }
+        });
+        timer.start();
     }
 
-    // Aggiorna la barra dell'esperienza del giocatore
+    /**
+     * Aggiorna la barra dell'esperienza del giocatore
+     * @param exp
+     */
     public static void updatePlayerExpBar(int exp) {
         playerExpBar.setValue(exp);
     }
 
-    // Aggiorna il display del Pokémon del giocatore durante la battaglia
+    /**
+     * Aggiorna il display del Pokémon del giocatore durante la battaglia
+     * @param player
+     * @param npc
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void updatePokemonDisplayPlayer(Coach player, Coach npc) throws IOException, URISyntaxException {
         // Update Pokémon name and level
         pokePlayer.setText(player.getPokemonInUse().getName());
@@ -508,7 +628,11 @@ public class BattleFrame extends JFrame implements BattleEventListener{
         abilityPanel.repaint();
     }
 
-    // Aggiorna il display del Pokémon del NPC durante la battaglia
+    /**
+     * Aggiorna il display del Pokémon del NPC durante la battaglia
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static void updatePokemonDisplayNpc() throws IOException, URISyntaxException {
         // Update Pokémon name and level
         Coach npc = Battle.getNpc();

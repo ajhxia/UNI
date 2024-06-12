@@ -13,24 +13,46 @@ public class Ability {
     private String typo;
     private int strength;
 
+    /**
+     * Costruttore della classe Ability
+     * @param name
+     * @param typo
+     * @param strength
+     */
     public Ability(String name, String typo, int strength) {
         this.name = name;
         this.typo = typo;
         this.strength = strength;
-    }
+    }   
 
+    /**
+     * Metodo per ottenere il nome dell'abilità
+      @return nome dell'abilità
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Metodo per ottenere il tipo dell'abilità
+      @return tipo dell'abilità
+     */
     public String getTypo() {
         return typo;
     }
 
+    /**
+     * Metodo per ottenere la forza dell'abilità
+      @return forza dell'abilità
+     */
     public int getStrength() {
         return strength;
     }
 
+    /**
+     * Metodo per impostare il nome dell'abilità
+     * @param name
+     */
     public static ArrayList<Ability> getAbility(int index, int level) {
         switch (index) {
             case 1: // Bulbasaur

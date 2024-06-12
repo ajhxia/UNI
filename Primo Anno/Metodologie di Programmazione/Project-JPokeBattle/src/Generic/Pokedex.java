@@ -21,6 +21,9 @@ public class Pokedex extends JPanel implements ActionListener {
     public static JLabel titleLabel;
     public static JPanel teamPanel; // Pannello per i Pokémon in squadra
 
+    /**
+     * Costruttore della classe Pokedex
+     */
     public Pokedex() {
         Coach player = Battle.getPlayer();
         pokedexFrame = new JFrame("Pokédex of " + player.getName());
@@ -107,7 +110,9 @@ public class Pokedex extends JPanel implements ActionListener {
         pokedexFrame.setLocationRelativeTo(null);
     }
 
-    // Carica le immagini dei Pokémon in un array
+    /**
+     * Metodo per caricare le immagini dei Pokémon
+     */
     public static void loadImagesPokemon() {
         try {
             for (Pokemon pokemon : initialPokemonList) {
@@ -121,7 +126,9 @@ public class Pokedex extends JPanel implements ActionListener {
         }
     }
 
-    // Carica i Pokémon in un array e filtra solo i Pokémon iniziali
+    /**
+     * Metodo per caricare i Pokémon
+     */
     public static void loadPokemon() {
         for (int i = 0; i < 55; i++) {
             Pokemon pokemon = CreateObjectsPokemon.getPokemon(i + 1, 0);
@@ -132,7 +139,11 @@ public class Pokedex extends JPanel implements ActionListener {
         loadImagesPokemon();
     }
 
-    // Metodo chiamato quando si clicca su un bottone
+    /**
+     * Metodo per ottenere la lista dei Pokémon
+     * 
+       lista di Pokémon
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         int pokeIndex = Integer.parseInt(e.getActionCommand());
@@ -143,8 +154,12 @@ public class Pokedex extends JPanel implements ActionListener {
         }
     }
 
-    // Mostra le informazioni di un Pokémon in una finestra separata di tipo
-    // InfoPokemon
+   /**
+    * Metodo per mostrare le informazioni di un Pokémon
+    * @param pokeIndexIn
+    * @throws IOException
+    * @throws URISyntaxException
+    */
     private void showPokemonInfo(int pokeIndexIn) throws IOException, URISyntaxException {
         if (infoFrame != null) {
             infoFrame.dispose(); // Chiudi il JFrame precedente se esiste
@@ -159,11 +174,19 @@ public class Pokedex extends JPanel implements ActionListener {
         infoFrame.setVisible(true);
     }
 
-    // Restituisce il Pokémon all'indice specificato
+    /**
+     * Metodo per ottenere un Pokémon
+     * @param index
+      @return Pokémon
+     */
     public static Pokemon getPokemon(int index) {
         return initialPokemonList.get(index - 1);
     }
 
+    /**
+     * Metodo per ottenere la lista dei Pokémon
+       lista di Pokémon
+     */
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del
         // titolo
@@ -171,6 +194,11 @@ public class Pokedex extends JPanel implements ActionListener {
         titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
 
+    /**
+     * Metodo per aggiornare il pannello della squadra
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static void updateTeamPanel() throws IOException, URISyntaxException {
         teamPanel.removeAll(); // Rimuove tutti i componenti dal pannello dei Pokémon
         teamPanel.setLayout(null); // Imposta il layout a null

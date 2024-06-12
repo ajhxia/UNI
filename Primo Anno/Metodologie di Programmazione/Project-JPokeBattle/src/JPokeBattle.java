@@ -1,7 +1,6 @@
 import javax.swing.*;
 
-import Generic.Player;
-import Generic.Pokedex;
+import Generic.*;
 import Shared.*;
 
 /*
@@ -11,6 +10,9 @@ import Shared.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class JPokeBattle extends JFrame implements ActionListener {
     private JFrame frame;
@@ -23,6 +25,11 @@ public class JPokeBattle extends JFrame implements ActionListener {
         intro.showMainScreen();
     }
 
+    /**
+     * Costruttore della classe JPokeBattle
+       JPokeBattle
+     */
+
     public JPokeBattle() {
         frame = new JFrame("JPokeBattle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +37,11 @@ public class JPokeBattle extends JFrame implements ActionListener {
         frame.setLocationRelativeTo(null); // Centra la finestra
         frame.setVisible(true);
     }
+
+    /**
+     * Mostra la schermata iniziale del gioco
+     *  
+     */
 
     private void showMainScreen() {
         mainPanel = new JPanel();
@@ -53,15 +65,21 @@ public class JPokeBattle extends JFrame implements ActionListener {
         arrowLabel.setBounds(20, 65, 40, 40);
 
         // creazione del bottone e posizionamento
-        JButton button = Style.createButton(Color.WHITE, "Start a New Game", 14, 70, 65, 280, 40);
-
+        JButton startButton = Style.createButton(Color.WHITE, "Start a New Game", 14, 70, 65, 280, 40);
         // Aggiungo l'azione di ascolto al bottone
-        button.setActionCommand("start");
-        button.addActionListener(this);
+        startButton.setActionCommand("start");
+        startButton.addActionListener(this);
 
-        // Aggiunge il bottone e il JLabel al mainPanel
+        // Creazione del secondo bottone e posizionamento
+        
+        JButton loadButton = Style.createButton(Color.WHITE, "Record", 14, 70, 20, 150, 40);
+        loadButton.setActionCommand("load");
+        loadButton.addActionListener(this);
+
+        // Aggiunge i bottoni e il JLabel al mainPanel
         mainPanel.add(arrowLabel);
-        mainPanel.add(button);
+        mainPanel.add(startButton);
+        mainPanel.add(loadButton);
         mainPanel.add(backgroundLabel);
 
         frame.add(mainPanel);
@@ -69,6 +87,11 @@ public class JPokeBattle extends JFrame implements ActionListener {
         frame.repaint();
     }
 
+    /**
+     * Metodo per gestire l'evento di click sui bottoni
+     * @param event evento di click
+     *  
+     */
     public void actionPerformed(ActionEvent event) {
         String command = event.getActionCommand();
         if (command.equals("start")) {
@@ -76,6 +99,56 @@ public class JPokeBattle extends JFrame implements ActionListener {
             showCreateCharacter.setVisible(true);
             frame.setVisible(false); // Chiudi la finestra Intro
             System.out.println("Start button clicked.");
+        } else if (command.equals("load")) {
+            showDataFromFile();
         }
+    }
+
+    /**
+     * Mostra i dati salvati su file
+     *  
+     */
+    private void showDataFromFile() {
+        JFrame dataFrame = new JFrame("Data from File");
+        dataFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        dataFrame.setSize(375, 760);
+        dataFrame.setLocationRelativeTo(null); // Centra la finestra
+        ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/image.png"));
+        JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 368, 670));
+        backgroundLabel.setBounds(0, 0, 368, 760);
+
+        JLabel title = new JLabel("Record", SwingConstants.CENTER);
+        title.setFont(PixelFont.myCustomFont.deriveFont(24f));
+        title.setForeground(Color.BLACK);
+        title.setBounds(0, 0, 368, 50);
+        dataFrame.add(title);
+
+        // Usa BorderLayout per una gestione migliore dei componenti
+        dataFrame.setLayout(null);
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0, 0, 368, 710);
+
+        String path = RelativePath.getAbsolutePath("src/Shared/Record.txt");
+        System.out.println(path);
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                JLabel label = new JLabel(line);
+                label.setFont(PixelFont.myCustomFont.deriveFont(12f));
+                label.setForeground(Color.WHITE);
+                label.setBounds(45, 63 + (index * 110), 200, 75);
+                contentPanel.add(label);
+                index++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        contentPanel.setOpaque(false);
+        dataFrame.add(contentPanel);
+        dataFrame.add(backgroundLabel);
+        dataFrame.setVisible(true);
     }
 }

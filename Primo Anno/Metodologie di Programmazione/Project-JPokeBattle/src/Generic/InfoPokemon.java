@@ -16,7 +16,13 @@ import javax.swing.JOptionPane;
  */
 
 public class InfoPokemon extends JPanel {
-
+    /**
+     * Costruttore della classe InfoPokemon
+     * @param pokemon
+     * @param player
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public InfoPokemon(Pokemon pokemon, Coach player) throws IOException, URISyntaxException {
         setLayout(null); // Imposta il layout a null per posizionare manualmente i componenti
 

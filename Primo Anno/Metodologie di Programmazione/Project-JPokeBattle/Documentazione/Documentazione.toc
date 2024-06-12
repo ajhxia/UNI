@@ -1,0 +1,4 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Feature Sviluppate}{2}{}%
+\contentsline {section}{\numberline {2}Decisioni di progettazione}{3}{}%

@@ -13,6 +13,12 @@ import Pokemon.Pokemon;
 public class Npc {
     static boolean start = false;
 
+    /**
+     * Metodo per creare un npc
+     * @param index
+     * @param teamSize
+      @return npc
+     */
     public static Coach createNpc(int index, int teamSize) {
         ArrayList<Pokemon> npcTeam = new ArrayList<>();
         if (start == false) {
@@ -39,11 +45,11 @@ public class Npc {
 
         Team team = new Team(npcTeam);
         return switch (index) {
-            case 1 -> new Coach("Brock", 15, team, Gender.MALE);
-            case 2 -> new Coach("Misty", 15, team, Gender.FEMALE);
-            case 3 -> new Coach("Lt. Surge", 15, team, Gender.MALE);
-            case 4 -> new Coach("Erika", 15, team, Gender.FEMALE);
-            case 5 -> new Coach("Koga", 15, team, Gender.MALE);
+            case 1 -> new Coach("Brock", 15, team, Gender.MALE, 0);
+            case 2 -> new Coach("Misty", 15, team, Gender.FEMALE, 0);
+            case 3 -> new Coach("Lt. Surge", 15, team, Gender.MALE, 0);
+            case 4 -> new Coach("Erika", 15, team, Gender.FEMALE, 0);
+            case 5 -> new Coach("Koga", 15, team, Gender.MALE, 0);
             default -> null;
         };
     }

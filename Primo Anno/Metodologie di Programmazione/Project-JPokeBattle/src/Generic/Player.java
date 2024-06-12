@@ -19,6 +19,9 @@ public class Player extends JFrame {
     public static Coach player;
     private static ArrayList<Pokemon> playerTeam = new ArrayList<Pokemon>();
 
+    /**
+     * Costruttore della classe Player
+     */
     public Player() {
         setTitle("Create a character");
         setSize(300, 300);
@@ -86,7 +89,7 @@ public class Player extends JFrame {
                 }
         
                 // Se tutti i campi sono validi, crea il personaggio
-                player = new Coach(name, age, new Team(playerTeam), gender);
+                player = new Coach(name, age, new Team(playerTeam), gender, 0);
                 // Fai qualcosa con l'oggetto Coach creato
                 Battle.setPlayer(player);
                 Pokedex pokedex = new Pokedex();

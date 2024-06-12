@@ -20,6 +20,12 @@ public class AbilitySelection extends JFrame {
     private JButton continueButton;
     Pokemon pokemon;
 
+    /**
+     * Costruttore della classe AbilitySelection
+     * @param indexPoke
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public AbilitySelection(int indexPoke) throws IOException, URISyntaxException {
 
         frame = new JFrame("Ability Selection");
@@ -96,6 +102,10 @@ public class AbilitySelection extends JFrame {
         frame.setVisible(true);
     }
 
+    /**
+     * Metodo per inizializzare i pulsanti delle abilità
+     * @param indexPoke
+     */
     private void initializeAbilityButtons(int indexPoke) {
         abilityPanel.removeAll();
         List<Ability> abilities = pokemon.getAbilities();
@@ -109,6 +119,10 @@ public class AbilitySelection extends JFrame {
         abilityPanel.repaint();
     }
 
+    /**
+     * Metodo per inizializzare i pulsanti delle nuove abilità
+     * @param indexPoke
+     */
     private void initializeNewAbilityButtons(int indexPoke) {
         newAbilityPanel.removeAll();
 
@@ -138,6 +152,11 @@ public class AbilitySelection extends JFrame {
         newAbilityPanel.add(selectNewAbilityButton);
     }
 
+    /**
+     * Metodo per creare un pulsante per le abilità
+     * @param ability
+      
+     */
     private JButton createAbilityButton(Ability ability) {
         JButton abilityButton = new JButton(ability.getName());
         abilityButton.setFont(PixelFont.myCustomFont.deriveFont(12f));
@@ -152,6 +171,11 @@ public class AbilitySelection extends JFrame {
         return abilityButton;
     }
 
+    /**
+     * Metodo per gestire la selezione di una nuova abilità
+     * @param newAbility
+     * @param indexPoke
+     */
     private void handleNewAbilitySelection(Ability newAbility, int indexPoke) {
         List<Ability> abilities = pokemon.getAbilities();
 
@@ -194,20 +218,5 @@ public class AbilitySelection extends JFrame {
         }
         initializeAbilityButtons(indexPoke); // Aggiorna i pulsanti delle abilità dopo l'aggiunta della nuova abilità
     }
-
-    /*public static void main(String[] args) {
-        PixelFont.loadCustomFont();
-        ArrayList<Pokemon> npcTeam = new ArrayList<Pokemon>(Arrays.asList(CreateObjectsPokemon.getPokemon(3, 4), CreateObjectsPokemon.getPokemon(4, 55), CreateObjectsPokemon.getPokemon(6, 17), CreateObjectsPokemon.getPokemon(12, 0)));
-        Team team = new Team(npcTeam);
-        Coach player = new Coach("Player", 1, team, Gender.MALE );
-        Battle.setPlayer(player);
-        Battle.setNpc(player);
-
-        try {
-            new AbilitySelection(2);
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }*/
 
 }

@@ -1,6 +1,7 @@
 package Battle;
 
 import Pokemon.Pokemon;
+import Pokemon.Types;
 
 import java.awt.Component;
 import java.awt.Cursor;
@@ -19,39 +20,74 @@ public class Battle {
     private static boolean turn;
     private BattleEventListener battleEventListener;
 
+    /**
+     * Metodo per ottenere il turno
+      
+     */
     public static boolean isTurn() {
         return turn;
     }
-
+    
+    /**
+     * Metodo per ottenere il giocatore
+      
+     */
     public static Coach getPlayer() {
         return player;
     }
 
+    /**
+     * Metodo per impostare il giocatore
+     * @param playerIn
+     */
     public static void setPlayer(Coach playerIn) {
         player = playerIn;
     }
 
+    /**
+     * Metodo per ottenere il npc
+      
+     */
     public static Coach getNpc() {
         return npc;
     }
 
+    /**
+     * Metodo per impostare il npc
+     * @param npcIn
+     */
     public static void setNpc(Coach npcIn) {
         npc = npcIn;
     }
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+      
+     */
     public Battle(BattleEventListener battleEventListener) {
         this.battleEventListener = battleEventListener;
     }
 
-    // metodo utilizzato per inizializzare il pokemon iniziale da usare dei due
-    // allenatori
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     * @param index
+     */
     public static void setPokeInUseAtStart(int index) {
+        int indexPoke = index;
+        while (player.getTeam().getPokemon(index).getStats().getHp() <= 0) {
+            indexPoke++;
+        }
+        indexPoke = index;
         player.getTeam().getPokemon(index).setInUse(true);
+        while (npc.getTeam().getPokemon(index).getStats().getHp() <= 0) {
+            indexPoke++;
+        }
         npc.getTeam().getPokemon(index).setInUse(true);
     }
 
-    // metodo utilizzato per decidere chi inizia per primo in base alla velocità dei
-    // due pokemon in campo
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     public void whoStart() {
         int playerSpeed = player.getTeam().getPokemon(0).getStats().getSpeed();
         int npcSpeed = npc.getTeam().getPokemon(0).getStats().getSpeed();
@@ -66,6 +102,9 @@ public class Battle {
         }
     }
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     public static void addAbilityToPlayerPokemon() {
         for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
             player.getTeam().getListPokemon().get(i).setAbility(
@@ -74,29 +113,50 @@ public class Battle {
         }
     }
 
-    // metodo utilizzato per calcolare i danni in base al tipo dell'abilità usata
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     public void decreaseHpNpc(int damage, String type) {
-        float damageCalculated = calculateDamage(damage, type, npc);
-        int dmg = (int) (npc.getPokemonInUse().getStats().getHp() - damageCalculated);
+        int damageCalculated = calculateDamage(damage, type, npc);
+        int dmg = npc.getPokemonInUse().getStats().getHp() - damageCalculated;
+        battleEventListener.onNpcHealthUpdated(damageCalculated);
         npc.getPokemonInUse().getStats().setHp(dmg);
-        battleEventListener.onNpcHealthUpdated();
     }
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     public void decreaseHpPlayer(int damage, String type) {
-        float damageCalculated = calculateDamage(damage, type, player);
-        int dmg = (int) (player.getPokemonInUse().getStats().getHp() - damageCalculated);
+        int damageCalculated = calculateDamage(damage, type, player);
+        int dmg = player.getPokemonInUse().getStats().getHp() - damageCalculated;
         player.getPokemonInUse().getStats().setHp(dmg);
 
-        battleEventListener.onPlayerHealthUpdated();
+        battleEventListener.onPlayerHealthUpdated(damageCalculated, dmg);
 
         if (player.getPokemonInUse().getStats().getHp() <= 0) {
             battleEventListener.onPokemonFainted();
+        }
+
+        boolean allPokemonHpZero = true;
+        
+        for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
+            if (player.getTeam().getPokemon(i).getStats().getHp() > 0) {
+                allPokemonHpZero = false;
+            }
+        }
+
+        if (allPokemonHpZero) {
+            GameOverScreen gameOverScreen = new GameOverScreen();
+            gameOverScreen.setVisible(true);
         }
     }
 
     // metodo utilizzato per eseguire la logica del npc in base al turno
     static int count = 0;
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     public void npcLogic() {
         Timer timer = new Timer(800, c -> {
             // Verifica se il Pokémon in uso ha HP maggiori di 0
@@ -148,8 +208,9 @@ public class Battle {
                     }
                     player.getPokemonInUse().setLvl(player.getPokemonInUse().getLvlEvoluzione());
                     try {
+                    	new RecapBattle();
                         battleEventListener.onBattleEnd();
-                        new RecapBattle();
+                        player.setGameWinned(player.getGameWinned() + 1);
                     } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }
@@ -161,6 +222,9 @@ public class Battle {
         timer.start();
     }
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     private void expChangePlayer() {
         int pokeNpcExp = npc.getPokemonInUse().getBaseExperience();
         int pokeNpcLv = npc.getPokemonInUse().getLvl();
@@ -172,11 +236,13 @@ public class Battle {
             player.getPokemonInUse().setBaseExperience(0);
             battleEventListener.updateExpBar(player.getPokemonInUse().getBaseExperience());
             incrementStats();
-
         }
         battleEventListener.updateExpBar(player.getPokemonInUse().getBaseExperience());
     }
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     public void incrementStats() {
         Pokemon pokemon = player.getPokemonInUse();
         pokemon.getStats().setAttack(pokemon.getStats().getAttack() + 30);
@@ -187,6 +253,9 @@ public class Battle {
         battleEventListener.incrementStats();
     }
 
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     */
     private int executeMove() {
         Random randomMove = new Random();
         int moveInd = randomMove.nextInt(3) + 1;
@@ -198,8 +267,10 @@ public class Battle {
         return moveInd;
     }
 
-    // metodo utilizzato per attivare/disattivare i pulsanti delle abilità in base
-    // al turno
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     * @param turn
+     */
     public void setTurn(boolean turn) {
         Battle.turn = turn;
         if (turn) {
@@ -227,40 +298,42 @@ public class Battle {
         }
     }
 
-    // metodo utilizzato per cambiare il pokemon del npc in base al tipo del pokemon
-    // del giocatore
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+      
+     */
     private static Boolean changePokeNpc() {
         System.out.println("Changing Pokemon");
 
         // crea una map ti tipi e debolezze per ogni tipo
-        Map<String, List<String>> typeWeaknesses = new HashMap<>();
-        typeWeaknesses.put("normal", Arrays.asList("fighting"));
-        typeWeaknesses.put("fighting", Arrays.asList("flying", "psychic", "fairy"));
-        typeWeaknesses.put("flying", Arrays.asList("electric", "rock", "ice"));
-        typeWeaknesses.put("poison", Arrays.asList("ground", "psychic"));
-        typeWeaknesses.put("ground", Arrays.asList("water", "grass", "ice"));
-        typeWeaknesses.put("rock", Arrays.asList("fighting", "ground", "steel", "water", "grass"));
-        typeWeaknesses.put("bug", Arrays.asList("fire", "flying", "rock"));
-        typeWeaknesses.put("ghost", Arrays.asList("ghost", "dark"));
-        typeWeaknesses.put("steel", Arrays.asList("fire", "fighting", "ground"));
-        typeWeaknesses.put("fire", Arrays.asList("water", "rock", "ground"));
-        typeWeaknesses.put("water", Arrays.asList("electric", "grass"));
-        typeWeaknesses.put("grass", Arrays.asList("fire", "flying", "bug", "poison", "ice"));
-        typeWeaknesses.put("electric", Arrays.asList("ground"));
-        typeWeaknesses.put("psychic", Arrays.asList("bug", "ghost", "dark"));
-        typeWeaknesses.put("ice", Arrays.asList("fire", "fighting", "rock", "steel"));
-        typeWeaknesses.put("dragon", Arrays.asList("ice", "dragon", "fairy"));
+        Map<Types, List<Types>> typeWeaknesses = new HashMap<>();
+        typeWeaknesses.put(Types.NORMAL, Arrays.asList(Types.FIGHTING));
+        typeWeaknesses.put(Types.FIGHTING, Arrays.asList(Types.FLYING, Types.PSYCHIC, Types.FAIRY));
+        typeWeaknesses.put(Types.FLYING, Arrays.asList(Types.ELECTRIC, Types.ROCK, Types.ICE));
+        typeWeaknesses.put(Types.POISON, Arrays.asList(Types.GROUND, Types.PSYCHIC));
+        typeWeaknesses.put(Types.GROUND, Arrays.asList(Types.WATER, Types.GRASS, Types.ICE));
+        typeWeaknesses.put(Types.ROCK, Arrays.asList(Types.FIGHTING, Types.GROUND, Types.STEEL, Types.WATER, Types.GRASS));
+        typeWeaknesses.put(Types.BUG, Arrays.asList(Types.FIRE, Types.FLYING, Types.ROCK));
+        typeWeaknesses.put(Types.GHOST, Arrays.asList(Types.GHOST, Types.DARK));
+        typeWeaknesses.put(Types.STEEL, Arrays.asList(Types.FIRE, Types.FIGHTING, Types.GROUND));
+        typeWeaknesses.put(Types.FIRE, Arrays.asList(Types.WATER, Types.ROCK, Types.GROUND));
+        typeWeaknesses.put(Types.WATER, Arrays.asList(Types.ELECTRIC, Types.GRASS));
+        typeWeaknesses.put(Types.GRASS, Arrays.asList(Types.FIRE, Types.FLYING, Types.BUG, Types.POISON, Types.ICE));
+        typeWeaknesses.put(Types.ELECTRIC, Arrays.asList(Types.GROUND));
+        typeWeaknesses.put(Types.PSYCHIC, Arrays.asList(Types.BUG, Types.GHOST, Types.DARK));
+        typeWeaknesses.put(Types.ICE, Arrays.asList(Types.FIRE, Types.FIGHTING, Types.ROCK, Types.STEEL));
+        typeWeaknesses.put(Types.DRAGON, Arrays.asList(Types.ICE, Types.DRAGON, Types.FAIRY));
 
-        List<String> playerPokemonTypes = Arrays.asList(npc.getPokemonInUse().getTypes());
+        List<Types> playerPokemonTypes = Arrays.asList(npc.getPokemonInUse().getTypes());
 
         for (int i = 0; i < npc.getTeam().getListPokemon().size(); i++) {
-            List<String> npcPokemonTypes = Arrays.asList(npc.getTeam().getPokemon(i).getTypes());
+            List<Types> npcPokemonTypes = Arrays.asList(npc.getTeam().getPokemon(i).getTypes());
 
-            for (String playerType : playerPokemonTypes) {
-                List<String> weaknesses = typeWeaknesses.get(playerType);
+            for (Types playerType : playerPokemonTypes) {
+                List<Types> weaknesses = typeWeaknesses.get(playerType);
 
                 if (weaknesses != null) {
-                    for (String weakness : weaknesses) {
+                    for (Types weakness : weaknesses) {
                         if (npcPokemonTypes.contains(weakness)) {
                             if (npc.getTeam().getPokemon(i).getStats().getHp() > 0
                                     && npc.getPokemonInUse().getName() != npc.getTeam().getPokemon(i).getName()) {
@@ -275,51 +348,58 @@ public class Battle {
         return false;
     }
 
-    // metodo utilizzato per calcolare i danni in base al tipo dell'abilità usata
-    public static float calculateDamage(int damageIn, String typeAbility, Coach enemy) {
-        List<String> npcPokemonTypes = Arrays.asList(enemy.getPokemonInUse().getTypes());
+    /**
+     * Metodo per ottenere il pokemon in uso del giocatore
+     * @param damageIn
+     * @param typeAbility
+     * @param enemy
+      
+     */
+    public static int calculateDamage(int damageIn, String typeAbility, Coach enemy) {
+        List<Types> npcPokemonTypes = Arrays.asList(enemy.getPokemonInUse().getTypes());
         float typeEffectiveness = 1;
 
         // Define type effectiveness map
-        Map<String, Map<String, Float>> typeEffectivenessMap = new HashMap<>();
-        typeEffectivenessMap.put("fire", Map.of(
-                "water", 0.5f, "grass", 2f, "rock", 0.5f, "ice", 2f, "bug", 2f, "dragon", 0.5f, "fire", 0.5f));
-        typeEffectivenessMap.put("water", Map.of(
-                "grass", 0.5f, "fire", 2f, "rock", 2f, "ground", 2f, "water", 0.5f, "dragon", 0.5f));
-        typeEffectivenessMap.put("grass", Map.of(
-                "water", 2f, "fire", 0.5f, "rock", 2f, "ground", 2f, "grass", 0.5f, "bug", 0.5f, "dragon", 0.5f,
-                "poison", 0.5f, "flying", 0.5f));
-        typeEffectivenessMap.put("electric", Map.of(
-                "water", 2f, "electric", 0.5f, "flying", 2f, "dragon", 0.5f, "grass", 0.5f, "ground", 0f));
-        typeEffectivenessMap.put("normal", Map.of(
-                "rock", 0.5f, "ghost", 0f));
-        typeEffectivenessMap.put("fighting", Map.of(
-                "normal", 2f, "rock", 2f, "ice", 2f, "poison", 0.5f, "flying", 0.5f, "psychic", 0.5f, "bug", 0.5f,
-                "ghost", 0f));
-        typeEffectivenessMap.put("flying", Map.of(
-                "fighting", 2f, "rock", 0.5f, "electric", 0.5f, "bug", 2f, "grass", 2f));
-        typeEffectivenessMap.put("poison", Map.of(
-                "grass", 2f, "poison", 0.5f, "ground", 0.5f, "rock", 0.5f, "ghost", 0.5f, "bug", 2f));
-        typeEffectivenessMap.put("ground", Map.of(
-                "fire", 2f, "electric", 2f, "poison", 2f, "rock", 2f, "grass", 0.5f, "bug", 0.5f, "flying", 0f));
-        typeEffectivenessMap.put("rock", Map.of(
-                "fire", 2f, "ice", 2f, "fighting", 0.5f, "ground", 0.5f, "flying", 2f, "bug", 2f));
-        typeEffectivenessMap.put("bug", Map.of(
-                "grass", 2f, "fire", 0.5f, "fighting", 0.5f, "poison", 0.5f, "flying", 0.5f, "psychic", 2f));
-        typeEffectivenessMap.put("ghost", Map.of(
-                "ghost", 2f, "psychic", 0f, "normal", 0f));
-        typeEffectivenessMap.put("dragon", Map.of(
-                "dragon", 2f));
-        typeEffectivenessMap.put("psychic", Map.of(
-                "fighting", 2f, "poison", 2f, "psychic", 0.5f));
-        typeEffectivenessMap.put("ice", Map.of(
-                "flying", 2f, "fire", 0.5f, "water", 0.5f, "ice", 0.5f, "dragon", 2f, "grass", 2f, "ground", 2f));
+        Map<Types, Map<Types, Float>> typeEffectivenessMap = new HashMap<>();
+        typeEffectivenessMap.put(Types.FIRE, Map.of(
+                Types.WATER, 0.5f, Types.GRASS, 2f, Types.ROCK, 0.5f, Types.ICE, 2f, Types.BUG, 2f, Types.DRAGON, 0.5f, Types.FIRE, 0.5f));
+        typeEffectivenessMap.put(Types.WATER, Map.of(
+                Types.GRASS, 0.5f, Types.FIRE, 2f, Types.ROCK, 2f, Types.GROUND, 2f, Types.WATER, 0.5f, Types.DRAGON, 0.5f));
+        typeEffectivenessMap.put(Types.GRASS, Map.of(
+                Types.WATER, 2f, Types.FIRE, 0.5f, Types.ROCK, 2f, Types.GROUND, 2f, Types.GRASS, 0.5f, Types.BUG, 0.5f, Types.DRAGON, 0.5f,
+                Types.POISON, 0.5f, Types.FLYING, 0.5f));
+        typeEffectivenessMap.put(Types.ELECTRIC, Map.of(
+                Types.WATER, 2f, Types.ELECTRIC, 0.5f, Types.FLYING, 2f, Types.DRAGON, 0.5f, Types.GRASS, 0.5f, Types.GROUND, 0f));
+        typeEffectivenessMap.put(Types.NORMAL, Map.of(
+                Types.ROCK, 0.5f, Types.GHOST, 0f));
+        typeEffectivenessMap.put(Types.FIGHTING, Map.of(
+                Types.NORMAL, 2f, Types.ROCK, 2f, Types.ICE, 2f, Types.POISON, 0.5f, Types.FLYING, 0.5f, Types.PSYCHIC, 0.5f, Types.BUG, 0.5f,
+                Types.GHOST, 0f));
+        typeEffectivenessMap.put(Types.FLYING, Map.of(
+                Types.FIGHTING, 2f, Types.ROCK, 0.5f, Types.ELECTRIC, 0.5f, Types.BUG, 2f, Types.GRASS, 2f));
+        typeEffectivenessMap.put(Types.POISON, Map.of(
+                Types.GRASS, 2f, Types.POISON, 0.5f, Types.GROUND, 0.5f, Types.ROCK, 0.5f, Types.GHOST, 0.5f, Types.BUG, 2f));
+        typeEffectivenessMap.put(Types.GROUND, Map.of(
+                Types.FIRE, 2f, Types.ELECTRIC, 2f, Types.POISON, 2f, Types.ROCK, 2f, Types.GRASS, 0.5f, Types.BUG, 0.5f, Types.FLYING, 0f));
+        typeEffectivenessMap.put(Types.ROCK, Map.of(
+                Types.FIRE, 2f, Types.ICE, 2f, Types.FIGHTING, 0.5f, Types.GROUND, 0.5f, Types.FLYING, 2f, Types.BUG, 2f));
+        typeEffectivenessMap.put(Types.BUG, Map.of(
+                Types.GRASS, 2f, Types.FIRE, 0.5f, Types.FIGHTING, 0.5f, Types.POISON, 0.5f, Types.FLYING, 0.5f, Types.PSYCHIC, 2f));
+        typeEffectivenessMap.put(Types.GHOST, Map.of(
+                Types.GHOST, 2f, Types.PSYCHIC, 0f, Types.NORMAL, 0f));
+        typeEffectivenessMap.put(Types.DRAGON, Map.of(
+                Types.DRAGON, 2f));
+        typeEffectivenessMap.put(Types.PSYCHIC, Map.of(
+                Types.FIGHTING, 2f, Types.POISON, 2f, Types.PSYCHIC, 0.5f));
+        typeEffectivenessMap.put(Types.ICE, Map.of(
+                Types.FLYING, 2f, Types.FIRE, 0.5f, Types.WATER, 0.5f, Types.ICE, 0.5f, Types.DRAGON, 2f, Types.GRASS, 2f, Types.GROUND, 2f));
 
         // Get type effectiveness based on typeAbility and npcPokemonTypes
-        if (typeEffectivenessMap.containsKey(typeAbility)) {
-            for (String npcType : npcPokemonTypes) {
-                typeEffectiveness *= typeEffectivenessMap.get(typeAbility).getOrDefault(npcType, 1f);
-            }
+        Types abilityType = Types.valueOf(typeAbility.toUpperCase());
+        if (typeEffectivenessMap.containsKey(abilityType)) {
+            for (Types npcType : npcPokemonTypes) {
+                typeEffectiveness *= typeEffectivenessMap.get(abilityType).getOrDefault(npcType, 1f);
+            }    
         }
 
         float pokeDefense = (float) enemy.getPokemonInUse().getStats().getDefense();
@@ -328,8 +408,8 @@ public class Battle {
 
         int random = new Random().nextInt(39) + 217; // Random number between 217 and 255
 
-        float damage = ((((2f * pokeLv + 10f) / 5f) * (damageIn * pokeAttack / pokeDefense)) / 50f + 2f)
-                * typeEffectiveness * random / 125f;
+        int damage = (int) (((((2f * pokeLv + 10f) / 5f) * (damageIn * pokeAttack / pokeDefense)) / 50f + 2f)
+                * typeEffectiveness * random / 125f);
         return damage;
     }
 

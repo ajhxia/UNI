@@ -1,7 +1,0 @@
-la barra della vita che torna a 0 che torna a zero quando inizio un nuovo game
-
-le mosse che si vedono più di 4 quando ne ha di più nel CreateAbility
-
-file con la classifica
-
-finire di cambiare i bottoni in recap Battle

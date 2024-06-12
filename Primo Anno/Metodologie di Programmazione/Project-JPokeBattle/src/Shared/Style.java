@@ -6,6 +6,19 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Style {
+
+    /**
+     * Creazione di un bottone personalizzato
+     * @param colorIn Colore del testo e del bordo
+     * @param title Testo del bottone
+     * @param dimensionFont Dimensione del font
+     * @param x Posizione x
+     * @param y Posizione y
+     * @param width Larghezza
+     * @param height Altezza
+       JButton
+     */
+
     public static JButton createButton(Color colorIn, String title, int dimensionFont, int x, int y, int width, int height) {
         JButton button = new JButton(title) {
             @Override
@@ -81,7 +94,7 @@ public class Style {
         private Color color;
         private int thickness;
         private int radius;
-
+        
         public RoundedBorder(Color color, int thickness, int radius) {
             this.color = color;
             this.thickness = thickness;

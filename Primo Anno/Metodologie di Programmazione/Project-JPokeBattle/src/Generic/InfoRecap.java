@@ -18,7 +18,11 @@ import Shared.Style;
 import java.util.List; // Import the List class from java.util
 
 public class InfoRecap extends JFrame {
-
+    /**
+     * Costruttore della classe InfoRecap
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public InfoRecap() throws IOException, URISyntaxException {
         Coach player = Battle.getPlayer();
         setTitle("Recap Team");

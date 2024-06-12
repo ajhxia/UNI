@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage{relsize}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage[italian]{babel}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage[left=3cm,right=3cm, margin=3cm, vmargin=3cm]{geometry} % Imposta i margini laterali a 3 cm
+\usepackage[utf8]{inputenc}
+\usepackage{tcolorbox} % pacchetto per creare scatole colorate
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+
+        \includegraphics[width=0.75\textwidth]{Uniroma1.svg.png}
+        \par\medskip\noindent \\
+
+        \large{Università "Sapienza" di Roma\\
+
+            Facoltà di Informatica\\
+
+            \textbf{Corso}: Metodologie Di Programmazione}\\
+
+        \vfill
+
+        \textbf {\Huge{Documentazione JPokeBattle}}
+        \par\medskip\noindent \\
+        \large{\textbf{Author: }Alessia Cassetta}\\
+
+        \large{\textbf{Matricola: }2113909}
+
+
+        \vfill
+
+        Giugno 2024 % DATA
+
+    \end{center}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Feature Sviluppate}
+\begin{itemize}
+    \item \textbf{Minimo}
+          \begin{itemize}
+              \item Implentati 55 pokemon di prima generazione, con le loro mosse base e statistiche.
+              \item Assegnare a tutti i Pokémon le due mosse di tipo neutro apprese al livello 1.
+              \item Implementare le schermate “start”, battaglia, cambio pokémon, “you win”, e “game over”.
+              \item Adottata Java Swing
+              \item Far affrontare al giocatore una serie di avversari NPC, fino alla sua prima sconfitta.
+          \end{itemize}
+    \item \textbf{Tipico}
+          \begin{itemize}
+              \item Preservare lo stato dei pokémon del giocatore nella serie di lotte.
+              \item Implementate tutte le mosse dei Pokémon scelti, rispettando le loro meccaniche di funzionamento dipendenti dai loro tipi, ma ignorando i cambiamenti di stato come avvelenamento, stordimento, etc.
+              \item Implementare una schermata leaderboard che mantenga i 10 record migliori.
+          \end{itemize}
+    \item \textbf{Extra}
+          \begin{itemize}
+              \item Set crescita:
+                    \begin{itemize}
+                        \item Implementare punti individuali e punti allenamento che migliorino le capacità dei pokémon sulla base delle vittorie, aggregandoli appropriatamente.
+                        \item Implementare i meccanismi di passaggio di livello ed evoluzione dei Pokémon, incluso l’apprendimento di nuove mosse a determinati livelli.
+                    \end{itemize}
+              \item Set battaglia:
+                    \begin{itemize}
+                        \item Implementare strategie per un comportamento “intelligente” degli avversari NPC, per supportare un’esperienza di gioco appagante.
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+Queste Feature sono state implementate in modo incrementale, partendo dal Minimo e aggiungendo le funzionalità Tipiche e Extra. Ogni Feature è stata testata singolarmente, per garantire il corretto funzionamento del codice.
+
+
+\newpage
+\section{Decisioni di progettazione}
+Il progetto è basato su un'architettura a classi, in cui ogni classe rappresenta un'entità del gioco. Le classi principali sono:
+\begin{itemize}
+    \item \textbf{\texttt{\textcolor{red}{Pokemon}}}: rappresenta un Pokémon, con le sue statistiche, mosse e punti esperienza.
+    \item \textbf{\texttt{\textcolor{red}{Ability}}}: rappresenta una mossa, con il suo nome, tipo, potenza, precisione e punti mossa.
+    \item \textbf{\texttt{\textcolor{red}{Coach}}}: rappresenta un allenatore, con il suo nome, i suoi Pokémon e il suo stato.
+    \item \textbf{\texttt{\textcolor{red}{Battle Frame}}}: rappresenta una schermata, con i suoi elementi grafici e le sue azioni.
+    \item \textbf{\texttt{\textcolor{red}{Battle}}}: rappresenta una battaglia, con i suoi stati e le sue azioni.
+    \item \textbf{\texttt{\textcolor{red}{Change Pokemon}}}: rappresenta un cambio Pokémon, con i suoi stati e le sue azioni.
+\end{itemize}
+Ogni classe è stata progettata per essere il più possibile coesa e con un'alta coesione. Inoltre, è stata adottata l'ereditarietà per le classi \texttt{\textcolor{red}{Pokemon}} e \texttt{\textcolor{red}{Ability}}, in modo da poter creare facilmente nuovi Pokémon e nuove Mosse. 
+\\ \\
+La schermata più importante è la schermata della \textbf{battaglia}, in cui il giocatore può scegliere la mossa da usare o cambiare Pokémon. Questa schermata viene implementata da \texttt{\textcolor{red}{BattleFrame}} che estende la classe JFrame, e contiene tutti gli elementi grafici e le azioni che si possono fare durante la battaglia.
+Essa implementa l'interfaccia \texttt{\textcolor{red}{BattleEventListener}} che contiene i metodi per gestire le azioni del giocatore durante la battaglia. \texttt{\textcolor{red}{BattleEventListener}} comunica con la classe \texttt{\textcolor{red}{Battle}}, che contiene la logica della battaglia e i suoi stati.
+\\ \\
+
+
+\end{document}

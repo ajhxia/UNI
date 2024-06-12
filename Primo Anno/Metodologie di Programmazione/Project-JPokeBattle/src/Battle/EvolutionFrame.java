@@ -23,6 +23,13 @@ class EvolutionFrame extends JFrame {
     private JLabel evolutionMessageLabel;
     private JButton confirmButton;
 
+    /**
+     * Constructor of the class EvolutionFrame
+     * @param indexPoke
+     * @param pokemonModel
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public EvolutionFrame(int indexPoke, PokemonModel pokemonModel) throws IOException, URISyntaxException {
         setTitle("Pokemon Evolution");
         setSize(650, 450); // Increased frame size
@@ -34,7 +41,8 @@ class EvolutionFrame extends JFrame {
         Pokemon pokemon = player.getTeam().getPokemon(indexPoke);
         int evolvedPokemon = pokemon.getEvolutions()[0];
 
-        Pokemon poke = CreateObjectsPokemon.getPokemon(evolvedPokemon, player.getTeam().getPokemon(indexPoke).getLvl());
+        Pokemon poke = CreateObjectsPokemon.getPokemon(evolvedPokemon, pokemon.getLvl());
+        poke.getStats().setHp(pokemon.getStats().getHp());
 
         ImageIcon currentPokemonIcon = ImageUtility.loadImage(new URI(pokemon.getSprite().getFront()));
         currentPokemonLabel = new JLabel(ImageUtility.resizeIcon(currentPokemonIcon, 250, 250)); // Increased image size
@@ -60,8 +68,9 @@ class EvolutionFrame extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                player.getTeam().removePokemon(indexPoke);
-                player.getTeam().addPokemonAtIndex(indexPoke, poke);
+                Battle.getPlayer().getTeam().removePokemon(indexPoke);
+                System.out.println(poke.getStats().getHp());
+                Battle.getPlayer().getTeam().addPokemonAtIndex(indexPoke, poke);
                 pokemonModel.evolve(poke);
                 dispose();
             }
