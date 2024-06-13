@@ -72,7 +72,7 @@
     \item \textbf{Minimo}
           \begin{itemize}
               \item Implentati 55 pokemon di prima generazione, con le loro mosse base e statistiche.
-              \item Assegnare a tutti i Pokémon le due mosse di tipo neutro apprese al livello 1.
+              \item Assegnati a tutti i Pokémon le due mosse di tipo neutro apprese al livello 1.
               \item Implementare le schermate “start”, battaglia, cambio pokémon, “you win”, e “game over”.
               \item Adottata Java Swing
               \item Far affrontare al giocatore una serie di avversari NPC, fino alla sua prima sconfitta.
@@ -115,6 +115,8 @@ Ogni classe è stata progettata per essere il più possibile coesa e con un'alta
 La schermata più importante è la schermata della \textbf{battaglia}, in cui il giocatore può scegliere la mossa da usare o cambiare Pokémon. Questa schermata viene implementata da \texttt{\textcolor{red}{BattleFrame}} che estende la classe JFrame, e contiene tutti gli elementi grafici e le azioni che si possono fare durante la battaglia.
 Essa implementa l'interfaccia \texttt{\textcolor{red}{BattleEventListener}} che contiene i metodi per gestire le azioni del giocatore durante la battaglia. \texttt{\textcolor{red}{BattleEventListener}} comunica con la classe \texttt{\textcolor{red}{Battle}}, che contiene la logica della battaglia e i suoi stati.
 \\ \\
+Per quanto riguarda la classe \texttt{\textcolor{red}{RecapBattle}}, essa continene il recap di fine battaglia, ossia un pannello che mostra il risultato della battaglia e le statistiche dei Pokémon.
+In questo caso ogni pokémon del team avrà la possibilità di poter o evolversi o cambiare una mossa già appresa in precedenza e in caso sia in possesso di 4 mosse potrà decidere di dimenticarne una per poterne apprendere una nuova.
+\\ \\
 
-
-\end{document}
+\end{document}  
