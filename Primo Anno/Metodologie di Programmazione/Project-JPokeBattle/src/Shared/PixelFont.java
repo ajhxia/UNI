@@ -10,7 +10,7 @@ import java.io.IOException;
  * Classe per caricare un font personalizzato
  */
 
-public class PixelFont {
+public abstract class PixelFont {
     public static Font myCustomFont;
 
     /**

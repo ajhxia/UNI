@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class Ability {
     private String name;
-    private String typo;
+    private Types typo;
     private int strength;
 
     /**
@@ -19,7 +19,7 @@ public class Ability {
      * @param typo
      * @param strength
      */
-    public Ability(String name, String typo, int strength) {
+    public Ability(String name, Types typo, int strength) {
         this.name = name;
         this.typo = typo;
         this.strength = strength;
@@ -37,7 +37,7 @@ public class Ability {
      * Metodo per ottenere il tipo dell'abilità
       @return tipo dell'abilità
      */
-    public String getTypo() {
+    public Types getTypo() {
         return typo;
     }
 
@@ -58,1005 +58,1005 @@ public class Ability {
             case 1: // Bulbasaur
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability>(Arrays.asList(
-                        new Ability("Tackle", "Normal", 40),
-                        new Ability("Growl", "Normal", 40)
+                        new Ability("Tackle", Types.NORMAL, 40),
+                        new Ability("Growl", Types.NORMAL, 40)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Leech Seed", "Grass", 10)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Leech Seed", Types.GRASS, 10)
                     ));
                 } else if (level >= 13 && level < 20) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Leech Seed", "Grass", 10),
-                            new Ability("Vine Whip", "Grass", 45)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Leech Seed", Types.GRASS, 10),
+                            new Ability("Vine Whip", Types.GRASS, 45)
                     ));
                 } else if (level >= 20) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Leech Seed", "Grass", 10),
-                            new Ability("Vine Whip", "Grass", 45),
-                            new Ability("Poison Powder", "Poison",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Leech Seed", Types.GRASS, 10),
+                            new Ability("Vine Whip", Types.GRASS, 45),
+                            new Ability("Poison Powder", Types.POISON,20)
                     ));
                 }
             case 2: // Ivysaur
                 if (level >= 13 ) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Leech Seed", "Grass", 10),
-                            new Ability("Vine Whip", "Grass", 45),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Razor Leaf", "Grass", 55),
-                            new Ability("Sweet Scent", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Leech Seed", Types.GRASS, 10),
+                            new Ability("Vine Whip", Types.GRASS, 45),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Razor Leaf", Types.GRASS, 55),
+                            new Ability("Sweet Scent", Types.NORMAL,20)
                     ));
                 }
             case 3: // Venusaur
                 if (level >= 7 ) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Leech Seed", "Grass", 10),
-                            new Ability("Vine Whip", "Grass", 45),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Razor Leaf", "Grass", 55),
-                            new Ability("Sweet Scent", "Normal",20),
-                            new Ability("Growth", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Leech Seed", Types.GRASS, 10),
+                            new Ability("Vine Whip", Types.GRASS, 45),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Razor Leaf", Types.GRASS, 55),
+                            new Ability("Sweet Scent", Types.NORMAL,20),
+                            new Ability("Growth", Types.NORMAL,20)
                     ));
                 }
             case 4: // Charmander
                 if (level >= 1 && level < 9) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40)
                     ));
                 } else if (level >= 9 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Ember", "Fire", 40)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Ember", Types.FIRE, 40)
                     ));
                 } else if (level >= 13 && level < 20) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Smokescreen", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Smokescreen", Types.NORMAL,20)
                     ));
                 } else if (level >= 18) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Smokescreen", "Normal",20),
-                            new Ability("Dragon Rage", "Dragon", 40)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Smokescreen", Types.NORMAL,20),
+                            new Ability("Dragon Rage", Types.DRAGON, 40)
                     ));
                 }
             case 5: // Charmeleon
                  if (level >= 9 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Smokescreen", "Normal",20),
-                            new Ability("Dragon Rage", "Dragon", 40),
-                            new Ability("Scary Face", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Smokescreen", Types.NORMAL,20),
+                            new Ability("Dragon Rage", Types.DRAGON, 40),
+                            new Ability("Scary Face", Types.NORMAL,20)
                     ));
                 } else if (level >= 15 ) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Smokescreen", "Normal",20),
-                            new Ability("Dragon Rage", "Dragon", 40),
-                            new Ability("Scary Face", "Normal",20),
-                            new Ability("Fire Fang", "Fire", 65)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Smokescreen", Types.NORMAL,20),
+                            new Ability("Dragon Rage", Types.DRAGON, 40),
+                            new Ability("Scary Face", Types.NORMAL,20),
+                            new Ability("Fire Fang", Types.FIRE, 65)
                     ));
                 }
             case 6: // Charizard
                 if (level >= 17 ) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal", 40),
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Smokescreen", "Normal",20),
-                            new Ability("Dragon Rage", "Dragon", 40),
-                            new Ability("Scary Face", "Normal",20),
-                            new Ability("Fire Fang", "Fire", 65),
-                            new Ability("Air Slash", "Flying", 75),
-                            new Ability("Inferno", "Fire",
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL, 40),
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Smokescreen", Types.NORMAL,20),
+                            new Ability("Dragon Rage", Types.DRAGON, 40),
+                            new Ability("Scary Face", Types.NORMAL,20),
+                            new Ability("Fire Fang", Types.FIRE, 65),
+                            new Ability("Air Slash", Types.FLYING, 75),
+                            new Ability("Inferno", Types.FIRE,
                                     100) ));
                 }
             case 7: // Squirtle
                 if (level >= 1 && level < 8) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20)
                     ));
                 } else if (level >= 8 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40)
                     ));
                 } else if (level >= 15 && level < 22) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Bite", "Dark", 60)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Bite", Types.DARK, 60)
                     ));
                 } else if (level >= 23) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Aqua Tail", "Water", 90)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Aqua Tail", Types.WATER, 90)
                     ));
                 }
             case 8: // Wartortle
                  if (level >= 8 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Aqua Tail", "Water", 90),
-                            new Ability("Withdraw", "Water",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Aqua Tail", Types.WATER, 90),
+                            new Ability("Withdraw", Types.WATER,20)
                     ));
                 } else if (level >= 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Aqua Tail", "Water", 90),
-                            new Ability("Withdraw", "Water",20),
-                            new Ability("Skull Bash", "Normal", 130)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Aqua Tail", Types.WATER, 90),
+                            new Ability("Withdraw", Types.WATER,20),
+                            new Ability("Skull Bash", Types.NORMAL, 130)
                     ));
                 }
             case 9: // Blastoise
                 if (level >= 8 && level < 16) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Aqua Tail", "Water", 90),
-                            new Ability("Withdraw", "Water",20),
-                            new Ability("Skull Bash", "Normal", 130),
-                            new Ability("Rain Dance", "Water",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Aqua Tail", Types.WATER, 90),
+                            new Ability("Withdraw", Types.WATER,20),
+                            new Ability("Skull Bash", Types.NORMAL, 130),
+                            new Ability("Rain Dance", Types.WATER,20)
                     ));
                 } else if (level >= 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Aqua Tail", "Water", 90),
-                            new Ability("Withdraw", "Water",20),
-                            new Ability("Skull Bash", "Normal", 130),
-                            new Ability("Rain Dance", "Water",20),
-                            new Ability("Hydro Pump", "Water", 110)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Aqua Tail", Types.WATER, 90),
+                            new Ability("Withdraw", Types.WATER,20),
+                            new Ability("Skull Bash", Types.NORMAL, 130),
+                            new Ability("Rain Dance", Types.WATER,20),
+                            new Ability("Hydro Pump", Types.WATER, 110)
                     ));
                 }
             case 10: // Caterpie
                 if (level >= 1 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("String Shot", "Bug",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("String Shot", Types.BUG,20)
                     ));
                 } else if (level >= 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("String Shot", "Bug",20),
-                            new Ability("Bug Bite", "Bug", 60)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("String Shot", Types.BUG,20),
+                            new Ability("Bug Bite", Types.BUG, 60)
                     ));
                 }
             case 11: // Metapod
                 if (level >= 1) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Harden", "Normal",20)
+                            new Ability("Harden", Types.NORMAL,20)
                     ));
                 }
             case 12: // Butterfree
                 if (level >= 15 && level < 17) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Poison Powder", "Poison",20)
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Poison Powder", Types.POISON,20)
                     ));
                 } else if (level >= 17) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Sleep Powder", "Grass",20)
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Sleep Powder", Types.GRASS,20)
                     ));
                 }
             case 13: // Weedle
                 if (level >= 1 && level < 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("String Shot", "Bug",20)
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("String Shot", Types.BUG,20)
                     ));
                 } else if (level >= 15) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("String Shot", "Bug",20),
-                            new Ability("Bug Bite", "Bug", 60)
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("String Shot", Types.BUG,20),
+                            new Ability("Bug Bite", Types.BUG, 60)
                     ));
                 }
             case 14: // Kakuna
                 if (level >= 1) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Harden", "Normal",20)
+                            new Ability("Harden", Types.NORMAL,20)
                     ));
                 }
 
             case 15: // Beedrill
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("String Shot", "Bug",20),
-                            new Ability("Fury Attack", "Normal", 15),
-                            new Ability("Focus Energy", "Normal",20)
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("String Shot", Types.BUG,20),
+                            new Ability("Fury Attack", Types.NORMAL, 15),
+                            new Ability("Focus Energy", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("String Shot", "Bug",20),
-                            new Ability("Fury Attack", "Normal", 15),
-                            new Ability("Focus Energy", "Normal",20),
-                            new Ability("Twineedle", "Bug", 25)
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("String Shot", Types.BUG,20),
+                            new Ability("Fury Attack", Types.NORMAL, 15),
+                            new Ability("Focus Energy", Types.NORMAL,20),
+                            new Ability("Twineedle", Types.BUG, 25)
                     ));
                 }
             case 16: // Pidgey
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Gust", "Flying", 40)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Gust", Types.FLYING, 40)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Quick Attack", "Normal", 40)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Quick Attack", Types.NORMAL, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Whirlwind", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Whirlwind", Types.NORMAL,20)
                     ));
                 }
             case 17: // Pidgeotto
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Whirlwind", "Normal",20),
-                            new Ability("Twister", "Dragon", 40)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Whirlwind", Types.NORMAL,20),
+                            new Ability("Twister", Types.DRAGON, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Whirlwind", "Normal",20),
-                            new Ability("Twister", "Dragon", 40),
-                            new Ability("Feather Dance", "Flying",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Whirlwind", Types.NORMAL,20),
+                            new Ability("Twister", Types.DRAGON, 40),
+                            new Ability("Feather Dance", Types.FLYING,20)
                     ));
                 }
             case 18: // Pidgeot
                 if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Gust", "Flying", 40),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Whirlwind", "Normal",20),
-                            new Ability("Twister", "Dragon", 40),
-                            new Ability("Feather Dance", "Flying",20),
-                            new Ability("Agility", "Psychic",20),
-                            new Ability("Air Slash", "Flying", 75)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Gust", Types.FLYING, 40),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Whirlwind", Types.NORMAL,20),
+                            new Ability("Twister", Types.DRAGON, 40),
+                            new Ability("Feather Dance", Types.FLYING,20),
+                            new Ability("Agility", Types.PSYCHIC,20),
+                            new Ability("Air Slash", Types.FLYING, 75)
                     ));
                 }
             case 19: // Rattata
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Hyper Fang", "Normal", 80)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Hyper Fang", Types.NORMAL, 80)
                     ));
                 }
             case 20: // Raticate
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Hyper Fang", "Normal", 80),
-                            new Ability("Focus Energy", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Hyper Fang", Types.NORMAL, 80),
+                            new Ability("Focus Energy", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Hyper Fang", "Normal", 80),
-                            new Ability("Focus Energy", "Normal",20),
-                            new Ability("Sucker Punch", "Dark", 70)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Hyper Fang", Types.NORMAL, 80),
+                            new Ability("Focus Energy", Types.NORMAL,20),
+                            new Ability("Sucker Punch", Types.DARK, 70)
                     ));
                 }
             case 21: // Spearow
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Growl", "Normal",20)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Growl", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Leer", "Normal",20)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Leer", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Fury Attack", "Normal", 15)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Fury Attack", Types.NORMAL, 15)
                     ));
                 }
             case 22: // Fearow
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Fury Attack", "Normal", 15),
-                            new Ability("Pursuit", "Dark", 40)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Fury Attack", Types.NORMAL, 15),
+                            new Ability("Pursuit", Types.DARK, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Fury Attack", "Normal", 15),
-                            new Ability("Pursuit", "Dark", 40),
-                            new Ability("Mirror Move", "Flying",20)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Fury Attack", Types.NORMAL, 15),
+                            new Ability("Pursuit", Types.DARK, 40),
+                            new Ability("Mirror Move", Types.FLYING,20)
                     ));
                 }
             case 23: // Ekans
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Wrap", "Normal", 15),
-                            new Ability("Leer", "Normal",20)
+                            new Ability("Wrap", Types.NORMAL, 15),
+                            new Ability("Leer", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Wrap", "Normal", 15),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Poison Sting", "Poison", 15)
+                            new Ability("Wrap", Types.NORMAL, 15),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Poison Sting", Types.POISON, 15)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Wrap", "Normal", 15),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Bite", "Dark", 60)
+                            new Ability("Wrap", Types.NORMAL, 15),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Bite", Types.DARK, 60)
                     ));
                 }
             case 24: // Arbok
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Wrap", "Normal", 15),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Glare", "Normal",20)
+                            new Ability("Wrap", Types.NORMAL, 15),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Glare", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Wrap", "Normal", 15),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Glare", "Normal",20),
-                            new Ability("Screech", "Normal",20)
+                            new Ability("Wrap", Types.NORMAL, 15),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Glare", Types.NORMAL,20),
+                            new Ability("Screech", Types.NORMAL,20)
                     ));
                 }
             case 25: // Pikachu
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Thundershock", "Electric", 40),
-                            new Ability("Growl", "Normal",20)
+                            new Ability("Thundershock", Types.ELECTRIC, 40),
+                            new Ability("Growl", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Thundershock", "Electric", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40)
+                            new Ability("Thundershock", Types.ELECTRIC, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Thundershock", "Electric", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Electro Ball", "Electric", 60)
+                            new Ability("Thundershock", Types.ELECTRIC, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Electro Ball", Types.ELECTRIC, 60)
                     ));
                 }
             case 26: // Raichu
                 if (level >= 1) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Thundershock", "Electric", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Electro Ball", "Electric", 60),
-                            new Ability("Double Team", "Normal",20),
-                            new Ability("Thunderbolt", "Electric", 90)
+                            new Ability("Thundershock", Types.ELECTRIC, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Electro Ball", Types.ELECTRIC, 60),
+                            new Ability("Double Team", Types.NORMAL,20),
+                            new Ability("Thunderbolt", Types.ELECTRIC, 90)
                     ));
                 }
 
             case 27: // Sandshrew
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40)
+                            new Ability("Scratch", Types.NORMAL, 40)
                     ));
                 } else if (level >= 6 && level < 10) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Defense Curl", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Defense Curl", Types.NORMAL,20)
                     ));
                 } else if (level >= 10) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Defense Curl", "Normal",20),
-                            new Ability("Sand Attack", "Ground",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Defense Curl", Types.NORMAL,20),
+                            new Ability("Sand Attack", Types.GROUND,20)
                     ));
                 }
             case 28: // Sandslash
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Defense Curl", "Normal",20),
-                            new Ability("Sand Attack", "Ground",20),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Rollout", "Rock", 30)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Defense Curl", Types.NORMAL,20),
+                            new Ability("Sand Attack", Types.GROUND,20),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Rollout", Types.ROCK, 30)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Defense Curl", "Normal",20),
-                            new Ability("Sand Attack", "Ground",20),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Rollout", "Rock", 30),
-                            new Ability("Swift", "Normal", 60)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Defense Curl", Types.NORMAL,20),
+                            new Ability("Sand Attack", Types.GROUND,20),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Rollout", Types.ROCK, 30),
+                            new Ability("Swift", Types.NORMAL, 60)
                     ));
                 }
             case 29: // Nidoran♀
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Tackle", "Normal", 40)
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Tackle", Types.NORMAL, 40)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Tackle", "Normal", 40)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Tackle", Types.NORMAL, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Poison Sting", "Poison", 15)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Poison Sting", Types.POISON, 15)
                     ));
                 }
             case 30: // Nidorina
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Bite", "Dark", 60)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Bite", Types.DARK, 60)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Fury Swipes", "Normal", 18)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Fury Swipes", Types.NORMAL, 18)
                     ));
                 }
             case 31: // Nidoqueen
                 if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Fury Swipes", "Normal", 18),
-                            new Ability("Body Slam", "Normal", 85),
-                            new Ability("Superpower", "Fighting", 120)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Fury Swipes", Types.NORMAL, 18),
+                            new Ability("Body Slam", Types.NORMAL, 85),
+                            new Ability("Superpower", Types.FIGHTING, 120)
                     ));
                 }
             case 32: // Nidoran♂
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Leer", "Normal",20)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Leer", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Focus Energy", "Normal",20)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Focus Energy", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Focus Energy", "Normal",20),
-                            new Ability("Horn Attack", "Normal", 65)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Focus Energy", Types.NORMAL,20),
+                            new Ability("Horn Attack", Types.NORMAL, 65)
                     ));
                 }
             case 33: // Nidorino
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Focus Energy", "Normal",20),
-                            new Ability("Horn Attack", "Normal", 65),
-                            new Ability("Double Kick", "Fighting", 30)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Focus Energy", Types.NORMAL,20),
+                            new Ability("Horn Attack", Types.NORMAL, 65),
+                            new Ability("Double Kick", Types.FIGHTING, 30)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Focus Energy", "Normal",20),
-                            new Ability("Horn Attack", "Normal", 65),
-                            new Ability("Double Kick", "Fighting", 30),
-                            new Ability("Poison Sting", "Poison", 15)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Focus Energy", Types.NORMAL,20),
+                            new Ability("Horn Attack", Types.NORMAL, 65),
+                            new Ability("Double Kick", Types.FIGHTING, 30),
+                            new Ability("Poison Sting", Types.POISON, 15)
                     ));
                 }
             case 34: // Nidoking
                 if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Peck", "Flying", 35),
-                            new Ability("Leer", "Normal",20),
-                            new Ability("Focus Energy", "Normal",20),
-                            new Ability("Horn Attack", "Normal", 65),
-                            new Ability("Double Kick", "Fighting", 30),
-                            new Ability("Poison Sting", "Poison", 15),
-                            new Ability("Thrash", "Normal", 120),
-                            new Ability("Earth Power", "Ground", 90)
+                            new Ability("Peck", Types.FLYING, 35),
+                            new Ability("Leer", Types.NORMAL,20),
+                            new Ability("Focus Energy", Types.NORMAL,20),
+                            new Ability("Horn Attack", Types.NORMAL, 65),
+                            new Ability("Double Kick", Types.FIGHTING, 30),
+                            new Ability("Poison Sting", Types.POISON, 15),
+                            new Ability("Thrash", Types.NORMAL, 120),
+                            new Ability("Earth Power", Types.GROUND, 90)
                     ));
                 }
             case 35: // Clefairy
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Growl", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Sing", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Sing", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Double Slap", "Normal", 15)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Double Slap", Types.NORMAL, 15)
                     ));
                 }
             case 36: // Clefable
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Double Slap", "Normal", 15),
-                            new Ability("Minimize", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Double Slap", Types.NORMAL, 15),
+                            new Ability("Minimize", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Double Slap", "Normal", 15),
-                            new Ability("Minimize", "Normal",20),
-                            new Ability("Metronome", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Double Slap", Types.NORMAL, 15),
+                            new Ability("Minimize", Types.NORMAL,20),
+                            new Ability("Metronome", Types.NORMAL,20)
                     ));
                 }
             case 37: // Vulpix
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Tail Whip", "Normal",20)
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40)
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Will-O-Wisp", "Fire",20)
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Will-O-Wisp", Types.FIRE,20)
                     ));
                 }
             case 38: // Ninetales
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Will-O-Wisp", "Fire",20),
-                            new Ability("Confuse Ray", "Ghost",20)
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Will-O-Wisp", Types.FIRE,20),
+                            new Ability("Confuse Ray", Types.GHOST,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Ember", "Fire", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Quick Attack", "Normal", 40),
-                            new Ability("Will-O-Wisp", "Fire",20),
-                            new Ability("Confuse Ray", "Ghost",20),
-                            new Ability("Flamethrower", "Fire", 90)
+                            new Ability("Ember", Types.FIRE, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Quick Attack", Types.NORMAL, 40),
+                            new Ability("Will-O-Wisp", Types.FIRE,20),
+                            new Ability("Confuse Ray", Types.GHOST,20),
+                            new Ability("Flamethrower", Types.FIRE, 90)
                     ));
                 }
             case 39: // Jigglypuff
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Sing", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Sing", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Disable", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Defense Curl", "Normal",20)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Defense Curl", Types.NORMAL,20)
                     ));
                 }
             case 40: // Wigglytuff
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Defense Curl", "Normal",20),
-                            new Ability("Double Slap", "Normal", 15)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Defense Curl", Types.NORMAL,20),
+                            new Ability("Double Slap", Types.NORMAL, 15)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Pound", "Normal", 40),
-                            new Ability("Sing", "Normal",20),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Defense Curl", "Normal",20),
-                            new Ability("Double Slap", "Normal", 15),
-                            new Ability("Body Slam", "Normal", 85)
+                            new Ability("Pound", Types.NORMAL, 40),
+                            new Ability("Sing", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Defense Curl", Types.NORMAL,20),
+                            new Ability("Double Slap", Types.NORMAL, 15),
+                            new Ability("Body Slam", Types.NORMAL, 85)
                     ));
                 }
             case 41: // Zubat
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Supersonic", "Normal",20)
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Supersonic", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Supersonic", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30)
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Supersonic", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Supersonic", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30),
-                            new Ability("Bite", "Dark", 60)
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Supersonic", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30),
+                            new Ability("Bite", Types.DARK, 60)
                     ));
                 }
             case 42: // Golbat
                 if (level >= 7 && level <= 14) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Supersonic", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Wing Attack", "Flying", 60)
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Supersonic", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Wing Attack", Types.FLYING, 60)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Supersonic", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Wing Attack", "Flying", 60),
-                            new Ability("Air Cutter", "Flying", 60)
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Supersonic", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Wing Attack", Types.FLYING, 60),
+                            new Ability("Air Cutter", Types.FLYING, 60)
                     ));
                 } 
             case 43: // Oddish
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Absorb", "Grass", 20),
-                            new Ability("Sweet Scent", "Normal",20)
+                            new Ability("Absorb", Types.GRASS, 20),
+                            new Ability("Sweet Scent", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Absorb", "Grass", 20),
-                            new Ability("Sweet Scent", "Normal",20),
-                            new Ability("Acid", "Poison", 40)
+                            new Ability("Absorb", Types.GRASS, 20),
+                            new Ability("Sweet Scent", Types.NORMAL,20),
+                            new Ability("Acid", Types.POISON, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Absorb", "Grass", 20),
-                            new Ability("Sweet Scent", "Normal",20),
-                            new Ability("Acid", "Poison", 40),
-                            new Ability("Poison Powder", "Poison",20)
+                            new Ability("Absorb", Types.GRASS, 20),
+                            new Ability("Sweet Scent", Types.NORMAL,20),
+                            new Ability("Acid", Types.POISON, 40),
+                            new Ability("Poison Powder", Types.POISON,20)
                     ));
                 }
             case 44: // Gloom
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Absorb", "Grass", 20),
-                            new Ability("Sweet Scent", "Normal",20),
-                            new Ability("Acid", "Poison", 40),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Sleep Powder", "Grass",20)
+                            new Ability("Absorb", Types.GRASS, 20),
+                            new Ability("Sweet Scent", Types.NORMAL,20),
+                            new Ability("Acid", Types.POISON, 40),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Sleep Powder", Types.GRASS,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Absorb", "Grass", 20),
-                            new Ability("Sweet Scent", "Normal",20),
-                            new Ability("Acid", "Poison", 40),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Sleep Powder", "Grass",20),
-                            new Ability("Mega Drain", "Grass", 40)
+                            new Ability("Absorb", Types.GRASS, 20),
+                            new Ability("Sweet Scent", Types.NORMAL,20),
+                            new Ability("Acid", Types.POISON, 40),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Sleep Powder", Types.GRASS,20),
+                            new Ability("Mega Drain", Types.GRASS, 40)
                     ));
                 }
             case 45: // Vileplume
                 if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Absorb", "Grass", 20),
-                            new Ability("Sweet Scent", "Normal",20),
-                            new Ability("Acid", "Poison", 40),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Sleep Powder", "Grass",20),
-                            new Ability("Mega Drain", "Grass", 40),
-                            new Ability("Petal Dance", "Grass", 120)
+                            new Ability("Absorb", Types.GRASS, 20),
+                            new Ability("Sweet Scent", Types.NORMAL,20),
+                            new Ability("Acid", Types.POISON, 40),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Sleep Powder", Types.GRASS,20),
+                            new Ability("Mega Drain", Types.GRASS, 40),
+                            new Ability("Petal Dance", Types.GRASS, 120)
                     ));
                 }
             case 46: // Paras
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Stun Spore", "Grass",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Stun Spore", Types.GRASS,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Stun Spore", "Grass",20),
-                            new Ability("Poison Powder", "Poison",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Stun Spore", Types.GRASS,20),
+                            new Ability("Poison Powder", Types.POISON,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Stun Spore", "Grass",20),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Leech Life", "Bug", 20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Stun Spore", Types.GRASS,20),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Leech Life", Types.BUG, 20)
                     ));
                 }
             case 47: // Parasect
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Stun Spore", "Grass",20),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Fury Cutter", "Bug", 40)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Stun Spore", Types.GRASS,20),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Fury Cutter", Types.BUG, 40)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Stun Spore", "Grass",20),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Fury Cutter", "Bug", 40),
-                            new Ability("Spore", "Grass",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Stun Spore", Types.GRASS,20),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Fury Cutter", Types.BUG, 40),
+                            new Ability("Spore", Types.GRASS,20)
                     ));
                 }
             case 48: // Venonat
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Disable", "Normal",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Disable", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Poison Powder", "Poison",20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Poison Powder", Types.POISON,20)
                     ));
                 }
             case 49: // Venomoth
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Leech Life", "Bug", 20)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Leech Life", Types.BUG, 20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Tackle", "Normal", 40),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Poison Powder", "Poison",20),
-                            new Ability("Leech Life", "Bug", 20),
-                            new Ability("Psybeam", "Psychic", 65)
+                            new Ability("Tackle", Types.NORMAL, 40),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Poison Powder", Types.POISON,20),
+                            new Ability("Leech Life", Types.BUG, 20),
+                            new Ability("Psybeam", Types.PSYCHIC, 65)
                     ));
                 }
             case 50: // Diglett
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30),
-                            new Ability("Mud-Slap", "Ground", 20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30),
+                            new Ability("Mud-Slap", Types.GROUND, 20)
                     ));
                 }
             case 51: // Dugtrio
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30),
-                            new Ability("Mud-Slap", "Ground", 20),
-                            new Ability("Magnitude", "Ground", 70)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30),
+                            new Ability("Mud-Slap", Types.GROUND, 20),
+                            new Ability("Magnitude", Types.GROUND, 70)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Astonish", "Ghost", 30),
-                            new Ability("Mud-Slap", "Ground", 20),
-                            new Ability("Magnitude", "Ground", 70),
-                            new Ability("Bulldoze", "Ground", 60)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Astonish", Types.GHOST, 30),
+                            new Ability("Mud-Slap", Types.GROUND, 20),
+                            new Ability("Magnitude", Types.GROUND, 70),
+                            new Ability("Bulldoze", Types.GROUND, 60)
                     ));
                 }
             case 52: // Meowth
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Bite", "Dark", 60)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Bite", Types.DARK, 60)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Fake Out", "Normal", 40)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Fake Out", Types.NORMAL, 40)
                     ));
                 }
             case 53: // Persian
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Fake Out", "Normal", 40),
-                            new Ability("Fury Swipes", "Normal", 18)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Fake Out", Types.NORMAL, 40),
+                            new Ability("Fury Swipes", Types.NORMAL, 18)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Growl", "Normal",20),
-                            new Ability("Bite", "Dark", 60),
-                            new Ability("Fake Out", "Normal", 40),
-                            new Ability("Fury Swipes", "Normal", 18),
-                            new Ability("Screech", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Growl", Types.NORMAL,20),
+                            new Ability("Bite", Types.DARK, 60),
+                            new Ability("Fake Out", Types.NORMAL, 40),
+                            new Ability("Fury Swipes", Types.NORMAL, 18),
+                            new Ability("Screech", Types.NORMAL,20)
                     ));
                 }
             case 54: // Psyduck
                 if (level >= 1 && level < 7) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Scratch", "Normal", 40),
-                            new Ability("Tail Whip", "Normal",20)
+                            new Ability("Scratch", Types.NORMAL, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20)
                     ));
                 } else if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Disable", "Normal",20)
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50)
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50)
                     ));
                 }
             case 55: // Golduck
                 if (level >= 7 && level < 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Screech", "Normal",20)
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Screech", Types.NORMAL,20)
                     ));
                 } else if (level >= 13) {
                     return new ArrayList<Ability> (Arrays.asList(
-                            new Ability("Water Gun", "Water", 40),
-                            new Ability("Tail Whip", "Normal",20),
-                            new Ability("Disable", "Normal",20),
-                            new Ability("Confusion", "Psychic", 50),
-                            new Ability("Screech", "Normal",20),
-                            new Ability("Psychic", "Psychic", 90)
+                            new Ability("Water Gun", Types.WATER, 40),
+                            new Ability("Tail Whip", Types.NORMAL,20),
+                            new Ability("Disable", Types.NORMAL,20),
+                            new Ability("Confusion", Types.PSYCHIC, 50),
+                            new Ability("Screech", Types.NORMAL,20),
+                            new Ability("Psychic", Types.PSYCHIC, 90)
                     ));
                 }
             default:

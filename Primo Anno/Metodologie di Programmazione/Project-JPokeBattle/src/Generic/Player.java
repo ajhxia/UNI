@@ -26,6 +26,7 @@ public class Player extends JFrame {
         setTitle("Create a character");
         setSize(300, 300);
         setLayout(null); // Utilizza un layout nullo
+        setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
 
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(null);

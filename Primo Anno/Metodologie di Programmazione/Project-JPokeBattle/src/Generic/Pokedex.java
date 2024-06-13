@@ -29,6 +29,7 @@ public class Pokedex extends JPanel implements ActionListener {
         pokedexFrame = new JFrame("Pokédex of " + player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pokedexFrame.setSize(1120, 680);
+        pokedexFrame.setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         this.setLayout(null); // Utilizza un layout nullo per la personalizzazione
 
         // Carica l'immagine di sfondo
@@ -83,7 +84,7 @@ public class Pokedex extends JPanel implements ActionListener {
         JButton confirm = Style.createButton(Color.BLACK, "Confirm", 14, 70, 600, 200, 30);
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
-            if (player.getTeam().getListPokemon().size() == 6) {
+            if (player.getTeam(). getTeam().size() == 6) {
                 InfoRecap infoRecap;
                 try {
                     infoRecap = new InfoRecap();
@@ -190,7 +191,7 @@ public class Pokedex extends JPanel implements ActionListener {
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del
         // titolo
-        int numPokemon = Battle.getPlayer().getTeam().getListPokemon().size();
+        int numPokemon = Battle.getPlayer().getTeam(). getTeam().size();
         titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
 
@@ -202,7 +203,7 @@ public class Pokedex extends JPanel implements ActionListener {
     public static void updateTeamPanel() throws IOException, URISyntaxException {
         teamPanel.removeAll(); // Rimuove tutti i componenti dal pannello dei Pokémon
         teamPanel.setLayout(null); // Imposta il layout a null
-        List<Pokemon> pokemons = Battle.getPlayer().getTeam().getListPokemon();
+        List<Pokemon> pokemons = Battle.getPlayer().getTeam(). getTeam();
 
         int rowHeight = 93; // Altezza della riga
         int yOffset = 60; // Offset per posizionare i componenti lungo l'asse Y

@@ -35,6 +35,7 @@ public class JPokeBattle extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(722, 725);
         frame.setLocationRelativeTo(null); // Centra la finestra
+        frame.setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         frame.setVisible(true);
     }
 

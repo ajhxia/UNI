@@ -30,7 +30,7 @@ public class ChangePokemonFrame extends JFrame {
         setSize(380, 745);
         setLocationRelativeTo(battleFrame);
         setLayout(null);
-
+        setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBounds(0, 0, 368, 710);
@@ -45,7 +45,7 @@ public class ChangePokemonFrame extends JFrame {
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 368, 670));
         backgroundLabel.setBounds(0, 0, 368, 760);
 
-        for (int i = 0; i < player.getTeam().getListPokemon().size(); i++) {
+        for (int i = 0; i < player.getTeam(). getTeam().size(); i++) {
             final int index = i;
             Pokemon pokemon = player.getTeam().getPokemon(index);
             JButton button = Style.createButton(Color.WHITE, pokemon.getName(), 14, 120, 83 + (index * 110), 200, 30);

@@ -8,6 +8,7 @@
 \usepackage[italian]{babel}
 \usepackage{xcolor}
 \usepackage{array}
+\usepackage{hyperref}
 \usepackage[left=3cm,right=3cm, margin=3cm, vmargin=3cm]{geometry} % Imposta i margini laterali a 3 cm
 \usepackage[utf8]{inputenc}
 \usepackage{tcolorbox} % pacchetto per creare scatole colorate
@@ -56,10 +57,13 @@
 
         \large{\textbf{Matricola: }2113909}
 
+        \large{\textbf{Email:} cassetta.2113909@studenti.uniroma1.it}
+
+        \large{\textbf{GitHub:}\href{https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Metodologie%20di%20Programmazione/Project-JPokeBattle}{Progetto JPokeBattle}}
 
         \vfill
 
-        Giugno 2024 % DATA
+        \textbf{Anno Accademico 2023/2024}
 
     \end{center}
 \end{titlepage}
@@ -114,13 +118,13 @@ Il progetto è basato su un'architettura a classi, in cui ogni classe rappresent
 Ho deciso di realizzare tre classi principali: \texttt{\textcolor{red}{CreateObjectPokemon}}, \texttt{\textcolor{red}{Ability}} e \texttt{\textcolor{red}{Coach}}.
 \begin{itemize}
     \item \textbf{\texttt{\textcolor{red}{CreateObjectPokemon}}}: è una classe che si occupa di creare i Pokémon, assegnando loro le mosse e le statistiche. Essa contiene un metodo per creare i Pokémon che dato in input
-    un intero che rappresenta l'indice del Pokémon nel pokédex e il livello, restituisce un oggetto di tipo \texttt{\textcolor{red}{Pokemon}}. Se noi non forniamo il livello del pokémon, il metodo lo assegnerà in modo randomico
-    seguendo dei parametri specifici. In totale sono stati implementati 55 Pokémon di prima generazione. Ma all'inizio del gioco si potranno scegliere solo 6 pokémon base.
+          un intero che rappresenta l'indice del Pokémon nel pokédex e il livello, restituisce un oggetto di tipo \texttt{\textcolor{red}{Pokemon}}. Se noi non forniamo il livello del pokémon, il metodo lo assegnerà in modo randomico
+          seguendo dei parametri specifici. In totale sono stati implementati 55 Pokémon di prima generazione. Ma all'inizio del gioco si potranno scegliere solo 6 pokémon base.
     \item \textbf{\texttt{\textcolor{red}{Ability}}}: è una classe che si occupa di creare le mosse, assegnando loro il nome, il tipo e la potenza. Esso si basa su una concatenazione di if che in base al livello del pokémon verifica se la mossa può essere appresa o meno.
     \item \textbf{\texttt{\textcolor{red}{Npc}}}: è una classe che si occupa di creare l'allenatore nemico, assegnandogli il nome, il Team dei pokemon e lo stato.
 \end{itemize}
 \par\medskip\noindent
-Ogni classe è stata progettata per essere il più possibile coesa e con un'alta coesione. Inoltre, è stata adottata l'ereditarietà per le classi \texttt{\textcolor{red}{Pokemon}} e \texttt{\textcolor{red}{Ability}}, in modo da poter creare facilmente nuovi Pokémon e nuove Mosse. 
+Ogni classe è stata progettata per essere il più possibile coesa e con un'alta coesione. Inoltre, è stata adottata l'ereditarietà per le classi \texttt{\textcolor{red}{Pokemon}} e \texttt{\textcolor{red}{Ability}}, in modo da poter creare facilmente nuovi Pokémon e nuove Mosse.
 \\ \\
 \subsection{BattleFrame e Battle}
 La schermata più importante è la schermata della \textbf{battaglia}, in cui il giocatore può scegliere la mossa da usare o cambiare Pokémon. Questa schermata viene implementata da \texttt{\textcolor{red}{BattleFrame}} che estende la classe JFrame, e contiene tutti gli elementi grafici e le azioni che si possono fare durante la battaglia.
@@ -131,18 +135,17 @@ In questo caso ogni pokémon del team avrà la possibilità di poter o evolversi
 \\ \\
 La schermata di \texttt{\textcolor{red}{RecapBattle}} e di \texttt{\textcolor{red}{EvolutionFrame}} comunicano tramite il modulo \texttt{\textcolor{red}{PokemonModule}} che contiene i metodi per gestire l'evoluzione ed estende la classe \textbf{Observable}.
 In questo modo la classe \texttt{\textcolor{red}{EvolutionFrame}} può notificare la classe \texttt{\textcolor{red}{PokemonModule}} che si occuperà di gestire l'evoluzione del pokémon e che aggiornerà il frame di \texttt{\textcolor{red}{RecapBattle}}.
-\\ \\
 Questo tipo di approccio viene comunemente chiamato \textbf{Observer Pattern} e permette di notificare e aggiornare automaticamente tutti gli oggetti che sono interessati a un determinato evento.
-\\ \\ 
+\\ \\
 Oppure più comunemente chiamato MVC ossia \textbf{Model-View-Controller}, in cui il Model rappresenta i dati, la View rappresenta l'interfaccia grafica e il Controller rappresenta la logica del programma.
 \subsection{La classe Battle}
 In \texttt{\textcolor{red}{Battle}} c'è tutta la logica della battaglia ed il metodo principale è \texttt{\textcolor{red}{SetTurn}} che si occupa di gestire la battaglia tra il giocatore e l'avversario.
-Quando non è il turno del player i bottoni delle mosse sono disabilitati e viceversa. Inoltre, se il giocatore decide di cambiare il pokémon, la classe \texttt{\textcolor{red}{ChangePokemon}} si occuperà di gestire il cambio del pokémon e il turno viene passato all'avversario. Un altro metodo molto importante è \texttt{\textcolor{red}{npcLogic}} che si occupa di svolgere tutta la logica del nemico, ossia di scegliere la mossa da usare e di attaccare il giocatore e se vede che il suo pokemon è in difficoltà decide di cambiarlo. 
-Il check del pokémon viene eseguito in caso ogni 5 turni. IL nemico sceglie quale mossa far scagliare dal suo pokémon in modo randomico\\
+Quando non è il turno del player i bottoni delle mosse sono disabilitati e viceversa. Inoltre, se il giocatore decide di cambiare il pokémon, la classe \texttt{\textcolor{red}{ChangePokemon}} si occuperà di gestire il cambio del pokémon e il turno viene passato all'avversario. Un altro metodo molto importante è \texttt{\textcolor{red}{npcLogic}} che si occupa di svolgere tutta la logica del nemico, ossia di scegliere la mossa da usare e di attaccare il giocatore e se vede che il suo pokemon è in difficoltà decide di cambiarlo.
+Il check del pokémon viene eseguito in caso ogni 5 turni. Il nemico sceglie quale mossa far scagliare dal suo pokémon in modo randomico\\
 \section{Risorse Utilizzate}
 Per quanto riguarda le risorse utilizzate, ho utilizzato il sito \textbf{pokeapi.co} per ottenere i dati dei Pokémon e delle mosse inserendo i dati nel metodo della classe \texttt{\textcolor{red}{CreateObjectPokemon}}. Inoltre, ho utilizzato il sito \textbf{pokemondb.net} per ottenere i dati delle statistiche dei Pokémon.
 Ogni pokemon che ho inserito nel progetto ha anche una sprite (immagine) fronte e retro che reperisco tramite chiamata URI dal GitHub \\ \textbf{https://github.com/PokeAPI/sprites}.
-\\ \\ 
+\\ \\
 Background e altro sono immagini reperite da internet e si trovano nella cartella \textbf{Image} del progetto. L'immagine Background del Pokèdex l'ho realizzata io stessa modificando graficalmente un immagine che ho fatto generare da un AI chiamato CraftBench.
 \\ \\
 Nel progetto è presente una cartella \textbf{Javadoc} che contiene la documentazione del codice in formato HTML e una cartella chiamata \textbf{Shared} che contiene classi comuni a tutti.
@@ -155,8 +158,6 @@ In Shared sono presenti anche dei file .ttf che ho utilizzato in \texttt{\textco
 Il progetto è stato sviluppato seguendo il paradigma di programmazione ad oggetti, in cui ogni classe rappresenta un'entità del gioco. Inoltre, ho utilizzato il paradigma di programmazione procedurale per la gestione delle battaglie e delle schermate.
 
 \newpage
-\section{UML del Progetto}
-
 \section{Descrizione del progetto}
 Il progetto è ognaizzato in package, in cui ogni package rappresenta una funzionalità del gioco. I package principali sono:
 \begin{itemize}
@@ -166,13 +167,70 @@ Il progetto è ognaizzato in package, in cui ogni package rappresenta una funzio
     \item \textbf{\texttt{\textcolor{red}{Pokemon}}}: vi sono le classi che rappresentano i Pokémon e le loro mosse.
     \item \textbf{\texttt{\textcolor{red}{Shared}}}: vi sono le classi comuni a tutti i package.
 \end{itemize}
+\par\medskip\noindent 
 \section{Descrizione delle schermate di gioco}
-\subsubsection{Schermata Start}
+\subsection{Schermata Start}
 La schermata Start è la schermata iniziale del gioco, in cui il giocatore può iniziare una nuova partita o vedere la leaderboard.
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\textwidth]{Start.png}
-    \caption{Schermata Start}
+    \includegraphics[width=0.45\textwidth]{Images/start.png}
+    \includegraphics[width=0.22\textwidth]{Images/record.png}
 \end{figure}
-\section{Conclusioni}
-\end{document}  
+\newpage
+\subsection{Creazione Player}
+La schermata di creazione del player è la schermata in cui il giocatore può inserire il suo nome, la sua età e il suo gender.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{Images/player.png}
+\end{figure}
+\subsection{Pokédex e Info Pokémon}
+Il Pokèdex è una schermata in cui il giocatore può vedere i Pokémon che ha catturato. Ogni pokémon è selezionabile e permette di vedere le sue statistiche tramite un click.
+Se il pokémon lo si vuole aggiungere al team si può fare tramite il bottone \textbf{Add to Team} nella schermata info. Quando il team è di gradimento del player si può cliccare sul bottone \textbf{Confirm} per andare alla battaglia successiva,
+altrimenti di fianco al nome del pokemon in team c'è un pulsante che permette di rimuoverlo in caso di errore o altro.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{Images/pokedex.png}
+    \includegraphics[width=0.44\textwidth]{Images/infopoke.png}
+\end{figure}
+\newpage
+\subsection{Recap pre Battle}
+La schermata Recap pre Battle è la schermata in cui il giocatore può vedere il team che ha scelto e in caso cambiarli.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{Images/recapinfo.png}
+\end{figure}
+\subsection{Battaglia e ChangePokemon}
+La schermata di battaglia è la schermata principale del gioco, in cui il giocatore può scegliere la mossa da usare o cambiare Pokémon.
+Questa schermata è molto dinamica in quanto i bottoni delle mosse sono disabilitati quando non è il turno del player e viceversa, le barre degli hp diminuiscono, quella dell'exp aumenta.
+Quando il pokemon del player o del nemico muore è stato sconfitto una pokéball si scurisce, questo perchè le pokéball sono indicatore di quanti pokemon ci sono nei team.
+Nella schermata di Change Pokemon il giocatore può scegliere il pokémon da cambiare e il turno viene passato all'avversario, se il pokémon è in uso o stanco non è possibile selezionarlo.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{Images/bsttle.png}
+    \includegraphics[width=0.20\textwidth]{Images/changepoke.png}
+\end{figure}
+\newpage
+\subsection{RecapPost Battle}
+La schermata Recap post Battle è la schermata in cui il giocatore può vedere il risultato della battaglia e le statistiche dei Pokémon in caso di vittoria.
+In questa schermata il giocatore può decidere se evolvere il pokémon, cambiare una mossa o dimenticarne una per apprenderne una nuova semplicemente cliccando sui tasti appositi in caso
+essi siano attivi. Se non lo sono questo implica che il pokémon non può evolversi o cambiare mossa.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Images/recapbattle.png}
+\end{figure}
+\subsection{Evoluzione e Change Move}
+La schermata di evoluzione è la schermata in cui il giocatore può decidere se far evolvere il pokémon o meno. Una volta cliccato il bottone il frame RecapBattle si aggiornerà e mostrerà
+il pokemon evoluto con gli hp del pokemon pre evoluto e le mosse aggiornate. \\ \\
+La schermata di Change Move è la schermata in cui il giocatore può decidere se cambiare una mossa del pokémon con un'altra oppure no e continuare senza modiche.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{Images/evolve.png}
+    \includegraphics[width=0.55\textwidth]{Images/ability.png}
+\end{figure}
+\newpage
+\section{Conclusioni e Ringraziamenti}
+Spero che il progetto sia di gradimento e che sia stato realizzato in modo corretto. Sono soddisfatta del lavoro svolto e delle funzionalità implementate. \\ \\
+Ringrazio il Professore per le lezioni svolte durante l'anno e i miei compagni di corso per l'aiuto e il supporto. \\ \\
+
+\textbf{Alessia Cassetta}
+\end{document}

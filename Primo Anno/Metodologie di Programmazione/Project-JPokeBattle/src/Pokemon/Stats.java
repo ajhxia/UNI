@@ -1,10 +1,9 @@
 package Pokemon;
 
-/*
+/**
     * Classe che rappresenta le statistiche dei pokemon
     * Ogni pokemon ha delle statistiche come hp, attacco, difesa e velocità
 */
-
 public class Stats {
     private int hp;
     private int maxHp;
@@ -14,11 +13,11 @@ public class Stats {
 
     /**
      * Costruttore della classe Stats
-     * @param attack
-     * @param defense
-     * @param speed
-     * @param levelIn
-     * @param maxHp
+     * @param attack attacco
+     * @param defense difesa
+     * @param speed velocità
+     * @param levelIn livello 
+     * @param maxHp hp massimi
      */
     public Stats(int attack, int defense, int speed, int levelIn, int maxHp) {
         if (hp < 0 || attack < 0 || defense < 0 || speed < 0) {
@@ -65,7 +64,7 @@ public class Stats {
 
     /**
      * Metodo per impostare il massimo degli hp di un pokemon
-     * @return
+     * @param maxHp massimi hp del pokemon
      */
 
     public void setMaxHp(int maxHp) {
@@ -99,7 +98,7 @@ public class Stats {
 
     /**
      * Metodo per impostare gli hp di un pokemon
-     * @return 
+     * @param hp hp del pokemon
      */
     public void setHp(int hp) {
         this.hp = hp;
@@ -107,7 +106,7 @@ public class Stats {
 
     /**
      * Metodo per ottenere l'attack di un pokemon
-     * @return
+     * @param attack attacco del pokemon
      */
     public void setAttack(int attack) {
         this.attack = attack;
@@ -115,6 +114,7 @@ public class Stats {
 
     /**
      * Metodo per ottenere le statistiche di un pokemon
+     * @param defense difesa del pokemon
      */
     public void setDefense(int defense) {
         this.defense = defense;
@@ -122,39 +122,9 @@ public class Stats {
 
     /**
      * Metodo per impostare la velocità di un pokemon
-     * @return
+     * @param speed velocità del pokemon
      */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-    /**
-     * Metodo per aumentare gli hp di un pokemon
-     */
-    public void increaseHp(int hp) {
-        this.hp += hp;
-    }
-
-    /**
-     * Metodo per aumentare l'attacco di un pokemon
-     */
-    public void increaseAttack(int attack) {
-        this.attack += attack;
-    }
-
-    /**
-     * Metodo per aumentare la difesa di un pokemon
-     */
-    public void increaseDefense(int defense) {
-        this.defense += defense;
-    }
-
-    /**
-     * Metodo per aumentare la velocità di un pokemon
-     */
-    public void increaseSpeed(int speed) {
-        this.speed += speed;
-    }
-
-
 }

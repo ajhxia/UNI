@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Style {
+public abstract class Style {
 
     /**
      * Creazione di un bottone personalizzato

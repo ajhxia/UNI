@@ -13,6 +13,7 @@ import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
+import Shared.RelativePath;
 import Shared.Style;
 
 class EvolutionFrame extends JFrame {
@@ -36,7 +37,7 @@ class EvolutionFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null); // Set layout to null
-
+        setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         Coach player = Battle.getPlayer();
         Pokemon pokemon = player.getTeam().getPokemon(indexPoke);
         int evolvedPokemon = pokemon.getEvolutions()[0];

@@ -120,7 +120,7 @@ public class BattleFrame extends JFrame implements BattleEventListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(865, 538);
         frame.setLayout(null);
-
+        frame.setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         // Pannello per i pulsanti delle abilità
         abilityPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 righe, 4 colonne, gap di 10 pixel
         abilityPanel.setBounds(50, 375, 750, 100);
@@ -242,7 +242,7 @@ public class BattleFrame extends JFrame implements BattleEventListener {
      */
     public void updatePokeballStatus(Coach player) {
         for (int i = 0; i < playerPokeballs.length; i++) {
-            if (player.getTeam().getListPokemon().get(i).getStats().getHp() <= 0) {
+            if (player.getTeam(). getTeam().get(i).getStats().getHp() <= 0) {
                 ImageIcon inactivePokeball = new ImageIcon(RelativePath.getAbsolutePath("Image/inactive_pokeball.png"));
                 playerPokeballs[i].setIcon(ImageUtility.resizeIcon(inactivePokeball, 30, 30));
             }
@@ -255,7 +255,7 @@ public class BattleFrame extends JFrame implements BattleEventListener {
      */
     public static void updatePokeballStatusNpc(Coach npc) {
         for (int i = 0; i < npcPokeballs.length; i++) {
-            if (npc.getTeam().getListPokemon().get(i).getStats().getHp() <= 0) {
+            if (npc.getTeam(). getTeam().get(i).getStats().getHp() <= 0) {
                 ImageIcon inactivePokeball = new ImageIcon(RelativePath.getAbsolutePath("Image/inactive_pokeball.png"));
                 npcPokeballs[i].setIcon(ImageUtility.resizeIcon(inactivePokeball, 30, 30));
             }
@@ -437,7 +437,7 @@ public class BattleFrame extends JFrame implements BattleEventListener {
      */
     private void initialize(Coach player, Coach npc) {
 
-        List<Pokemon> pokemonList = player.getTeam().getListPokemon();
+        List<Pokemon> pokemonList = player.getTeam(). getTeam();
         for (int i = 0; i < pokemonList.size(); i++) {
             if (pokemonList.get(i).getStats().getHp() > 0) {
                 Battle.setPokeInUseAtStart(i);

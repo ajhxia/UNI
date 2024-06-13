@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  * Questa classe contiene un metodo per ridimensionare un'icona
  */
 
-public class ImageUtility {
+public abstract class ImageUtility {
     /**
      * Ridimensiona un'icona
      * @param icon Icona da ridimensionare

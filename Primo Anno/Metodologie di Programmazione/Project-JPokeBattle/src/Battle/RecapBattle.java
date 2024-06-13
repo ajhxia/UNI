@@ -34,13 +34,13 @@ public class RecapBattle extends JFrame implements Observer {
      */
     public RecapBattle() throws IOException, URISyntaxException {
         Battle.addAbilityToPlayerPokemon();
-        List<Pokemon> pokemonList = Battle.getPlayer().getTeam().getListPokemon();
+        List<Pokemon> pokemonList = Battle.getPlayer().getTeam(). getTeam();
         pokemonModels = new ArrayList<>();
 
         frame = new JFrame();
         frame.setTitle("Recap Battle");
         frame.setSize(610, 600);
-
+        frame.setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/backPlayer.png"));
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 600, 600));
         backgroundLabel.setBounds(0, 0, 600, 600);
@@ -105,7 +105,7 @@ public class RecapBattle extends JFrame implements Observer {
     public static void refreshPanel(int index, PokemonModel updatedModel) {
         frame.getContentPane().removeAll();
         
-        List<Pokemon> pokemonList = Battle.getPlayer().getTeam().getListPokemon();
+        List<Pokemon> pokemonList = Battle.getPlayer().getTeam(). getTeam();
         ImageIcon backgroundImage = new ImageIcon(RelativePath.getAbsolutePath("Image/backPlayer.png"));
         JLabel backgroundLabel = new JLabel(ImageUtility.resizeIcon(backgroundImage, 600, 600));
         backgroundLabel.setBounds(0, 0, 600, 600);
@@ -234,7 +234,7 @@ public class RecapBattle extends JFrame implements Observer {
      * @throws URISyntaxException
      */
     private static void startNewGame() throws IOException, URISyntaxException {
-        int teamSizeNpcDefeated = Battle.getNpc().getTeam().getListPokemon().size();
+        int teamSizeNpcDefeated = Battle.getNpc().getTeam(). getTeam().size();
         Random random = new Random();
         int randomNum = random.nextInt(5) + 1;
         Coach npc = Npc.createNpc(randomNum, teamSizeNpcDefeated + 1);

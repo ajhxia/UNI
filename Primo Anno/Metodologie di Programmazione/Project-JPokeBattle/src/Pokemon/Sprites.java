@@ -35,21 +35,5 @@ public class Sprites {
         return back;
     }
     
-    /**
-     * Metodo per impostare lo sprite frontale di un pokemon
-     * @param front
-     */
-    public void setFront(String front) {
-        this.front = front;
-    }
-
-    /**
-     * Metodo per impostare lo sprite posteriore di un pokemon
-     * @param back
-     */
-    public void setBack(String back) {
-        this.back = back;
-    }
-    
 }
 

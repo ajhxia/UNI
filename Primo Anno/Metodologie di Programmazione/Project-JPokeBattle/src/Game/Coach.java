@@ -43,15 +43,7 @@ public class Coach {
     public Team getTeam() {
         return team;
     }
-
-    /**
-     * Metodo per ottenere l'età del coach
-      @return età del coach
-     */
-    public int getAge() {
-        return age;
-    }
-
+    
     /**
      * Metodo per ottenere il numero di partite vinte dal coach
       @return numero di partite vinte
@@ -66,14 +58,6 @@ public class Coach {
      */
     public void setGameWinned(int gameWinned) {
         this.gameWinned = gameWinned;
-    }
-
-    /**
-     * Metodo per ottenere il genere del coach
-      @return genere del coach
-     */
-    public Gender getGender() {
-        return gender;
     }
 
     /**
@@ -105,7 +89,7 @@ public class Coach {
       @return pokemon in uso
      */
     public Pokemon getPokemonInUse() {
-        for (Pokemon pokemon : this.team.getListPokemon()) {
+        for (Pokemon pokemon : this.team. getTeam()) {
             if (pokemon.isInUse()) {
                 return pokemon;
             }
@@ -118,7 +102,7 @@ public class Coach {
      * @param pokemon
      */
     public void setPokemonInUse(Pokemon pokemon) {
-        for (Pokemon poke : this.team.getListPokemon()) {
+        for (Pokemon poke : this.team. getTeam()) {
             poke.setInUse(false);
         }
         pokemon.setInUse(true);

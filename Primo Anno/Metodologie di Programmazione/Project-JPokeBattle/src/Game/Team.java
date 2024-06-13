@@ -75,26 +75,10 @@ public class Team {
     }
 
     /**
-     * Metodo per ottenere la grandezza massima del team
-      @return grandezza massima del team
-     */
-    public int getTeamMaxSize() {
-        return teamMaxSize;
-    }
-
-    /**
-     * Metodo per impostare la grandezza massima del team
-     * @param maxSize
-     */
-    public void setTeamMaxSize(int maxSize) {
-        this.teamMaxSize = maxSize;
-    }
-
-    /**
      * Metodo per ottenere la lista dei pokemon del team
       @return lista dei pokemon del team
      */
-    public ArrayList<Pokemon> getListPokemon() {
+    public ArrayList<Pokemon> getTeam() {
         return playerTeam;
     }
 

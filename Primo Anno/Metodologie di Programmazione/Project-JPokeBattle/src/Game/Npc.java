@@ -11,7 +11,7 @@ import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 
 public class Npc {
-    static boolean start = false;
+    static boolean start = true;
 
     /**
      * Metodo per creare un npc
@@ -21,7 +21,7 @@ public class Npc {
      */
     public static Coach createNpc(int index, int teamSize) {
         ArrayList<Pokemon> npcTeam = new ArrayList<>();
-        if (start == false) {
+        if (start == true) {
             int startCount = 0; // Contatore per i Pokémon con etichetta "start"
 
             while (startCount < teamSize) {
@@ -34,11 +34,11 @@ public class Npc {
                     startCount++;
                 }
             }
-            start = true;
+            start = false;
         }else{
             for (int i = 0; i < teamSize; i++) {
                 int pokeIndex = (int) (Math.random() * 55) + 1;
-                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex, 0);
+                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex, 9);
                 npcTeam.add(pokemon);
             }
         }
