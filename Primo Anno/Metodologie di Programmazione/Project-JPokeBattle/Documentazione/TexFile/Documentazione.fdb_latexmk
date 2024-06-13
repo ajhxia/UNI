@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1718297243.55051 "d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/Documentazione.tex" "Documentazione.pdf" "Documentazione" 1718297246.10669 0
+["pdflatex"] 1718298816.33798 "d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/TexFile/Documentazione.tex" "Documentazione.pdf" "Documentazione" 1718298819.20377 0
   "C:/Users/cales/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1718286916 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/cales/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1717837743 14064 68e08fb5ce416c7fdc2c53e0a625f0bb ""
   "C:/Users/cales/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1717837523 24246706 b0fbc2a713729ad703a77334c1aead12 ""
@@ -139,10 +139,11 @@
   "D:/MikTex/tex/latex/trimspaces/trimspaces.sty" 1253169183 1380 971a51b00a14503ddf754cab24c3f209 ""
   "D:/MikTex/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "D:/MikTex/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "Documentazione.aux" 1718297245 2401 eb36fba48d7eecb2155eab45514da0d6 "pdflatex"
-  "Documentazione.out" 1718297245 2916 dd59a4358413c968c44f469d5d2b6d68 "pdflatex"
-  "Documentazione.tex" 1718297242 17099 f5e6b90d23bde23e7921315211ae9779 ""
-  "Documentazione.toc" 1718297245 1499 808752eff7fa5b1cda062fd072e7f5dc "pdflatex"
+  "Documentazione.aux" 1718298818 2401 eb36fba48d7eecb2155eab45514da0d6 "pdflatex"
+  "Documentazione.out" 1718298818 2916 dd59a4358413c968c44f469d5d2b6d68 "pdflatex"
+  "Documentazione.tex" 1718298815 17148 644cc95bf93bb848c71ec4b3892b5fa5 ""
+  "Documentazione.toc" 1718298818 1499 808752eff7fa5b1cda062fd072e7f5dc "pdflatex"
+  "Images/Uniroma1.svg.png" 1712308923 101882 cfe7efdc833c2f7ba2b0b0c0831af2b3 ""
   "Images/ability.png" 1718276335 35191 be0d88477901aef09f4a9fb90d2aad24 ""
   "Images/bsttle.png" 1718276205 137723 e92ab8a6988338ac4d4cf0c6bba7589f ""
   "Images/changepoke.png" 1718276232 254302 99fbf1775ef4773cc46c8804c6f04727 ""
@@ -154,8 +155,7 @@
   "Images/recapinfo.png" 1718276186 32404 cee86003193f0602e86224fc9af0312d ""
   "Images/record.png" 1718276101 233798 9fb478248870f2441400837d67f6c8b4 ""
   "Images/start.png" 1718276082 596908 920c3742983aac20467910016aad569c ""
-  "Uniroma1.svg.png" 1712308923 101882 cfe7efdc833c2f7ba2b0b0c0831af2b3 ""
-  "d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/Documentazione.tex" 1718297242 17099 f5e6b90d23bde23e7921315211ae9779 ""
+  "d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/TexFile/Documentazione.tex" 1718298815 17148 644cc95bf93bb848c71ec4b3892b5fa5 ""
   (generated)
   "Documentazione.aux"
   "Documentazione.log"

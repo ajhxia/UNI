@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.8)  13 JUN 2024 18:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.8)  13 JUN 2024 19:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/Documentazione.tex"
-(d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/Documentazione.tex
+**"d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/TexFile/Documentazione.tex"
+(d:/OneDrive/UNI/GitHub/UNI/Primo Anno/Metodologie di Programmazione/Project-JPokeBattle/Documentazione/TexFile/Documentazione.tex
 LaTeX2e <2024-06-01>
 L3 programming layer <2024-05-08>
 (D:\MikTex\tex/latex/base\article.cls
@@ -550,16 +550,16 @@ Package hyperref Info: Link coloring OFF on input line 39.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<Uniroma1.svg.png, id=74, 1204.5pt x 360.34625pt>
-File: Uniroma1.svg.png Graphic file (type png)
-<use Uniroma1.svg.png>
-Package pdftex.def Info: Uniroma1.svg.png  used on input line 43.
+<Images/Uniroma1.svg.png, id=74, 1204.5pt x 360.34625pt>
+File: Images/Uniroma1.svg.png Graphic file (type png)
+<use Images/Uniroma1.svg.png>
+Package pdftex.def Info: Images/Uniroma1.svg.png  used on input line 43.
 (pdftex.def)             Requested size: 332.68385pt x 99.52715pt.
 
 
 [1
 
-{C:/Users/cales/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./Uniroma1.svg.png>] (Documentazione.toc
+{C:/Users/cales/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./Images/Uniroma1.svg.png>] (Documentazione.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 5.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -711,17 +711,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 222--230
 
 
 [9 <./Images/recapbattle.png> <./Images/evolve.png> <./Images/ability.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 232--234
+Underfull \hbox (badness 10000) in paragraph at lines 232--235
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 232--234
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 232--234
+Underfull \hbox (badness 10000) in paragraph at lines 232--235
 
  []
 
@@ -737,14 +732,14 @@ Package rerunfilecheck Info: File `Documentazione.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  22307 strings out of 473938
- 407389 string characters out of 5743807
+ 407518 string characters out of 5743807
  1938893 words of memory out of 5000000
  44785 multiletter control sequences out of 15000+600000
  563136 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,7n,87p,693b,466s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 83i,7n,87p,701b,466s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\cales\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><D:/MikTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Documentazione.pdf (11 pages, 1775217 bytes).
+Output written on Documentazione.pdf (11 pages, 1775237 bytes).
 PDF statistics:
  193 PDF objects out of 1000 (max. 8388607)
  28 named destinations out of 1000 (max. 500000)

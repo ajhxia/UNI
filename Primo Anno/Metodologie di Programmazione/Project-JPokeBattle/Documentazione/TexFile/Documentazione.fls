@@ -1,6 +1,6 @@
-PWD d:\OneDrive\UNI\GitHub\UNI\Primo Anno\Metodologie di Programmazione\Project-JPokeBattle\Documentazione
+PWD d:\OneDrive\UNI\GitHub\UNI\Primo Anno\Metodologie di Programmazione\Project-JPokeBattle\Documentazione\TexFile
 INPUT C:\Users\cales\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT d:\OneDrive\UNI\GitHub\UNI\Primo Anno\Metodologie di Programmazione\Project-JPokeBattle\Documentazione\Documentazione.tex
+INPUT d:\OneDrive\UNI\GitHub\UNI\Primo Anno\Metodologie di Programmazione\Project-JPokeBattle\Documentazione\TexFile\Documentazione.tex
 OUTPUT Documentazione.log
 INPUT D:\MikTex\tex\latex\base\article.cls
 INPUT D:\MikTex\tex\latex\base\article.cls
@@ -233,13 +233,13 @@ OUTPUT Documentazione.pdf
 INPUT .\Documentazione.out
 INPUT .\Documentazione.out
 OUTPUT Documentazione.out
-INPUT .\Uniroma1.svg.png
-INPUT .\Uniroma1.svg.png
-INPUT .\Uniroma1.svg.png
-INPUT .\Uniroma1.svg.png
-INPUT .\Uniroma1.svg.png
-INPUT .\Uniroma1.svg.png
-INPUT .\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
+INPUT .\Images\Uniroma1.svg.png
 INPUT D:\MikTex\fonts\tfm\public\cm\cmr12.tfm
 INPUT D:\MikTex\fonts\tfm\public\cm\cmbx12.tfm
 INPUT D:\MikTex\fonts\tfm\public\cm\cmbx12.tfm
