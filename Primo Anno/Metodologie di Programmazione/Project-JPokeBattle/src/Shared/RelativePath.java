@@ -9,9 +9,12 @@ import java.net.URLDecoder;
  * Il percorso relativo è utile per accedere a file all'interno del progetto senza dover specificare il percorso assoluto
  */
 
-public class RelativePath { 
-    // Restituisce il percorso assoluto di un file all'interno del progetto
-    // in ingresso vuole il percorso relativo del file
+public abstract class RelativePath { 
+    /**
+     * Restituisce il percorso assoluto di un file all'interno del progetto
+     * @param relativePath Percorso relativo del file
+       @return String
+     */
     public static String getAbsolutePath(String relativePath) {
         String classPath = RelativePath.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         String decodedClassPath = null;

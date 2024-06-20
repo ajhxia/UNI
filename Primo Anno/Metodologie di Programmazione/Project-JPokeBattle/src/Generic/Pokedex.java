@@ -21,11 +21,15 @@ public class Pokedex extends JPanel implements ActionListener {
     public static JLabel titleLabel;
     public static JPanel teamPanel; // Pannello per i Pokémon in squadra
 
+    /**
+     * Costruttore della classe Pokedex
+     */
     public Pokedex() {
         Coach player = Battle.getPlayer();
         pokedexFrame = new JFrame("Pokédex of " + player.getName());
         pokedexFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pokedexFrame.setSize(1120, 680);
+        pokedexFrame.setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
         this.setLayout(null); // Utilizza un layout nullo per la personalizzazione
 
         // Carica l'immagine di sfondo
@@ -80,7 +84,7 @@ public class Pokedex extends JPanel implements ActionListener {
         JButton confirm = Style.createButton(Color.BLACK, "Confirm", 14, 70, 600, 200, 30);
         confirm.setActionCommand("confirm");
         confirm.addActionListener(e -> {
-            if (player.getTeam().getListPokemon().size() == 6) {
+            if (player.getTeam(). getTeam().size() == 6) {
                 InfoRecap infoRecap;
                 try {
                     infoRecap = new InfoRecap();
@@ -107,7 +111,9 @@ public class Pokedex extends JPanel implements ActionListener {
         pokedexFrame.setLocationRelativeTo(null);
     }
 
-    // Carica le immagini dei Pokémon in un array
+    /**
+     * Metodo per caricare le immagini dei Pokémon
+     */
     public static void loadImagesPokemon() {
         try {
             for (Pokemon pokemon : initialPokemonList) {
@@ -121,10 +127,12 @@ public class Pokedex extends JPanel implements ActionListener {
         }
     }
 
-    // Carica i Pokémon in un array e filtra solo i Pokémon iniziali
+    /**
+     * Metodo per caricare i Pokémon
+     */
     public static void loadPokemon() {
         for (int i = 0; i < 55; i++) {
-            Pokemon pokemon = CreateObjectsPokemon.getPokemon(i + 1);
+            Pokemon pokemon = CreateObjectsPokemon.getPokemon(i + 1, 0);
             if (pokemon.getStart() != null) {
                 initialPokemonList.add(pokemon);
             }
@@ -132,7 +140,11 @@ public class Pokedex extends JPanel implements ActionListener {
         loadImagesPokemon();
     }
 
-    // Metodo chiamato quando si clicca su un bottone
+    /**
+     * Metodo per ottenere la lista dei Pokémon
+     * 
+       lista di Pokémon
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         int pokeIndex = Integer.parseInt(e.getActionCommand());
@@ -143,8 +155,12 @@ public class Pokedex extends JPanel implements ActionListener {
         }
     }
 
-    // Mostra le informazioni di un Pokémon in una finestra separata di tipo
-    // InfoPokemon
+   /**
+    * Metodo per mostrare le informazioni di un Pokémon
+    * @param pokeIndexIn
+    * @throws IOException
+    * @throws URISyntaxException
+    */
     private void showPokemonInfo(int pokeIndexIn) throws IOException, URISyntaxException {
         if (infoFrame != null) {
             infoFrame.dispose(); // Chiudi il JFrame precedente se esiste
@@ -153,28 +169,41 @@ public class Pokedex extends JPanel implements ActionListener {
         InfoPokemon infoPokemon = new InfoPokemon(pokemon, Battle.getPlayer());
         infoFrame = new JFrame(pokemon.getName() + " Info");
         infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        infoFrame.setSize(510, 400);
+        infoFrame.setSize(525, 400);
         infoFrame.setLocationRelativeTo(null); // Centra la finestra nello schermo
         infoFrame.add(infoPokemon);
         infoFrame.setVisible(true);
     }
 
-    // Restituisce il Pokémon all'indice specificato
+    /**
+     * Metodo per ottenere un Pokémon
+     * @param index
+      @return Pokémon
+     */
     public static Pokemon getPokemon(int index) {
         return initialPokemonList.get(index - 1);
     }
 
+    /**
+     * Metodo per ottenere la lista dei Pokémon
+       lista di Pokémon
+     */
     public static void updateTitle() {
         // Ottieni il numero corrente di Pokémon nella squadra e aggiorna il testo del
         // titolo
-        int numPokemon = Battle.getPlayer().getTeam().getListPokemon().size();
+        int numPokemon = Battle.getPlayer().getTeam(). getTeam().size();
         titleLabel.setText("Pokémon in Team: " + numPokemon);
     }
 
+    /**
+     * Metodo per aggiornare il pannello della squadra
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static void updateTeamPanel() throws IOException, URISyntaxException {
         teamPanel.removeAll(); // Rimuove tutti i componenti dal pannello dei Pokémon
         teamPanel.setLayout(null); // Imposta il layout a null
-        List<Pokemon> pokemons = Battle.getPlayer().getTeam().getListPokemon();
+        List<Pokemon> pokemons = Battle.getPlayer().getTeam(). getTeam();
 
         int rowHeight = 93; // Altezza della riga
         int yOffset = 60; // Offset per posizionare i componenti lungo l'asse Y

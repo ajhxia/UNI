@@ -119,4 +119,37 @@ public class JPokeBattle extends JFrame implements ActionListener {
         backgroundLabel.setBounds(0, 0, 368, 760);
 
         JLabel title = new JLabel("Record", SwingConstants.CENTER);
-        title.setFont(PixelFont.myCustomFont.deriveFont
+        title.setFont(PixelFont.myCustomFont.deriveFont(24f));
+        title.setForeground(Color.BLACK);
+        title.setBounds(0, 0, 368, 50);
+        dataFrame.add(title);
+
+        // Usa BorderLayout per una gestione migliore dei componenti
+        dataFrame.setLayout(null);
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0, 0, 368, 710);
+
+        String path = RelativePath.getAbsolutePath("src/Shared/Record.txt");
+        System.out.println(path);
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                JLabel label = new JLabel(line);
+                label.setFont(PixelFont.myCustomFont.deriveFont(12f));
+                label.setForeground(Color.WHITE);
+                label.setBounds(45, 63 + (index * 110), 200, 75);
+                contentPanel.add(label);
+                index++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        contentPanel.setOpaque(false);
+        dataFrame.add(contentPanel);
+        dataFrame.add(backgroundLabel);
+        dataFrame.setVisible(true);
+    }
+}
