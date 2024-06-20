@@ -16,13 +16,7 @@ import javax.swing.JOptionPane;
  */
 
 public class InfoPokemon extends JPanel {
-    /**
-     * Costruttore della classe InfoPokemon
-     * @param pokemon
-     * @param player
-     * @throws IOException
-     * @throws URISyntaxException
-     */
+
     public InfoPokemon(Pokemon pokemon, Coach player) throws IOException, URISyntaxException {
         setLayout(null); // Imposta il layout a null per posizionare manualmente i componenti
 
@@ -87,8 +81,8 @@ public class InfoPokemon extends JPanel {
         buttonAdd.setActionCommand("add");
         buttonAdd.addActionListener(e -> {
             Team team = player.getTeam();
-            if (team.getTeam().size() < 6) {
-                if (team.getTeam().contains(pokemon)) {
+            if (team.getListPokemon().size() < 6) {
+                if (team.getListPokemon().contains(pokemon)) {
                     JOptionPane.showMessageDialog(null, "Pokemon already in team.");
                 }else{
                     team.addPokemon(pokemon);

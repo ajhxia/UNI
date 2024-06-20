@@ -7,8 +7,12 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.*;
-import Pokemon.*;
-import Shared.*;
+
+import Pokemon.Ability;
+import Pokemon.Pokemon;
+import Shared.ImageUtility;
+import Shared.PixelFont;
+import Shared.Style;
 
 public class AbilitySelection extends JFrame {
 
@@ -17,26 +21,19 @@ public class AbilitySelection extends JFrame {
     private JPanel newAbilityPanel;
     private JComboBox<String> newAbilityComboBox;
     private JLabel instructionLabel;
-    private JButton continueButton;
     Pokemon pokemon;
 
-    /**
-     * Costruttore della classe AbilitySelection
-     * @param indexPoke
-     * @throws IOException
-     * @throws URISyntaxException
-     */
     public AbilitySelection(int indexPoke) throws IOException, URISyntaxException {
 
         frame = new JFrame("Ability Selection");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(840, 355); // Dimensioni leggermente modificate per adattare meglio gli elementi
         frame.setLayout(null);
-        frame.setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
+
         pokemon = Battle.getPlayer().getTeam().getPokemon(indexPoke);
 
         // Aggiungi un JLabel per visualizzare il nome del Pokemon
-        JLabel pokemonNameLabel = new JLabel("Pokémon's name: " + pokemon.getName());
+        JLabel pokemonNameLabel = new JLabel("Nome del Pokémon: " + pokemon.getName());
         pokemonNameLabel.setFont(PixelFont.myCustomFont.deriveFont(16f)); // Aumentato il font size per maggiore visibilità
         pokemonNameLabel.setForeground(Color.black);
         pokemonNameLabel.setBounds(240, 10, 550, 30); // Leggermente spostato verso il basso per distanziarlo dall'inizio
@@ -50,7 +47,7 @@ public class AbilitySelection extends JFrame {
         imageLabel.setBounds(15, 40, 200, 200); // Ridimensionato e spostato verso il basso per una migliore visualizzazione
         frame.add(imageLabel);
 
-        instructionLabel = new JLabel("Select a new move to learn");
+        instructionLabel = new JLabel("Seleziona una nuova mossa da apprendere");
         instructionLabel.setFont(PixelFont.myCustomFont.deriveFont(14f)); // Aumentato il font size per maggiore visibilità
         instructionLabel.setForeground(Color.black);
         instructionLabel.setBounds(240, 50, 550, 30); // Spostato verso destra e verso il basso
@@ -61,7 +58,7 @@ public class AbilitySelection extends JFrame {
         newAbilityPanel.setOpaque(false);
         initializeNewAbilityButtons(indexPoke);
 
-        JLabel titleLabel = new JLabel("Number of ability available: " + pokemon.getAbilities().size());
+        JLabel titleLabel = new JLabel("Numero di mosse possibili: " + pokemon.getAbilities().size());
         titleLabel.setFont(PixelFont.myCustomFont.deriveFont(14f)); // Aumentato il font size per maggiore visibilità
         titleLabel.setForeground(Color.black);
         titleLabel.setBounds(240, 150, 500, 30); // Spostato verso il basso
@@ -72,28 +69,20 @@ public class AbilitySelection extends JFrame {
         abilityPanel.setOpaque(false);
         initializeAbilityButtons(indexPoke);
 
-        continueButton = Style.createButton(Color.BLACK, "Continue", 12, 240, 260, 200, 40); // Spostato verso il basso
-        continueButton.setEnabled(false); // Initially disabled
+        JButton continueButton = Style.createButton(Color.BLACK ,"Continua", 12 ,240, 260, 200, 40); // Spostato verso il basso
         continueButton.addActionListener(e -> {
             System.out.println("Selection completed.");
-            // Assicurati che non ci siano più di 4 abilità dopo la rimozione
-            while (pokemon.getAbilities().size() > 4) {
-                pokemon.removeAbility(4);
+            try {
+                // Assicurati che non ci siano più di 4 abilità dopo la rimozione
+                while (pokemon.getAbilities().size() > 4) {
+                    pokemon.removeAbility(4);
+                }
+                new BattleFrame();
+                frame.dispose();
+            } catch (IOException | URISyntaxException e1) {
+                e1.printStackTrace();
             }
-            frame.dispose();
         });
-
-        JButton cancelButton = Style.createButton(Color.BLACK, "Cancel", 12, 460, 260, 200, 40); // Spostato verso il basso
-        cancelButton.addActionListener(e -> {
-            List<Ability> abilities = pokemon.getAbilities();
-            // Assicurati che non ci siano più di 4 abilità dopo la rimozione
-            while (abilities.size() > 4) {
-                pokemon.removeAbility(4);
-            }
-            System.out.println("Selection cancelled.");
-            frame.dispose();
-        });
-        frame.add(cancelButton);
 
         frame.add(abilityPanel);
         frame.add(newAbilityPanel);
@@ -102,10 +91,6 @@ public class AbilitySelection extends JFrame {
         frame.setVisible(true);
     }
 
-    /**
-     * Metodo per inizializzare i pulsanti delle abilità
-     * @param indexPoke
-     */
     private void initializeAbilityButtons(int indexPoke) {
         abilityPanel.removeAll();
         List<Ability> abilities = pokemon.getAbilities();
@@ -119,10 +104,6 @@ public class AbilitySelection extends JFrame {
         abilityPanel.repaint();
     }
 
-    /**
-     * Metodo per inizializzare i pulsanti delle nuove abilità
-     * @param indexPoke
-     */
     private void initializeNewAbilityButtons(int indexPoke) {
         newAbilityPanel.removeAll();
 
@@ -137,7 +118,7 @@ public class AbilitySelection extends JFrame {
         newAbilityComboBox.setOpaque(false);
         newAbilityPanel.add(newAbilityComboBox);
 
-        JButton selectNewAbilityButton = Style.createButton(Color.BLACK, "Select", 12, 240, 10, 100, 40);
+        JButton selectNewAbilityButton = Style.createButton(Color.BLACK, "Seleziona", 12, 240, 10, 100, 40);
         selectNewAbilityButton.addActionListener(e -> {
             String selectedAbilityName = (String) newAbilityComboBox.getSelectedItem();
             for (Ability newAbility : pokemon.getAbilities()) {
@@ -146,17 +127,11 @@ public class AbilitySelection extends JFrame {
                     break;
                 }
             }
-            continueButton.setEnabled(true); // Enable the Continue button after selection
         });
 
         newAbilityPanel.add(selectNewAbilityButton);
     }
 
-    /**
-     * Metodo per creare un pulsante per le abilità
-     * @param ability
-      
-     */
     private JButton createAbilityButton(Ability ability) {
         JButton abilityButton = new JButton(ability.getName());
         abilityButton.setFont(PixelFont.myCustomFont.deriveFont(12f));
@@ -171,18 +146,13 @@ public class AbilitySelection extends JFrame {
         return abilityButton;
     }
 
-    /**
-     * Metodo per gestire la selezione di una nuova abilità
-     * @param newAbility
-     * @param indexPoke
-     */
     private void handleNewAbilitySelection(Ability newAbility, int indexPoke) {
         List<Ability> abilities = pokemon.getAbilities();
-
+    
         // Aggiungi la nuova abilità
         pokemon.addAbility(newAbility);
         System.out.println("New ability selected: " + newAbility.getName());
-
+    
         // Assicurati che ci siano non più di 4 abilità
         if (abilities.size() > 4) {
             // Chiedi all'utente di selezionare una mossa da rimuovere e sostituirla con la nuova abilità
@@ -190,12 +160,12 @@ public class AbilitySelection extends JFrame {
             for (int i = 0; i < 4; i++) {
                 abilityNames[i] = abilities.get(i).getName();
             }
-            JLabel messageLabel = new JLabel("Select an ability to remove:");
+            JLabel messageLabel = new JLabel("Seleziona una mossa da sostituire:");
             messageLabel.setFont(PixelFont.myCustomFont.deriveFont(12f));
             String abilityToReplace = (String) JOptionPane.showInputDialog(
                     frame,
                     messageLabel,
-                    "Substitute move",
+                    "Sostituisci mossa",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     abilityNames,
@@ -211,6 +181,7 @@ public class AbilitySelection extends JFrame {
                     }
                 }
             }
+    
             // Assicurati che non ci siano più di 4 abilità dopo la rimozione
             while (abilities.size() > 4) {
                 pokemon.removeAbility(4);
@@ -218,5 +189,5 @@ public class AbilitySelection extends JFrame {
         }
         initializeAbilityButtons(indexPoke); // Aggiorna i pulsanti delle abilità dopo l'aggiunta della nuova abilità
     }
-
+    
 }

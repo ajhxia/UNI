@@ -10,13 +10,9 @@ import java.io.IOException;
  * Classe per caricare un font personalizzato
  */
 
-public abstract class PixelFont {
+public class PixelFont {
     public static Font myCustomFont;
 
-    /**
-     * Carica un font personalizzato dal file
-     *  
-     */
     public static void loadCustomFont() {
         try {
             // Percorso del file del font personalizzato

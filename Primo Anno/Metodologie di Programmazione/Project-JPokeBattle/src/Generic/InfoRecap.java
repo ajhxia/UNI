@@ -13,26 +13,23 @@ import Game.*;
 import Pokemon.Pokemon;
 import Shared.ImageUtility;
 import Shared.PixelFont;
-import Shared.RelativePath;
 import Shared.Style;
 
 import java.util.List; // Import the List class from java.util
 
 public class InfoRecap extends JFrame {
-    /**
-     * Costruttore della classe InfoRecap
-     * @throws IOException
-     * @throws URISyntaxException
-     */
+
+    public static BattleFrame battleFrame;
+
     public InfoRecap() throws IOException, URISyntaxException {
         Coach player = Battle.getPlayer();
         setTitle("Recap Team");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon(RelativePath.getAbsolutePath("/Image/active_pokeball.png")).getImage());
+
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        List<Pokemon> pokemons = Battle.getPlayer().getTeam(). getTeam(); // Change the declaration to use the generic type List<Pokemon>
+        List<Pokemon> pokemons = Battle.getPlayer().getTeam().getListPokemon(); // Change the declaration to use the generic type List<Pokemon>
         int yOffset = 60; // Offset per posizionare i componenti lungo l'asse Y
         int rowHeight = 100; // Altezza di ogni riga
 
@@ -45,7 +42,7 @@ public class InfoRecap extends JFrame {
             changeButton.addActionListener(e -> {
                 int indexToRemove = Integer.parseInt(e.getActionCommand()); // Recupera il valore di i
                         // dall'ActionCommand
-                        player.getTeam(). getTeam().remove(indexToRemove);
+                        player.getTeam().getListPokemon().remove(indexToRemove);
                         Pokedex pokedex = new Pokedex();
                         try {
                             Pokedex.updateTeamPanel();
@@ -66,7 +63,7 @@ public class InfoRecap extends JFrame {
             JLabel imageLabel = new JLabel(ImageUtility.loadImage(new URI(pokemon.getSprite().getFront())));
             // Imposta l'altezza dell'etichetta dell'immagine per allinearla con l'altezza
             // della riga
-            imageLabel.setBounds(310, yPosition -35, rowHeight, rowHeight); // Imposta la posizione e le dimensioni
+            imageLabel.setBounds(350, yPosition - 35, rowHeight, rowHeight); // Imposta la posizione e le dimensioni
             imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(imageLabel);
 
@@ -77,7 +74,7 @@ public class InfoRecap extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Battle.setNpc(Npc.createNpc(1, 3));
-                    new BattleFrame();
+                    battleFrame = new BattleFrame();
                     dispose();
                 } catch (IOException | URISyntaxException e1) {
                     // TODO Auto-generated catch block

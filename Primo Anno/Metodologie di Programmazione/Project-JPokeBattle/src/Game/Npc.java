@@ -11,46 +11,35 @@ import Pokemon.CreateObjectsPokemon;
 import Pokemon.Pokemon;
 
 public class Npc {
-    static boolean start = true;
-
-    /**
-     * Metodo per creare un npc
-     * @param index
-     * @param teamSize
-      @return npc
-     */
     public static Coach createNpc(int index, int teamSize) {
         ArrayList<Pokemon> npcTeam = new ArrayList<>();
-        if (start == true) {
-            int startCount = 0; // Contatore per i Pokémon con etichetta "start"
+        int startCount = 0; // Contatore per i Pokémon con etichetta "start"
 
-            while (startCount < teamSize) {
-                int pokeIndex = (int) (Math.random() * 55) + 1;
-                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex, 0);
+        while (startCount < teamSize) {
+            int pokeIndex = (int) (Math.random() * 55) + 1;
+            Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex);
 
-                // Controlla se il Pokémon ha l'etichetta "start"
-                if (pokemon.getStart() != null) {
-                    npcTeam.add(pokemon);
-                    startCount++;
-                }
-            }
-            start = false;
-        }else{
-            for (int i = 0; i < teamSize; i++) {
-                int pokeIndex = (int) (Math.random() * 55) + 1;
-                Pokemon pokemon = CreateObjectsPokemon.getPokemon(pokeIndex, 9);
+            // Controlla se il Pokémon ha l'etichetta "start"
+            if (pokemon.getStart() != null) {
                 npcTeam.add(pokemon);
+                startCount++;
             }
         }
 
         Team team = new Team(npcTeam);
-        return switch (index) {
-            case 1 -> new Coach("Brock", 15, team, Gender.MALE, 0);
-            case 2 -> new Coach("Misty", 15, team, Gender.FEMALE, 0);
-            case 3 -> new Coach("Lt. Surge", 15, team, Gender.MALE, 0);
-            case 4 -> new Coach("Erika", 15, team, Gender.FEMALE, 0);
-            case 5 -> new Coach("Koga", 15, team, Gender.MALE, 0);
-            default -> null;
-        };
+        switch (index) {
+            case 1:
+                return new Coach("Brock", 15, team, "M");
+            case 2:
+                return new Coach("Misty", 15, team, "F");
+            case 3:
+                return new Coach("Lt. Surge", 15, team, "M");
+            case 4:
+                return new Coach("Erika", 15, team, "F");
+            case 5:
+                return new Coach("Koga", 15, team, "M");
+            default:
+                return null;
+        }
     }
 }

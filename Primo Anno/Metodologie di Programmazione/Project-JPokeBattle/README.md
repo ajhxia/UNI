@@ -11,7 +11,6 @@ The workspace contains two folders by default, where:
     - `Generic`
     - `Shared`
     - `Pokèmon`
-    - `Game`
 - `lib`: the folder to maintain dependencies
 
-To run the App you must go into the  `Src`  folder and run  `JPokeBattle.java` 
+To run the App you must go into the Src/Generic folder and run Intro.java
