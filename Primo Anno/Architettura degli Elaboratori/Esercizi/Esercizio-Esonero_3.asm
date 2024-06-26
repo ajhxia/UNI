@@ -43,7 +43,7 @@ Riposiziona:
 	j Riposiziona				# loop
 	
 
-non_scambia	:
+non_scambia:
 
 	sh $t8, array(ind) 			# carico l'elemento nel nuovo array
 	sh $t7, array($t6)

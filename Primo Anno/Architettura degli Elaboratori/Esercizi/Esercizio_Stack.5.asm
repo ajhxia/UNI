@@ -4,7 +4,7 @@
 .text
 .globl main 
 
-# scrivo il pop e il push dello stack, andando a rimuovere o aggiungere spazzi per allocare delle variabili in memoria
+# scrivo il pop e il push dello stack, andando a rimuovere o aggiungere spazi per allocare delle variabili in memoria
 .macro Pop(%a)
 	lw %a, ($sp)
 	add $sp, $sp, 4
