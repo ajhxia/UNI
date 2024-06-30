@@ -2,7 +2,7 @@
 	lunghezza: .word 10
 	vet: .half 2,4,7,12,10,56,22,8,11,2346
 	array: .space 20 # Spazio per 10 word
-	tab: .asciiz "\t
+	tab: .asciiz "\t"
 
 .text 
 .globl main
