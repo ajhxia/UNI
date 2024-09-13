@@ -9,4 +9,13 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
   | Algoritmi                      | -                                                                                                          | -          | -       |
   | Calcolo Integrale              | -                                                                                                          | -          | -       |
 
+## Secondo Anno 📚
+### Secondo Semestre
+  | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
+  |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
+  | Algebra             | - | -          |         |
+  | Basi Dati 1         | - | -          |         |
+  | Sistemi Operativi 1 | - | -          | -       |
+  | Calcolo Probabilità | - | -          | -       |
+  
 <img src="https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif" width="200px">
