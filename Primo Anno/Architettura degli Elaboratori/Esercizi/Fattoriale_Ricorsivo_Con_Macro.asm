@@ -21,7 +21,7 @@ main:
 	
 	jal Fattoriale #richiamo la funzione Fattoriale
 	
-	move $a0, $v0 # $v0 è il valore di ritorno della funzione e lo sposto in $a0 per stamparlo
+	move $a0, $v0 # $v0 il valore di ritorno della funzione e lo sposto in $a0 per stamparlo
 	
 	li $v0,1
 	syscall
@@ -32,15 +32,20 @@ main:
 Fattoriale:
 	li $t0, 1
 	ble $a0, $t0, caso_base		
+	
 	Push($ra)		# carico $ra in 0($sp)
-	Push($a0)		
-	sub $a0, $a0, 1		
+	Push($a0)	
+		
+	sub $a0, $a0, 1	
+		
 	jal Fattoriale 
 			
 	# viene eseguita quando richiamo il casobase e viene ciclata al contrario 	
 	Pop($a0)		
 	Pop($ra)
+	
 	mul $v0, $v0, $a0
+	
 	jr $ra
 	
 caso_base: 
