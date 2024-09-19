@@ -5,7 +5,7 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
   | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
   |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
   | Metodologie di Programmazione  | [Esercizi](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Metodologie%20di%20Programmazione/Esercizi) - [Teoria](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Metodologie%20di%20Programmazione/Teoria)  | 14/06/2024 | Completo |
-  | Architetture degli Elaboratori | [Esercizi](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Architettura%20degli%20Elaboratori/Esercizi) - [Teoria](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Architettura%20degli%20Elaboratori/Teoria)  | 2/05/2023 | Incompleto |
+  | Architetture degli Elaboratori | [Esercizi](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Architettura%20degli%20Elaboratori/Esercizi) - [Teoria](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Architettura%20degli%20Elaboratori/Teoria)  | 13/09/2023 | Incompleto |
   | Algoritmi                      | -                                                                                                          | -          | -       |
   | Calcolo Integrale              | -                                                                                                          | -          | -       |
 ---
