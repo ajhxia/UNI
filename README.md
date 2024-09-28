@@ -13,7 +13,7 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
 ### Primo Semestre
   | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
   |---------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
-  | Algebra             | [Lezioni]((https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Algebra)) | 28/09/2024 | Incompleto |
+  | Algebra             | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Algebra) | 28/09/2024 | Incompleto |
   | Basi Dati 1         | -        | -          | -       |
   | Sistemi Operativi 1 | -        | -          | -       |
   | Calcolo Probabilità | -        | -          | -       |
