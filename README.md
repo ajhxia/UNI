@@ -16,6 +16,6 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
   | Algebra             | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Algebra) | 28/09/2024 | Incompleto |
   | Basi Dati 1         | -        | -          | -       |
   | Sistemi Operativi 1 | -        | -          | -       |
-  | Calcolo Probabilità | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Calcolo%20delle%20Probabilit%C3%A0) | -          | -       |
+  | Calcolo Probabilità | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Calcolo%20delle%20Probabilit%C3%A0) | 29/09/2024 | Incompleto |
   
 <img src="https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif" width="200px">
