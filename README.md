@@ -18,11 +18,6 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
   | Calcolo delle Probabilità | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Calcolo%20delle%20Probabilit%C3%A0) |
 
 ### Secondo Semestre
-  | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
-  |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
-  | SIstemi Operativi II| | | |
-  | Algoritmi II | | | |
-  | Basi di Dati II | | | |
-  | Reti di Elaboratori | | | |
-  
+Nota: non ci sono appunti inerenti agli esami del Secondo Semestre 😿
+
 <img src="https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif" width="200px">
