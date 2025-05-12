@@ -1,22 +1,10 @@
+//
+// Created by alebox on 12/05/25.
+//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
-    double re;
-    double im;
-} ComplexNumber;
-
-typedef struct {
-    ComplexNumber *value;
-    char *qubits;
-    int count_n;
-} InitValue;
-
-typedef struct {
-    ComplexNumber *value;
-    int count_n;
-}CircDef [];
+#include "lettura_file.h"
 
 char *read_file_and_print_lines(char *filename) {
     char row[1024];
@@ -141,30 +129,7 @@ void free_init_value(InitValue *iv) {
 
 void split_function_define_circle(char *var) {
     CircDef result;
-}
+    result.count_n = 0;
+    result.value = NULL;
 
-int main(){
-    char *filename1 = "Secondo Anno/Sistemi Operativi II/Progetto (Appello 9 Giugno 2025)/init-ex.txt";
-    char *filename2 = "Secondo Anno/Sistemi Operativi II/Progetto (Appello 9 Giugno 2025)/circ-ex.txt";
-    char *file1 = read_file_and_print_lines(filename1);
-    char *file2 = read_file_and_print_lines(filename2);
-
-    if (file1 == NULL) {
-        return 1;
-    }
-    if (file2 == NULL) {
-        return 1;
-    }
-
-    InitValue init = split_function_init(file1);
-    printf("Qubits: %s\n", init.qubits ? init.qubits : "Nessuno");
-    printf("Valori iniziali:\n");
-    for (int i = 0; i < init.count_n; i++) {
-        printf("(%lf, %lf)\n", init.value[i].re, init.value[i].im);
-    }
-
-    free(file1);
-    free_init_value(&init);
-
-    return 0;
 }
