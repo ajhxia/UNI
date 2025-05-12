@@ -1,6 +1,3 @@
-//
-// Created by Alessia Cassetta on 08/05/25.
-//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,92 +7,99 @@ typedef struct {
     double im;
 } ComplexNumber;
 
-char *read_file_and_print_lines(char *filename) {
-    char row[1024]; // buffer per leggere le righe
+typedef struct {
+    ComplexNumber *value;
+    char *qubits;
+    int count_n;
+} InitValue;
 
-    size_t content_size = 1; // dimensione iniziale del contenuto
-    char *content = malloc(content_size); // *content è un puntatore a carattere, che punta ad un blocco allocato dinamicamente
+typedef struct {
+    ComplexNumber *value;
+    int count_n;
+}CircDef [];
+
+char *read_file_and_print_lines(char *filename) {
+    char row[1024];
+    size_t content_size = 1;
+    char *content = malloc(content_size);
     if (content == NULL) {
-        perror("Errore allocazione della memoria\n");
+        perror("Errore allocazione della memoria");
         return NULL;
     }
 
     content[0] = '\0';
 
-    // apro il file in modalità lettura
     FILE *file = fopen(filename, "r");
     if(file == NULL){
         perror("Errore apertura file");
+        free(content);
         return NULL;
     }
 
-    // leggo il file riga per riga
     while(fgets(row, sizeof(row), file) != NULL){
         size_t len_row = strlen(row);
         content_size += len_row;
         char *new_content = realloc(content, content_size);
-        /* Realloc può spostare l'array in un'altra zona della memoria e restituisce un nuovo puntatore.
-        Se va tutto bene, il nuovo puntatore viene copiato in content.*/
-
         if (new_content == NULL) {
-            perror("Errore riallocazione della memoria\n");
+            perror("Errore riallocazione della memoria");
             free(content);
-            fclose(file); // chiudo il file
+            fclose(file);
             return NULL;
         }
         content = new_content;
         strcat(content, row);
     }
+
     fclose(file);
     return content;
 }
 
-void split_function_init(char *var) {
-    char *qubits = '\0';
-    ComplexNumber *init_values = NULL;
-    int init_count = 0;
+InitValue split_function_init(char *var) {
+    InitValue result;
+    result.value = NULL;
+    result.qubits = NULL;
+    result.count_n = 0;
 
-    char *input_copy = strdup(var); // ritorna un duplicato di var, allocandolo nello stack
+    char *input_copy = strdup(var);
     if (!input_copy) {
-        perror("Errore allocazione memoria\n");
-        return;
+        perror("Errore allocazione memoria");
+        return result;
     }
 
-    char *line = strtok(input_copy, "\n"); // singola riga del file
+    char *line = strtok(input_copy, "\n");
     while (line != NULL) {
-        while (*line == ' ' || *line == '\t') line++; // rimuovo eventuali tab iniziali o spazi vuoti
+        while (*line == ' ' || *line == '\t') line++;
 
-        // Gestione #qubits
-        if (strncmp(line, "#qubits", 7) == 0) { // compara n caratteri (7) di entrambe le stringhe
-            qubits = line + 7;
-            while (*qubits == ' ' || *qubits == '\t') qubits++;
+        if (strncmp(line, "#qubits", 7) == 0) {
+            char *q = line + 7;
+            while (*q == ' ' || *q == '\t') q++;
+            result.qubits = strdup(q); // Copio in nuova memoria per evitare dangling pointer
         }
 
-        // Gestione #init [(re, im) ...]
-        else if (strncmp(line, "#init", 5) == 0) { // compara n caratteri (5) di entrambe le stringhe
+        else if (strncmp(line, "#init", 5) == 0) {
             const char *start = strchr(line, '[');
             const char *end = strchr(line, ']');
             if (start && end && end > start) {
                 char buffer[1024] = {0};
-                strncpy(buffer, start + 1, end - start - 1); // prendo solamente i numeri all'interno delle []
-                char *token = strtok(buffer, ","); // prendo la prima parte della stringa fino a ','
+                strncpy(buffer, start + 1, end - start - 1);
+                char *token = strtok(buffer, ",");
+
                 while (token) {
                     while (*token == ' ' || *token == '\t') token++;
 
                     ComplexNumber c = {0, 0};
-                    char *i_ptr = strchr(token, 'i'); // cerca la prima occorrenza del carattere 'i'
+                    char *i_ptr = strchr(token, 'i');
                     if (i_ptr) {
-                        // cerca il segno tra parte reale e immaginaria
-                        char *plus = strrchr(token, '+'); // cerca l'ultima occorrenza del carattere '+'
+                        char *plus = strrchr(token, '+');
                         char *minus = strrchr(token, '-');
 
                         char *sep = plus;
-                        if (!sep || (minus && minus > plus)) sep = minus; // controllo quale operatore è utilizzato
+                        if (!sep || (minus && minus > plus)) sep = minus;
 
                         if (sep) {
                             c.re = atof(token);
-                            c.im = atof(i_ptr+1);
-                            if (*sep == '-') c.im = -c.im; // se negativo aggiungo il -
+                            c.im = atof(i_ptr + 1);
+                            if (*sep == '-') c.im = -c.im;
                         } else {
                             perror("Errore: formato complesso non valido");
                             break;
@@ -104,16 +108,20 @@ void split_function_init(char *var) {
                         c.re = atof(token);
                         c.im = 0.0;
                     }
-                    ComplexNumber *temp = realloc(init_values, (init_count + 1) * sizeof(ComplexNumber));
-                    if (temp == NULL) {
-                        perror("Errore riallocazione della memoria\n");
-                        free(init_values); // Libera la memoria già allocata
-                        free(input_copy);  // Libera la copia della stringa
-                        return;
-                    }
-                    init_values = temp;
-                    init_values[init_count++] = c;
 
+                    ComplexNumber *temp = realloc(result.value, (result.count_n + 1) * sizeof(ComplexNumber));
+                    if (temp == NULL) {
+                        perror("Errore riallocazione della memoria");
+                        free(result.value);
+                        free(result.qubits);
+                        free(input_copy);
+                        result.value = NULL;
+                        result.count_n = 0;
+                        return result;
+                    }
+
+                    result.value = temp;
+                    result.value[result.count_n++] = c;
                     token = strtok(NULL, ",");
                 }
             }
@@ -122,26 +130,41 @@ void split_function_init(char *var) {
         line = strtok(NULL, "\n");
     }
 
-    free(init_values);
     free(input_copy);
+    return result;
+}
+
+void free_init_value(InitValue *iv) {
+    if (iv->value) free(iv->value);
+    if (iv->qubits) free(iv->qubits);
 }
 
 void split_function_define_circle(char *var) {
-    // TODO: da implementare
+    CircDef result;
 }
 
 int main(){
-    char *filename1 = "Secondo Anno/Sistemi Operativi II/Progetto (Appello 9 Giugno 2025)/init-ex.txt"; // nome del file da leggere
-    // char *filename2 = "Secondo Anno/Sistemi Operativi II/Progetto (Appello 9 Giugno 2025)/circ-ex.txt";
-
+    char *filename1 = "Secondo Anno/Sistemi Operativi II/Progetto (Appello 9 Giugno 2025)/init-ex.txt";
+    char *filename2 = "Secondo Anno/Sistemi Operativi II/Progetto (Appello 9 Giugno 2025)/circ-ex.txt";
     char *file1 = read_file_and_print_lines(filename1);
+    char *file2 = read_file_and_print_lines(filename2);
 
-    if (file1) {
-        split_function_init(file1);
-        free(file1); // Libera la memoria allocata
+    if (file1 == NULL) {
+        return 1;
     }
+    if (file2 == NULL) {
+        return 1;
+    }
+
+    InitValue init = split_function_init(file1);
+    printf("Qubits: %s\n", init.qubits ? init.qubits : "Nessuno");
+    printf("Valori iniziali:\n");
+    for (int i = 0; i < init.count_n; i++) {
+        printf("(%lf, %lf)\n", init.value[i].re, init.value[i].im);
+    }
+
+    free(file1);
+    free_init_value(&init);
 
     return 0;
 }
-
-
