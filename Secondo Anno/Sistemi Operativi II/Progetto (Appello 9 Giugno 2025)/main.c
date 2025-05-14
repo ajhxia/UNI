@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lettura_file.h"
+#include "function.h"
 
 int main(){
     char *filename1 = "init-ex.txt";

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lettura_file.h"
+#include "function.h"
 
 char *read_file_and_print_lines(char *filename) {
     char row[1024];
