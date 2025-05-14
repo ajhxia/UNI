@@ -127,5 +127,107 @@ void free_init_value(InitValue *iv) {
     if (iv->qubits) free(iv->qubits);
 }
 
-void split_function_define_circle(char *var) {
+void trim_leading_spaces(char **str) {
+    while (**str == ' ' || **str == '\t') (*str)++;
+}
+
+void trim_trailing_spaces_and_parens(char *str) {
+    char *end = str + strlen(str) - 1;
+    while (end > str && (*end == ' ' || *end == ')')) {
+        *end = '\0';
+        end--;
+    }
+}
+
+CircDef split_function_define_circle(char *var) {
+    CircDef result;
+    result.gates = NULL;
+    result.count_n = 0;
+
+    char *input_copy = strdup(var);
+    if (!input_copy) {
+        perror("Errore allocazione memoria");
+        return result;
+    }
+
+    char *saveptr;
+    char *line = strtok_r(input_copy, "\n", &saveptr);
+    while (line != NULL) {
+        trim_leading_spaces(&line);
+
+        if (strncmp(line, "#define", 7) == 0) {
+            Gate gate;
+            gate.count_n = 0;
+            gate.value = NULL;
+
+            // Estrai il nome del gate
+            char *name_ptr = line + 7;
+            trim_leading_spaces(&name_ptr);
+            gate.name = *name_ptr;
+
+            // Trova i valori complessi tra le parentesi quadre
+            const char *start = strchr(line, '[');
+            const char *end = strchr(line, ']');
+
+            if (start && end && end > start) {
+                char buffer[1024] = {0};
+                strncpy(buffer, start + 1, end - start - 1);
+
+                // Ogni token ora è una stringa del tipo: (a, b)
+                char *token = strtok(buffer, "(");
+                while (token) {
+                    // token sarà del tipo: a, b)
+                    char *comma = strchr(token, ',');
+                    if (!comma) break;
+                    *comma = '\0';
+                    char *re_str = token;
+                    char *im_str = comma + 1;
+
+                    trim_leading_spaces(&re_str);
+                    trim_leading_spaces(&im_str);
+                    trim_trailing_spaces_and_parens(im_str);
+
+                    // Parsing numeri
+                    ComplexNumber c;
+                    if (strcmp(re_str, "i") == 0) c.re = 1.0;
+                    else if (strcmp(re_str, "-i") == 0) c.re = -1.0;
+                    else c.re = atof(re_str);
+                    if (strcmp(im_str, "i") == 0) c.im = 1.0;
+                    else if (strcmp(im_str, "-i") == 0) {
+                        c.im = -1.0;
+                    }
+                    else c.im = atof(im_str);
+
+                    ComplexNumber *temp_val = realloc(gate.value, (gate.count_n + 1) * sizeof(ComplexNumber));
+                    if (!temp_val) {
+                        perror("Errore realloc valore complesso");
+                        free(gate.value);
+                        gate.value = NULL;
+                        gate.count_n = 0;
+                        break;
+                    }
+                    gate.value = temp_val;
+                    gate.value[gate.count_n++] = c;
+
+                    token = strtok(NULL, "(");
+                }
+
+                // Aggiungi il gate a result
+                Gate *temp_gate = realloc(result.gates, (result.count_n + 1) * sizeof(Gate));
+                if (!temp_gate) {
+                    perror("Errore realloc gates");
+                    free(gate.value);
+                    break;
+                }
+                result.gates = temp_gate;
+                result.gates[result.count_n++] = gate;
+            }
+        }
+
+        line = strtok_r(NULL, "\n", &saveptr);
+        //TODO: manca il #circ
+    }
+
+    free(input_copy);
+    return result;
 }

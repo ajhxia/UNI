@@ -1,11 +1,11 @@
-main: main.o lettura_file.o
-	gcc -o main main.o lettura_file.o
+main: main.o file_reader.o
+	gcc -o main main.o file_reader.o
 
 main.o: main.c function.h
 	gcc -c main.c
 
-lettura_file.o: lettura_file.c function.h
-	gcc -c lettura_file.c
+file_reader.o: file_reader.c function.h
+	gcc -c file_reader.c
 
 # Esecuzione
 run: main
