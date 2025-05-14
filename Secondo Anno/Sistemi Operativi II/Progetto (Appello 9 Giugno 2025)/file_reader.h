@@ -23,13 +23,15 @@ typedef struct {
 } Gate;
 
 typedef struct {
-    Gate *gates;
-    int count_n;
-} CircDef;
+    Gate *gates;            // array dinamico di Gate
+    int count_n;            // quanti gate ho
+    char *circ_sequence;    // es. "Y X I"
+    int circ_len;           // lunghezza di circ_sequence
+} CircuitDef;
 
 char *read_file_and_print_lines(char *filename);
 InitValue split_function_init(char *var);
-CircDef split_function_define_circle(char *var);
+CircuitDef split_function_define_circle(char *var);
 void free_init_value(InitValue *iv);
 
 
