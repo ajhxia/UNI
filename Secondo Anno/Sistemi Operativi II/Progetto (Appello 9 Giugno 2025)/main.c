@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "function.h"
+#include "file_reader.h"
+
+// Libera tutta la memoria
+void free_circuit(CircuitDef *c) {
+    for(int i=0;i<c->count_n;i++)
+        free(c->gates[i].value);
+    free(c->gates);
+    free(c->circ_sequence);
+}
 
 int main(){
     char *filename1 = "init-ex.txt";
@@ -17,18 +25,9 @@ int main(){
         return 1;
     }
 
-    CircDef circ = split_function_define_circle(file2);
-
-    for (int i = 0; i < circ.count_n; i++) {
-        printf("Gate %c:\n", circ.gates[i].name);
-        for (int j = 0; j < circ.gates[i].count_n; j++) {
-            printf("  (%.2f, %.2f)\n", circ.gates[i].value[j].re, circ.gates[i].value[j].im);
-        }
-        free(circ.gates[i].value); // libera ogni array di ComplexNumber
-    }
-    free(circ.gates); // libera array di Gate
-
     free(file1);
 
+    CircuitDef circ = split_function_define_circle(file2);
+    free_circuit(&circ);
     return 0;
 }
