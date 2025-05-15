@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "file_reader.h"
 
-// Libera tutta la memoria
-void free_circuit(CircuitDef *c) {
-    for(int i=0;i<c->count_n;i++)
-        free(c->gates[i].value);
-    free(c->gates);
-    free(c->circ_sequence);
-}
-
 int main(){
     char *filename1 = "init-ex.txt";
     char *file1 = read_file_and_print_lines(filename1);
@@ -25,9 +17,11 @@ int main(){
         return 1;
     }
 
-    free(file1);
-
     CircuitDef circ = split_function_define_circle(file2);
+    InitValue init = split_function_init(file1);
+    free_init_value(&init);
     free_circuit(&circ);
+    free(file1);
+    free(file2);
     return 0;
 }

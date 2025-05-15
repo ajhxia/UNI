@@ -17,8 +17,13 @@ typedef struct {
 } InitValue;
 
 typedef struct {
+    ComplexNumber first;
+    ComplexNumber second;
+} ComplexPair;
+
+typedef struct {
     char name;
-    ComplexNumber *value;
+    ComplexPair *value;
     int count_n;
 } Gate;
 
@@ -33,6 +38,6 @@ char *read_file_and_print_lines(char *filename);
 InitValue split_function_init(char *var);
 CircuitDef split_function_define_circle(char *var);
 void free_init_value(InitValue *iv);
-
+void free_circuit(CircuitDef *c);
 
 #endif //LETTURA_FILE_H

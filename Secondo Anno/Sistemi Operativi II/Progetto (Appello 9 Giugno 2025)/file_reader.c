@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "file_reader.h"
+
+#include <errno.h>
+
 #include "utility.h"
 
 char *read_file_and_print_lines(char *filename) {
@@ -44,6 +47,13 @@ char *read_file_and_print_lines(char *filename) {
     return content;
 }
 
+
+// Libera la memoria allocata per InitValue
+void free_init_value(InitValue *iv) {
+    if (iv->value) free(iv->value);
+    if (iv->qubits) free(iv->qubits);
+}
+
 // Estrae i valori iniziali e i qubit dalla stringa
 InitValue split_function_init(char *var) {
     InitValue result = {
@@ -52,7 +62,7 @@ InitValue split_function_init(char *var) {
         .count_n = 0,
     }; // Struct da restituire
 
-    char *input_copy = strdup(var); // Fa una copia modificabile dell'input
+    char *input_copy = strdup(var); // Fa una copia modificabile dell'ingresso
     if (!input_copy) {
         perror("Errore allocazione memoria");
         return result;
@@ -60,7 +70,7 @@ InitValue split_function_init(char *var) {
 
     char *line = strtok(input_copy, "\n"); // Divide l'input per righe
     while (line != NULL) {
-        while (*line == ' ' || *line == '\t') line++; // Salta spazi iniziali
+        trim_leading_spaces(&line); // Salta spazi iniziali
 
         if (strncmp(line, "#qubits", 7) == 0) {
             char *q = line + 7;
@@ -78,7 +88,7 @@ InitValue split_function_init(char *var) {
                 char *token = strtok(buffer, ","); // Estrae i singoli numeri complessi
 
                 while (token) {
-                    while (*token == ' ' || *token == '\t') token++;
+                    trim_leading_spaces(&token);
 
                     ComplexNumber c = {0, 0}; // Inizializza numero complesso
                     char *i_ptr = strchr(token, 'i'); // Controlla se contiene parte immaginaria
@@ -91,15 +101,32 @@ InitValue split_function_init(char *var) {
                         if (!sep || (minus && minus > plus)) sep = minus;
 
                         if (sep) {
-                            c.re = atof(token);
-                            c.im = atof(i_ptr + 1);
+                            char *endptr;
+                            errno = 0;
+                            c.re = strtod(token, &endptr);
+                            if (errno != 0 || endptr == token) {
+                                perror("Errore conversione double");
+                                break;
+                            }
+                            errno = 0;
+                            c.im = strtod(i_ptr + 1, &endptr);
+                            if (errno != 0 || endptr == i_ptr + 1) {
+                                perror("Errore conversione parte immaginaria");
+                                break;
+                            }
                             if (*sep == '-') c.im = -c.im;
                         } else {
                             perror("Errore: formato complesso non valido");
                             break;
                         }
                     } else {
-                        c.re = atof(token);
+                        char *endptr;
+                        errno = 0;
+                        c.re = strtod(token, &endptr);
+                        if (errno != 0 || endptr == token) {
+                            perror("Errore conversione double");
+                            break;
+                        }
                         c.im = 0.0;
                     }
 
@@ -128,17 +155,19 @@ InitValue split_function_init(char *var) {
     return result;
 }
 
-// Libera la memoria allocata per InitValue
-void free_init_value(InitValue *iv) {
-    if (iv->value) free(iv->value);
-    if (iv->qubits) free(iv->qubits);
+// Libera la memoria allocata per Circuit def
+void free_circuit(CircuitDef *c) {
+    for(int i=0;i<c->count_n;i++)
+        free(c->gates[i].value);
+    free(c->gates);
+    free(c->circ_sequence);
 }
 
 // Parsing della sezione #define e #circ
 CircuitDef split_function_define_circle(char *var) {
     CircuitDef result = { .gates = NULL, .count_n = 0, .circ_sequence = NULL, .circ_len = 0 };
 
-    char *input_copy = strdup(var); // Copia modificabile dell'input
+    char *input_copy = strdup(var); // Copia modificabile dell'ingresso
     if (!input_copy) {
         perror("Errore allocazione memoria");
         return result;
@@ -174,26 +203,44 @@ CircuitDef split_function_define_circle(char *var) {
                     char *comma = strchr(token, ',');
                     if (!comma) break;
                     *comma = '\0';
-                    char *re_str = token;
-                    char *im_str = comma + 1;
+                    char *b1 = token;
+                    char *b2 = comma + 1;
 
-                    trim_leading_spaces(&re_str);
-                    trim_leading_spaces(&im_str);
-                    trim_trailing_spaces_and_parens(im_str);
+                    trim_leading_spaces(&b1);
+                    trim_leading_spaces(&b2);
+                    trim_trailing_spaces_and_parens(b2);
 
                     // Parsing numeri
-                    ComplexNumber c;
-                    if (strcmp(re_str, "i") == 0) c.re = 1.0;
-                    else if (strcmp(re_str, "-i") == 0) c.re = -1.0;
-                    else c.re = atof(re_str);
-
-                    if (strcmp(im_str, "i") == 0) c.im = 1.0;
-                    else if (strcmp(im_str, "-i") == 0) {
-                        c.im = -1.0;
+                    ComplexNumber c1, c2;
+                    if (strcmp(b1, "i") == 0) {
+                        c1.re = 0.0;
+                        c1.im = 1.0;
+                    } else if (strcmp(b1, "1") == 0) {
+                        c1.re = 1.0;
+                        c1.im = 0.0;
+                    } else if (strcmp(b1, "-i") == 0) {
+                        c1.re = 0.0;
+                        c1.im = -1.0;
+                    } else {
+                        c1.re = 0.0;
+                        c1.im = 0.0;
                     }
-                    else c.im = atof(im_str);
 
-                    ComplexNumber *temp_val = realloc(gate.value, (gate.count_n + 1) * sizeof(ComplexNumber));
+                    if (strcmp(b2, "i") == 0) {
+                        c2.re = 0.0;
+                        c2.im = 1.0;
+                    } else if (strcmp(b2, "1") == 0) {
+                        c2.re = 1.0;
+                        c2.im = 0.0;
+                    } else if (strcmp(b2, "-i") == 0) {
+                        c2.re = 0.0;
+                        c2.im = -1.0;
+                    } else {
+                        c2.re = 0.0;
+                        c2.im = 0.0;
+                    }
+
+                    ComplexPair *temp_val = realloc(gate.value, (gate.count_n + 1) * sizeof(ComplexPair));
                     if (!temp_val) {
                         perror("Errore realloc valore complesso");
                         free(gate.value);
@@ -202,7 +249,7 @@ CircuitDef split_function_define_circle(char *var) {
                         break;
                     }
                     gate.value = temp_val;
-                    gate.value[gate.count_n++] = c;
+                    gate.value[gate.count_n++] = (ComplexPair){c1, c2};
 
                     token = strtok(NULL, "(");
                 }
@@ -221,7 +268,7 @@ CircuitDef split_function_define_circle(char *var) {
 
         // Parsing della riga #circ
         else if (strncmp(line, "#circ", 5)==0) {
-            // dopo "#circ " ci sono i nomi separati da spazi
+            // dopo "#circ" ci sono i nomi separati da spazi
             char *p = line + 5;
             while (*p==' '||*p=='\t') p++;
             // conta i token
