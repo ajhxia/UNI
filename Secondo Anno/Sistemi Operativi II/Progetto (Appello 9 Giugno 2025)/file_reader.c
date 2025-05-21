@@ -7,7 +7,6 @@
 #include "file_reader.h"
 
 #include <errno.h>
-
 #include "utility.h"
 
 char *read_file_and_print_lines(char *filename) {
@@ -155,135 +154,100 @@ InitValue split_function_init(char *var) {
     return result;
 }
 
-// Libera la memoria allocata per Circuit def
-void free_circuit(CircuitDef *c) {
-    for(int i=0;i<c->count_n;i++)
-        free(c->gates[i].value);
-    free(c->gates);
-    free(c->circ_sequence);
-}
-
 // Parsing della sezione #define e #circ
 CircuitDef split_function_define_circle(char *var) {
     CircuitDef result = { .gates = NULL, .count_n = 0, .circ_sequence = NULL, .circ_len = 0 };
 
-    char *input_copy = strdup(var); // Copia modificabile dell'ingresso
+    char *input_copy = strdup(var);
     if (!input_copy) {
         perror("Errore allocazione memoria");
         return result;
     }
 
     char *saveptr;
-    char *line = strtok_r(input_copy, "\n", &saveptr); // Divisione per righe con contesto
+    char *line = strtok_r(input_copy, "\n", &saveptr);
     while (line != NULL) {
-        trim_leading_spaces(&line); // Rimuove spazi iniziali
+        trim_leading_spaces(&line);
 
         if (strncmp(line, "#define", 7) == 0) {
             Gate gate;
-            gate.count_n = 0;
-            gate.value = NULL;
+            gate.name = 0;
+            gate.size = 0;
+            gate.matrix = NULL;
 
-            // Estrai il nome del gate
-            char *name_ptr = line + 7; // Salta "#define"
+            char *name_ptr = line + 7;
             trim_leading_spaces(&name_ptr);
-            gate.name = *name_ptr; // Assume nome come singolo carattere
+            gate.name = *name_ptr;
 
-            // Trova i valori complessi tra le parentesi quadre
-            const char *start = strchr(line, '[');
-            const char *end = strchr(line, ']');
-
+            char *start = strchr(line, '[');
+            char *end = strrchr(line, ']');
             if (start && end && end > start) {
-                char buffer[1024] = {0};
+                char buffer[4096] = {0};
                 strncpy(buffer, start + 1, end - start - 1);
+                buffer[end - start - 1] = '\0';
 
-                // Ogni token ora è una stringa del tipo: (a, b)
-                char *token = strtok(buffer, "(");
-                while (token) {
-                    // token sarà del tipo: a, b)
-                    char *comma = strchr(token, ',');
-                    if (!comma) break;
-                    *comma = '\0';
-                    char *b1 = token;
-                    char *b2 = comma + 1;
+                // Conteggio righe
+                int row_count = 0;
+                for (char *p = buffer; *p; p++) {
+                    if (*p == '(') row_count++;
+                }
+                gate.size = row_count;
 
-                    trim_leading_spaces(&b1);
-                    trim_leading_spaces(&b2);
-                    trim_trailing_spaces_and_parens(b2);
-
-                    // Parsing numeri
-                    ComplexNumber c1, c2;
-                    if (strcmp(b1, "i") == 0) {
-                        c1.re = 0.0;
-                        c1.im = 1.0;
-                    } else if (strcmp(b1, "1") == 0) {
-                        c1.re = 1.0;
-                        c1.im = 0.0;
-                    } else if (strcmp(b1, "-i") == 0) {
-                        c1.re = 0.0;
-                        c1.im = -1.0;
-                    } else {
-                        c1.re = 0.0;
-                        c1.im = 0.0;
-                    }
-
-                    if (strcmp(b2, "i") == 0) {
-                        c2.re = 0.0;
-                        c2.im = 1.0;
-                    } else if (strcmp(b2, "1") == 0) {
-                        c2.re = 1.0;
-                        c2.im = 0.0;
-                    } else if (strcmp(b2, "-i") == 0) {
-                        c2.re = 0.0;
-                        c2.im = -1.0;
-                    } else {
-                        c2.re = 0.0;
-                        c2.im = 0.0;
-                    }
-
-                    ComplexPair *temp_val = realloc(gate.value, (gate.count_n + 1) * sizeof(ComplexPair));
-                    if (!temp_val) {
-                        perror("Errore realloc valore complesso");
-                        free(gate.value);
-                        gate.value = NULL;
-                        gate.count_n = 0;
-                        break;
-                    }
-                    gate.value = temp_val;
-                    gate.value[gate.count_n++] = (ComplexPair){c1, c2};
-
-                    token = strtok(NULL, "(");
+                gate.matrix = malloc(gate.size * sizeof(ComplexNumber *));
+                for (int i = 0; i < gate.size; i++) {
+                    gate.matrix[i] = malloc(gate.size * sizeof(ComplexNumber));
                 }
 
-                // Aggiungi il gate a result
-                Gate *temp_gate = realloc(result.gates, (result.count_n + 1) * sizeof(Gate));
-                if (!temp_gate) {
+                char *ptr = buffer;
+                int row = 0;
+
+                while ((ptr = strchr(ptr, '(')) != NULL && row < gate.size) {
+                    ptr++;
+                    char *end_paren = strchr(ptr, ')');
+                    if (!end_paren) break;
+
+                    *end_paren = '\0';
+
+                    int col = 0;
+                    char *val_token = strtok(ptr, ",");
+                    while (val_token && col < gate.size) {
+                        trim_leading_spaces(&val_token);
+                        printf("%s\n", val_token);
+                        trim_trailing_spaces_and_parens(val_token);
+                        gate.matrix[row][col++] = parse_complex(val_token);
+                        val_token = strtok(NULL, ",");
+                    }
+
+                    row++;
+                    ptr = end_paren + 1;
+                }
+
+                // Aggiunta alla lista dei gate
+                Gate *tmp = realloc(result.gates, (result.count_n + 1) * sizeof(Gate));
+                if (!tmp) {
                     perror("Errore realloc gates");
-                    free(gate.value);
                     break;
                 }
-                result.gates = temp_gate;
+                result.gates = tmp;
                 result.gates[result.count_n++] = gate;
             }
         }
 
-        // Parsing della riga #circ
-        else if (strncmp(line, "#circ", 5)==0) {
-            // dopo "#circ" ci sono i nomi separati da spazi
+        else if (strncmp(line, "#circ", 5) == 0) {
             char *p = line + 5;
-            while (*p==' '||*p=='\t') p++;
-            // conta i token
+            while (*p == ' ' || *p == '\t') p++;
+
             char *tmp = strdup(p), *q;
             int n = 0;
             q = strtok(tmp, " \t");
-            while(q) { n++; q=strtok(NULL," \t"); }
+            while (q) { n++; q = strtok(NULL, " \t"); }
             free(tmp);
 
-            // alloco circ_sequence
-            result.circ_sequence = malloc(n+1); // +1 per terminatore '\0'
+            result.circ_sequence = malloc(n + 1);
             result.circ_len = n;
             int idx = 0;
             q = strtok(p, " \t");
-            while(q) {
+            while (q) {
                 result.circ_sequence[idx++] = q[0];
                 q = strtok(NULL, " \t");
             }
@@ -292,6 +256,19 @@ CircuitDef split_function_define_circle(char *var) {
 
         line = strtok_r(NULL, "\n", &saveptr);
     }
-
+    printf("Gates definiti:\n");
+    for (int i = 0; i < result.count_n; i++) {
+        Gate g = result.gates[i];
+        printf("Gate %c (size: %dx%d):\n", g.name, g.size, g.size);
+        for (int r = 0; r < g.size; r++) {
+            for (int c = 0; c < g.size; c++) {
+                ComplexNumber val = g.matrix[r][c];
+                printf("%5.1f%+4.1fi ", val.re, val.im);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+    free(input_copy);
     return result;
 }

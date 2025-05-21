@@ -7,10 +7,10 @@ main.o: main.c file_reader.h
 file_reader.o: file_reader.c file_reader.h
 	gcc -c file_reader.c
 
-utility.o: utility.c
+utility.o: utility.c utility.h
 	gcc -c utility.c
 
-operation.o: operation.c
+operation.o: operation.c operation.h
 	gcc -c operation.c
 # Esecuzione
 run: main
