@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "file_reader.h"
+#include "operation.h"
+#include "utility.h"
 
 int main(){
     char *filename1 = "init-ex.txt";
@@ -19,9 +21,6 @@ int main(){
 
     CircuitDef circ = split_function_define_circle(file2);
     InitValue init = split_function_init(file1);
-    free_init_value(&init);
-    free_circuit(&circ);
-    free(file1);
-    free(file2);
+
     return 0;
 }
