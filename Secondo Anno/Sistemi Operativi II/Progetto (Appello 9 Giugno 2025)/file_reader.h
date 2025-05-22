@@ -10,6 +10,5 @@ char *read_file_and_print_lines(char *filename);
 InitValue split_function_init(char *var);
 CircuitDef split_function_define_circle(char *var);
 void free_init_value(InitValue *iv);
-void free_circuit(CircuitDef *c);
-
+void free_circuit(CircuitDef *circ);
 #endif //LETTURA_FILE_H

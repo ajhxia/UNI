@@ -212,7 +212,6 @@ CircuitDef split_function_define_circle(char *var) {
                     char *val_token = strtok(ptr, ",");
                     while (val_token && col < gate.size) {
                         trim_leading_spaces(&val_token);
-                        printf("%s\n", val_token);
                         trim_trailing_spaces_and_parens(val_token);
                         gate.matrix[row][col++] = parse_complex(val_token);
                         val_token = strtok(NULL, ",");
@@ -256,7 +255,7 @@ CircuitDef split_function_define_circle(char *var) {
 
         line = strtok_r(NULL, "\n", &saveptr);
     }
-    printf("Gates definiti:\n");
+    /*printf("Gates definiti:\n");
     for (int i = 0; i < result.count_n; i++) {
         Gate g = result.gates[i];
         printf("Gate %c (size: %dx%d):\n", g.name, g.size, g.size);
@@ -268,7 +267,7 @@ CircuitDef split_function_define_circle(char *var) {
             printf("\n");
         }
         printf("\n");
-    }
+    }*/
     free(input_copy);
     return result;
 }
