@@ -41,6 +41,12 @@ int main() {
         printf("Errore nei dati di input\n");
         return 1;
     }
+    if (!check_normalization(init.value, init.count_n, 0.000001)) {
+        printf("Errore: lo stato iniziale non è normalizzato.\n");
+        free_init_value(&init);
+        free_circuit(&circuit);
+        return 1;
+    }
 
     ComplexNumber **circuit_matrix = build_total_circuit_matrix(&circuit);
     if (!circuit_matrix) {

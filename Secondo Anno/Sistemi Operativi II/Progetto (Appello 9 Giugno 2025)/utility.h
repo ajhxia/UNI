@@ -28,6 +28,7 @@ typedef struct {
     int circ_len;           // lunghezza di circ_sequence
 } CircuitDef;
 
+int check_normalization(ComplexNumber *state, int size, double epsilon);
 void trim_leading_spaces(char **str);
 void trim_trailing_spaces_and_parens(char *str);
 int is_perfect_square(int n, int *root_out);

@@ -41,3 +41,17 @@ ComplexNumber parse_complex(const char *s) {
     }
     return c;
 }
+
+double my_abs(double x) {
+    return (x < 0) ? -x : x;
+}
+
+int check_normalization(ComplexNumber *state, int size, double epsilon) {
+    double norm_squared = 0.0;
+    int i;
+
+    for (i = 0; i < size; ++i) {
+        norm_squared += state[i].re * state[i].re + state[i].im * state[i].im;
+    }
+    return (my_abs(norm_squared - 1.0) < epsilon) ? 1 : 0;
+}

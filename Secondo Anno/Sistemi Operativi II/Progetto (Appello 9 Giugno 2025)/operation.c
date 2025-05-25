@@ -27,9 +27,9 @@ void print_state(ComplexNumber *state, int size) {
         double im = state[i].im;
 
         if (im < 0)
-            printf("(%g - %gi) ", re, -im);
+            printf("(%g - %gi)", re, -im);
         else
-            printf("(%g + %gi)\n", re, im);
+            printf("(%g + %gi)", re, im);
     }
 }
 
@@ -73,7 +73,7 @@ ComplexNumber **build_total_circuit_matrix(const CircuitDef *circuit) {
     int size = circuit->gates[0].size;
     ComplexNumber **result_matrix = NULL;
 
-    for (int i = 0; i < circuit->circ_len; i++) {
+    for (int i = circuit->circ_len - 1; i >= 0; i--) {
         char gate_name = circuit->circ_sequence[i];
         Gate *gate = NULL;
 
