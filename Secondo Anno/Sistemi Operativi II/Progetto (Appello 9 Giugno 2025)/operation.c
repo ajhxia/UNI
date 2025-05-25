@@ -9,15 +9,15 @@
 
 ComplexNumber complex_multiply(ComplexNumber a, ComplexNumber b) {
     ComplexNumber result;
-    result.re = a.re * b.re - a.im * b.im;
-    result.im = a.re * b.im + a.im * b.re;
+    result.re = a.re * b.re - a.im * b.im; // Parte reale: a.re * b.re - a.im * b.im
+    result.im = a.re * b.im + a.im * b.re; // Parte immaginaria: a.re * b.im + a.im * b.re
     return result;
 }
 
 ComplexNumber complex_add(ComplexNumber a, ComplexNumber b) {
     ComplexNumber result;
-    result.re = a.re + b.re;
-    result.im = a.im + b.im;
+    result.re = a.re + b.re; // Somma delle parti reali
+    result.im = a.im + b.im; // Somma delle parti immaginarie
     return result;
 }
 
@@ -31,18 +31,19 @@ void print_state(ComplexNumber *state, int size) {
         else
             printf("(%g + %gi)", re, im);
     }
+    printf("\n");
 }
 
 
 ComplexNumber *complex_matrix_vector_multiply(ComplexNumber **matrix, ComplexNumber *vector, int size) {
-    ComplexNumber *result = malloc(size * sizeof(ComplexNumber));
+    ComplexNumber *result = malloc(size * sizeof(ComplexNumber)); // alloca un array di numeri complessi per il risultato
     if (!result) return NULL;
 
     for (int i = 0; i < size; ++i) {
         result[i].re = 0.0;
         result[i].im = 0.0;
         for (int j = 0; j < size; ++j) {
-            ComplexNumber prod = complex_multiply(matrix[i][j], vector[j]);
+            ComplexNumber prod = complex_multiply(matrix[i][j], vector[j]); // moltiplica l'elemento della matrice per l'elemento del vettore
             result[i] = complex_add(result[i], prod);
         }
     }
@@ -50,7 +51,7 @@ ComplexNumber *complex_matrix_vector_multiply(ComplexNumber **matrix, ComplexNum
 }
 
 ComplexNumber **allocate_and_copy_matrix(ComplexNumber **source, int size) {
-    ComplexNumber **dest = malloc(size * sizeof(ComplexNumber *));
+    ComplexNumber **dest = malloc(size * sizeof(ComplexNumber *)); // alloca un array di puntatori a numeri complessi
     for (int i = 0; i < size; i++) {
         dest[i] = malloc(size * sizeof(ComplexNumber));
         for (int j = 0; j < size; j++) {
@@ -70,13 +71,14 @@ ComplexNumber **allocate_empty_matrix(int size) {
 
 
 ComplexNumber **build_total_circuit_matrix(const CircuitDef *circuit) {
-    int size = circuit->gates[0].size;
+    int size = circuit->gates[0].size; // assumiamo che tutti i gate abbiano la stessa dimensione
     ComplexNumber **result_matrix = NULL;
 
     for (int i = circuit->circ_len - 1; i >= 0; i--) {
-        char gate_name = circuit->circ_sequence[i];
+        char gate_name = circuit->circ_sequence[i]; // ottiene il nome del gate dalla sequenza del circuito
         Gate *gate = NULL;
 
+        // trova il gate corrispondente nella definizione del circuito
         for (int j = 0; j < circuit->count_n; j++) {
             if (circuit->gates[j].name == gate_name) {
                 gate = &circuit->gates[j];
@@ -89,16 +91,18 @@ ComplexNumber **build_total_circuit_matrix(const CircuitDef *circuit) {
             continue;
         }
 
+        // se result_matrix è NULL, alloca e copia la matrice del gate corrente
         if (!result_matrix) {
             result_matrix = allocate_and_copy_matrix(gate->matrix, size);
         } else {
             ComplexNumber **new_result = allocate_empty_matrix(size);
 
-            // Moltiplicazione: new_result = result_matrix * gate->matrix
+            // moltiplicazione: new_result = result_matrix * gate->matrix
             for (int r = 0; r < size; r++) {
                 for (int c = 0; c < size; c++) {
                     ComplexNumber sum = {0.0, 0.0};
                     for (int k = 0; k < size; k++) {
+                        // moltiplica l'elemento della matrice result_matrix per l'elemento della matrice del gate
                         ComplexNumber prod = complex_multiply(result_matrix[r][k], gate->matrix[k][c]);
                         sum = complex_add(sum, prod);
                     }
@@ -106,7 +110,7 @@ ComplexNumber **build_total_circuit_matrix(const CircuitDef *circuit) {
                 }
             }
 
-            // Deallocazione sicura della matrice precedente
+            // deallocazione sicura della matrice precedente
             for (int r = 0; r < size; r++) {
                 free(result_matrix[r]);
             }
@@ -120,8 +124,6 @@ ComplexNumber **build_total_circuit_matrix(const CircuitDef *circuit) {
 
     return result_matrix;
 }
-
-
 
 void free_complex_matrix(ComplexNumber **matrix, int size) {
     for (int i = 0; i < size; ++i) {
