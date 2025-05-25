@@ -1,6 +1,6 @@
 # Progetto Simulator Circuiti Quantistici
-### Scritto da: Alessia Cassetta 
-### Data: 25-05-2025 
+#### Data: 25-05-2025 
+#### Matricola: 2113909
 ## Descrizione
 
 Questo progetto implementa un simulatore di circuiti quantistici scritto in C.  
