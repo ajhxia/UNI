@@ -25,8 +25,10 @@ Per compilare e avviare il simulatore, eseguire il comando:
 
 ```bash
 make
-
+```
 Il comando compila il programma e lo esegue immediatamente.
 
 Per pulire i file compilati (file oggetto e eseguibile), usare:
+```bash
 make clean
+```
