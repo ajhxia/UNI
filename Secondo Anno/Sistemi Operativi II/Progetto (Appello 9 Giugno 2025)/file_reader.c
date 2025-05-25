@@ -234,7 +234,7 @@ CircuitDef split_function_define_circle(char *var) {
 
         else if (strncmp(line, "#circ", 5) == 0) {
             char *p = line + 5;
-            while (*p == ' ' || *p == '\t') p++;
+            trim_leading_spaces(&p);
 
             char *tmp = strdup(p), *q;
             int n = 0;
@@ -255,19 +255,6 @@ CircuitDef split_function_define_circle(char *var) {
 
         line = strtok_r(NULL, "\n", &saveptr);
     }
-    /*printf("Gates definiti:\n");
-    for (int i = 0; i < result.count_n; i++) {
-        Gate g = result.gates[i];
-        printf("Gate %c (size: %dx%d):\n", g.name, g.size, g.size);
-        for (int r = 0; r < g.size; r++) {
-            for (int c = 0; c < g.size; c++) {
-                ComplexNumber val = g.matrix[r][c];
-                printf("%5.1f%+4.1fi ", val.re, val.im);
-            }
-            printf("\n");
-        }
-        printf("\n");
-    }*/
     free(input_copy);
     return result;
 }

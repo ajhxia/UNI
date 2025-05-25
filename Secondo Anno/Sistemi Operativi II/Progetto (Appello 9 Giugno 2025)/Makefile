@@ -1,21 +1,30 @@
-main: main.o utility.o file_reader.o operation.o
-	gcc -o main main.o utility.o file_reader.o operation.o
+CC = gcc
+CFLAGS = -Wall -Wextra -g
 
-main.o: main.c file_reader.h
-	gcc -c main.c
+TARGET = main
+OBJS = main.o utility.o file_reader.o operation.o
 
-file_reader.o: file_reader.c file_reader.h
-	gcc -c file_reader.c
+.DEFAULT_GOAL := all
+
+all: $(TARGET)
+	./$(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+
+main.o: main.c file_reader.h operation.h utility.h
+	$(CC) $(CFLAGS) -c main.c
+
+file_reader.o: file_reader.c file_reader.h utility.h
+	$(CC) $(CFLAGS) -c file_reader.c
 
 utility.o: utility.c utility.h
-	gcc -c utility.c
+	$(CC) $(CFLAGS) -c utility.c
 
-operation.o: operation.c operation.h
-	gcc -c operation.c
-# Esecuzione
-run: main
-	./main
+operation.o: operation.c operation.h utility.h
+	$(CC) $(CFLAGS) -c operation.c
 
-#pulisce
+.PHONY: clean
+
 clean:
-	rm -f *.o main
+	rm -f $(OBJS) $(TARGET)

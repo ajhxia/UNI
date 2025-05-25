@@ -4,12 +4,12 @@
 // Created by acassetta on 14/05/25.
 //
 void trim_leading_spaces(char **str) {
-    while (**str == ' ' || **str == '\t') (*str)++;
+    while (**str == ' ' || **str == '\t') (*str)++; // rimuove gli spazi iniziali
 }
 
 void trim_trailing_spaces_and_parens(char *str) {
     char *end = str + strlen(str) - 1;
-    while (end > str && (*end == ' ' || *end == ')')) {
+    while (end > str && (*end == ' ' || *end == ')')) { // rimuove gli spazi finali e le parentesi chiuse
         *end = '\0';
         end--;
     }
@@ -40,4 +40,18 @@ ComplexNumber parse_complex(const char *s) {
         c.re = 0.0;
     }
     return c;
+}
+
+double my_abs(double x) {
+    return (x < 0) ? -x : x; // calcola il valore assoluto
+}
+
+int check_normalization(ComplexNumber *state, int size, double epsilon) {
+    double norm_squared = 0.0;
+    int i;
+
+    for (i = 0; i < size; ++i) {
+        norm_squared += state[i].re * state[i].re + state[i].im * state[i].im; // calcola il quadrato della norma
+    }
+    return (my_abs(norm_squared - 1.0) < epsilon) ? 1 : 0;
 }
