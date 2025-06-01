@@ -150,6 +150,13 @@ InitValue split_function_init(char *var) {
         line = strtok(NULL, "\n"); // Prossima riga
     }
 
+    printf("Qubits definiti: %s\n", result.qubits ? result.qubits : "Nessuno");
+    printf("Valori iniziali:\n");
+    for (int i = 0; i < result.count_n; i++) {
+        ComplexNumber c = result.value[i];
+        printf("Valore %d: %.2f + %.2fi\n", i + 1, c.re, c.im);
+    }
+
     free(input_copy);
     return result;
 }
@@ -254,6 +261,19 @@ CircuitDef split_function_define_circle(char *var) {
         }
 
         line = strtok_r(NULL, "\n", &saveptr);
+    }
+    printf("\nGates definiti:\n");
+    for (int i = 0; i < result.count_n; i++) {
+        Gate g = result.gates[i];
+        printf("Gate %c (size: %dx%d):\n", g.name, g.size, g.size);
+        for (int r = 0; r < g.size; r++) {
+            for (int c = 0; c < g.size; c++) {
+                ComplexNumber val = g.matrix[r][c];
+                printf("%5.1f%+4.1fi ", val.re, val.im);
+            }
+            printf("\n");
+        }
+        printf("\n");
     }
     free(input_copy);
     return result;

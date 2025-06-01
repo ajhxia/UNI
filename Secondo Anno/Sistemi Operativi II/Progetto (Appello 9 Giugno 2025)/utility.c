@@ -1,5 +1,8 @@
 #include <string.h>
 #include "utility.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 //
 // Created by acassetta on 14/05/25.
 //
@@ -26,20 +29,54 @@ int is_perfect_square(int n, int *root_out) {
     return 0;
 }
 
-ComplexNumber parse_complex(const char *s) {
-    ComplexNumber c = {0.0, 0.0};
-    if (strcmp(s, "i") == 0) {
-        c.im = 1.0;
-    } else if (strcmp(s, "-i") == 0) {
-        c.im = -1.0;
-    } else if (strcmp(s, "1") == 0) {
-        c.re = 1.0;
-    } else if (strcmp(s, "-1") == 0) {
-        c.re = -1.0;
-    } else if (strcmp(s, "0") == 0) {
-        c.re = 0.0;
+ComplexNumber parse_complex(const char* str) {
+    ComplexNumber result = {0, 0};
+    char buffer[50];
+    strncpy(buffer, str, sizeof(buffer));
+    buffer[sizeof(buffer) - 1] = '\0'; // sicurezza
+
+    // Trova posizione di 'i'
+    char* i_ptr = strchr(buffer, 'i');
+    if (!i_ptr) {
+        // Se non c'è 'i', è un numero reale
+        result.re = atof(buffer);
+        result.im = 0;
+        return result;
     }
-    return c;
+
+    *i_ptr = '\0';  // spezza in due la stringa
+
+    // Parte reale: tutto prima di "+i" o "-i"
+    char* real_str = buffer;
+
+    // Parte immaginaria: tutto dopo "+i" o "-i"
+    char* imag_str = i_ptr + 1;
+
+    // Trova il separatore '+' o '-' per la parte immaginaria
+    char* sep = strpbrk(real_str + 1, "+-");  // +1 per evitare segno iniziale
+
+    if (sep) {
+
+        result.re = atoi(real_str);
+        char sign = *sep;
+
+        // Ricostruisce la parte immaginaria con il segno
+        char imag_full[10];
+        snprintf(imag_full, sizeof(imag_full), "%c%s", sign, imag_str);
+
+        // Se "i" era da solo, intende "i1"
+        result.im = atoi(imag_full);
+
+    } else {
+        // Nessun separatore trovato, può essere solo "i" o "iN"
+        if (buffer[0] == '\0') {
+            result.re = 0;
+        } else {
+            result.re = atoi(buffer);
+        }
+        result.im = 1;
+    }
+    return result;
 }
 
 double my_abs(double x) {
@@ -54,4 +91,17 @@ int check_normalization(ComplexNumber *state, int size, double epsilon) {
         norm_squared += state[i].re * state[i].re + state[i].im * state[i].im; // calcola il quadrato della norma
     }
     return (my_abs(norm_squared - 1.0) < epsilon) ? 1 : 0;
+}
+
+int check_gate_matrix_normalization(ComplexNumber **matrix, int size, double epsilon) {
+    for (int col = 0; col < size; ++col) {
+        double norm_squared = 0.0;
+        for (int row = 0; row < size; ++row) {
+            norm_squared += matrix[row][col].re * matrix[row][col].re + matrix[row][col].im * matrix[row][col].im;
+        }
+        if (my_abs(norm_squared - 1.0) >= epsilon) {
+            return 0;
+        }
+    }
+    return 1;
 }
