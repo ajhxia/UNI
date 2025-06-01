@@ -68,4 +68,11 @@ int is_perfect_square(int n, int *root_out);
  * @return Un numero complesso rappresentato dalla stringa.
  */
 ComplexNumber parse_complex(const char *s);
+
+/** Controlla se un numero complesso è normalizzato.
+ * @param size Dimensione dell'array.
+ * @param epsilon Tolleranza per il controllo di normalizzazione.
+ * @return 1 se lo stato è normalizzato, 0 altrimenti.
+ */
+int check_gate_matrix_normalization(ComplexNumber **matrix, int size, double epsilon);
 #endif //UTILITY_H

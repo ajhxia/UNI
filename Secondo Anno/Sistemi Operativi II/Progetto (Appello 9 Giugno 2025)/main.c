@@ -63,6 +63,8 @@ int main() {
         return 1;
     }
 
+    //TODO:  Fare la normalizzazione dello stato iniziale delle matrici
+
     ComplexNumber **circuit_matrix = build_total_circuit_matrix(&circuit);
     if (!circuit_matrix) {
         printf("Errore durante la costruzione della matrice del circuito\n");
