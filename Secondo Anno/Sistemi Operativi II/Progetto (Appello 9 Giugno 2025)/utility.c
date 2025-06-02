@@ -18,6 +18,11 @@ void trim_trailing_spaces_and_parens(char *str) {
     }
 }
 
+/** Controlla se un numero è un quadrato perfetto.
+ * @param n Numero da controllare.
+ * @param root_out Puntatore a una variabile che conterrà la radice quadrata se n è un quadrato perfetto.
+ * @return 1 se n è un quadrato perfetto, 0 altrimenti.
+ */
 int is_perfect_square(int n, int *root_out) {
     for (int i = 1; i <= n / 2 + 1; ++i) {
         if (i * i == n) {
@@ -43,6 +48,14 @@ ComplexNumber parse_complex(const char* str) {
         result.im = 0;
         return result;
     }
+    // Se c'è solo "i" o "-i"
+    if (strcmp(buffer, "i") == 0) {
+        result.im = 1.0;
+        return result;
+    } else if (strcmp(buffer, "-i") == 0) {
+        result.im = -1.0;
+        return result;
+    }
 
     *i_ptr = '\0';  // spezza in due la stringa
 
@@ -56,7 +69,6 @@ ComplexNumber parse_complex(const char* str) {
     char* sep = strpbrk(real_str + 1, "+-");  // +1 per evitare segno iniziale
 
     if (sep) {
-
         result.re = atoi(real_str);
         char sign = *sep;
 
@@ -83,25 +95,12 @@ double my_abs(double x) {
     return (x < 0) ? -x : x; // calcola il valore assoluto
 }
 
-int check_normalization(ComplexNumber *state, int size, double epsilon) {
-    double norm_squared = 0.0;
-    int i;
-
-    for (i = 0; i < size; ++i) {
-        norm_squared += state[i].re * state[i].re + state[i].im * state[i].im; // calcola il quadrato della norma
+int check_normalization(ComplexNumber *state, int length, double epsilon) {
+    double norm_squared = 0.0; // inizializza la norma al quadrato a 0
+    for (int i = 0; i < length; ++i) {
+        double re = state[i].re;
+        double im = state[i].im;
+        norm_squared += re * re + im * im;  // calcola la norma al quadrato
     }
-    return (my_abs(norm_squared - 1.0) < epsilon) ? 1 : 0;
-}
-
-int check_gate_matrix_normalization(ComplexNumber **matrix, int size, double epsilon) {
-    for (int col = 0; col < size; ++col) {
-        double norm_squared = 0.0;
-        for (int row = 0; row < size; ++row) {
-            norm_squared += matrix[row][col].re * matrix[row][col].re + matrix[row][col].im * matrix[row][col].im;
-        }
-        if (my_abs(norm_squared - 1.0) >= epsilon) {
-            return 0;
-        }
-    }
-    return 1;
+    return (my_abs(norm_squared - 1.0) < epsilon);
 }

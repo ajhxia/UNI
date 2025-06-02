@@ -52,10 +52,13 @@ int main() {
     InitValue init;
     CircuitDef circuit;
 
+    // caricamento e analisi dei dati dai file di input
     if (!load_and_parse_data("init-ex.txt", "circ-ex.txt", &init, &circuit)) {
         printf("Errore nei dati di input\n");
         return 1;
     }
+
+    // controllo dello stato iniziale per vedere se il vettore ha norma 1
     if (!check_normalization(init.value, init.count_n, 0.000001)) {
         printf("Errore: lo stato iniziale non è normalizzato.\n");
         free_init_value(&init);
@@ -63,8 +66,7 @@ int main() {
         return 1;
     }
 
-    //TODO:  Fare la normalizzazione dello stato iniziale delle matrici
-
+    // costruzione della matrice del circuito
     ComplexNumber **circuit_matrix = build_total_circuit_matrix(&circuit);
     if (!circuit_matrix) {
         printf("Errore durante la costruzione della matrice del circuito\n");
@@ -75,6 +77,7 @@ int main() {
 
     run_circuit(&init, circuit_matrix, circuit.gates[0].size);
 
+    // libero spazio dalla memoria allocata
     free_complex_matrix(circuit_matrix, circuit.gates[0].size);
     free_init_value(&init);
     free_circuit(&circuit);

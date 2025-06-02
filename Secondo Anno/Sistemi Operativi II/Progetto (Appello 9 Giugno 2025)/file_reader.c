@@ -61,20 +61,20 @@ InitValue split_function_init(char *var) {
         .count_n = 0,
     }; // Struct da restituire
 
-    char *input_copy = strdup(var); // Fa una copia modificabile dell'ingresso
+    char *input_copy = strdup(var);
     if (!input_copy) {
         perror("Errore allocazione memoria");
         return result;
     }
 
-    char *line = strtok(input_copy, "\n"); // Divide l'input per righe
+    char *line = strtok(input_copy, "\n"); // divide l'input per righe
     while (line != NULL) {
-        trim_leading_spaces(&line); // Salta spazi iniziali
+        trim_leading_spaces(&line); // salta spazi iniziali
 
         if (strncmp(line, "#qubits", 7) == 0) {
             char *q = line + 7;
             while (*q == ' ' || *q == '\t') q++;
-            result.qubits = strdup(q); // Copio in nuova memoria per evitare dangling pointer
+            result.qubits = strdup(q); // copio in nuova memoria per evitare dangling pointer
         }
 
         // Parsing della riga "#init"
@@ -83,14 +83,14 @@ InitValue split_function_init(char *var) {
             const char *end = strchr(line, ']');
             if (start && end && end > start) {
                 char buffer[1024] = {0};
-                strncpy(buffer, start + 1, end - start - 1); // Copia valori senza parentesi
-                char *token = strtok(buffer, ","); // Estrae i singoli numeri complessi
+                strncpy(buffer, start + 1, end - start - 1); // copio valori senza parentesi
+                char *token = strtok(buffer, ","); // estraggo i singoli numeri complessi
 
                 while (token) {
                     trim_leading_spaces(&token);
 
-                    ComplexNumber c = {0, 0}; // Inizializza numero complesso
-                    char *i_ptr = strchr(token, 'i'); // Controlla se contiene parte immaginaria
+                    ComplexNumber c = {0, 0}; // inizializza numero complesso
+                    char *i_ptr = strchr(token, 'i'); // controlla se contiene parte immaginaria
                     if (i_ptr) {
                         // Parsing del tipo a+bi o a-bi
                         char *plus = strrchr(token, '+');
@@ -161,7 +161,7 @@ InitValue split_function_init(char *var) {
     return result;
 }
 
-// Parsing della sezione #define e #circ
+// parsing della sezione #define e #circ
 CircuitDef split_function_define_circle(char *var) {
     CircuitDef result = { .gates = NULL, .count_n = 0, .circ_sequence = NULL, .circ_len = 0 };
 
@@ -228,7 +228,7 @@ CircuitDef split_function_define_circle(char *var) {
                     ptr = end_paren + 1;
                 }
 
-                // Aggiunta alla lista dei gate
+                // aggiungo il gate alla lista
                 Gate *tmp = realloc(result.gates, (result.count_n + 1) * sizeof(Gate));
                 if (!tmp) {
                     perror("Errore realloc gates");
