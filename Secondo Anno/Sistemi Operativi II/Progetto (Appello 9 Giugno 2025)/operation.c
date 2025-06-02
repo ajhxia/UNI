@@ -34,7 +34,6 @@ void print_state(ComplexNumber *state, int size) {
     printf("\n");
 }
 
-
 ComplexNumber *complex_matrix_vector_multiply(ComplexNumber **matrix, ComplexNumber *vector, int size) {
     ComplexNumber *result = malloc(size * sizeof(ComplexNumber)); // alloca un array di numeri complessi per il risultato
     if (!result) return NULL;
@@ -69,9 +68,8 @@ ComplexNumber **allocate_empty_matrix(int size) {
     return matrix;
 }
 
-
 ComplexNumber **build_total_circuit_matrix(const CircuitDef *circuit) {
-    int size = circuit->gates[0].size; // assumiamo che tutti i gate abbiano la stessa dimensione
+    int size = circuit->gates[0].size; // assumo che tutti i gate abbiano la stessa dimensione
     ComplexNumber **result_matrix = NULL;
 
     for (int i = circuit->circ_len - 1; i >= 0; i--) {
