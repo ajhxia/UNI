@@ -7,6 +7,34 @@
 #include <string.h>
 #include "utility.h"
 
+#include <errno.h>
+
+void trim_leading_spaces(char **str) {
+    while (**str == ' ' || **str == '\t') (*str)++; // rimuove gli spazi iniziali
+}
+
+void trim_trailing_spaces_and_parens(char *str) {
+    char *end = str + strlen(str) - 1;
+    while (end > str && (*end == ' ' || *end == ')')) { // rimuove gli spazi finali e le parentesi chiuse
+        *end = '\0';
+        end--;
+    }
+}
+
+ComplexNumber complex_multiply(ComplexNumber a, ComplexNumber b) {
+    ComplexNumber result;
+    result.re = a.re * b.re - a.im * b.im; // Parte reale: a.re * b.re - a.im * b.im
+    result.im = a.re * b.im + a.im * b.re; // Parte immaginaria: a.re * b.im + a.im * b.re
+    return result;
+}
+
+ComplexNumber complex_add(ComplexNumber a, ComplexNumber b) {
+    ComplexNumber result;
+    result.re = a.re + b.re; // Somma delle parti reali
+    result.im = a.im + b.im; // Somma delle parti immaginarie
+    return result;
+}
+
 char *name_function() {
     const char *directory = "file_input/";
     char *filename = NULL;
@@ -36,64 +64,117 @@ char *name_function() {
 }
 
 char *read_file(const char *filename) {
-    char row[2048];
-    size_t content_size = 1;
-    char *content = malloc(content_size);
-    if (content == NULL) {
-        perror("Errore allocazione della memoria");
-        return NULL;
-    }
-
-    content[0] = '\0';
-
     FILE *file = fopen(filename, "r");
-    if (file == NULL) {
+    if (!file) {
         perror("Errore apertura file");
-        free(content);
         return NULL;
     }
+
+    char *content = malloc(1);
+    if (!content) {
+        fclose(file);
+        return NULL;
+    }
+    content[0] = '\0';
+    size_t content_size = 1;
+
+    char *row = NULL;
+    size_t row_capacity = 0;
 
     int inside_define_block = 0;
 
-    while (fgets(row, sizeof(row), file) != NULL) {
-        row[strcspn(row, "\n")] = '\0'; // rimuove il newline dalla riga letta
+    while (getline(&row, &row_capacity, file) != -1) {
+        row[strcspn(row, "\n")] = '\0';
 
         if ((strstr(row, "#define") && strchr(row, '[')) || (strstr(row, "#init") && strchr(row, '['))) {
             inside_define_block = 1;
         }
 
-        if (inside_define_block) {
-            strcat(row, " ");
-        } else {
-            strcat(row, "\n");
-        }
+        if (inside_define_block) strcat(row, " ");
+        else strcat(row, "\n");
 
         size_t len_row = strlen(row);
         content_size += len_row;
+
         char *new_content = realloc(content, content_size);
-        if (new_content == NULL) {
-            perror("Errore allocazione della memoria");
+        if (!new_content) {
+            perror("Errore realloc");
             free(content);
+            free(row);
             fclose(file);
             return NULL;
         }
+
         content = new_content;
         strcat(content, row);
 
         if (inside_define_block && strchr(row, ']')) {
             inside_define_block = 0;
-            content_size += 2;
-            content = realloc(content, content_size);
-            if (content == NULL) {
-                perror("Errore allocazione della memoria");
-                fclose(file);
-                return NULL;
-            }
             strcat(content, "\n");
+            content_size += 1;
         }
     }
 
+    free(row);
     fclose(file);
     return content;
 }
 
+
+ComplexNumber parse_complex(const char* token) {
+    ComplexNumber result = {0, 0}; // inizializza numero complesso
+    if (!strchr(token, 'i')) {
+        // Solo parte reale
+        result.re = atof(token);
+        result.im = 0;
+        return result;
+    }
+
+    if (strcmp(token, "i") == 0) {
+        result.re = 0;
+        result.im = 1;
+        return result;
+    }
+
+    if (strcmp(token, "-i") == 0) {
+        result.re = 0;
+        result.im = -1;
+        return result;
+    }
+
+    char *i_ptr = strchr(token, 'i'); // controlla se contiene parte immaginaria
+    if (i_ptr) {
+        // Parsing del tipo a+bi o a-bi
+        char *plus = strrchr(token, '+');
+        char *minus = strrchr(token, '-');
+
+        char *sep = plus;
+        if (!sep || (minus && minus > plus)) sep = minus;
+
+        if (sep) {
+            char *endptr;
+            errno = 0;
+            result.re = strtod(token, &endptr);
+            if (errno != 0 || endptr == token) {
+                perror("Errore conversione double");
+            }
+            errno = 0;
+            result.im = strtod(i_ptr + 1, &endptr);
+            if (errno != 0 || endptr == i_ptr + 1) {
+                perror("Errore conversione parte immaginaria");
+            }
+            if (*sep == '-') result.im = -result.im;
+        } else {
+            perror("Errore: formato complesso non valido");
+        }
+    } else {
+        char *endptr;
+        errno = 0;
+        result.re = strtod(token, &endptr);
+        if (errno != 0 || endptr == token) {
+            perror("Errore conversione double");
+        }
+        result.im = 0.0;
+    }
+    return result;
+}

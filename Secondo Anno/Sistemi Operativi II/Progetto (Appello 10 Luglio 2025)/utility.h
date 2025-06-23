@@ -31,4 +31,9 @@ typedef struct {
 
 char *name_function();
 char *read_file(const char *filename);
+void trim_leading_spaces(char **str);
+void trim_trailing_spaces_and_parens(char *str);
+ComplexNumber parse_complex(const char *s);
+ComplexNumber complex_multiply(ComplexNumber a, ComplexNumber b);
+ComplexNumber complex_add(ComplexNumber a, ComplexNumber b);
 #endif //UTILITY_H

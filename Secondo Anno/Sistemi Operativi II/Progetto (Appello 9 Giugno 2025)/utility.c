@@ -34,10 +34,10 @@ int is_perfect_square(int n, int *root_out) {
     return 0;
 }
 
-ComplexNumber parse_complex(const char* str) {
+ComplexNumber parse_complex(const char* token) {
     ComplexNumber result = {0, 0};
     char buffer[50];
-    strncpy(buffer, str, sizeof(buffer));
+    strncpy(buffer, token, sizeof(buffer));
     buffer[sizeof(buffer) - 1] = '\0'; // sicurezza
 
     // Trova posizione di 'i'
