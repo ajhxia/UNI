@@ -6,6 +6,9 @@
 #include <string.h>
 #include <errno.h>
 #include "file_reader.h"
+
+#include <ctype.h>
+
 #include "utility.h"
 
 // Estrae i valori iniziali e i qubit dalla stringa
@@ -83,12 +86,6 @@ InitValue parse_function_init(char *var) {
         line = strtok(NULL, "\n"); // Prossima riga
     }
 
-    printf("Qubits definiti: %s\n", result.qubits ? result.qubits : "Nessuno");
-    printf("Valori iniziali:\n");
-    for (int i = 0; i < result.count_n; i++) {
-        ComplexNumber c = result.value[i];
-        printf("Valore %d: %.5f + %.5fi\n", i + 1, c.re, c.im);
-    }
     free(input_copy);
     return result;
 }
@@ -109,13 +106,26 @@ CircuitDef parse_function_define_circle(char *var) {
 
         if (strncmp(line, "#define", 7) == 0) {
             Gate gate;
-            gate.name = 0;
+            gate.name = NULL;
             gate.size = 0;
             gate.matrix = NULL;
 
             char *name_ptr = line + 7;
             trim_leading_spaces(&name_ptr);
-            gate.name = *name_ptr;
+
+            // Estrazione del nome del gate (può essere più lungo di un carattere)
+            char gate_name_buf[256];
+            int i = 0;
+            while (*name_ptr && !isspace(*name_ptr) && *name_ptr != '[' && i < 255) {
+                gate_name_buf[i++] = *name_ptr++;
+            }
+            gate_name_buf[i] = '\0';
+            gate.name = strdup(gate_name_buf);
+            if (!gate.name) {
+                perror("Errore allocazione nome gate");
+                free(input_copy);
+                return result;
+            }
 
             char *start = strchr(line, '[');
             char *end = strrchr(line, ']');
@@ -124,6 +134,7 @@ CircuitDef parse_function_define_circle(char *var) {
                 char *buffer = malloc(len + 1);
                 if (!buffer) {
                     perror("Errore allocazione buffer dinamico");
+                    free(gate.name);
                     free(input_copy);
                     return result;
                 }
@@ -167,14 +178,16 @@ CircuitDef parse_function_define_circle(char *var) {
 
                 free(buffer);
 
-                // aggiungo il gate alla lista
                 Gate *tmp = realloc(result.gates, (result.count_n + 1) * sizeof(Gate));
                 if (!tmp) {
                     perror("Errore realloc gates");
+                    free(gate.name);
                     break;
                 }
                 result.gates = tmp;
                 result.gates[result.count_n++] = gate;
+            } else {
+                free(gate.name); // se non c'è la matrice, liberiamo il nome
             }
         }
 
@@ -182,40 +195,32 @@ CircuitDef parse_function_define_circle(char *var) {
             char *p = line + 5;
             trim_leading_spaces(&p);
 
+            // Fai una prima passata per contare i token
             char *tmp = strdup(p), *q;
             int n = 0;
             q = strtok(tmp, " \t");
-            while (q) { n++; q = strtok(NULL, " \t"); }
-            free(tmp);
-
-            result.circ_sequence = malloc(n + 1);
-            result.circ_len = n;
-            int idx = 0;
-            q = strtok(p, " \t");
             while (q) {
-                result.circ_sequence[idx++] = q[0];
+                n++;
                 q = strtok(NULL, " \t");
             }
-            result.circ_sequence[idx] = '\0';
+            free(tmp);
+
+            result.circ_len = n;
+
+            // Ora ricostruisci la stringa concatenata con gli spazi
+            result.circ_sequence = malloc(strlen(p) + 1); // sufficiente per contenere la sequenza
+            result.circ_sequence[0] = '\0'; // inizializza come stringa vuota
+
+            q = strtok(p, " \t");
+            while (q) {
+                strcat(result.circ_sequence, q);
+                q = strtok(NULL, " \t");
+                if (q) strcat(result.circ_sequence, " ");
+            }
         }
 
         line = strtok_r(NULL, "\n", &saveptr);
     }
-
-    printf("\nGates definiti:\n");
-    for (int i = 0; i < result.count_n; i++) {
-        Gate g = result.gates[i];
-        printf("Gate %c (size: %dx%d):\n", g.name, g.size, g.size);
-        for (int r = 0; r < g.size; r++) {
-            for (int c = 0; c < g.size; c++) {
-                ComplexNumber val = g.matrix[r][c];
-                printf("%5f%+5fi ", val.re, val.im);
-            }
-            printf("\n");
-        }
-        printf("\n");
-    }
-
     free(input_copy);
     return result;
 }
