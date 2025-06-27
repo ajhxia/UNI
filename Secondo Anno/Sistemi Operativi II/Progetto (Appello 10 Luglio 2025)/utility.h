@@ -17,7 +17,7 @@ typedef struct {
 } InitValue;
 
 typedef struct {
-    char name; // nome del gate, es. 'X', 'Y', 'I'
+    char *name; // nome del gate, es. 'X', 'Y', 'I'
     int size; // dimensione della matrice NxN
     ComplexNumber **matrix; // matrice NxN di numeri complessi
 } Gate;
@@ -34,6 +34,9 @@ char *read_file(const char *filename);
 void trim_leading_spaces(char **str);
 void trim_trailing_spaces_and_parens(char *str);
 ComplexNumber parse_complex(const char *s);
-ComplexNumber complex_multiply(ComplexNumber a, ComplexNumber b);
-ComplexNumber complex_add(ComplexNumber a, ComplexNumber b);
+void free_circuit(CircuitDef *circ);
+void print_state(ComplexNumber *state, int size);
+void free_init_value(InitValue *iv);
+void free_complex_matrix(ComplexNumber **matrix, int size);
+void run_circuit(const InitValue *init, ComplexNumber **matrix, int size);
 #endif //UTILITY_H

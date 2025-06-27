@@ -6,8 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utility.h"
-
 #include <errno.h>
+
+#include "operation.h"
 
 void trim_leading_spaces(char **str) {
     while (**str == ' ' || **str == '\t') (*str)++; // rimuove gli spazi iniziali
@@ -21,18 +22,62 @@ void trim_trailing_spaces_and_parens(char *str) {
     }
 }
 
-ComplexNumber complex_multiply(ComplexNumber a, ComplexNumber b) {
-    ComplexNumber result;
-    result.re = a.re * b.re - a.im * b.im; // Parte reale: a.re * b.re - a.im * b.im
-    result.im = a.re * b.im + a.im * b.re; // Parte immaginaria: a.re * b.im + a.im * b.re
-    return result;
+void print_state(ComplexNumber *state, int size) {
+    printf("[( ");
+    for (int i = 0; i < size; ++i) {
+        double re = state[i].re;
+        double im = state[i].im;
+
+        // stampa con formato (re + i*im) o (re - i*im)
+        if (im < 0)
+            printf("%0.5f-i%0.5f", re, -im);
+        else
+            printf("%0.5f+i%0.5f", re, im);
+
+        if (i < size - 1)
+            printf(",  ");
+    }
+    printf(" )]\n");
 }
 
-ComplexNumber complex_add(ComplexNumber a, ComplexNumber b) {
-    ComplexNumber result;
-    result.re = a.re + b.re; // Somma delle parti reali
-    result.im = a.im + b.im; // Somma delle parti immaginarie
-    return result;
+void free_complex_matrix(ComplexNumber **matrix, int size) {
+    for (int i = 0; i < size; ++i) {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+
+void free_circuit(CircuitDef *circ) {
+    if (circ == NULL) return;
+
+    // Libera ogni matrice di gate
+    for (int i = 0; i < circ->count_n; i++) {
+        Gate *g = &circ->gates[i];
+        if (g->matrix) {
+            for (int r = 0; r < g->size; r++) {
+                free(g->matrix[r]);
+            }
+            free(g->matrix);
+            g->matrix = NULL;
+        }
+    }
+
+    // Libera l’array di gate
+    free(circ->gates);
+    circ->gates = NULL;
+
+    // Libera la stringa circ_sequence
+    free(circ->circ_sequence);
+    circ->circ_sequence = NULL;
+
+    circ->count_n = 0;
+    circ->circ_len = 0;
+}
+
+// Libera la memoria allocata per InitValue
+void free_init_value(InitValue *iv) {
+    if (iv->value) free(iv->value);
+    if (iv->qubits) free(iv->qubits);
 }
 
 char *name_function() {
@@ -63,6 +108,7 @@ char *name_function() {
     return result;
 }
 
+// TODO: refactor con fgetc
 char *read_file(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (!file) {
@@ -177,4 +223,11 @@ ComplexNumber parse_complex(const char* token) {
         result.im = 0.0;
     }
     return result;
+}
+
+void run_circuit(const InitValue *init, ComplexNumber **matrix, int size) {
+    ComplexNumber *final_state = complex_matrix_vector_multiply(matrix, init->value, size);
+    printf("Stato finale:\n");
+    print_state(final_state, size);
+    free(final_state);
 }
