@@ -35,6 +35,7 @@ void trim_leading_spaces(char **str);
 void trim_trailing_spaces_and_parens(char *str);
 ComplexNumber parse_complex(const char *s);
 void free_circuit(CircuitDef *circ);
+int read_thread_input();
 void print_state(ComplexNumber *state, int size);
 void free_init_value(InitValue *iv);
 void free_complex_matrix(ComplexNumber **matrix, int size);

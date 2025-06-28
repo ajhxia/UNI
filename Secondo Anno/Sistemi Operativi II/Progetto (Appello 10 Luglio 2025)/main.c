@@ -11,18 +11,21 @@
 
 int main(){
     // chiede all'utente il nome del file dei qubits e dei gates
-    printf("Inserisci il nome del file dei qubits: ");
+    printf("\n ----> QUBITS \n ");
     char *file_qubits = name_function();
     if (file_qubits == NULL) {
         perror("Errore nella lettura del nome del file per i qubits");
         return EXIT_FAILURE;
     }
-    printf("Inserisci il nome del file dei gates: ");
+    printf("\n ----> CIRCUITO \n ");
     char *file_gates = name_function();
     if (file_gates == NULL) {
         perror("Errore nella lettura del nome del file per i gates");
         return EXIT_FAILURE;
     }
+
+    printf("\n ----> Inserisci il numero di Threads da utilizzare:  \n");
+    int num_threads = read_thread_input();
 
     // inserisce il contenuto dei file nella variabile content
     char *qubits_content = read_file(file_qubits);
