@@ -30,9 +30,9 @@ void print_state(ComplexNumber *state, int size) {
 
         // stampa con formato (re + i*im) o (re - i*im)
         if (im < 0)
-            printf("%0.5f-i%0.5f", re, -im);
+            printf("%5f-i%5f", re, -im);
         else
-            printf("%0.5f+i%0.5f", re, im);
+            printf("%5f+i%5f", re, im);
 
         if (i < size - 1)
             printf(",  ");
@@ -80,32 +80,82 @@ void free_init_value(InitValue *iv) {
     if (iv->qubits) free(iv->qubits);
 }
 
+
+// Funzione che controlla se un file esiste
+int file_esiste(const char *path) {
+    FILE *file = fopen(path, "r");
+    if (file) {
+        fclose(file);
+        return 1;
+    }
+    return 0;
+}
+
+int read_thread_input(){
+    char buffer[100];
+    int numero;
+    char *endptr;
+
+    printf("Inserisci un numero intero: ");
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        // Rimuove newline
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
+
+        numero = (int) strtol(buffer, &endptr, 10);
+
+        // controlla se tutto l'input è stato convertito
+        if (endptr == buffer || *endptr != '\0') {
+            printf("Input non valido.\n");
+        } else {
+            printf("Hai inserito: %d\n", numero);
+        }
+    } else {
+        printf("Errore nella lettura dell'input.\n");
+        return -1; // Indica errore nella lettura
+    }
+    return numero;
+}
+
 char *name_function() {
     const char *directory = "file_input/";
-    char *filename = NULL;
-    size_t size = 0;
-    const ssize_t len = getline(&filename, &size, stdin);
+    char buffer[256];  // Dimensione fissa per input utente
 
-    if (len == -1){
-        perror("Errore");
-        return NULL;
-    }
-    // Rimuove newline alla fine
-    if (filename[len - 1] == '\n') {
-        filename[len - 1] = '\0';
-    }
+    while (1) {
+        printf("Inserisci il nome del file (presente in '%s'): ", directory);
 
-    const size_t total_len = strlen(directory) + strlen(filename) + 1;
-    char *result = malloc(total_len);
-    if (result == NULL) {
-        perror("Errore allocazione della memoria");
-        free(filename);
-        return NULL;
-    }
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            perror("Errore durante la lettura dell'input");
+            return NULL;
+        }
 
-    strcpy(result, directory);
-    strcat(result, filename);
-    return result;
+        // Rimuove newline, se presente
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
+
+        // Costruisce il percorso completo
+        size_t total_len = strlen(directory) + strlen(buffer) + 1;
+        char *full_path = (char *)malloc(total_len);
+        if (full_path == NULL) {
+            perror("Errore allocazione memoria");
+            return NULL;
+        }
+
+        strcpy(full_path, directory);
+        strcat(full_path, buffer);
+
+        // Controlla se il file esiste
+        if (file_esiste(full_path)) {
+            return full_path;  // restituisce il percorso valido
+        } else {
+            printf("Il file '%s' non esiste. Riprova.\n", full_path);
+            free(full_path);
+        }
+    }
 }
 
 // TODO: refactor con fgetc
