@@ -23,15 +23,16 @@ typedef struct {
 } Gate;
 
 typedef struct {
-    Gate *gates;            // array dinamico di Gate
-    int count_n;            // quanti gate ho
-    char *circ_sequence;    // es. "Y X I"
-    int circ_len;           // lunghezza di circ_sequence
+    Gate *gates;
+    int count_n;
+    char **circ_sequence;
+    int circ_len;
 } CircuitDef;
 
 char *name_function();
 char *read_file(const char *filename);
 void trim_leading_spaces(char **str);
+void trim_trailing_whitespace(char *str);
 void trim_trailing_spaces_and_parens(char *str);
 ComplexNumber parse_complex(const char *s);
 void free_circuit(CircuitDef *circ);

@@ -43,55 +43,36 @@ ComplexNumber **allocate_empty_matrix(int size) {
 }
 
 ComplexNumber **build_circuit_matrix(const CircuitDef *circuit) {
-    int size = circuit->gates[0].size; // assumo che tutti i gate abbiano la stessa dimensione
+    if (circuit->circ_len == 0 || circuit->count_n == 0) return NULL;
+
+    int size = circuit->gates[0].size; // assumiamo dimensioni uniformi
     ComplexNumber **result_matrix = NULL;
 
-    // copia modificabile della stringa di sequenza (per strtok)
-    char *seq_copy = strdup(circuit->circ_sequence);
-
-    // conta i token per simulare il ciclo inverso (dall'ultimo gate al primo)
-    int num_gates = 0;
-    char *tmp = strdup(circuit->circ_sequence);
-    char *token_tmp = strtok(tmp, " ");
-    while (token_tmp != NULL) {
-        num_gates++;
-        token_tmp = strtok(NULL, " ");
-    }
-    free(tmp);
-
-    // salva i token in un array
-    char **tokens = malloc(sizeof(char *) * num_gates);
-    int index = 0;
-    char *token = strtok(seq_copy, " ");
-    while (token != NULL && index < num_gates) {
-        tokens[index++] = token;
-        token = strtok(NULL, " ");
-    }
-
     // processa i gate in ordine inverso
-    for (int i = num_gates - 1; i >= 0; i--) {
+    for (int i = circuit->circ_len - 1; i >= 0; i--) {
+        const char *gate_name = circuit->circ_sequence[i];
         Gate *gate = NULL;
 
         // trova il gate corrispondente
         for (int j = 0; j < circuit->count_n; j++) {
-            if (strcmp(circuit->gates[j].name, tokens[i]) == 0) {
+            if (strcmp(circuit->gates[j].name, gate_name) == 0) {
                 gate = &circuit->gates[j];
                 break;
             }
         }
 
         if (!gate) {
-            printf("Gate %s non trovato!\n", tokens[i]);
-            continue;
+            fprintf(stderr, "Gate \"%s\" non trovato!\n", gate_name);
+            exit(EXIT_FAILURE);
         }
 
-        // se result_matrix è NULL, copia direttamente la matrice del primo gate
         if (!result_matrix) {
+            // copia iniziale
             result_matrix = allocate_and_copy_matrix(gate->matrix, size);
         } else {
+            // moltiplicazione: result_matrix = result_matrix * gate->matrix
             ComplexNumber **new_result = allocate_empty_matrix(size);
 
-            // moltiplicazione: new_result = result_matrix * gate->matrix
             for (int r = 0; r < size; r++) {
                 for (int c = 0; c < size; c++) {
                     ComplexNumber sum = {0.0, 0.0};
@@ -103,7 +84,7 @@ ComplexNumber **build_circuit_matrix(const CircuitDef *circuit) {
                 }
             }
 
-            // dealloca la matrice precedente
+            // libera la matrice precedente
             for (int r = 0; r < size; r++) {
                 free(result_matrix[r]);
             }
@@ -113,8 +94,6 @@ ComplexNumber **build_circuit_matrix(const CircuitDef *circuit) {
         }
     }
 
-    free(tokens);
-    free(seq_copy);
     return result_matrix;
 }
 

@@ -24,8 +24,8 @@ int main(){
         return EXIT_FAILURE;
     }
 
-    printf("\n ----> Inserisci il numero di Threads da utilizzare:  \n");
-    int num_threads = read_thread_input();
+    // printf("\n ----> Inserisci il numero di Threads da utilizzare:  \n");
+    // read_thread_input();
 
     // inserisce il contenuto dei file nella variabile content
     char *qubits_content = read_file(file_qubits);
