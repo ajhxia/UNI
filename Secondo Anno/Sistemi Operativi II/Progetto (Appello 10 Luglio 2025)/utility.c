@@ -22,6 +22,14 @@ void trim_trailing_spaces_and_parens(char *str) {
     }
 }
 
+void trim_trailing_whitespace(char *str) {
+    if (!str) return;
+    size_t len = strlen(str);
+    while (len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r' || str[len - 1] == ' ' || str[len - 1] == '\t')) {
+        str[--len] = '\0';
+    }
+}
+
 void print_state(ComplexNumber *state, int size) {
     printf("[( ");
     for (int i = 0; i < size; ++i) {
@@ -277,7 +285,7 @@ ComplexNumber parse_complex(const char* token) {
 
 void run_circuit(const InitValue *init, ComplexNumber **matrix, int size) {
     ComplexNumber *final_state = complex_matrix_vector_multiply(matrix, init->value, size);
-    printf("Stato finale:\n");
+    printf("\nStato finale:\n");
     print_state(final_state, size);
     free(final_state);
 }
