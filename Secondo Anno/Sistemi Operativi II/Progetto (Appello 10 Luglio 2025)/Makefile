@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 TARGET = main
-OBJS = main.o utility.o file_reader.o operation.o
+OBJS = main.o utility.o threads_worker.o file_reader.o operation.o
 
 .DEFAULT_GOAL := all
 
@@ -23,6 +23,9 @@ utility.o: utility.c utility.h
 
 operation.o: operation.c operation.h utility.h
 	$(CC) $(CFLAGS) -c operation.c
+
+threads_worker.o: threads_worker.c threads_worker.h
+	$(CC) $(CFLAGS) -c threads_worker.c
 
 .PHONY: clean
 

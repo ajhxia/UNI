@@ -1,6 +1,8 @@
 # Progetto Simulator Circuiti Quantistici
 #### Data: 10-07-2025
 #### Matricola: 2113909
+#### GitHub: [github.com/ajhxia](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Sistemi%20Operativi%20II/Progetto%20(Appello%209%20Giugno%202025))
+#### Corso: Sistemi Operativi II
 
 ## Descrizione
 Questo progetto implementa un simulatore di circuiti quantistici scritto in C.  
@@ -27,16 +29,14 @@ Inoltre per poter eseguire il programma è necessario aprire il terminale nella 
 
 #### FILE: `init`
 - Contenuto richiesto:
-
   - Una riga che inizia con `#qubits`, seguita da un numero intero che rappresenta la quantità di qubit.
   - Una riga che inizia con `#init`, seguita da un vettore di numeri complessi. Il vettore deve: essere racchiuso tra parentesi quadre `[ ]` contenente numeri complessi separati da virgole.
 
 #### FILE: `circ`
 - Contenuto richiesto:
-
-  - Una o più righe che iniziano con `#define Y`, dove `Y` è un identificatore (uno o più caratteri) associato a una matrice di numeri complessi. La matrice deve: essere racchiusa tra parentesi quadre `[ ]` contenente righe (vettori) racchiuse tra parentesi tonde ( ).
+  - Una o più righe che iniziano con `#define Y`, dove `Y` è un identificatore (uno o più caratteri) associato a una matrice di numeri complessi. La matrice deve: essere racchiusa tra parentesi quadre `[ ]` contenente righe (vettori) racchiuse tra parentesi tonde `()`.
 Avere numeri complessi formattati correttamente, separati da virgole.
-  -  Una riga che inizia con `#circ`, seguita da una sequenza di catatteri e/o stringhe che identificano le matrici da applicare nel circuito.
+  -  Una riga che inizia con `#circ`, seguita da una sequenza di caratteri e/o stringhe che identificano le matrici da applicare nel circuito.
 
 
 ## Come compilare ed eseguire
