@@ -6,8 +6,8 @@
 #define UTILITY_H
 
 typedef struct {
-    double re; // parte reale
-    double im; // parte immaginaria
+    long double re; // parte reale
+    long double im; // parte immaginaria
 } ComplexNumber;
 
 typedef struct {
