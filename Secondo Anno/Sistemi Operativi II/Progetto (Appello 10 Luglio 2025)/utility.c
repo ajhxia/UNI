@@ -1,59 +1,57 @@
-//
-// Created by alebox on 20/06/25.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "utility.h"
 #include <errno.h>
-
+#define INITIAL_BUFFER_SIZE 128
 #include "operation.h"
 
-// Rimuove gli spazi e i tab iniziali da una stringa modificando il puntatore
+/* Rimuove gli spazi e i tab iniziali da una stringa modificando il puntatore */
 void trim_leading_spaces(char **str) {
-    while (**str == ' ' || **str == '\t') (*str)++; // Avanza finché incontra spazi o tab
+    while (**str == ' ' || **str == '\t') (*str)++; /* Avanza finché incontra spazi o tab */
 }
 
-// Rimuove spazi finali e parentesi chiuse da una stringa
+/* Rimuove spazi finali e parentesi chiuse da una */
 void trim_trailing_spaces_and_parens(char *str) {
-    char *end = str + strlen(str) - 1;              // Punta all'ultimo carattere
-    while (end > str && (*end == ' ' || *end == ')')) { // Finché incontra spazi o ')'
-        *end = '\0';                                // Termina la stringa
+    char *end = str + strlen(str) - 1; /* Punta all'ultimo carattere */
+    while (end > str && (*end == ' ' || *end == ')')) { /* Finché incontra spazi o ')' */
+        *end = '\0'; /* Termina la stringa */
         end--;
     }
 }
 
-// Rimuove whitespace finale: spazi, tab, newline, carriage return
+/* Rimuove whitespace finale: spazi, tab, newline, carriage return */
 void trim_trailing_whitespace(char *str) {
-    if (!str) return;                               // Se stringa nulla, esce
-    size_t len = strlen(str);                       // Lunghezza della stringa
+    if (!str) return; /* Se stringa nulla, esce */
+    size_t len = strlen(str); /* Lunghezza della stringa */
     while (len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r' ||
                        str[len - 1] == ' ' || str[len - 1] == '\t')) {
-        str[--len] = '\0';                          // Rimuove carattere finale
+        str[--len] = '\0'; /* Rimuove carattere finale */
         }
 }
 
 void print_state(ComplexNumber *state, int size) {
     printf("[( ");
-    for (int i = 0; i < size; ++i) {                // Per ogni elemento nel vettore
-        double re = state[i].re;                    // Parte reale
-        double im = state[i].im;                    // Parte immaginaria
+    int i;
+    for (i = 0; i < size; ++i) { /* Per ogni elemento nel vettore */
+        double re = state[i].re; /* Parte reale */
+        double im = state[i].im; /* Parte immaginaria */
 
-        // Stampa con segno corretto
+        /* Stampa con segno corretto */
         if (im < 0)
-            printf("%5f-i%5f", re, -im);            // Se parte immaginaria negativa
+            printf("%5f-i%5f", re, -im); /* Se parte immaginaria negativa */
         else
-            printf("%5f+i%5f", re, im);             // Se positiva
+            printf("%5f+i%5f", re, im); /* Se positiva */
 
         if (i < size - 1)
-            printf(",  ");                          // Virgola tra elementi
+            printf(",  "); /* Virgola tra elementi */
     }
     printf(" )]\n");
 }
 
 void free_complex_matrix(ComplexNumber **matrix, int size) {
-    for (int i = 0; i < size; ++i) {
+    int i;
+    for (i = 0; i < size; ++i) {
         free(matrix[i]);
     }
     free(matrix);
@@ -62,15 +60,17 @@ void free_complex_matrix(ComplexNumber **matrix, int size) {
 void free_circuit(CircuitDef *circ) {
     if (circ == NULL) return;
 
-    // Libera ogni matrice e nome del gate
-    for (int i = 0; i < circ->count_n; i++) {
+    /* Libera ogni matrice e nome del gate */
+    int i;
+    for (i = 0; i < circ->count_n; i++) {
         Gate *g = &circ->gates[i];
 
-        free(g->name);  // LIBERA IL NOME
+        free(g->name);  /* Libera il nome */
         g->name = NULL;
 
         if (g->matrix) {
-            for (int r = 0; r < g->size; r++) {
+            int r;
+            for (r = 0; r < g->size; r++) {
                 free(g->matrix[r]);
             }
             free(g->matrix);
@@ -78,14 +78,15 @@ void free_circuit(CircuitDef *circ) {
         }
     }
 
-    // Libera l’array dei gate
+    /* Libera l’array dei gate */
     free(circ->gates);
     circ->gates = NULL;
 
-    // Libera ogni stringa nella sequenza del circuito
+    /* Libera ogni stringa nella sequenza del circuito */
     if (circ->circ_sequence) {
-        for (int i = 0; i < circ->circ_len; i++) {
-            free(circ->circ_sequence[i]);
+        int j;
+        for (j = 0; j < circ->circ_len; j++) {
+            free(circ->circ_sequence[j]);
         }
         free(circ->circ_sequence);
         circ->circ_sequence = NULL;
@@ -96,25 +97,25 @@ void free_circuit(CircuitDef *circ) {
 }
 
 
-// Libera la memoria allocata per InitValue
+/* Libera la memoria allocata per InitValue */
 void free_init_value(InitValue *iv) {
     if (iv->value) free(iv->value);
     if (iv->qubits) free(iv->qubits);
 }
 
 
-// Funzione che controlla se un file esiste
+/* Funzione che controlla se un file esiste */
 int file_esiste(const char *path) {
     FILE *file = fopen(path, "r");
     if (file) {
-        fclose(file); // Se il file esiste, lo chiude
+        fclose(file); /* Se il file esiste, lo chiude */
         return 1;
     }
     return 0;
 }
 
 int read_thread_input(){
-    char buffer[100];                               // Buffer per input da tastiera
+    char buffer[100]; /* Buffer per input da tastiera */
     int numero;
     char *endptr;
 
@@ -122,24 +123,24 @@ int read_thread_input(){
     if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
         size_t len = strlen(buffer);
         if (len > 0 && buffer[len - 1] == '\n') {
-            buffer[len - 1] = '\0';                 // Rimuove newline
+            buffer[len - 1] = '\0'; /* Rimuove newline */
         }
 
-        numero = (int) strtol(buffer, &endptr, 10); // Converte in intero
+        numero = (int) strtol(buffer, &endptr, 10); /* Converte in intero */
 
         if (endptr == buffer || *endptr != '\0') {
-            printf("Input non valido.\n");          // Controllo conversione
+            printf("Input non valido.\n"); /* Controllo conversione */
         }
     } else {
         printf("Errore nella lettura dell'input.\n");
-        return -1;                                  // Errore in lettura
+        return -1; /* Errore in lettura */
     }
     return numero;
 }
 
 char *name_function() {
     const char *directory = "file_input/";
-    char buffer[256];  // Dimensione fissa per input utente
+    char buffer[256];  /* Dimensione fissa per input utente */
 
     while (1) {
         printf("Inserisci il nome del file con estensione (presente in '%s'): ", directory);
@@ -149,13 +150,13 @@ char *name_function() {
             return NULL;
         }
 
-        // Rimuove newline, se presente
+        /* Rimuove newline, se presente */
         size_t len = strlen(buffer);
         if (len > 0 && buffer[len - 1] == '\n') {
             buffer[len - 1] = '\0';
         }
 
-        // Costruisce il percorso completo
+        /* Costruisce il percorso completo */
         size_t total_len = strlen(directory) + strlen(buffer) + 1;
         char *full_path = (char *)malloc(total_len);
         if (full_path == NULL) {
@@ -166,9 +167,9 @@ char *name_function() {
         strcpy(full_path, directory);
         strcat(full_path, buffer);
 
-        // Controlla se il file esiste
+        /* Controlla se il file esiste */
         if (file_esiste(full_path)) {
-            return full_path;  // restituisce il percorso valido
+            return full_path;  /* restituisce il percorso valido */
         } else {
             printf("Il file '%s' non esiste. Riprova.\n", full_path);
             free(full_path);
@@ -176,7 +177,61 @@ char *name_function() {
     }
 }
 
-// TODO: refactor con fgetc
+/* Funzione per leggere una riga dinamicamente */
+char *read_line(FILE *file) {
+    int c;
+    size_t size = INITIAL_BUFFER_SIZE;
+    size_t len = 0;
+    char *buffer = (char *)malloc(size);
+    if (!buffer) return NULL;
+
+    while ((c = fgetc(file)) != EOF && c != '\n') {
+        if (len + 1 >= size) {
+            size *= 2;
+            char *new_buffer = (char *)realloc(buffer, size);
+            if (!new_buffer) {
+                free(buffer);
+                return NULL;
+            }
+            buffer = new_buffer;
+        }
+        buffer[len++] = (char)c;
+    }
+
+    if (c == EOF && len == 0) {
+        free(buffer);
+        return NULL;
+    }
+
+    buffer[len] = '\0';
+    return buffer;
+}
+
+/* Verifica se la riga inizia un blocco definito */
+int starts_define_block(const char *line) {
+    return (strstr(line, "#define") && strchr(line, '[')) ||
+           (strstr(line, "#init") && strchr(line, '['));
+}
+
+/* Verifica se la riga termina un blocco definito */
+int ends_define_block(const char *line) {
+    return strchr(line, ']') != NULL;
+}
+
+/* Aggiunge una riga al contenuto */
+char *append_line(char *content, const char *line, size_t *content_size) {
+    size_t len_line = strlen(line);
+    char *new_content = (char *)realloc(content, *content_size + len_line + 2); /* +1 for \n, +1 for \0 */
+    if (!new_content) return NULL;
+
+    strcat(new_content, line);
+    strcat(new_content, "\n");
+
+    *content_size += len_line + 1;
+    return new_content;
+}
+
+/* Funzione principale */
 char *read_file(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (!file) {
@@ -184,7 +239,7 @@ char *read_file(const char *filename) {
         return NULL;
     }
 
-    char *content = malloc(1);
+    char *content = (char *)malloc(1);
     if (!content) {
         fclose(file);
         return NULL;
@@ -192,54 +247,46 @@ char *read_file(const char *filename) {
     content[0] = '\0';
     size_t content_size = 1;
 
-    char *row = NULL;
-    size_t row_capacity = 0;
-
     int inside_define_block = 0;
+    char *line = NULL;
 
-    while (getline(&row, &row_capacity, file) != -1) {
-        row[strcspn(row, "\n")] = '\0'; // Rimuove il newline finale
-
-        if ((strstr(row, "#define") && strchr(row, '[')) || (strstr(row, "#init") && strchr(row, '['))) {
-            inside_define_block = 1; // Inizia un blocco di definizione
+    while ((line = read_line(file)) != NULL) {
+        if (starts_define_block(line)) {
+            inside_define_block = 1;
         }
 
         if (!inside_define_block) {
-            strcat(row, "\n");
+            content = append_line(content, line, &content_size);
+        } else {
+            char *temp = (char *)realloc(content, content_size + strlen(line) + 1);
+            if (!temp) {
+                free(content);
+                free(line);
+                fclose(file);
+                return NULL;
+            }
+            content = temp;
+            strcat(content, line);
+            content_size += strlen(line);
+
+            if (ends_define_block(line)) {
+                strcat(content, "\n");
+                content_size += 1;
+                inside_define_block = 0;
+            }
         }
 
-        size_t len_row = strlen(row);
-        content_size += len_row;
-
-        char *new_content = realloc(content, content_size); // Alloca più memoria per il contenuto
-        if (!new_content) {
-            perror("Errore realloc");
-            free(content);
-            free(row);
-            fclose(file);
-            return NULL;
-        }
-
-        content = new_content; // Aggiorna il puntatore a content
-        strcat(content, row); // Aggiunge la riga al contenuto
-
-        if (inside_define_block && strchr(row, ']')) {
-            inside_define_block = 0;
-            strcat(content, "\n");
-            content_size += 1;
-        }
+        free(line);
     }
 
-    free(row);
     fclose(file);
     return content;
 }
 
-
 ComplexNumber parse_complex(const char* token) {
-    ComplexNumber result = {0, 0}; // inizializza numero complesso
+    ComplexNumber result = {0, 0}; /* inizializza numero complesso */
     if (!strchr(token, 'i')) {
-        // Solo parte reale
+        /* Solo parte reale */
         result.re = atof(token);
         result.im = 0;
         return result;
@@ -257,9 +304,9 @@ ComplexNumber parse_complex(const char* token) {
         return result;
     }
 
-    char *i_ptr = strchr(token, 'i'); // controlla se contiene parte immaginaria
+    char *i_ptr = strchr(token, 'i'); /* controlla se contiene parte immaginaria */
     if (i_ptr) {
-        // Parsing del tipo a+bi o a-bi
+        /* Parsing del tipo a+bi o a-bi */
         char *plus = strrchr(token, '+');
         char *minus = strrchr(token, '-');
 

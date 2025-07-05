@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -std=c90 -g
 
 TARGET = main
 OBJS = main.o utility.o threads_worker.o file_reader.o operation.o
@@ -21,13 +21,13 @@ file_reader.o: file_reader.c file_reader.h utility.h
 utility.o: utility.c utility.h
 	$(CC) $(CFLAGS) -c utility.c
 
-operation.o: operation.c operation.h utility.h
+operation.o: operation.c operation.h utility.h threads_worker.h
 	$(CC) $(CFLAGS) -c operation.c
 
 threads_worker.o: threads_worker.c threads_worker.h
 	$(CC) $(CFLAGS) -c threads_worker.c
 
-.PHONY: clean
+.PHONY: all clean
 
 clean:
 	rm -f $(OBJS) $(TARGET)

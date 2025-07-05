@@ -1,25 +1,21 @@
-//
-// Created by alebox on 20/06/25.
-//
-
 #ifndef UTILITY_H
 #define UTILITY_H
 
 typedef struct {
-    long double re; // parte reale
-    long double im; // parte immaginaria
+    long double re; /* parte reale */
+    long double im; /* parte immaginaria */
 } ComplexNumber;
 
 typedef struct {
-    ComplexNumber *value; // array di numeri complessi che rappresentano lo stato
-    char *qubits; // stringa di qubit, es. "Y X I"
-    int count_n; // numero di qubit
+    ComplexNumber *value; /* array di numeri complessi che rappresentano lo stato */
+    char *qubits; /* stringa di qubit, es. "Y X I" */
+    int count_n; /* numero di qubit */
 } InitValue;
 
 typedef struct {
-    char *name; // nome del gate, es. 'X', 'Y', 'I'
-    int size; // dimensione della matrice NxN
-    ComplexNumber **matrix; // matrice NxN di numeri complessi
+    char *name; /* nome del gate, es. 'X', 'Y', 'I' */
+    int size; /* dimensione della matrice NxN */
+    ComplexNumber **matrix; /* matrice NxN di numeri complessi */
 } Gate;
 
 typedef struct {
@@ -41,4 +37,4 @@ void print_state(ComplexNumber *state, int size);
 void free_init_value(InitValue *iv);
 void free_complex_matrix(ComplexNumber **matrix, int size);
 void run_circuit(const InitValue *init, ComplexNumber **matrix, int size);
-#endif //UTILITY_H
+#endif /*UTILITY_H */
