@@ -20,8 +20,6 @@ Il programma permette di leggere file di configurazione contenenti la definizion
 |`-0.3`	|`0.4-0.5i`|
 |`0.1+i`	|`0.5i-1`|
 |`0.8-i0.5`	||
-|`i0.9+1`||
-|`i-0.5`||
 
 Per poter eseguire correttamente il programma, **`i file che il programma dovrà leggere in input devono essere inseriti nella cartella chiamata file_input`**.
 Inoltre per poter eseguire il programma è necessario aprire il terminale nella cartella dove si trova il file `Makefile`.
