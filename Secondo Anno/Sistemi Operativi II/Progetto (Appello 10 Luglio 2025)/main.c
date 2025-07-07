@@ -5,30 +5,25 @@
 #include "operation.h" /* header per operazioni sul circuito (es. run_circuit, build_circuit_matrix) */
 #include "file_reader.h" /* header per funzioni di lettura/parsing dei file (es. read_file, parse_function_init) */
 
-int main(){
-    /* Chiede all'utente il nome del file contenente le direttive #init e #qubits */
-    printf("\n ----> QUBITS: inserire il file contenente le direttive #init e #qubits \n ");
-
-    /* Legge il nome del file dei qubits da input utente */
-    char *file_qubits = name_function();
+int main(int argc, char *argv[]) {
+    char *file_qubits = argv[1];
     if (file_qubits == NULL) {
         perror("Errore nella lettura del nome del file per i qubits");
         return EXIT_FAILURE;
     }
 
-    /* Chiede all'utente il nome del file contenente le direttive #define e #circ */
-    printf("\n ----> CIRCUITO: inserire il nome del file contenente le direttive #define e #circ \n ");
-
-    /* Legge il nome del file dei gates da input utente */
-    char *file_gates = name_function();
+    char *file_gates = argv[2];
     if (file_gates == NULL) {
         perror("Errore nella lettura del nome del file per i gates");
         return EXIT_FAILURE;
     }
 
-    /* Chiede all'utente il numero di thread da utilizzare per l'elaborazione parallela */
-    printf("\n ----> Inserisci il numero di Threads da utilizzare:  \n");
-    int n_threads = read_thread_input();
+    int n_threads = atoi(argv[3]);
+
+    if (argc != 4) {
+        printf("Numero di argomenti non valido. Utilizza: ./main <-q> <-c> <-t>\n");
+        return EXIT_FAILURE;
+    }
 
     /* Legge il contenuto del file dei qubits */
     char *qubits_content = read_file(file_qubits);
@@ -77,10 +72,7 @@ int main(){
 
     /* Libera le stringhe lette dai file */
     free (qubits_content);
-    free (file_qubits);
     free (gates_content);
-    free (file_gates);
-
     /* Termina il programma con successo */
     return 0;
 }
