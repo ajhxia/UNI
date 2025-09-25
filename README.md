@@ -16,9 +16,3 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
   |--------------------------------|------------------------------------------------------------------------------------------------------------|
   | Algebra | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Algebra)   |
   | Calcolo delle Probabilità | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Calcolo%20delle%20Probabilit%C3%A0) |
-
-### Secondo Semestre
-#### Progetto Circuito Quantistico scritto in C (10 Luglio 2025): [Circuito](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Sistemi%20Operativi%20II/Progetto%20(Appello%2010%20Luglio%202025)) (5/5 punti)
----
-## Terzo Anno 📚
-<img src="https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif" width="200px">
