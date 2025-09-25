@@ -25,4 +25,5 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
 | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
   |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
   | Programmazione WEB  | [Esercizi](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Metodologie%20di%20Programmazione/Esercizi) - [Teoria](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Metodologie%20di%20Programmazione/Teoria)  | 14/06/2024 | Completo |
+  
 <img src="https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif" width="200px">
