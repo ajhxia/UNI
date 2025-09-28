@@ -25,3 +25,4 @@ Nota: non ci sono appunti inerenti agli esami del Primo Semestre 😿
 | Corso                          | Dove Trovare il Materiale                                                                                   | Data di Aggiornamento      | Stato |
   |--------------------------------|------------------------------------------------------------------------------------------------------------|------------| ---------|
   | Programmazione WEB  |[Lezioni](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Programmazione%20WEB) | | |
+  | Automi, Complessità e Calcolabilità  |[Lezioni](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Automi%2C%20Complessit%C3%A0%20e%20Calcolabilit%C3%A0) | | |
