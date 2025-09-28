@@ -7,7 +7,6 @@ OBJS = main.o utility.o threads_worker.o file_reader.o operation.o
 .DEFAULT_GOAL := all
 
 all: $(TARGET)
-	./$(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)

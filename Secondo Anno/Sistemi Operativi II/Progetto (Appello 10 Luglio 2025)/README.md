@@ -21,8 +21,6 @@ Il programma permette di leggere file di configurazione contenenti la definizion
 |`0.1+i`	|`0.5i-1`|
 |`0.8-i0.5`	||
 
-Per poter eseguire correttamente il programma, **`i file che il programma dovrà leggere in input devono essere inseriti nella cartella chiamata file_input`**.
-Inoltre per poter eseguire il programma è necessario aprire il terminale nella cartella dove si trova il file `Makefile`.
 #### _FORMATO_
 
 #### FILE: `init`
@@ -38,13 +36,18 @@ Avere numeri complessi formattati correttamente, separati da virgole.
 
 
 ## Come compilare ed eseguire
-Per compilare e avviare il simulatore, eseguire il comando:
+Per poter eseguire correttamente il programma, **`i file che il programma dovrà leggere in input devono essere inseriti nella cartella chiamata file_input`**.
+Inoltre per poter eseguire il programma è necessario aprire il terminale nella cartella dove si trova il file `Makefile`.
+### Per compilare, eseguire il comando:
 ```bash
 make
 ```
-Il comando compila il programma e lo esegue immediatamente. Appena il programma inizia viene **`richiesto di inserire il nome dei due file (compresi di estensione)`** di configurazione del circuito quantistico da simulare.
+### Per eseguire, utilizzare:
+```bash 
+./main <file_input/`nome_init`> <file_input/`nome_circ`> <`numero_di_threads`>
+```
 
-Per pulire i file compilati (file oggetto eseguibile), usare:
+### Per pulire i file compilati (file oggetto eseguibile), usare:
 ```bash
 make clean
 ```

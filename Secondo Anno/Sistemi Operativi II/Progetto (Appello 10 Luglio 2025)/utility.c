@@ -138,45 +138,6 @@ int read_thread_input(){
     return numero;
 }
 
-char *name_function() {
-    const char *directory = "file_input/";
-    char buffer[256];  /* Dimensione fissa per input utente */
-
-    while (1) {
-        printf("Inserisci il nome del file con estensione (presente in '%s'): ", directory);
-
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-            perror("Errore durante la lettura dell'input");
-            return NULL;
-        }
-
-        /* Rimuove newline, se presente */
-        size_t len = strlen(buffer);
-        if (len > 0 && buffer[len - 1] == '\n') {
-            buffer[len - 1] = '\0';
-        }
-
-        /* Costruisce il percorso completo */
-        size_t total_len = strlen(directory) + strlen(buffer) + 1;
-        char *full_path = (char *)malloc(total_len);
-        if (full_path == NULL) {
-            perror("Errore allocazione memoria");
-            return NULL;
-        }
-
-        strcpy(full_path, directory);
-        strcat(full_path, buffer);
-
-        /* Controlla se il file esiste */
-        if (file_esiste(full_path)) {
-            return full_path;  /* restituisce il percorso valido */
-        } else {
-            printf("Il file '%s' non esiste. Riprova.\n", full_path);
-            free(full_path);
-        }
-    }
-}
-
 /* Funzione per leggere una riga dinamicamente */
 char *read_line(FILE *file) {
     int c;
