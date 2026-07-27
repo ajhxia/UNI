@@ -23,10 +23,8 @@
 ## TERZO Anno 📚
 | Corso                          | Dove Trovare il Materiale                                                                                   | Status |
   |--------------------------------|-----------------------------------------------------------------------------------------------------------| ------ |
-  | Programmazione WEB  |[Lezioni](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Programmazione%20WEB) | Incompleto |
-  | Automi, Complessità e Calcolabilità  |[Lezioni](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Automi%2C%20Complessit%C3%A0%20e%20Calcolabilit%C3%A0) | Incompleto |
-  | Ingegneria del Software  |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Ingegneria%20del%20Software) | Incompleto |
-  | Linguaggi e Compilatori  |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Linguaggi%20e%20Compilatori) | Incompleto |
-  | TPFI  |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/TPFI) | Incompleto |
-  | Sicurezza |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Sicurezza%20Informatica) | Incompleto |
+  | Programmazione WEB  |[Lezioni](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Programmazione%20WEB) | Completo |
+  | Ingegneria del Software  |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Ingegneria%20del%20Software) | Completo |
+  | TPFI  |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/TPFI) | Completo |
+  | Sicurezza |[Appunti](https://github.com/ajhxia/UNI/tree/main/Terzo%20Anno/Sicurezza) | Completo |
 <img src="https://i.pinimg.com/originals/38/83/8d/38838d2369fe10f9e3f03e92bde4883c.gif" width="200px">
