@@ -11,12 +11,6 @@
 #### Progetto Pokèmon sviluppato in Java: [JPokeBattle](https://github.com/ajhxia/UNI/tree/main/Primo%20Anno/Metodologie%20di%20Programmazione/Project-JPokeBattle)
 ---
 ## SECONDO Anno 📚
-
-  | Corso                          | Dove Trovare il Materiale                                                                                  | Status |
-  |--------------------------------|------------------------------------------------------------------------------------------------------------|------ |
-  | Algebra | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Algebra)   |Incompleto |
-  | Calcolo delle Probabilità | [Lezioni](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Calcolo%20delle%20Probabilit%C3%A0) |Incompleto |
-
 #### Progetto Circuito Quantistico scritto in C (9 Giugno 2025): [Circuito](https://github.com/ajhxia/UNI/tree/main/Secondo%20Anno/Sistemi%20Operativi%20II/Progetto%20(Appello%209%20Giugno%202025))
 
 --- 
